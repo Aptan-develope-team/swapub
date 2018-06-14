@@ -105,7 +105,7 @@ export default {
 			'appid':'TestAppID_3',
 			}})
 		.then((res) => {
-			
+			console.log(res.data.Token)
 		})
 		.catch((err) => {
 			console.log("AXIOS ERROR: ", err);

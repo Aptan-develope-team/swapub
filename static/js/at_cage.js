@@ -196,11 +196,11 @@ $(window).on("load",function() {
 		$urlUser = url.split('?')[1],
 		$infoPad = $('.infoPad');
 
-	if($('body').hasClass('mItem') && $('body').hasClass('other')){
-		//我的物品與願望_我看別人
-		$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
-		$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
-	}
+	// if($('body').hasClass('mItem') && $('body').hasClass('other')){
+	// 	//我的物品與願望_我看別人
+	// 	$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
+	// 	$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
+	// }
 
 	if(url.indexOf("?")!=-1){
 		if($urlUser == 'j'){

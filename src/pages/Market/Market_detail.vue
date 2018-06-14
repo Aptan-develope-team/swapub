@@ -372,7 +372,7 @@
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
-
+  <input type="text">
 	<!-- Footer END -->
 
 </div>
@@ -387,8 +387,11 @@ export default {
     'app-header': Header,
     'app-footer': Footer
 
-  },
+	},
+	
   mounted() {
+    
+
     setTimeout(() => {
       var Gw = $(window),
         Gww = Gw.width(),

@@ -440,15 +440,71 @@ export default {
           'display': 'none'
         });
       });
+
+     
+
       $(window).on('load', function () {
         if ($(window).width() > 1024) {
           var s = skrollr.init();
-        }
-
+        }     
         // $('#header').find('.market').addClass('action');
-        
+               
       })
-      
+        if($('body').hasClass('mItem') && $('body').hasClass('other')){
+		//我的物品與願望_我看別人
+		$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
+		$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
+	  }
+
+      //item排版_marketPad
+        var $itemPad = $('.marketPad').find('.itemPad'),
+          $itemPadW = $itemPad.width(),
+          itemW = $itemPadW / 3 - 8,
+          $allBox = $itemPad.find('.mBox'),
+          boxLen = $allBox.length;
+        var boxHArr = [];
+        for (var i = 0; i < boxLen; i++) {
+          var boxH = $allBox.eq(i).outerHeight();
+          boxHArr.push(boxH);
+          var maxHeight = Math.max(...boxHArr);
+          // console.log('maxHeight= ' +maxHeight);
+          $allBox.css({
+            'min-height': maxHeight + 'px'
+          });
+        }
+        // console.log(itemW);
+        $itemPad.masonry({
+          itemSelector: '.mBox',
+          columnWidth: itemW,
+          gutter: 10
+        });
+        $('.wishPad').addClass('otherUser');
+        //btn_attention 關注按鈕
+	var $btn_attention = $('.btn_attention'),
+		$attOp = $btn_attention.find('i'),
+		$attOpInd;
+	$btn_attention.find('i.action').fadeIn();
+	$btn_attention.click(function(){
+		if($('body').hasClass('userAtt')){
+			//user_attention_other.html 追蹤清單的已追蹤用戶關注按鈕不與用戶本身的關注按鈕同步
+			$(this).toggleClass('btn_gr btn_g');
+			var $oneBtn = $(this).find('i.action');
+			$oneBtn.removeClass('action').css({'display':'none'}).siblings().addClass('action').fadeIn();
+			
+		}else{
+			//用戶個人頁面2顆關注按鈕同步
+			$btn_attention.toggleClass('btn_gr btn_g');
+			var $btnTXT = $btn_attention.find('i.action');
+			$btnTXT.removeClass('action').css({'display':'none'}).siblings().addClass('action').fadeIn();
+		}
+	});
+    $('.btn_cancel').click(function(){
+		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+	});
+	$('.btn_sure').click(function(){
+		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+	});
+   
       $('.iHeart').click(function () {
         $(this).toggleClass('action');
       });
@@ -484,96 +540,6 @@ export default {
         }, 800, 'easeOutCirc');
       });
 
-        //item排版_marketPad
-        var $itemPad = $('.marketPad').find('.itemPad'),
-          $itemPadW = $itemPad.width(),
-          itemW = $itemPadW / 3 - 8,
-          $allBox = $itemPad.find('.mBox'),
-          boxLen = $allBox.length;
-        var boxHArr = [];
-        for (i = 0; i < boxLen; i++) {
-          var boxH = $allBox.eq(i).outerHeight();
-          boxHArr.push(boxH);
-          var maxHeight = Math.max(...boxHArr);
-          // console.log('maxHeight= ' +maxHeight);
-          $allBox.css({
-            'min-height': maxHeight + 'px'
-          });
-        }
-        // console.log(itemW);
-        $itemPad.masonry({
-          itemSelector: '.mBox',
-          columnWidth: itemW,
-          gutter: 10
-        });
-
-         //item排版_wishPad
-        //   if($('.userName').hasClass('otherUser')){
-                //如果是別人的角度看, 則第一個item(新增物品/新增願望)會消失
-                $('.wishPad').addClass('otherUser');
-                var $box = $('.wishPad').find('.itemPad').find('.itemBox');
-                $box.eq(0).removeClass('itemBox').css({'display':'none'});
-            // }else{
-            //     $('.wishPad').removeClass('otherUser');
-            //     var $box = $('.wishPad').find('.itemPad').find('.itemBox');
-            //     $box.eq(0).addClass('itemBox').css({'display':'block'});
-            // }
-			var $outBox = $('.wishPad').find('.itemPad'), //外層容器
-				$outBoxW = $outBox.width(), //外層容器寬度
-				$allBox = $outBox.find('.itemBox'), //每個item
-				boxLen = $allBox.length, //item數目
-				boxW = $allBox.eq(0).outerWidth(true), //隨便一個item的寬度
-                cols = $outBoxW / boxW; //取得行數
-            //預設陣列
-        var boxHeightArr = [],
-          minHeight = 0,
-          boxHeight = 0;
-
-        for (var i = 0; i < boxLen; i++) {
-          var boxH = $allBox.eq(i).outerHeight(true);
-          // console.log(boxHeightArr);
-          if (i < cols) {
-            //將第1排item的高度存入陣列boxHeightArr
-            boxHeightArr.push(boxH);
-          } else {
-            //第2排之後的item放在boxHeightArr陣列中最小高度的地方
-            minHeight = Math.min(...boxHeightArr);
-            var minIndex = getIndexByValue(boxHeightArr, minHeight);
-            $allBox[i].style.position = 'absolute';
-            $allBox[i].style.top = minHeight + 'px';
-            $allBox[i].style.left = minIndex * boxW + 'px';
-            //取得item的margin-bottom
-					var styles = window.getComputedStyle($allBox[i]),
-						boxMG = parseFloat(styles['marginBottom']);
-					boxHeightArr[minIndex] += $allBox[i].offsetHeight + boxMG;
-            var maxHeight = Math.max(...boxHeightArr);
-            $outBox.css({
-              'height': maxHeight * boxHeightArr.length / cols
-            });
-          }
-        }
-
-        function getIndexByValue(arr, value) {
-          for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == value) {
-              return i;
-            }
-          }
-        }
-
-        function loadItem() {
-          var $allBox = $outBox.find('.itemBox'),
-            lastBox = $allBox[$allBox.length - 1],
-            lastBoxDis = lastBox.offsetTop,
-            screenH = document.documentElement.clientHeight || document.body.clientHeight,
-            scrollH = scroll().top,
-            maxH = scrollH + screenH;
-          if (lastBoxDis <= maxH) {
-            return true;
-          } else {
-            return false;
-          }
-        }
         
 
 		// Yep, that's it!

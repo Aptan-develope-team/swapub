@@ -451,6 +451,25 @@ export default {
           scrollTop: $('#main').offset().top
         }, 800, 'easeOutCirc');
       });
+          //btn_attention 關注按鈕
+	var $btn_attention = $('.btn_attention'),
+		$attOp = $btn_attention.find('i'),
+		$attOpInd;
+	$btn_attention.find('i.action').fadeIn();
+	$btn_attention.click(function(){
+		if($('body').hasClass('userAtt')){
+			//user_attention_other.html 追蹤清單的已追蹤用戶關注按鈕不與用戶本身的關注按鈕同步
+			$(this).toggleClass('btn_gr btn_g');
+			var $oneBtn = $(this).find('i.action');
+			$oneBtn.removeClass('action').css({'display':'none'}).siblings().addClass('action').fadeIn();
+			
+		}else{
+			//用戶個人頁面2顆關注按鈕同步
+			$btn_attention.toggleClass('btn_gr btn_g');
+			var $btnTXT = $btn_attention.find('i.action');
+			$btnTXT.removeClass('action').css({'display':'none'}).siblings().addClass('action').fadeIn();
+		}
+	});
 
         //item排版_marketPad
         var $itemPad = $('.marketPad').find('.itemPad'),
