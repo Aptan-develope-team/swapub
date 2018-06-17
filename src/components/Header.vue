@@ -38,7 +38,7 @@
 		</div>
 		<div class="loginBlock">
 			<div class="logout">
-				<a href="signin.html" class="btn_o btn_login">註冊/登入</a>或
+				<router-link to='/signin' class="btn_o btn_login">註冊/登入</router-link>或
 				<a href="" class="ico_tw"></a>
 				<a href="" class="ico_fb"></a>
 			</div>
@@ -54,7 +54,7 @@
 				<router-link to='/menu_u_myitem'><i></i>我的物品與願望</router-link>
 				<router-link to='/menu_u_myinfo'><i></i>個人資料與檔案</router-link>
 				<router-link to='/menu_u_set'><i></i>設定</router-link>
-				<a href="index.html"><i></i>登出</a>
+				<a @click="logout()"><i></i>登出</a>
 			</div>
 			<div class="sideList toolMenu">
 				<router-link to='/menu_t_swap'><i></i>討論中的交換</router-link>
@@ -379,7 +379,16 @@
 </template>
 
 <script>
+import api from '../api/Api.js'
+
 export default {
+  methods:{
+	  logout(){
+		  localStorage.setItem('login_token','')
+		  this.$router.push('/')
+		  location.reload();
+	  }
+  },
   mounted() {
     setTimeout(() => {
       var Gw = $(window),
@@ -444,7 +453,8 @@ export default {
         $tgBt.eq(tgInd).addClass('action').siblings().removeClass('action');
         $tgPad.eq(tgInd).addClass('action').siblings('dd').removeClass('action');
       });
-
+	  
+	  if(localStorage.getItem('login_token')!= null && localStorage.getItem('login_token')!= ''){
       var $login = $('.loginBlock'),
         url = window.location.toString(),
         $urlUser = url.split('?')[1],
@@ -459,7 +469,8 @@ export default {
         $('body.userPage').find('.btn_report').removeClass('action');
         $('body.userPage').find('.btn_edit').addClass('action');
         $('body.userPage').find('.btn_attention').removeClass('action');
-      }
+	  }
+	  }
       // 商品細節最下方tab交換_商品是自己的
       if (!$('body').hasClass('follow')) {
         $('.openSwap').addClass('action');

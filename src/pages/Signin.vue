@@ -15,27 +15,27 @@
 				<form method="get" accept-charset="utf-8">
 					<a href="#" class="btn_fb"><img src="../../static/images/icon_fb1.png" alt="">Facebook</a>
 					<a href="#" class="btn_tw"><img src="../../static/images/icon_twitter1.png" alt="">Twitter</a>
-					<p><i></i>電子信箱<input type="email" name="" value="" placeholder=""></p>
-					<p><i></i>密碼<input type="password"></p>
+					<p><i></i>電子信箱<input type="email" name="" value="" placeholder="" v-model="UserInfo.Email"></p>
+					<p><i></i>密碼<input type="password" v-model="UserInfo.Password"></p>
 					<span class="forgotPW">哎呀！我忘記密碼？</span>
 					<input type="submit" name="" value="登入" class="btn_o" @click="login()">
 				</form>
 			</div>
 			<span class="expBlock">
-				<a href="exp_rule.html?serv">服務條款</a>
-				<a class="action" href="exp_rule.html">隱私權政策</a>
+				<router-link to="/exp_rule">服務條款</router-link>
+				<router-link to='/exp_rule'>隱私權政策</router-link>
 			</span>
 			<div class="conBlock registerPad">
 				<a href="index.html" class="swapubLogo"></a>
-				<form action="index.html" method="get" accept-charset="utf-8">
-					<p><i></i>輸入你的名字<input type="text" name="" value="" placeholder=""></p>
-					<p><i></i>輸入你的姓<input type="text"></p>
-					<p><i></i>電子信箱<input type="email" name="" value="" placeholder=""></p>
-					<p><i></i>密碼(至少6位英數)<input type="password"></p>
+				<form method="get" accept-charset="utf-8">
+					<p><i></i>輸入你的名字<input type="text" name="" value="" placeholder="" v-model="signupInfo.LastName"></p>
+					<p><i></i>輸入你的姓<input type="text" v-model="signupInfo.FirstName"></p>
+					<p><i></i>電子信箱<input type="email" name="" value="" placeholder="" v-model="signupInfo.Email"></p>
+					<p><i></i>密碼(至少6位英數)<input type="password" v-model="signupInfo.Password"></p>
 					<span>按下註冊後表示我同意<br>
-						<a href="exp_rule.html?serv">服務條款</a>及<a href="exp_rule.html">隱私權政策</a>
+						<router-link to="/exp_rule">服務條款</router-link>及<router-link to='/exp_rule'>隱私權政策</router-link>
 					</span>
-					<input type="submit" name="" value="註冊" class="btn_g">
+					<input type="submit" name="" value="註冊" class="btn_g" @click="signup()">
 				</form>
 			</div>
 			<div class="conBlock setpwPad">
@@ -55,65 +55,90 @@
 </template>
 
 <script>
-import axios from 'axios';
-import qs from 'qs';
 import api from '../api/Api.js'
 
 export default {
 	data() {
 		return{
 			UserInfo: {
-				Email: "evilgame389@gmail.com",
-				Password: "evilgame0",
+				Email: "",
+				Password: "",
 				Type:'1',
 				Version:'28'
-			}
-			
+			},
+			signupInfo:{
+				Email: "",
+				Password: "",
+				Type:'1',
+				FirstName:"",
+				LastName:""
+			},
+			token:"",
+			resData:{}
 		}
 	},
  created(){
-	 
+	 this.getToken();
  },
   methods:{
-	login(){
-		//  axios({
-		// 	method: 'post', //you can set what request you want to be
-		// 	url: 'http://dev-8085.swapub.com/api/PeformLogon',
-		// 	data: JSON.stringify(this.UserInfo),
-		// 	headers: {
-		// 		'Content-Type': 'application/x-www-form-urlencoded',
-		// 		'appid':'TestAppID_3'
-		// 	}
-		// })
-		// axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
-		axios.defaults.headers.get['appid'] = 'TestAppID_3'
-		axios.get('/api/Category?accessToken=9D6DStlpfWsJLNPNCOWMp8%2beSW%2bbPEh1c9El40E%2b2mNoy5l5RHAhAJ2MTQigid4Uujq1E6DA6%2fpqGkbLbBhKmPEUlYoyEvxHAS%2fS1%2fvxf65tIhWyeVHsxw%3d%3d')
-		.then((res) => {
-			console.log("RESPONSE RECEIVED: ", res);
-		})
-		.catch((err) => {
-			console.log("AXIOS ERROR: ", err);
-		})
-		// axios.defaults.headers.post['appid'] = 'TestAppID_3'
-		// var config = {
-  		// 	headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
- 		// 	appid: 'TestAppID_3'
-		// };
-		//`Email=evilgame389%40gmail.com&Password=evilgame0&Type=1&Version=28`
-		axios.post('/api/PeformLogon',qs.stringify(this.UserInfo), {headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			'appid':'TestAppID_3',
-			}})
-		.then((res) => {
-			console.log(res.data.Token)
-		})
-		.catch((err) => {
-			console.log("AXIOS ERROR: ", err);
-		})
-	}
+  
+  async login(){
+	    if(this.UserInfo.Email == ''){
+			alert('請輸入Email')
+		}
+		else if(this.UserInfo.Password == ''){
+			alert('請輸入密碼')
+		}
+		else{
+		this.resData = await api.post('PeformLogon',this.UserInfo)
+		//this.resData = await api.get('User','D6DStlpfWsJLNPNCOWMp8%2beSW%2bbPEh1c9El40E%2b2mNoy5l5RHAhAJ2MTQigid4Uujq1E6DA6%2fpqGkbLbBhKmPEUlYoyEvxHAS%2fS1%2fvxf65tIhWyeVHsxw%3d%3d','')
+		// let copy = Object.assign({}, this.resData);
+		// copy.About = "cool"
+		// console.log(copy)
+		// await api.put('User/1',copy,'9D6DStlpfWsJLNPNCOWMp8%2beSW%2bbPEh1c9El40E%2b2mNoy5l5RHAhAJ2MTQigid4Uujq1E6DA6%2fpqGkbLbBhKmPEUlYoyEvxHAS%2fS1%2fvxf65tIhWyeVHsxw%3d%3d')
+		console.log(this.resData)
+		if(this.resData.Token != '' && this.resData.Result == '0'){
+			localStorage.setItem('login_token',this.resData.Token)
+			this.token = localStorage.getItem('login_token')
+			alert('登入成功')
+			this.$router.push('/')
+	   }
+	   else{
+		   alert('您輸入的資料有誤')
+	   }
+	   }		
+	},
+  async getToken(){
+	   if(localStorage.getItem('login_token') == '' || localStorage.getItem('login_token') == null){
+		   await api.getToken()
+		   this.token = localStorage.getItem('api_token') 
+	   }
+	   else{
+		   this.token = localStorage.getItem('login_token')
+	   }
+	   
+   },
+   async signup(){
+	   	this.resData = await api.post('Register_V2',this.signupInfo)
+		console.log(this.resData)
+		
+		if(this.resData.CheckToken != ''){
+			localStorage.setItem('login_token',this.resData.CheckToken)
+			this.token = localStorage.getItem('login_token')
+			alert('註冊成功')
+			this.$router.push('/')
+		}
+		else{
+			if(this.resData.ResultInt == '-2'){
+				alert('帳號已經註冊過')
+			}
+			alert('註冊失敗')
+		}
+
+   }
   },
   mounted(){
-	api.cool()  
+
 	setTimeout(() => {
     var Gw = $(window), Gww = Gw.width(), Gwh = Gw.height(), Gd = $(document), Gdw = Gd.width(), Gdh = Gd.height();
     

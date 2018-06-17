@@ -582,7 +582,7 @@ export default {
 		$infoPadH = $infoPad.eq(0).height(),
 		$btnPadH = $('.btnPad').outerHeight(true);
 	$infoPad.eq(1).css({'min-height': $infoPadH});
-	$infoPad.eq(1).find('dl').css({'height': $infoPadH - $btnPadH});
+	// $infoPad.eq(1).find('dl').css({'height': $infoPadH - $btnPadH});
 	$btn_like.click(function(){
 		$(this).toggleClass('action');
     });

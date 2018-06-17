@@ -642,7 +642,7 @@ export default {
         'min-height': $infoPadH
       });
       $infoPad.eq(1).find('dl').css({
-        'height': $infoPadH - $btnPadH
+        // 'height': $infoPadH - $btnPadH
       });
       $btn_like.click(function () {
         $(this).toggleClass('action');

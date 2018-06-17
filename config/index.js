@@ -14,6 +14,7 @@ module.exports = {
       '/api/': {
         target: 'http://dev-8085.swapub.com',
         changeOrigin:true,   //set the option changeOrigin to true for name-based virtual hosted sites
+        secure: false,
         pathRewrite: {
           '^/api': '/api'
         }

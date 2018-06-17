@@ -7,12 +7,12 @@
  */
 $(window).on("load",function() {
 	"use strict";
-	var Gw = $(window), Gww = Gw.width(), Gwh = Gw.height(), Gd = $(document), Gdw = Gd.width(), Gdh = Gd.height();
-	if (Gwh < Gdh){
-		$('#footer').css({'position':'relative'});
-	}else{
-		$('#footer').css({'position':'fixed'});
-	}
+	// var Gw = $(window), Gww = Gw.width(), Gwh = Gw.height(), Gd = $(document), Gdw = Gd.width(), Gdh = Gd.height();
+	// if (Gwh < Gdh){
+	// 	$('#footer').css({'position':'relative'});
+	// }else{
+	// 	$('#footer').css({'position':'fixed'});
+	// }
 	// $('.loadPad').animate({opacity:0},1000, function(){
 	// 	$('.loadPad').css({'display':'none'});
 	// });
@@ -263,7 +263,8 @@ $(window).on("load",function() {
 			$('.openSwap').removeClass('action');
 			$('.swapList').find('a.openDetail').css({'display':'none'});
 		}
-		else{console.log('?j = Jing login / ?c = Chloe login');}
+		else{//console.log('?j = Jing login / ?c = Chloe login');
+	    }
 	}
 	if ($('body').hasClass('menuPage') || $('body').hasClass('edit') || $('body').hasClass('item') || $('body').hasClass('userPage')) {
 		$login.addClass('action');
@@ -540,7 +541,8 @@ $(document).ready(function(){
 			$('.openSwap').removeClass('action');
 			$('.swapList').find('a.openDetail').css({'display':'none'});
 		}
-		else{console.log('?j = Jing login / ?c = Chloe login');}
+		else{//console.log('?j = Jing login / ?c = Chloe login');
+	}
 	}
 	if ($('body').hasClass('menuPage') || $('body').hasClass('edit') || $('body').hasClass('item') || $('body').hasClass('userPage')) {
 		$login.addClass('action');
@@ -749,7 +751,8 @@ $(document).ready(function(){
 		$sgLI.append('<a href="item_detail.html?c"></a>');
 	}else if($('body').hasClass('wishDetail')){
 		$sgLI.append('<a href="wish_detail.html?c"></a>');
-	}else{console.log('unset');}
+	}else{//console.log('unset');
+    }
 	var $sgULW = $sgUL.width();
 	$conInd = $sgULW / $sgMaskW; // 總頁數
 	$sgBtList.eq(1).css({'left' : $sgContW + 50 + 'px'});
@@ -1248,7 +1251,7 @@ $(document).ready(function(){
 	$('.shareToLine').attr({
 		href:"http://line.me/R/msg/text/?" + $thisUrl , target:"_blank"});
 
-	console.log("Developer: %c天井創意 Art Tangency Creation | 烤雞","background:#433;color:#fff;padding:2px 10px;font-size:1em");
+	//console.log("Developer: %c天井創意 Art Tangency Creation | 烤雞","background:#433;color:#fff;padding:2px 10px;font-size:1em");
 });
 
 //popSharePad 複製連結

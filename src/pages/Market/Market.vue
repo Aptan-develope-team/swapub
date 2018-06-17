@@ -41,7 +41,7 @@
 					<p>[享受交換樂趣，充滿無限可能]</p>
 				</div>
 				<div class="itemPad clear">
-					<div class="itemBox itemL">
+					<!-- <div class="itemBox itemL">
 						<div class="itemImg"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></div>
 						<router-link to='/market_detail_whisper'></router-link>
 						<div class="itemInfo">
@@ -183,7 +183,7 @@
 							<h3>MAKE UP FOR EVER</h3>
 						</div>
 					</div>
-					<div class="itemBox itemS">
+					<div class="itemBox itemS" >
 						<div class="itemImg"><img src="../../../static/images/mk_it_img_15.jpg" alt=""></div>
 						<a href="item_detail.html?c"></a>
 						<div class="itemInfo">
@@ -272,15 +272,15 @@
 						<div class="itemTitle">
 							<h3>野豬瓦愣造壁掛</h3>
 						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_24.jpg" alt=""></div>
+					</div> -->
+					<div class="itemBox itemS" ref="itemS" v-for="r in resData">
+						<div class="itemImg"><img :src="r.PictureUrls[0]" alt=""></div>
 						<a href="item_detail.html?c"></a>
 						<div class="itemInfo">
 							<span class="iQua">20</span><span class="iHeart"></span>
 						</div>
 						<div class="itemTitle">
-							<h3>側背灰色包</h3>
+							<h3>{{r.ProductName}}</h3>
 						</div>
 					</div>
 				</div>
@@ -341,6 +341,7 @@
 <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 
 export default {
   components: {
@@ -351,19 +352,68 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+		resData:[],
+		data:{}
     }
   },
-  mounted() {
+  created(){
+	 this.getItem();
+
+	 
+  },
+  methods:{
+	  async getItem(){
+	    this.getToken();  
+		this.resData = await api.get('GetProductWithLocationAndCategory_V2',localStorage.getItem('api_token'),'&filterDate=16')
+		console.log(this.resData)
 		
-        
-    setTimeout(() => {
-
-
-			
-	  $('.iHeart').click(function(){
-	  	$(this).toggleClass('action');
-	  });
+	  },
+	   async getToken(){
+		   await api.getToken()
+	   }
+	  
+  },
+  updated(){
+	   setTimeout(() => {	
+		 
+		  var $itemPad = $('.itemPad'),
+          $itemPadW = $itemPad.width(),
+          itemW = $itemPadW / 5 - 8, // .itemPad寬度 / 5行 - (marginRight=10 * 4個 / 5行)
+          $allBox = $itemPad.find('.itemBox'),
+          boxLen = $allBox.length,
+          $boxS = $itemPad.find('.itemS'),
+          boxSL = $boxS.length,
+          $boxL = $itemPad.find('.itemL');
+        var boxHArr = [];
+        for (var i = 0; i < boxSL; i++) {
+          var boxH = $boxS.eq(i).height();
+          boxHArr.push(boxH);
+          var maxHeight = Math.max(...boxHArr);
+		  //console.log('maxHeight= ' + maxHeight);
+          $boxS.css({
+            'min-height': maxHeight + 'px'
+		  });
+		 //this.$refs.itemS.style.minHeight = maxHeight + 'px'
+          $boxL.css({
+            'min-height': maxHeight * 2 + 10 + 'px'
+          });
+        }
+        //console.log(itemW);
+        $('.itemPad').masonry({
+          itemSelector: '.itemBox',
+          columnWidth: itemW,
+          gutter: 10
+		});
+		   $('.iHeart').click(function(){
+	    	$(this).toggleClass('action');
+		  });
+	   },50)
+  },
+  mounted() {
+	 
+	  
+    setTimeout(() => {	
+	 
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
       element.classList.add("index", "mainPage");
@@ -383,6 +433,8 @@ export default {
 				}
 				
 				})
+
+
 				
 							/* index Slider */
 	var i = 0,
@@ -452,36 +504,12 @@ export default {
 		$sliderList.eq($sliderNow).addClass('action').siblings().removeClass('action');
 		console.log($ind, "+" ,$sliderNow);
 	});
-
-        //item排版_marketPad
-        var $itemPad = $('.itemPad'),
-          $itemPadW = $itemPad.width(),
-          itemW = $itemPadW / 5 - 8, // .itemPad寬度 / 5行 - (marginRight=10 * 4個 / 5行)
-          $allBox = $itemPad.find('.itemBox'),
-          boxLen = $allBox.length,
-          $boxS = $itemPad.find('.itemS'),
-          boxSL = $boxS.length,
-          $boxL = $itemPad.find('.itemL');
-        var boxHArr = [];
-        for (var i = 0; i < boxSL; i++) {
-          var boxH = $boxS.eq(i).height();
-          boxHArr.push(boxH);
-          var maxHeight = Math.max(...boxHArr);
-          console.log('maxHeight= ' + maxHeight);
-          $boxS.css({
-            'min-height': maxHeight + 'px'
-          });
-          $boxL.css({
-            'min-height': maxHeight * 2 + 10 + 'px'
-          });
-        }
-        console.log(itemW);
-        $('.itemPad').masonry({
-          itemSelector: '.itemBox',
-          columnWidth: itemW,
-          gutter: 10
-        });
+	//item排版_marketPad
+        
+	
 		  $(document).ready(function () {
+
+			  
 
         $('.btn_assign').click(function () {
           $('#popContainer').stop().animate({
