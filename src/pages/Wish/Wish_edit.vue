@@ -23,9 +23,9 @@
 							<dt>Step2&nbsp;&nbsp;說明一下你的願望</dt>
 							<dd>
 								<p class="itemTitle">
-									<textarea name="" placeholder="你想許什麼願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj">SAINT LAURENT</textarea>								</p>
+									<textarea name="" placeholder="你想許什麼願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">SAINT LAURENT</textarea>								</p>
 								<p class="itemOption itemType action">
-									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="女士時尚" placeholder="" required="required" class="reqObj">								</p>
+									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="女士時尚" placeholder="" required="required">								</p>
 								<p class="itemOption icoPad">
 									<span>
 										<i><img src="../../../static/images/icon_item_man.png" alt="">男士時尚</i>
@@ -55,7 +55,7 @@
 									</span>
 								</p>
 								<p class="itemData">
-									<textarea name="" placeholder="描述願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj">只收素色黑白款
+									<textarea name="" placeholder="描述願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">只收素色黑白款
 僅換物！
 一換一為優先～等值或喜歡
 僅pchome交換</textarea>
@@ -93,22 +93,22 @@
 			<h3>系統訊息</h3>
 			<p>上傳失敗，請注意！照片大小不可超過2MB</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
-			</div>
+      <input type="button" class="btn_o btn_sure" value="確定">			
+      </div>
 		</div>
 		<div class="popContent popErrPad vid popSys">
 			<h3>系統訊息</h3>
 			<p>上傳失敗，請注意！影片大小不可超過2MB</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
-			</div>
+      <input type="button" class="btn_o btn_sure" value="確定">		
+    	</div>
 		</div>
 		<div class="popContent popErrPad con popSys">
 			<h3>系統訊息</h3>
 			<p>資訊內容有誤，請再次檢查後，再送出物品</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
-			</div>
+      <input type="button" class="btn_o btn_sure" value="確定">		
+    	</div>
 		</div>
 	</div>
 	<!-- Loader  -->

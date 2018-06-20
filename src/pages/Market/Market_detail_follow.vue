@@ -183,6 +183,7 @@
 						<dd class="socialList swapPad">
 							<ul>
 								<li class="swapList">
+                  <span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
 							  	<span class="date">2017/10/27 19:55</span>
 									<span class="openSwap action"></span>
 									<p class="userName"><a href="menu_u_myitem_other.html?j">Chloe Chen</a></p>
@@ -275,6 +276,7 @@
 			</div>
 		</div>
 		<div class="popContent popEditSwap">
+      <div class="btn_closePop"></div>
 			<h3>您可以提出物品、價錢、服務等組合來交換</h3>
 			<form action="swap_item_detail.html?c">
 				<div class="popChoImg">
@@ -292,15 +294,15 @@
 						<span class="currency btn_g"><i>TWD</i>
                             <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
                         </span>
-						<input type="number"></p>
+						<input type="number" min="0"></p>
 				</div>
 				<div class="popAddServ">
 					<h4>提供服務</h4>
 					<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗"></p>
 				</div>
-				<div class="popFree"><p><input type="checkbox">我能免費索取？</p></div>
+				<div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
 				<div class="popCheckPad">
-					<input type="button" class="btn_w btn_cancel" value="取消">
+					<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
 					<input type="submit" class="btn_o btn_sure" value="送出">
 				</div>
 			</form>
@@ -727,43 +729,43 @@ export default {
             top: 0
           }, 300);
           $('#popContainer').addClass('addSwap');
-        });
-        var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
-          $picList = $('.btn_choosePic'),
-          $upload = $('.btn_upload'),
-          btnInd;
-        //點提出物品框框,出現圖片清單
-        $imgBox.click(function () {
-          btnInd = $(this).index('.btn_imgBox');
-          $('#popContainer').removeClass('popShare');
-          $('#popContainer').removeClass('popReport');
-          $('#popContainer').removeClass('popDel');
-          $('.popImgList').stop().animate({
-            top: 0
-          }, 300);
-          $('#popContainer').addClass('popChooseImg');
-          console.log(btnInd);
-        });
-        $picList.click(function () {
-          var pInd = $(this).index('.btn_choosePic');
-          //橘色邊框
-          $picList.eq(pInd).addClass('action').siblings().removeClass('action');
-          //取得點選的圖片連結
-          var img = $picList.eq(pInd).find('img').attr('src');
-          console.log(img);
-          //圖片清單消失
-          $('.popImgList').stop().animate({
-            top: -100 + 'vh'
-          }, 300);
-          $('#popContainer').removeClass('popChooseImg');
-          //將圖片匯入當下的提出物品框框
-          $imgBox.eq(btnInd).css({
-            'background-image': 'url(' + img + ')',
-            'background-repeat': 'no-repeat',
-            'background-size': 'cover',
-            'background-position': 'center'
-          });
-          $imgBox.eq(btnInd).addClass('getImg');
+        // });
+        // var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+        //   $picList = $('.btn_choosePic'),
+        //   $upload = $('.btn_upload'),
+        //   btnInd;
+        // //點提出物品框框,出現圖片清單
+        // $imgBox.click(function () {
+        //   btnInd = $(this).index('.btn_imgBox');
+        //   $('#popContainer').removeClass('popShare');
+        //   $('#popContainer').removeClass('popReport');
+        //   $('#popContainer').removeClass('popDel');
+        //   $('.popImgList').stop().animate({
+        //     top: 0
+        //   }, 300);
+        //   $('#popContainer').addClass('popChooseImg');
+        //   console.log(btnInd);
+        // });
+        // $picList.click(function () {
+        //   var pInd = $(this).index('.btn_choosePic');
+        //   //橘色邊框
+        //   $picList.eq(pInd).addClass('action').siblings().removeClass('action');
+        //   //取得點選的圖片連結
+        //   var img = $picList.eq(pInd).find('img').attr('src');
+        //   console.log(img);
+        //   //圖片清單消失
+        //   $('.popImgList').stop().animate({
+        //     top: -100 + 'vh'
+        //   }, 300);
+        //   $('#popContainer').removeClass('popChooseImg');
+        //   //將圖片匯入當下的提出物品框框
+        //   $imgBox.eq(btnInd).css({
+        //     'background-image': 'url(' + img + ')',
+        //     'background-repeat': 'no-repeat',
+        //     'background-size': 'cover',
+        //     'background-position': 'center'
+        //   });
+        //   $imgBox.eq(btnInd).addClass('getImg');
         });
         $('.openSwap').removeClass('action');
 		   	$('.swapList').find('a.openDetail').css({'display':'none'});

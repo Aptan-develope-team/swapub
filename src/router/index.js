@@ -41,7 +41,7 @@ export default new Router({
     {
       path: '/',
       name: 'Market',
-      component: Market
+      component: Market,
     },
     {
       path: '/market_detail_follow',
@@ -69,9 +69,10 @@ export default new Router({
       component: Market_upload
     },
     {
-      path: '/market_detail',
+      path: '/market_detail/:id',
       name: 'Market_detail',
-      component: Market_detail
+      component: Market_detail,
+      props: true
     },
     {
       path: '/wish',

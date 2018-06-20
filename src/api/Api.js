@@ -3,7 +3,7 @@ import qs from 'qs';
 
 //打開Option後加上去
 const url = "api/"
-
+//changeData(changeInfo.FirstName,changeInfo.LastName,changeInfo.City,changeInfo.Country,changeInfo.Mobile)
 
 export default{
     async getToken() {
@@ -30,9 +30,9 @@ export default{
       'AppVersion':'2.14.0'
 			}}).then((res) => {
                 return res.data
-            })
-               .catch((error) =>{
-                }) 
+          })
+          .catch((error) =>{
+          }) 
         return response
     },
     async get(api,token,param){
@@ -52,11 +52,10 @@ export default{
       'AppVersion':'2.14.0'
 			}}).then((res) => {
                 console.log(res)
-                return res.data
-                .catch((error) =>{
-                })
+                
         })
-        return response
+        .catch((error) =>{
+        })
     },
     delete(){
 

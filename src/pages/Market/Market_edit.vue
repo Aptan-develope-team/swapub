@@ -61,11 +61,11 @@
 							<dd>
 								<p class="itemTitle">
 									<textarea name="" placeholder="物品名稱 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
-									onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj">【雪瑞纳犬-黑色】父親節.居家擺飾.動物.情人節.生日禮物.旅遊.婚禮.
+									onpaste="setHeight(this);" oninput="setHeight(this);">【雪瑞纳犬-黑色】父親節.居家擺飾.動物.情人節.生日禮物.旅遊.婚禮.
 紀念品.送 老外.送 老闆</textarea></p>
 								<p class="itemData">
 									<textarea name="" placeholder="描述物品 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
-									onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj">產品概念 /
+									onpaste="setHeight(this);" oninput="setHeight(this);">產品概念 /
 利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。
 產品功能 /居家擺飾、書擋、門擋
 尺寸：(W)27cm×(H)20.5cm×(D)10 cm
@@ -79,7 +79,7 @@
 								</p>
 								<p class="addTag noDot"><input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)"></p>
 								<p class="itemOption itemType">
-									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required" id="rqInput" class="reqObj">
+									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required" id="rqInput">
 								</p>
 								<p class="itemOption icoPad">
 									<span>
@@ -113,10 +113,10 @@
 								<p class="itemOption"><b>物品地點 (城市)</b><select name=""><option value=""></option></select></p>
 							</dd>
 						</dl>
-						<dl class="stepPad">
+						<dl class="stepPad expectPad">
 							<dt><span>Step3</span>你想要交換的東西&nbsp;(至少選擇一項)</dt>
 							<dd>
-								<p class=""><input type="text" name="" value="" placeholder="我想換到的物品" required="required" class="reqObj"></p>
+								<p class=""><input type="text" name="" value="" placeholder="我想換到的物品" required="required"></p>
 								<p class="noDot">物品價值範圍
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
@@ -133,8 +133,8 @@
 									</span>
 									<input type="number" name="" min="0">
 								</p>
-								<p class="noDot check">
-									<label><input type="checkbox" name="" value="" ></label>我願意免費贈送</p>
+								<p class="noDot check editFree">
+									<label><input type="checkbox" id="checkFree" name="" value="" ></label>我願意免費贈送</p>
 							</dd>
 						</dl>
 						<dl class="stepPad">
@@ -182,21 +182,21 @@
 			<h3>系統訊息</h3>
 			<p>上傳失敗，請注意！照片大小不可超過2MB</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
+          <input type="button" class="btn_o btn_sure" value="確定">
 			</div>
 		</div>
 		<div class="popContent popErrPad vid popSys">
 			<h3>系統訊息</h3>
 			<p>上傳失敗，請注意！影片大小不可超過2MB</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
+        <input type="button" class="btn_o btn_sure" value="確定">
 			</div>
 		</div>
 		<div class="popContent popErrPad con popSys">
 			<h3>系統訊息</h3>
 			<p>資訊內容有誤，請再次檢查後，再送出物品</p>
 			<div class="popCheckPad">
-				<span class="btn_o btn_sure">確定</span>
+          <input type="button" class="btn_o btn_sure" value="確定">
 			</div>
 		</div>
 	</div>

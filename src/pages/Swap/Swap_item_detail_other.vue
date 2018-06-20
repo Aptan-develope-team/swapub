@@ -151,18 +151,18 @@
 			<h3>資訊確認</h3>
 			<p>請提供您的聯絡資訊，方便讓對方與您聯絡！</p>
             <p>我們不會公開您的資料</p>
-            <form action="">
+            <form action="menu_t_deal.html">
                 <div class="dealDetail">
                     <p>姓名<input type="text" value="Jing Yun Lee"></p>
                     <p>電子信箱<input type="email" value="free@gmail.com"></p>
-                    <p>電話<input type="number" value="987654321"></p>
+                    <p>電話<input type="text" value="987654321"></p>
                 </div>
                 <p class="popCheckPad"><input type="checkbox">不要顯示我的手機號碼</p>
                 <div class="popCheckPad">
                     <p>按下「送出」後表示我同意</p>
                     <p><a href="exp_rule.html" target="_blank">服務條款</a>和<a href="exp_rule.html" target="_blank">隱私權政策</a></p>
-                    <input type="button" class="btn_gr btn_cancel" value="取消">
-                    <input type="button" class="btn_o btn_sure" value="確定" onclick="deal()">
+                    <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
+                    <input type="submit" class="btn_o btn_sure" value="確定" onclick="deal()">
                 </div>
             </form>
         </div>
@@ -180,17 +180,18 @@
             <h3>取消交換</h3>
             <p>你確定要取消交換嗎？</p>
             <div class="popCheckPad">
-                <input type="button" class="btn_gr btn_cancel" value="取消">
+                <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
                 <input type="button" class="btn_o btn_sure" value="確定">
             </div>
         </div>
         <div class="popContent popEditSwap">
 			<div class="btn_closePop"></div>
 			<h3>您可以提出物品、價錢、服務等組合來交換</h3>
+			 <form action="swap_item_detail.html?c">
 			<div class="popChoImg">
 				<h4>提出物品</h4>
 				<p>最多可以提出三個物品</p>
-				<div>
+				<div class="imgBoxPad clear">
 					<span class="addImg btn_imgBox action getImg"></span>
 					<span class="addImg btn_imgBox"></span>
 					<span class="addImg btn_imgBox"></span>
@@ -208,11 +209,12 @@
 				<h4>提供服務</h4>
 				<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
 			</div>
-			<div class="popFree"><p><input type="checkbox">我能免費索取？</p></div>
+			<div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
 			<div class="popCheckPad">
-				<input type="button" class="btn_w btn_cancel" value="取消">
+				<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
 				<input type="submit" class="btn_o btn_sure" value="送出">
 			</div>
+			 </form>
 		</div>
 		<div class="popContent fake popImgList" style="top: 0px;">
             <div class="popMask clear">
@@ -357,40 +359,40 @@ export default {
 				$('#popContainer').removeClass();
 				$('#popContainer').stop().animate({top : 0}, 300);
 				$('#popContainer').addClass('addSwap');
-			});
-						//提出交換
-            var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
-				$picList = $('.btn_choosePic'),
-                $upload = $('.btn_upload'),
-                btnInd,
-                $popUpload = $('.popImgList').find('.btn_upload'),
-                $popAddImg = $('.popImgList').find('.addImg'),
-                $uploadW;
-			//點提出物品框框,出現圖片清單
-			$imgBox.click(function(){
-				btnInd = $(this).index('.btn_imgBox');
-				$('#popContainer').removeClass('popShare');
-				$('#popContainer').removeClass('popReport');
-				$('#popContainer').removeClass('popDel');
-				$('.popImgList').stop().animate({top : 0}, 300);
-                $('#popContainer').addClass('popChooseImg');
-                $uploadW = $popAddImg.eq(1).outerWidth();
-                $popAddImg.css({'height': $uploadW});
-            });
+			// });
+			// 			//提出交換
+      //       var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+			// 	$picList = $('.btn_choosePic'),
+      //           $upload = $('.btn_upload'),
+      //           btnInd,
+      //           $popUpload = $('.popImgList').find('.btn_upload'),
+      //           $popAddImg = $('.popImgList').find('.addImg'),
+      //           $uploadW;
+			// //點提出物品框框,出現圖片清單
+			// $imgBox.click(function(){
+			// 	btnInd = $(this).index('.btn_imgBox');
+			// 	$('#popContainer').removeClass('popShare');
+			// 	$('#popContainer').removeClass('popReport');
+			// 	$('#popContainer').removeClass('popDel');
+			// 	$('.popImgList').stop().animate({top : 0}, 300);
+      //           $('#popContainer').addClass('popChooseImg');
+      //           $uploadW = $popAddImg.eq(1).outerWidth();
+      //           $popAddImg.css({'height': $uploadW});
+      //       });
             
-			$picList.click(function(){
-				var pInd = $(this).index('.btn_choosePic');
-				//橘色邊框
-				$picList.eq(pInd).addClass('action').siblings().removeClass('action');
-				//取得點選的圖片連結
-				var img = $picList.eq(pInd).find('img').attr('src');
-				console.log(img);
-				//圖片清單消失
-				$('.popImgList').stop().animate({top : -100 + 'vh'}, 300);
-				$('#popContainer').removeClass('popChooseImg');
-				//將圖片匯入當下的提出物品框框
-				$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
-				$imgBox.eq(btnInd).addClass('getImg');
+			// $picList.click(function(){
+			// 	var pInd = $(this).index('.btn_choosePic');
+			// 	//橘色邊框
+			// 	$picList.eq(pInd).addClass('action').siblings().removeClass('action');
+			// 	//取得點選的圖片連結
+			// 	var img = $picList.eq(pInd).find('img').attr('src');
+			// 	console.log(img);
+			// 	//圖片清單消失
+			// 	$('.popImgList').stop().animate({top : -100 + 'vh'}, 300);
+			// 	$('#popContainer').removeClass('popChooseImg');
+			// 	//將圖片匯入當下的提出物品框框
+			// 	$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
+			// 	$imgBox.eq(btnInd).addClass('getImg');
 			});
       })
 

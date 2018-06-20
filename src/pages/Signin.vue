@@ -23,7 +23,7 @@
 			</div>
 			<span class="expBlock">
 				<router-link to="/exp_rule">服務條款</router-link>
-				<router-link to='/exp_rule'>隱私權政策</router-link>
+				<router-link to='/exp_rule' class="action">隱私權政策</router-link>
 			</span>
 			<div class="conBlock registerPad">
 				<a href="index.html" class="swapubLogo"></a>
@@ -43,7 +43,7 @@
 				<form action="index.html" method="get" accept-charset="utf-8">
 					<p><i></i>電子信箱<input type="email" name="" value="" placeholder=""></p>
 					<span>我們將透過電子郵件，重新發送新密碼給您。</span>
-					<input type="submit" name="" value="確認" class="btn_o">
+					<input type="submit" name="" value="確認" class="btn_r">
 				</form>
 			</div>
 		</div>

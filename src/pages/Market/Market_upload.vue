@@ -68,16 +68,16 @@
                 <dd>
                   <p class="itemTitle">
                     <textarea name="" placeholder="物品名稱 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);"
-									onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj"></textarea>
+									onpaste="setHeight(this);" oninput="setHeight(this);" ></textarea>
                   </p>
                   <p class="itemData">
                     <textarea name="" placeholder="描述物品 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);"
-									onpaste="setHeight(this);" oninput="setHeight(this);" class="reqObj"></textarea>
+									onpaste="setHeight(this);" oninput="setHeight(this);" ></textarea>
                   </p>
                   <p class="addTag noDot">
                     <input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)">
                   </p>
-                	<p class="itemOption itemType"><b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required" class="reqObj"></p>
+                	<p class="itemOption itemType"><b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required"></p>
                   <p class="itemOption icoPad">
                     <span>
                       <i>
@@ -144,11 +144,11 @@
                   </p>
                 </dd>
               </dl>
-              <dl class="stepPad">
+              <dl class="stepPad expectPad">
                 <dt>
                   <span>Step3</span>你想要交換的東西&nbsp;(至少選擇一項)</dt>
                 <dd>
-                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" class="reqObj"></p>
+                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required"></p>
 								<p class="noDot">物品價值範圍
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
@@ -161,9 +161,9 @@
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
 									</span>
-                  <p class="noDot check">
+                  <p class="noDot check editFree">
                     <label>
-                      <input type="checkbox" name="" value="">
+                      <input type="checkbox" id="checkFree">
                     </label>我願意免費贈送</p>
                 </dd>
               </dl>
@@ -237,21 +237,21 @@
         <h3>系統訊息</h3>
         <p>上傳失敗，請注意！照片大小不可超過2MB</p>
         <div class="popCheckPad">
-          <span class="btn_o btn_sure">確定</span>
+            <input type="button" class="btn_o btn_sure" value="確定">
         </div>
       </div>
       <div class="popContent popErrPad vid popSys">
         <h3>系統訊息</h3>
         <p>上傳失敗，請注意！影片大小不可超過2MB</p>
         <div class="popCheckPad">
-          <span class="btn_o btn_sure">確定</span>
+            <input type="button" class="btn_o btn_sure" value="確定">
         </div>
       </div>
       <div class="popContent popErrPad con popSys">
         <h3>系統訊息</h3>
         <p>資訊內容有誤，請再次檢查後，再送出物品</p>
         <div class="popCheckPad">
-          <span class="btn_o btn_sure">確定</span>
+            <input type="button" class="btn_o btn_sure" value="確定">
         </div>
       </div>
     </div>

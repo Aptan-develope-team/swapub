@@ -109,15 +109,7 @@
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
-		<!-- <div class="popContent">
-            <div class="btn_closePop"></div>
-            <h3>這次的交換你覺得如何？</h3>
-            <div></div>
-            <div class="popCheckPad">
-                <input type="button" class="btn_w btn_cancel" value="取消"/>
-                <input type="button" class="btn_o btn_sure" value="確定" onclick=")"/>
-            </div>
-        </div> -->
+		
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
@@ -161,7 +153,7 @@ export default {
         }, 800, 'easeOutCirc');
       });
 
-    }, 0)
+    }, 100)
   }
 }
 

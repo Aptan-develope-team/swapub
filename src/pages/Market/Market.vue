@@ -40,29 +40,50 @@
 					<h1>市集</h1>
 					<p>[享受交換樂趣，充滿無限可能]</p>
 				</div>
-				<div class="itemPad clear">
-					<!-- <div class="itemBox itemL">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></div>
-						<router-link to='/market_detail_whisper'></router-link>
+				<div class="itemPad clear" >
+					 <div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0">
+						<div class="itemImg"><img src="product.PictureUrls" alt=""></div>
+						<router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart" id="iHeart"></span>
 						</div>
 						<div class="itemTitle">
-							<h3>Paper Garden LED迷你植物壁掛</h3>
-							<p>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</p>
+							<h3>{{product.ProductName}}</h3>
+							<p>{{product.ProductName}}</p>
 						</div>
 					</div>
-					<div class="itemBox itemS iFinish">
+					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 0 && index <= 9 ">
 						<div class="itemImg"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
+						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart action"></span>
 						</div>
 						<div class="itemTitle">
-							<h3>【雪納瑞犬-黑色】 父親節送禮也可以</h3>
+							<h3>{{product.ProductName}}</h3>
 						</div>
 					</div>
-					<div class="itemBox itemS iFinish">
+					<div class="itemBox itemL itemAd">
+						<p>廣告</p>
+						<div class="itemImg"><img src="../../../static/images/mk_it_img_11.jpg" alt=""></div>
+						<a href="#"></a>
+						<div class="itemInfo">
+							<span>&nbsp;</span><span class="iHeart"></span>
+						</div>
+						<div class="itemTitle">
+							<h3>《天堂M》凌晨開服瞬間18萬人熱爆，遊戲橘子：營運預算無上限</h3>
+						</div>
+					</div>
+					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 9 ">
+						<div class="itemImg"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></div>
+						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
+						<div class="itemInfo">
+							<span class="iQua">4</span><span class="iHeart action"></span>
+						</div>
+						<div class="itemTitle">
+							<h3>{{product.ProductName}}</h3>
+						</div>
+					</div>
+					<!--<div class="itemBox itemS iFinish">
 						<div class="itemImg"><img src="../../../static/images/img_item_08.jpg" alt=""></div>
 						<a href="item_detail.html?c"></a>
 						<div class="itemInfo">
@@ -273,7 +294,7 @@
 							<h3>野豬瓦愣造壁掛</h3>
 						</div>
 					</div> -->
-					<div class="itemBox itemS" ref="itemS" v-for="r in resData">
+					<!-- <div class="itemBox itemS" v-for="r in resData">
 						<div class="itemImg"><img :src="r.PictureUrls[0]" alt=""></div>
 						<a href="item_detail.html?c"></a>
 						<div class="itemInfo">
@@ -282,7 +303,7 @@
 						<div class="itemTitle">
 							<h3>{{r.ProductName}}</h3>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -299,7 +320,7 @@
 	<div id="popContainer" style="top:-100vh;">
 		<div class="popContent popAssignPad">
 			<div class="btn_closePop"></div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_all.png" alt="">全部</a>
 				<a><img src="../../../static/images/icon_item_man.png" alt="">男士時尚</a>
 				<a><img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</a>
@@ -310,7 +331,7 @@
 				<a><img src="../../../static/images/icon_item_media.png" alt="">數位影音</a>
 				<a><img src="../../../static/images/icon_item_toy.png" alt="">玩具公仔</a>
 			</div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_3c.png" alt="">3C電子</a>
 				<a><img src="../../../static/images/icon_item_electric.png" alt="">家電</a>
 				<a><img src="../../../static/images/icon_item_furniture.png" alt="">傢俱</a>
@@ -321,7 +342,7 @@
 				<a><img src="../../../static/images/icon_item_food.png" alt="">美食</a>
 				<a><img src="../../../static/images/icon_item_stationery.png" alt="">文具用品</a>
 			</div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_art.png" alt="">藝術古董</a>
 				<a><img src="../../../static/images/icon_item_musical.png" alt="">樂器</a>
 				<a><img src="../../../static/images/icon_item_crafts.png" alt="">手工藝品</a>
@@ -346,8 +367,7 @@ import api from '../../api/Api.js'
 export default {
   components: {
     'app-header': Header,
-    'app-footer': Footer
-
+	'app-footer': Footer,
   },
   name: 'HelloWorld',
   data() {
@@ -374,8 +394,7 @@ export default {
 	  
   },
   updated(){
-	   setTimeout(() => {	
-		 
+	   setTimeout(() => {			 
 		  var $itemPad = $('.itemPad'),
           $itemPadW = $itemPad.width(),
           itemW = $itemPadW / 5 - 8, // .itemPad寬度 / 5行 - (marginRight=10 * 4個 / 5行)
@@ -507,7 +526,7 @@ export default {
 	//item排版_marketPad
         
 	
-		  $(document).ready(function () {
+	$(document).ready(function () {
 
 			  
 

@@ -158,20 +158,7 @@
 				<label><i class="ico_cohref"></i><input type="text" name="" value="https://www.swapub.com" placeholder=""></label>
 			</div>
 		</div>
-		<div class="popContent">
-			<div class="btn_closePop"></div>
-			<h3>我要檢舉的原因是？</h3>
-			<div class="reportList">
-				<ul>
-					<li><input type="radio">此商品為仿冒品，嚴重違反智慧財產權與當地法令</li>
-					<li><input type="radio">此商品違反風俗道德或是含有色情與暴力內容</li>
-					<li><input type="radio">此商品有濫發廣告訊息之嫌疑</li>
-				</ul>
-			</div>
-			<div class="btnPad">
-				<input type="button" class="btn_o" value="取消"><input type="submit" class="btn_o" value="確定">
-			</div>
-		</div>
+	
 		<div class="popContent popReportPad">
 			<!-- <div class="btn_closePop"></div> -->
 			<h3>我要檢舉的原因是？</h3>

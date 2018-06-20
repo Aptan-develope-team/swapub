@@ -100,17 +100,7 @@
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
-        <!-- <div class="popContent">
-            <div class="btn_closePop"></div>
-            <h3>資訊確認</h3>
-            <div class="dealDetail">
-                <p></p>
-            </div>
-            <div class="popCheckPad">
-                <input type="button" class="btn_gr btn_cancel" value="取消">
-                <input type="submit" class="btn_o btn_sure" value="確定" onclick="">
-            </div>
-        </div> -->
+      
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>

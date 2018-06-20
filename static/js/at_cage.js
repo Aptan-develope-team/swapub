@@ -206,7 +206,7 @@ $(window).on("load",function() {
 		if($urlUser == 'j'){
 			//網址?j 登入為Jing Yun Lee的狀態 >>預設的我自己
 			$login.addClass('action');
-			$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
+			//$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
 			if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
 				$('body.userPage').find('.btn_report').addClass('action');
 				$('body.userPage').find('.btn_edit').removeClass('action');
@@ -484,7 +484,7 @@ $(document).ready(function(){
 		if($urlUser == 'j'){
 			//網址?j 登入為Jing Yun Lee的狀態 >>預設的我自己
 			$login.addClass('action');
-			$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
+			//$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
 			if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
 				$('body.userPage').find('.btn_report').addClass('action');
 				$('body.userPage').find('.btn_edit').removeClass('action');
@@ -896,68 +896,31 @@ $(document).ready(function(){
 	},function(){
 		$(this).removeClass('btn_o').addClass('btn_w');
 	});
-	//商品資料輸入完成後，下方按鈕送出要變成橘底白字...難產中
-	//textarea沒有value, input沒有innerHTML
-	var $allRqInput = $('*:required'),
-		$txtRq = $('textarea:required'),
-		$txt = $txtRq.val(),
-		$intRq = $('input:required'),
-		$int = $intRq.val(),
-		$arqLen = $allRqInput.length;
-	//console.log($int);
-	/* $allRqInput.keyup(function(){
-		$allRqInput.each(function(){
-			if($txt !== '' && $int !== ''){
-				console.log('123');	
+
+	//選取我願意免費贈送清空表單
+	var $editFree = $('.editFree').find('#checkFree');
+	$editFree.click(function(){
+		var $expectList = $('.expectPad').find('dd').find('p'),
+			$expLen = $expectList.length,
+			$expInput = $expectList.find('input'),
+			$expTxt = $expectList.find('textarea');
+		$expectList.removeClass('require');
+		if($('#checkFree').prop('checked') == true){
+			for(i=0; i<$expLen-1; i++){
+				$expectList.eq(i).addClass('disabled');
+				$expInput.eq(i).prop('required',false).prop('disabled',true).val('');
+				$expTxt.eq(i).prop('disabled',true).val('');
+				$btnCUR.find('i').text('TWD');
 			}
-		});
-	}); */
-	/* $('.editList').bind("keyup", function() {
-		$allRqInput.each(function(){
-			if($txt !== '' && $int !== ''){
-				console.log('123');	
-			}
-		});
-	}); */
-	/*$('.editList').bind("keyup", function() {
-		var $target = $(this).find('.reqObj');
-		$target.each(function(){
-			console.log($arqLen);
-			for(i=0; i<=$arqLen; i++){
-				if($target.eq($arqLen).val() !== ''){
-					$('.btnPad').find('.btn_submit').removeClass('btn_w').addClass('btn_o');
-				}else{
-					$('.btnPad').find('.btn_submit').removeClass('btn_o').addClass('btn_w');
-				}
-			}
-		});
-	});*/
-	/*console.log($arqLen);
-	for(i=0; i<$arqLen; i++){
-		$allRqInput.bind("keyup", function(){
-			var $target = $(this).find('.reqObj');
-			if($target.eq(i).val() !== ''){
-				console.log('i= '+i);
-				if(i == $arqLen-2){
-					$('.btnPad').find('.btn_submit').removeClass('btn_w').addClass('btn_o');
-				}
-			}else{
-				$('.btnPad').find('.btn_submit').removeClass('btn_o').addClass('btn_w');
-			}
-		});
-	}*/
-	
-	/* $('.editList').bind("keyup", function() {
-		var $target = $(this).find('.reqObj');
-		$target.each(function(){
-			if($target.val() !== ''){
-				console.log('123');
-				$('.btnPad').find('.btn_submit').removeClass('btn_w').addClass('btn_o');
-			}else{
-				$('.btnPad').find('.btn_submit').removeClass('btn_o').addClass('btn_w');
-			}
-		});
-	}); 
+		}else if($('#checkFree').prop('checked') == false){
+			$expectList.removeClass('disabled');
+			$expectList.find('input:text').prop('required',true);
+			$expInput.prop('disabled',false);
+			$expTxt.prop('disabled',false);
+		}else{
+			console.log('none');
+		}
+	});
 	
 
 	/* 登入頁 */
@@ -1039,11 +1002,9 @@ $(document).ready(function(){
 
 	/* searchPage */
 	var $srType = $('.mainBtPad').find('a'),
-		$srLen = $srType.length,
 		$srCounter = $('.searchCounter'),
 		$cAmount = $srCounter.find('span'),
 		$srTypePad = $('.content').find('.conBlock'),
-		$srPadLen = $srTypePad.length,
 		$hotSearch = $('.hotSearch');
 
 	$srType.click(function(){
@@ -1060,9 +1021,7 @@ $(document).ready(function(){
 
 	/* 側邊欄頁面 */
 	//btn_attention 關注按鈕
-	var $btn_attention = $('.btn_attention'),
-		$attOp = $btn_attention.find('i'),
-		$attOpInd;
+	var $btn_attention = $('.btn_attention');
 	$btn_attention.find('i.action').fadeIn();
 	$btn_attention.click(function(){
 		if($('body').hasClass('userAtt')){
@@ -1118,73 +1077,74 @@ $(document).ready(function(){
 		$qaBlock.eq(ind).addClass('action').siblings($qaBlock).removeClass('action');
 	});
 
-	/* popContent 局部共用設定 */
+	/* popContent 局部與內頁item_edit.html / item_upload.html共用設定 */
 	//popEditSwap點 "我能免費索取checkbox" 則清空上面的內容
-	var $btn_imgBox = $('.btn_imgBox'),
-		$addPrice = $('.popAddPrice').find('input'),
+	var $popEditSwap = $('.popEditSwap'),
+		$popEditList = $popEditSwap.find('form').find('div'),
+		$popEditLen = $popEditList.length,
 		$btnCUR = $('.currency'),
 		$curBlock = $('.curBlock'),
 		$curList = $curBlock.find('b'),
-		$addServ = $('.popAddServ').find('input:text'),
-		$inputFree = $('.popEditSwap').find('.popFree').find('input:checkbox');
-	$inputFree.click(function(){
-		var $checkFree = $inputFree.prop('checked');
-		if($checkFree == true){
-			$btn_imgBox.removeClass('getImg action').css({'background-image': ''});
-			$addPrice.val('');
-			$addServ.val('');
-		}
-	});
-	var unCheck = function(){$inputFree.attr('checked', false);}
-	$btn_imgBox.click(function(){unCheck();});
-	$addPrice.keyup(function(){unCheck();});
-	$addServ.keyup(function(){unCheck();});
-	$btnCUR.click(function(){
-		var ind = $(this).index();
-		$(this).find('.curBlock').fadeToggle();
-	});
-	$curList.click(function(){
-		var txt = $(this).text(),
-			$thisCUR = $(this).parent().parent().find('i');
+		$inputFree = $popEditSwap.find('#checkFree');
+	//點幣別按鈕
+	$btnCUR.click(function(){btnCUR($(this));});
+	$curList.click(function(){curList($(this));});
+	function btnCUR(obj){
+		if($('#checkFree').prop('checked') == false){
+			obj.find('.curBlock').fadeToggle();
+		}}
+	function curList(tag, txt){
+		var txt = tag.text(),
+			$thisCUR = tag.parent().parent().find('i');
 		$thisCUR.text(txt);
-	});
-
+	}
 	//提出交換
 	var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
 		$picList = $('.btn_choosePic'),
-		$upload = $('.btn_upload'),
-		btnInd,
-		$popUpload = $('.popImgList').find('.btn_upload'),
+		btnInd=0,
 		$popAddImg = $('.popImgList').find('.addImg'),
 		$uploadW;
 	//點提出物品框框,出現圖片清單
-	$imgBox.click(function(){
-		btnInd = $(this).index('.btn_imgBox');
-		$('#popContainer').removeClass('popShare');
-		$('#popContainer').removeClass('popReport');
-		$('#popContainer').removeClass('popDel');
-		$('.popImgList').stop().animate({top : 0}, 300);
-		$('#popContainer').addClass('popChooseImg');
-		$uploadW = $popAddImg.eq(1).outerWidth();
-		$popAddImg.css({'height': $uploadW});
-	});
+	$imgBox.click(function(){chooseImg($(this));});
+	function chooseImg(obj){
+		if($('#checkFree').prop('checked') == false){
+			btnInd = obj.index('.btn_imgBox');
+			$('#popContainer').removeClass('popShare');
+			$('#popContainer').removeClass('popReport');
+			$('#popContainer').removeClass('popDel');
+			$('.popImgList').stop().animate({top : 0}, 300);
+			$('#popContainer').addClass('popChooseImg');
+			$uploadW = $popAddImg.eq(1).outerWidth();
+			$popAddImg.css({'height': $uploadW});
+		}
+	}
 	//點選擇照片或物品跳轉到上傳物品頁
-	$('.btn_upload').click(function(){
-		window.location.href='item_upload.html';
-	});
-
+	$('.btn_upload').click(function(){window.location.href='item_upload.html';});
+	//選圖片
 	$picList.click(function(){
 		var pInd = $(this).index('.btn_choosePic');
-		//橘色邊框
-		$picList.eq(pInd).addClass('action').siblings().removeClass('action');
-		//取得點選的圖片連結
-		var img = $picList.eq(pInd).find('img').attr('src');
-		//圖片清單消失
-		$('.popImgList').stop().animate({top : -100 + 'vh'}, 300);
+		$picList.eq(pInd).addClass('action').siblings().removeClass('action'); //橘色邊框
+		var img = $picList.eq(pInd).find('img').attr('src'); //取得點選的圖片連結
+		$('.popImgList').stop().animate({top : -100 + 'vh'}, 300); //圖片清單消失
 		$('#popContainer').removeClass('popChooseImg');
-		//將圖片匯入當下的提出物品框框
-		$imgBox.eq(btnInd).css({'background-image':'url('+img+')' , 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'center'});
-		$imgBox.eq(btnInd).addClass('getImg');
+		$imgBox.eq(btnInd).addClass('getImg').css({'background-image':'url('+img+')'}); //將圖片匯入當下的提出物品框框
+	});
+	//點免費索取 清空pop內容
+	$inputFree.click(function(){
+		btnInd=0;
+		if($('#checkFree').prop('checked') == true){
+			for(i=0; i<$popEditLen-2; i++){
+				$popEditList.eq(i).addClass('disabled');
+				$imgBox.removeClass('getImg action').css({'background-image': ''});
+				$popEditList.eq(i).find('input').prop('disabled',true).val('');
+				$btnCUR.find('i').text('TWD');
+			}
+		}else if($('#checkFree').prop('checked') == false){
+			$popEditList.removeClass('disabled');
+			$popEditList.find('input').prop('disabled',false);
+		}else{
+			console.log('false');
+		}
 	});
 	
 
@@ -1269,9 +1229,10 @@ if($('body').hasClass('itemDetail') || $('body').hasClass('wishDetail')){
 //textarea
 function setHeight(obj){obj.style.height = obj.scrollHeight + 'px';}
 //required判斷
-var $rqInput = $('*:required'),
-	$rqLen = $rqInput.length;
+
 function checkRq(){
+	var $rqInput = $('*:required'),
+	    $rqLen = $rqInput.length;
 	for(i=0; i<$rqLen; i++){
 		if($rqInput.eq(i).val() !== ''){
 			$rqInput.eq(i).parent().removeClass('require');

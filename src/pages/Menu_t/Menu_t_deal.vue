@@ -348,7 +348,8 @@
                     </div>
                 </div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_w btn_cancel" value="取消"/><input type="button" class="btn_o btn_sure" value="確定"/>
+                    <!-- <input type="button" class="btn_w btn_cancel" value="取消"/> -->
+                    <input type="button" class="btn_o btn_sure" value="確定"/>
                 </div>
             </form>
         </div>
@@ -390,7 +391,7 @@
                     <p class="sslMsg"><i></i>我們會保護您的交易個人資料</p>
                 </div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_gr btn_cancel" value="取消"/>
+                    <!-- <input type="button" class="btn_gr btn_cancel" value="取消"/> -->
                     <input type="button" class="btn_o btn_sure" value="送出"/>
                     <input type="button" class="btn_gr btn_editPrice" value="建議其他金額" onclick="editGua()"/>
                 </div>
@@ -455,10 +456,10 @@
             <form action="">
                 <h3>我要查詢</h3>
                 <div class="inquireDetail">
-                    <p>
+                    <p class="clear">
                         <label for="">寄件方式</label><select name="" id=""><option value="">7-11交貨便(台灣)</option><option value="">郵局</option></select>
                     </p>
-                    <p>
+                    <p class="clear">
                         <label for="">包裹號碼</label><input type="text" placeholder="請輸入包裹號碼">
                     </p>
                 </div>
@@ -495,7 +496,7 @@
                         <div class="clear"><a>送貨細節</a><input type="button" class="btn_b" value="修改"></div>
                     </div>
                     <div class="inquireDetail">
-                        <p>
+                        <p class="clear">
                             <label for="">寄件方式</label>
                             <select name="" id="" onchange="showUserData();">
                                 <option value=""></option>
@@ -504,16 +505,16 @@
                             </select>
                         </p>
                         <div class="iqKeyin">
-                            <p><label>寄件日期</label><label for="keyDate" class="keyDate"></label><input type="date" id="keyDate"></p>
-                            <p><label for="">包裹號碼</label><input type="text" placeholder="請輸入包裹號碼"></p>
+                            <p class="clear"><label>寄件日期</label><label for="keyDate" class="keyDate"></label><input type="date" id="keyDate"></p>
+                            <p class="clear"><label for="">包裹號碼</label><input type="text" placeholder="請輸入包裹號碼"></p>
                         </div>
                         <div class="iqUserData">
-                            <p class="noBD"><label for="">寄件人姓名</label><input type="text" placeholder="請輸入真實姓名" required="required"></p>
-                            <p class="inqNote">#由於收退貨需出示證件，請填寫與證件相符之真實姓名</p>
-                            <p><label for="">寄件人行動電話</label><input type="text" placeholder="請輸入手機號碼" required="required"></p>
-                            <p class="noBD"><label for="">收件人姓名</label><input type="text" placeholder="請輸入真實姓名" required="required"></p>
-                            <p class="inqNote">#由於收退貨需出示證件，請填寫與證件相符之真實姓名</p>
-                            <p><label for="">收件人行動電話</label><input type="text" placeholder="請輸入手機號碼" required="required"></p>
+                            <p class="clear noBD"><label for="">寄件人姓名</label><input type="text" placeholder="請輸入真實姓名" required="required"></p>
+                            <p class="clear inqNote">#由於收退貨需出示證件，請填寫與證件相符之真實姓名</p>
+                            <p class="clear"><label for="">寄件人行動電話</label><input type="text" placeholder="請輸入手機號碼" required="required"></p>
+                            <p class="clear noBD"><label for="">收件人姓名</label><input type="text" placeholder="請輸入真實姓名" required="required"></p>
+                            <p class="clear inqNote">#由於收退貨需出示證件，請填寫與證件相符之真實姓名</p>
+                            <p class="clear"><label for="">收件人行動電話</label><input type="text" placeholder="請輸入手機號碼" required="required"></p>
                             <input type="button" class="btn_b" value="收件人取貨店家" onclick="showStore();"/>
                             <div class="storePad">
                                 <p><span>門市店號：</span>153319</p>
@@ -525,7 +526,7 @@
                     </div>
                 </div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_w btn_cancel" value="取消"/>
+                    <!-- <input type="button" class="btn_w btn_cancel" value="取消"/> -->
                     <input type="button" class="btn_b btn_sure" value="送出" onclick=""/>
                     <input type="button" class="btn_b btn_submit" value="確認，並取得交貨便代碼" onclick="trpData()"/>
                 </div>
@@ -670,20 +671,22 @@ export default {
             $('.popTrp.post').find('.iqKeyin').css({'display':'none'});
             $('.deliveryDetail').css({'display':'none'});
     }
+     //取得交貨便代碼
         function trpData(){
             $('.popTrp.post').find('.btn_submit').fadeIn().siblings().css({'display':'none'});
              $('.popTrp.post').find('.iqUserData').css({'display':'none'});
             $('.popTrp.post').find('.iqKeyin').fadeIn();
             $('.deliveryDetail').fadeIn();
         }
+        //顯示取貨店家
         function showStore(){
             $('.storePad').fadeIn();
         }
+         // 複製交貨便代碼
         function copyNo(){
             var $deliveryNo = $('#deliveryNo');
             $deliveryNo.select();
             document.execCommand("copy");
-            $deliveryNo.css({'color':'#ff0000'});
         }
 
         

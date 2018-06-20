@@ -47,7 +47,7 @@
 					<dl class="CG_scorll">
 						<dt>
 							<ul class="itemTitle">
-								<li><h1>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</h1></li>
+								<li><h1>{{this.resData.ProductName}}</h1></li>
 								<li>
 									<p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
 									<p>產品功能 /居家擺飾、書擋、門擋</p>
@@ -198,7 +198,7 @@
 									<span class="date">2017/10/27 19:55</span>
 									<span class="openSwap action"></span>
 									<p class="userName"><a href="menu_u_myitem_other.html?j">Chloe Chen</a></p>
-									<p class="swapImg"><img src="images/img_swapPad_01.jpg" alt=""></p>
+									<p class="swapImg"><img src="../../../static/images/img_swapPad_01.jpg" alt=""></p>
 								</li>
 								<li class="swapList">
 									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_7.png" alt=""></a></span>
@@ -303,12 +303,13 @@
 			</div>
 		</div>
 		<div class="popContent popEditSwap">
+			<div class="btn_closePop"></div>
 			<h3>您可以提出物品、價錢、服務等組合來交換</h3>
 			<form action="swap_item_detail.html?c">
 				<div class="popChoImg">
 					<h4>提出物品</h4>
 					<p>最多可以提出三個物品</p>
-					<div class="imgBoxPad">
+					<div class="imgBoxPad clear">
 						<span class="addImg btn_imgBox"></span>
 						<span class="addImg btn_imgBox"></span>
 						<span class="addImg btn_imgBox"></span>
@@ -326,9 +327,9 @@
 					<h4>提供服務</h4>
 					<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗"></p>
 				</div>
-				<div class="popFree"><p><input type="checkbox">我能免費索取？</p></div>
+				<div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
 				<div class="popCheckPad">
-					<input type="button" class="btn_w btn_cancel" value="取消">
+					<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
 					<input type="submit" class="btn_o btn_sure" value="送出">
 				</div>
 			</form>
@@ -381,6 +382,7 @@
 <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 
 export default {
   components: {
@@ -389,8 +391,28 @@ export default {
 
 	},
 	
+	props: ["id"],
+	data() {
+    return {
+			resData:{},
+    }
+  },
+  created(){
+	 this.getProductInfo(); 
+  },
+  methods:{
+	  async getProductInfo(){
+				this.getToken();  
+				this.resData = await api.get('Product/'+ this.id,localStorage.getItem('api_token'),'')
+				console.log(this.resData)
+		},
+	  async getToken(){
+		   await api.getToken()
+	  }
+	},
   mounted() {
-    
+
+    console.log(this.id)
 
     setTimeout(() => {
       var Gw = $(window),

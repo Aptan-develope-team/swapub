@@ -580,9 +580,9 @@ export default {
                         $coverBlock.stop().animate({ 'top': 100 + 'px', 'opacity': 1 }, 150);
                     }
                 } else if (_nowHeight < $icH) {
+                    $assPad.eq(0).fadeOut();
                     $icBlock.stop().animate({ 'opacity': 1 }, 150);
                     $coverBlock.stop().animate({ 'top': -60 + 'px', 'opacity': 0 , 'display':'none'}, 500);
-                    $assPad.eq(0).fadeOut();
                 }
             });
 

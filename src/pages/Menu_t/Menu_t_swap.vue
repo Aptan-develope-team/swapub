@@ -21,15 +21,47 @@
                             <span class="icon_deal"></span>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="../../../static/images/ws_it_img_2.jpg" alt=""></a>
+                                <!-- <div class="itemImg">
+                                    <a href="swap_item_detail_user.html?j"><img src="images/ws_it_img_2.jpg" alt=""></a>
+                                </div> -->
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../../static/images/ws_it_img_2.jpg)"></p></li>
+                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p style="background-image:url(../../../static/images/ws_it_img_3.jpg)"></p>
+                                                        <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addtask_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+                                    </div>
+                                    <a href="swap_item_detail_user.html?j"></a>
                                 </div>
                                 <p>炫彩防燙布杯套</p>
                             </div>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_other.html?j"><img src="../../../static/images/sr_it_img_2.jpg" alt=""></a>
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../static/images/sr_it_img_2.jpg)"></p></li>
+                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p style="background-image:url(../../../static/images/sr_it_img_3.jpg)"></p>
+                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                    </div>
+                                    <a href="swap_item_detail_other.html?j"></a>
                                 </div>
                                 <p>戴爾(Dell) Inspi-ron 5000二合一...</p>
                             </div>
@@ -44,15 +76,40 @@
                             <span class="icon_deal"></span>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="../../../static/images/mk_it_img_18.jpg" alt=""></a>
+                                <!-- <div class="itemImg">
+                                    <a href="swap_item_detail_user.html?j"><img src="images/mk_it_img_18.jpg" alt=""></a>
+                                </div> -->
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_18.jpg)"></p></li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                    </div>
+                                    <a href="swap_item_detail_user.html?j"></a>
                                 </div>
                                 <p>金工手做搖水杯</p>
                             </div>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_other.html?j"><img src="../../../static/images/mk_it_img_19.jpg" alt=""></a>
+                                <!-- <div class="itemImg">
+                                    <a href="swap_item_detail_other.html?j"><img src="images/mk_it_img_19.jpg" alt=""></a>
+                                </div> -->
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_19.jpg)"></p></li>
+                                                </ul>
+                                            </div>
+                                        </dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                    </div>
+                                    <a href="swap_item_detail_other.html?j"></a>
                                 </div>
                                 <p>全新air pod</p>
                             </div>
@@ -67,15 +124,50 @@
                             <span class="icon_deal"></span>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="../../../static/images/mk_it_img_12.jpg" alt=""></a>
+                                <!-- <div class="itemImg">
+                                    <a href="swap_item_detail_user.html?j"><img src="images/mk_it_img_12.jpg" alt=""></a>
+                                </div> -->
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_12.jpg)"></p></li>
+                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p style="background-image:url(../../../static/images/sr_it_img_3.jpg)"></p>
+                                                        <p style="background-image:url(../../../static/images/sr_it_img_4.jpg)"></p>
+                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                    </div>
+                                    <a href="swap_item_detail_user.html?j"></a>
                                 </div>
                                 <p>植村秀眼線筆</p>
                             </div>
                             <div class="swapPad">
                                 <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
-                                <div class="itemImg">
-                                    <a href="swap_item_detail_other.html?j"><img src="../../../static/images/mk_it_img_13.jpg" alt=""></a>
+                                <!-- <div class="itemImg">
+                                    <a href="swap_item_detail_other.html?j"><img src="images/mk_it_img_13.jpg" alt=""></a>
+                                </div> -->
+                                <div class="itemCon_1 itemImg">
+                                    <div class="cssTable">
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_13.jpg)"></p></li>
+                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p style="background-image:url(../../../static/images/mk_it_img_12.jpg)"></p>
+                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                    </div>
+                                    <a href="swap_item_detail_other.html?j"></a>
                                 </div>
                                 <p>ysl潤色粉膚口紅</p>
                             </div>
@@ -92,18 +184,48 @@
                         <li class="mSwapList clear">
                             <div class="dealPad">
                                 <span class="icon_deal"></span>
-                                <div class="swapPad action">
+                                <div class="swapPad">
                                     <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
-                                    <div class="itemImg">
-                                        <a href="swap_item_detail_other.html?j"><img src="../../../static/images/img_item_09.jpg" alt=""></a>
+                                    <!-- <div class="itemImg itemFinish">
+                                        <a href="swap_item_detail_finish-other.html?j"><img src="images/img_item_09.jpg" alt=""></a>
+                                    </div> -->
+                                    <div class="itemCon_1 itemImg itemFinish">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/img_item_09.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/img_item_08.jpg)"></p>
+                                                            <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>
+                                        <a href="swap_item_detail_finish-other.html?j"></a>
                                     </div>
                                     <p>戴爾(Dell) Inspi-ron 5000二合一...</p>
                                 </div>
                                 <div class="swapPad">
                                     <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                    <div class="itemImg">
-                                        <a href="swap_item_detail_user.html?j"><img src="../../../static/images/ws_it_img_2.jpg" alt=""></a>
+                                    <!-- <div class="itemImg">
+                                        <a href="swap_item_detail_user.html?j"><img src="images/ws_it_img_2.jpg" alt=""></a>
+                                    </div> -->
+                                    <div class="itemCon_1 itemImg">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/ws_it_img_2.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>
+                                        <a href="swap_item_detail_user.html?j"></a>
+                                    </div>
                                     <p>【Nikon】類單眼相機</p>
                                 </div>
                             </div>
@@ -117,15 +239,44 @@
                                 <span class="icon_deal"></span>
                                 <div class="swapPad">
                                     <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
-                                    <div class="itemImg">
-                                        <a href="swap_item_detail_other.html?j"><img src="../../../static/images/ws_it_img_4.jpg" alt=""></a>
+                                    <!-- <div class="itemImg">
+                                        <a href="swap_item_detail_other.html?j"><img src="images/ws_it_img_4.jpg" alt=""></a>
+                                    </div> -->
+                                    <div class="itemCon_1 itemImg">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                        <a href="swap_item_detail_other.html?j"></a>
                                     </div>
                                     <p>【PS4】4K高解析/TB硬碟</p>
                                 </div>
-                                <div class="swapPad action">
+                                <div class="swapPad">
                                     <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                    <div class="itemImg">
-                                        <a href="swap_item_detail_user.html?j"><img src="../../../static/images/sr_it_img_2.jpg" alt=""></a>
+                                    <!-- <div class="itemImg itemFinish">
+                                        <a href="swap_item_detail_finish-user.html?j"><img src="images/sr_it_img_2.jpg" alt=""></a>
+                                    </div> -->
+                                    <div class="itemCon_1 itemImg itemFinish">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/sr_it_img_2.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/sr_it_img_3.jpg)"></p>
+                                                            <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>
+                                        <a href="swap_item_detail_finish-user.html?j"></a>
                                     </div>
                                     <p>acer筆電，高畫質數位型辦公電腦</p>
                                 </div>
@@ -141,7 +292,10 @@
 	   <div class="btn_openPop"></div>
 	</div><!-- main END -->
 
-	<app-footer></app-footer>
+	<!-- Footer -->
+	<div id="footer">
+		<!-- footer.html -->
+	</div>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
@@ -160,7 +314,7 @@
                 <div class="popCheckPad">
                     <p>按下「送出」後表示我同意</p>
                     <p><a href="exp_rule.html" target="_blank">服務條款</a>和<a href="exp_rule.html" target="_blank">隱私權政策</a></p>
-                    <input type="button" class="btn_gr btn_cancel" value="取消">
+                    <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
                     <input type="submit" class="btn_o btn_sure" value="確定" onclick="">
                 </div>
             </form>
@@ -170,7 +324,7 @@
             <h3>更改交換</h3>
             <p>請問你要取消交換還是要更改交換物品?</p>
             <div class="popCheckPad">
-                <input type="button" class="btn_gr" value="取消交換" @click="check">
+                <input type="button" class="btn_gr" value="取消交換" onclick="check();">
                 <input type="button" class="btn_o btn_popChange" value="更改交換">
             </div>
         </div>
@@ -179,17 +333,18 @@
             <h3>取消交換</h3>
             <p>你確定要取消交換嗎？</p>
             <div class="popCheckPad">
-                <input type="button" class="btn_gr btn_cancel" value="取消">
+                <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
                 <input type="button" class="btn_o btn_sure" value="確定">
             </div>
         </div>
         <div class="popContent popEditSwap">
+            <div class="btn_closePop"></div>
             <h3>您可以提出物品、價錢、服務等組合來交換</h3>
             <form action="swap_item_detail.html?c">
                 <div class="popChoImg">
                     <h4>提出物品</h4>
                     <p>最多可以提出三個物品</p>
-                    <div class="imgBoxPad">
+                    <div class="imgBoxPad clear">
                         <span class="addImg btn_imgBox action getImg"></span>
                         <span class="addImg btn_imgBox"></span>
                         <span class="addImg btn_imgBox"></span>
@@ -207,9 +362,9 @@
                     <h4>提供服務</h4>
                     <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
                 </div>
-                <div class="popFree"><p><input type="checkbox">我能免費索取？</p></div>
+                <div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_w btn_cancel" value="取消">
+                    <!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
                     <input type="submit" class="btn_o btn_sure" value="送出">
                 </div>
             </form>
@@ -357,47 +512,52 @@ export default {
             'display': 'none'
           });
         });
+        //itemImg高度設定
+            var $swapPad = $('.swapPad'),
+                $swapPadW = $swapPad.width(),
+                $itemImg  = $swapPad.find('.itemImg');
+            $itemImg.css({'height': $swapPadW});
 
         //提出交換
-        var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
-          $picList = $('.btn_choosePic'),
-          $upload = $('.btn_upload'),
-          btnInd,
-          $popUpload = $('.popImgList').find('.btn_upload'),
-          $popAddImg = $('.popImgList').find('.addImg'),
-          $uploadW;
-        //點提出物品框框,出現圖片清單
-        $imgBox.click(function () {
-          btnInd = $(this).index('.btn_imgBox');
-          $('#popContainer').removeClass('popShare');
-          $('#popContainer').removeClass('popReport');
-          $('#popContainer').removeClass('popDel');
-          $('.popImgList').stop().animate({
-            top: 0
-          }, 300);
-          $('#popContainer').addClass('popChooseImg');
-          $uploadW = $popAddImg.eq(1).outerWidth();
-          $popAddImg.css({
-            'height': $uploadW
-          });
-        });
+        // var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+        //   $picList = $('.btn_choosePic'),
+        //   $upload = $('.btn_upload'),
+        //   btnInd,
+        //   $popUpload = $('.popImgList').find('.btn_upload'),
+        //   $popAddImg = $('.popImgList').find('.addImg'),
+        //   $uploadW;
+        // //點提出物品框框,出現圖片清單
+        // $imgBox.click(function () {
+        //   btnInd = $(this).index('.btn_imgBox');
+        //   $('#popContainer').removeClass('popShare');
+        //   $('#popContainer').removeClass('popReport');
+        //   $('#popContainer').removeClass('popDel');
+        //   $('.popImgList').stop().animate({
+        //     top: 0
+        //   }, 300);
+        //   $('#popContainer').addClass('popChooseImg');
+        //   $uploadW = $popAddImg.eq(1).outerWidth();
+        //   $popAddImg.css({
+        //     'height': $uploadW
+        //   });
+        // });
 
-        $picList.click(function () {
-          var pInd = $(this).index('.btn_choosePic');
-          //橘色邊框
-          $picList.eq(pInd).addClass('action').siblings().removeClass('action');
-          //取得點選的圖片連結
-          var img = $picList.eq(pInd).find('img').attr('src');
-          console.log(img);
-          //圖片清單消失
-          $('.popImgList').stop().animate({
-            top: -100 + 'vh'
-          }, 300);
-          $('#popContainer').removeClass('popChooseImg');
-          //將圖片匯入當下的提出物品框框
-         			$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
-				$imgBox.eq(btnInd).addClass('getImg');
-            });
+        // $picList.click(function () {
+        //   var pInd = $(this).index('.btn_choosePic');
+        //   //橘色邊框
+        //   $picList.eq(pInd).addClass('action').siblings().removeClass('action');
+        //   //取得點選的圖片連結
+        //   var img = $picList.eq(pInd).find('img').attr('src');
+        //   console.log(img);
+        //   //圖片清單消失
+        //   $('.popImgList').stop().animate({
+        //     top: -100 + 'vh'
+        //   }, 300);
+        //   $('#popContainer').removeClass('popChooseImg');
+        //   //將圖片匯入當下的提出物品框框
+        //  			$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
+		// 		$imgBox.eq(btnInd).addClass('getImg');
+        //     });
             
         })
 

@@ -3,7 +3,7 @@
 		<div class="headerTop"><i></i><i></i><i></i></div>
 		<div class="headerConts clear">
 			<dl>
-				<dt><a href="index.html" class="header_logo"><img src="../../static/images/swapub_logo.png" alt=""></a></dt>
+				<dt><router-link to='/' class="header_logo"><img src="../../static/images/swapub_logo.png" alt=""></router-link></dt>
 				<dd class="headerMenu CGc">
 					<router-link to="/" active-class="market action" exact><b>市集</b></router-link>
 					<router-link to="/wish" active-class="wish action"><b>許願牆</b></router-link>
@@ -43,7 +43,7 @@
 				<a href="" class="ico_fb"></a>
 			</div>
 			<div class="login">
-				<a class="sideBt userPic"></a><span class="userName"><i>我</i>Jing Yun Lee</span>
+				<a class="sideBt userPic"></a><span class="userName"><i>我</i>{{this.resData.Name}}</span>
 				<a class="sideBt userMenu CGc"></a>
 				<a class="sideBt userNoti CGc"><i class="noticeNum">2</i></a>
 			</div>
@@ -172,7 +172,8 @@
 						</div>
 					</div>
 					<div class="popCheckPad">
-						<input type="button" class="btn_w btn_cancel" value="取消"><input type="button" class="btn_o btn_sure" value="確定" onclick="assess()">
+						<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
+						<input type="button" class="btn_o btn_sure" value="確定" onclick="assess()">
 					</div>
 				</form>
 			</div>
@@ -382,7 +383,25 @@
 import api from '../api/Api.js'
 
 export default {
+ data() {
+    return {
+		resData:{},
+    }
+  },	
+  created(){
+	//this.getUser();
+  },
   methods:{
+	  async getUser(){
+		this.resData = await api.get('User',localStorage.getItem('login_token'),'')
+		console.log(this.resData)
+		
+	  },
+	  async getUserPic(){
+		await axios.get('https://d11am61bl9q9du.cloudfront.net',localStorage.getItem('login_token'),'')
+		console.log(this.resData)
+		
+	  },
 	  logout(){
 		  localStorage.setItem('login_token','')
 		  this.$router.push('/')
@@ -460,7 +479,7 @@ export default {
         $urlUser = url.split('?')[1],
         $infoPad = $('.infoPad');
       $login.addClass('action');
-      $('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
+      //$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
       if ($('body').hasClass('userPage') && $('body').hasClass('other')) {
         $('body.userPage').find('.btn_report').addClass('action');
         $('body.userPage').find('.btn_edit').removeClass('action');
@@ -477,6 +496,16 @@ export default {
         $('.swapList').find('a.openDetail').css({
           'display': 'block'
         });
+	  }
+	  
+	   var hideP = function () {
+        for (var i = 0; i < $scLen; i++) {
+          if (i > 2) {
+            $scItem.eq(i).fadeOut();
+          } else {
+            $scItem.eq(i).fadeIn();
+          }
+        }
       }
 
       var $btnPad = $('.socialBlock').find('.btnPad'),

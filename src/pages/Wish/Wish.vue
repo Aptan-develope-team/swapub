@@ -261,7 +261,7 @@
 	<div id="popContainer" style="top:-100vh;">
 		<div class="popContent popAssignPad">
 			<div class="btn_closePop"></div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_all.png" alt="">全部</a>
 				<a><img src="../../../static/images/icon_item_man.png" alt="">男士時尚</a>
 				<a><img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</a>
@@ -272,7 +272,7 @@
 				<a><img src="../../../static/images/icon_item_media.png" alt="">數位影音</a>
 				<a><img src="../../../static/images/icon_item_toy.png" alt="">玩具公仔</a>
 			</div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_3c.png" alt="">3C電子</a>
 				<a><img src="../../../static/images/icon_item_electric.png" alt="">家電</a>
 				<a><img src="../../../static/images/icon_item_furniture.png" alt="">傢俱</a>
@@ -283,7 +283,7 @@
 				<a><img src="../../../static/images/icon_item_food.png" alt="">美食</a>
 				<a><img src="../../../static/images/icon_item_stationery.png" alt="">文具用品</a>
 			</div>
-			<div class="assignList">
+			<div class="assignList clear">
 				<a><img src="../../../static/images/icon_item_art.png" alt="">藝術古董</a>
 				<a><img src="../../../static/images/icon_item_musical.png" alt="">樂器</a>
 				<a><img src="../../../static/images/icon_item_crafts.png" alt="">手工藝品</a>

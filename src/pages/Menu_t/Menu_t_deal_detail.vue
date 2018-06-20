@@ -20,7 +20,7 @@
                             </ul>
                         </dt>
                         <dd>
-                            <ul class="itemImg">
+                            <ul class="itemImg itemDeal">
                                 <li><img src="../../../static/images/img_item_01.jpg" alt=""></li>
                             </ul>
                         </dd>
@@ -57,7 +57,7 @@
                             </ul>
                         </dt>
                         <dd>
-                            <ul class="itemImg">
+                            <ul class="itemImg itemDeal">
                                 <li><img src="../../../static/images/mk_it_img_23.jpg" alt=""></li>
                             </ul>
                         </dd>
@@ -128,7 +128,8 @@
                     </div>
                 </div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_w btn_cancel" value="取消"/><input type="button" class="btn_o btn_sure" value="確定" onclick="assess()"/>
+                    <!-- <input type="button" class="btn_w btn_cancel" value="取消"/> -->
+                    <input type="button" class="btn_o btn_sure" value="確定" onclick="assess()"/>
                 </div>
             </form>
 		</div>
@@ -183,6 +184,9 @@ export default {
         }, 800, 'easeOutCirc');
       });
       $(document).ready(function () {
+          var $itemImg = $('.itemImg').find('li'),
+                imgW = $itemImg.width();
+            $itemImg.css({'height' : imgW});
         $('.btn_assess').click(function () {
           $('#popContainer').removeClass();
           $('#popContainer').stop().animate({
