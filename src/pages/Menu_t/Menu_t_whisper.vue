@@ -147,6 +147,23 @@ export default {
 
         // $('#header').find('.market').addClass('action');
       })
+      						$(window).scroll(function(){
+	"use strict";
+	var Gw = $(window), Gwh = Gw.height(),
+		Gd = $(document), Gdh =Gd.height(),
+		_nowHeight = $(window).scrollTop();
+
+	//backTop BTN show & hide
+	if (_nowHeight >= Gwh / 2) {$('.backTop').stop().animate({opacity:1});}else{$('.backTop').stop().animate({opacity:0});}
+	//header
+	var lastPos = Gdh - Gwh;
+	if(_nowHeight >= lastPos && Gdh > (Gwh + 100)){
+		$('#header').stop().animate({'top': -135 + 'px'},150);
+		$('.sideBarPad').css({'height': 100 + 'vh'}); //header上縮之後menu調整為100vh
+	}else{
+		$('#header').stop().animate({'top': 0 + 'px'},150);
+	}
+});
       $('.backTop').click(function () {
         $('html,body').animate({
           scrollTop: $('#main').offset().top

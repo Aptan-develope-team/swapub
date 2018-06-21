@@ -389,7 +389,7 @@ export default {
     }
   },	
   created(){
-	//this.getUser();
+		this.getUser();
   },
   methods:{
 	  async getUser(){

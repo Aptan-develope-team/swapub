@@ -293,9 +293,7 @@
 	</div><!-- main END -->
 
 	<!-- Footer -->
-	<div id="footer">
-		<!-- footer.html -->
-	</div>
+	<app-footer></app-footer>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
@@ -436,6 +434,7 @@ export default {
           'display': 'none'
         });
       });
+      
       $(window).on("load", function () {
         if ($(window).width() > 1024) {
           var s = skrollr.init();
@@ -444,7 +443,8 @@ export default {
         // $('#header').find('.market').addClass('action');
 
       })
-
+     //itemImg高度設定
+            
       // Yep, that's it!
       //$('#scene').parallax();
 
@@ -512,11 +512,11 @@ export default {
             'display': 'none'
           });
         });
-        //itemImg高度設定
-            var $swapPad = $('.swapPad'),
+        
+        var $swapPad = $('.swapPad'),
                 $swapPadW = $swapPad.width(),
                 $itemImg  = $swapPad.find('.itemImg');
-            $itemImg.css({'height': $swapPadW});
+            $itemImg.css({'height': "184px"});
 
         //提出交換
         // var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
@@ -562,7 +562,7 @@ export default {
         })
 
     
-    }, 0)
+    }, 100)
   }
 }
 

@@ -32,7 +32,7 @@
 							$('#footer').css({'position':'fixed'});
 						}
 	  
-	  },0)
+	  },100)
 	  }
 	}
 	
