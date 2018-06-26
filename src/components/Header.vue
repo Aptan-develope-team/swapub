@@ -43,7 +43,7 @@
 				<a href="" class="ico_fb"></a>
 			</div>
 			<div class="login">
-				<a class="sideBt userPic"></a><span class="userName"><i>我</i>{{this.resData.Name}}</span>
+				<a class="sideBt userPic" :style="{ backgroundImage:`url(${this.imgUrl})`}"></a><span class="userName"><i>我</i>{{this.resData.Name}}</span>
 				<a class="sideBt userMenu CGc"></a>
 				<a class="sideBt userNoti CGc"><i class="noticeNum">2</i></a>
 			</div>
@@ -385,7 +385,8 @@ import api from '../api/Api.js'
 export default {
  data() {
     return {
-		resData:{},
+			resData:{},
+      imgUrl:"",
     }
   },	
   created(){
@@ -393,13 +394,9 @@ export default {
   },
   methods:{
 	  async getUser(){
-		this.resData = await api.get('User',localStorage.getItem('login_token'),'')
-		console.log(this.resData)
-		
-	  },
-	  async getUserPic(){
-		await axios.get('https://d11am61bl9q9du.cloudfront.net',localStorage.getItem('login_token'),'')
-		console.log(this.resData)
+			this.resData = await api.get('User',localStorage.getItem('login_token'),'')
+			this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
+			console.log(this.resData)
 		
 	  },
 	  logout(){

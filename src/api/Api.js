@@ -6,6 +6,8 @@ const url = "api/"
 //changeData(changeInfo.FirstName,changeInfo.LastName,changeInfo.City,changeInfo.Country,changeInfo.Mobile)
 
 export default{
+    CdnUrl:"https://d11am61bl9q9du.cloudfront.net",
+    
     async getToken() {
       await axios.post(url + 'PeformLogon', qs.stringify({
         Email: "evilgame389@gmail.com",
@@ -23,17 +25,29 @@ export default{
         localStorage.setItem('api_token', res.data.Token)
       })
     },
-    async post(api,data){
-        var response = await axios.post(url + api,qs.stringify(data), {headers: {
+    async post(api,data,token,param){
+        await axios.post(url + api + '?accessToken=' + token + param,qs.stringify(data), {headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
       'appid':'TestAppID_3',
       'AppVersion':'2.14.0'
 			}}).then((res) => {
-                return res.data
+            console.log(res)
           })
           .catch((error) =>{
+            console.log(error)
           }) 
-        return response
+    },
+    async postJSON(api,data,token,param){
+      await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
+    'Content-Type': 'application/json',
+    'appid':'TestAppID_3',
+    'AppVersion':'2.14.0'
+    }}).then((res) => {
+          console.log(res)
+        })
+        .catch((error) =>{
+          console.log(error)
+        }) 
     },
     async get(api,token,param){
         axios.defaults.headers.get['appid'] = 'TestAppID_3'

@@ -11,9 +11,9 @@
         <div class="coverBlock">
             <div>
                 <ul class="userInfo">
-                    <li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></li>
+                    <li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
                     <li class="userDetail">
-                        <h3 class="userName"><i>我</i>Jing Yun Lee</h3>
+                        <h3 class="userName"><i>我</i>{{this.resData.Name}}</h3>
                         <p class="userAdd">台北市，台灣</p>
                     </li>
                 </ul>
@@ -121,12 +121,12 @@
 		<div class="content">
             <!-- <h1>設定</h1> -->
             <div class="innerCoverBlock">
-                <span class="coverImg"></span>
+                <span class="coverImg" :style="{ backgroundImage:`url(${this.CoverUrl})`}"></span>
                 <div>
                     <ul class="userInfo">
-                        <li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></li>
+                        <li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
                         <li class="userDetail">
-                            <h3 class="userName">Jing Yun Lee</h3>
+                            <h3 class="userName">{{this.resData.Name}}</h3>
                             <p class="userAdd">台北市，台灣</p>
                         </li>
                     </ul>
@@ -237,17 +237,17 @@
                             </div>
                             <a href="item_upload.html"></a>
                         </div>
-                        <div class="itemBox mBox">
-                            <div class="itemImg"><img src="../../../static/images/img_item_08.jpg" alt=""></div>
+                        <div class="itemBox mBox" v-for="product in Item">
+                            <div class="itemImg"><img src="../../../static/images/ws_user_img_5.png" alt=""></div>
                             <a href="item_detail.html?j"></a>
                             <div class="itemInfo">
                                 <span class="iQua">12</span><span class="iHeart"></span>
                             </div>
                             <div class="itemTitle">
-                                <h3>手做造型彩色隔熱杯套</h3>
+                                <h3>{{product.ProductName}}</h3>
                             </div>
                         </div>
-                        <div class="itemBox mBox">
+                       <!--  <div class="itemBox mBox">
                             <div class="itemImg"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></div>
                             <a href="item_detail.html?j"></a>
                             <div class="itemInfo">
@@ -316,7 +316,7 @@
                             <div class="itemTitle">
                                 <h3>全新air pod</h3>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="conBlock wishPad">
@@ -383,6 +383,8 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
+
 
 export default {
   components: {
@@ -390,7 +392,58 @@ export default {
     'app-footer': Footer
 
   },
+  data(){
+      return{
+           resData:{},
+           imgUrl:"",
+           CoverUrl:"",
+           Item:[]
+      }
+  },
+  created(){
+            this.getUser();
+
+  },
+  methods:{
+    async getUser(){
+        this.resData = await api.get('User',localStorage.getItem('login_token'),'')
+        this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
+        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Cover.jpg"
+        this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.resData.ID + "&filterDate=1" )
+        console.log(this.Item)
+    }
+  },
+  updated(){
+ //item排版_marketPad
+    setTimeout(() => {
+       
+     var $itemPad = $('.marketPad').find('.itemPad'),
+          $itemPadW = $itemPad.width(),
+          itemW = $itemPadW / 3 - 8,
+          $allBox = $itemPad.find('.mBox'),
+          boxLen = $allBox.length;
+        var boxHArr = [];
+        for (var i = 0; i < boxLen; i++) {
+          var boxH = $allBox.eq(i).outerHeight();
+          boxHArr.push(boxH);
+          var maxHeight = Math.max(...boxHArr);
+          // console.log('maxHeight= ' +maxHeight);
+          $allBox.css({
+            'min-height': maxHeight + 'px'
+          });
+        }
+        console.log(itemW);
+        $itemPad.masonry({
+          itemSelector: '.mBox',
+          columnWidth: itemW,
+          gutter: 10
+        });
+   },850)
+       
+
+  },
   mounted() {
+
     setTimeout(() => {
       var Gw = $(window),
         Gww = Gw.width(),
@@ -401,7 +454,7 @@ export default {
 
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
-      element.classList.add("item", "noSearchPage", "menuPage", "userPage", "mItem");
+      element.classList.add("noSearchPage", "menuPage", "userPage", "mItem");
 
       $('.loadPad').animate({
         opacity: 0
@@ -471,28 +524,6 @@ export default {
 		}
 	});
 
-        //item排版_marketPad
-        var $itemPad = $('.marketPad').find('.itemPad'),
-          $itemPadW = $itemPad.width(),
-          itemW = $itemPadW / 3 - 8,
-          $allBox = $itemPad.find('.mBox'),
-          boxLen = $allBox.length;
-        var boxHArr = [];
-        for (i = 0; i < boxLen; i++) {
-          var boxH = $allBox.eq(i).outerHeight();
-          boxHArr.push(boxH);
-          var maxHeight = Math.max(...boxHArr);
-          // console.log('maxHeight= ' +maxHeight);
-          $allBox.css({
-            'min-height': maxHeight + 'px'
-          });
-        }
-        // console.log(itemW);
-        $itemPad.masonry({
-          itemSelector: '.mBox',
-          columnWidth: itemW,
-          gutter: 10
-        });
 
         //item排版_wishPad
           if($('.userName').hasClass('otherUser')){
@@ -513,8 +544,8 @@ export default {
                 cols = $outBoxW / boxW; //取得行數
             //預設陣列
         var boxHeightArr = [],
-          minHeight = 0,
-          boxHeight = 0;
+            minHeight = 0,
+            boxHeight = 0;
 
         for (var i = 0; i < boxLen; i++) {
           var boxH = $allBox.eq(i).outerHeight(true);
@@ -558,6 +589,8 @@ export default {
             return false;
           }
         }
+
+        
         
 
 		// Yep, that's it!
@@ -607,7 +640,7 @@ export default {
       })
       
 
-    }, 100)
+    }, 0)
   }
 }
 

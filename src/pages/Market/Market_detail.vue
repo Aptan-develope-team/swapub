@@ -14,16 +14,17 @@
 					<dl>
 						<dt>
 							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></li>
-								<li class="userDetail"><h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
+								<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
+								<li class="userDetail"><h3 class="userName"><i>我(</i>{{this.user.Name}}<i>)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
 								<li class="timer"><span>53分鐘前</span></li>
 							</ul>
 						</dt>
 						<dd>
 							<ul class="itemImg CGt">
-								<li class="imgCont"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></li>
-								<li class="imgList action"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></li>
-								<li class="imgList vedio"><img src="../../../static/images/img_item_02.jpg" alt=""></li>
+								<li class="imgCont"><img :src="(this.productImg)[0]" alt=""></li>
+								<li class="imgList action"><img :src="(this.productImg)[0]" alt=""></li>
+								<li class="imgList" v-for="(img,index) in productImg" v-if="index > 0"><img :src="img" alt=""></li>
+								<!-- <li class="imgList vedio"><img src="../../../static/images/img_item_02.jpg" alt=""></li> -->
 							</ul>
 						</dd>
 						<dd class="editPad action">
@@ -47,9 +48,9 @@
 					<dl class="CG_scorll">
 						<dt>
 							<ul class="itemTitle">
-								<li><h1>{{this.resData.ProductName}}</h1></li>
+								<li><h1>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</h1></li>
 								<li>
-									<p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
+									<!-- <p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
 									<p>產品功能 /居家擺飾、書擋、門擋</p>
 									<p>尺寸：(W)27cm×(H)20.5cm×(D)10 cm<br>材質：poly</p>
 									<p>-----------------------------------------------------------</p>
@@ -58,7 +59,8 @@
 									<p>※國際運費注意事項：<br>
 										寄送其他國家的運費，請先詢問設計師，我們會協助估算最優惠的寄送方式。<br>
 										確認好實際運費之後，我們會另開運費專屬賣場給您下單付款。
-									</p>
+									</p> -->
+									{{this.resData.Description}}
 								</li>
 							</ul>
 						</dt>
@@ -147,7 +149,7 @@
 			</div>
 			<div class="conBlock socialBlock">
 				<div class="btnPad clear">
-					<span class="action">留言<i>(3)</i></span>
+					<span class="action">留言<i>({{this.messageNum}})</i></span>
 					<span>交換<i>(3)</i></span>
 				</div>
 				<div class="socialPad">
@@ -155,17 +157,17 @@
 						<dt class="socialList msgPad action">
 							<ul>
 								<li>
-									<span class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                  <p><input type="text" name="" value="" placeholder="我想說..."></p>
-									<a class="btn_sentMsg btn_o"></a>
+									<span class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></span>
+                  <p><input type="text" name="" value="" placeholder="我想說..." v-model="message"></p>
+									<a class="btn_sentMsg btn_o" @click="sendMessage()"></a>
 								</li>
-								<li>
-									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_1.png" alt=""></a></span>
-									<span class="date">2017/10/27 19:55</span>
-                  <p class="userName"><a href="menu_u_myitem_other.html?j">Yu_Fang cheng</a></p>
-									<p>看看喔!</p>
+								<li v-for="message in messageList">
+									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="message.AvatarUrl" alt=""></a></span>
+									<span class="date">{{((message.CreateDate).split('.')[0]).replace("T","     ")}}</span>
+                  <p class="userName"><a href="menu_u_myitem_other.html?j">{{message.Name}}</a></p>
+									<p>{{message.Message}}</p>
 								</li>
-								<li>
+								<!-- <li>
 									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_2.png" alt=""></a></span>
 								  <span class="date">2017/10/27 19:55</span>
                   <p class="userName"><a href="menu_u_myitem_other.html?j">Victor Wang</a></p>
@@ -188,7 +190,7 @@
 																	<span class="date">2017/10/27 19:55</span>
                 	<p class="userName"><a href="menu_u_myitem_other.html?j">Amy Tesi</a></p>
 									<p>有更新,看看!</p>
-								</li>
+								</li> -->
 							</ul>
 						</dt>
 						<dd class="socialList swapPad">
@@ -373,7 +375,6 @@
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
-  <input type="text">
 	<!-- Footer END -->
 
 </div>
@@ -395,20 +396,121 @@ export default {
 	data() {
     return {
 			resData:{},
+			user:{},
+			location:{},
+			productImg:[],
+			imgUrl:"",
+			messageNum:"",
+			messageList:{},
+			message:""
     }
   },
   created(){
 	 this.getProductInfo(); 
+	 this.getMessageNum();
+	 this.getMessageList();
   },
   methods:{
 	  async getProductInfo(){
 				this.getToken();  
 				this.resData = await api.get('Product/'+ this.id,localStorage.getItem('api_token'),'')
+				this.user = this.resData.Owner
+				this.location = this.resData.Location
+				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
+				this.productImg = this.resData.PictureUrls
 				console.log(this.resData)
+		},
+		async getMessageNum(){
+				this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
+				console.log(this.messageNum)
 		},
 	  async getToken(){
 		   await api.getToken()
-	  }
+		},
+		async sendMessage(){
+			 await api.postJSON('PublicMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&productID=' + this.id)
+			 this.getMessageNum()
+			 this.message=""
+		},
+		async getMessageList(){
+				this.messageList = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id + "&maxtime=1")
+				console.log(this.messageList)
+		}
+		
+		
+	},
+	updated(){
+      /* item_detail 物品細節 */
+      var $itemImg = $('.itemImg'),
+        imgCont = $itemImg.find('.imgCont'),
+        $imgList = $itemImg.find('.imgList'),
+        $itInfo = $('.itemTitle').find('li'),
+        $itInfoH = $itInfo.eq(1).height() + 'px',
+        $itMaxH = $itInfo.eq(1).css('max-height'),
+        $btn_like = $('.btn_like'),
+        $infoPad = $('.conBlock.infoBlock').find('.infoPad'),
+        $infoPadH = $infoPad.eq(0).height(),
+        $btnPadH = $('.btnPad').outerHeight(true);
+      $infoPad.eq(1).css({
+        'min-height': $infoPadH
+      });
+      $infoPad.eq(1).find('dl').css({
+        'height': $infoPadH - $btnPadH
+      });
+      $btn_like.click(function () {
+        $(this).toggleClass('action');
+      });
+      $('.backTop').click(function () {
+        $('html,body').animate({
+          scrollTop: $('#main').offset().top
+        }, 800, 'easeOutCirc');
+      });
+
+      //物品照片切換
+      $imgList.click(function () {
+        var imgInd = $(this).index('.imgList'),
+          img = $(this).find('img').attr('src');
+        imgCont.find('img').attr('src', img);
+        $(this).addClass('action').siblings('.imgList').removeClass('action');
+      });
+      $('.btn_cancel').click(function () {
+        $('#popContainer').stop().animate({
+          top: -100 + 'vh'
+        }, 500);
+			});
+			//物品照片切換
+	$imgList.hover(function(){
+		var imgInd = $(this).index('.imgList'),
+			img = $(this).find('img').attr('src');
+		imgCont.find('img').attr('src', img);
+		if($(this).hasClass('vedio')){
+			imgCont.find('.vedioMD').addClass('action');
+		}else{
+			imgCont.find('.vedioMD').removeClass('action');
+		}
+		$(this).addClass('action').siblings('.imgList').removeClass('action');
+	});
+	$('.vedioMD').click(function(){
+		$(this).toggleClass('pause');
+	});
+	//物品說明more.less
+      if ($itInfoH < $itMaxH) {
+        if ($itTips == true) {
+          $itTips.remove();
+        }
+      } else {
+        $itInfo.eq(1).append('<span class="itTips">more<i></i><i></i><i></i></span>');
+      }
+      var $itTips = $('.itTips');
+      $itTips.click(function () {
+        $itTips.toggleClass('action');
+        $itInfo.eq(1).toggleClass('action');
+        if ($itTips.hasClass('action')) {
+          $itTips.text('less');
+        } else {
+          $itTips.html('more<i></i><i></i><i></i>');
+        }
+      });
 	},
   mounted() {
 
@@ -663,62 +765,8 @@ export default {
         }
       });
 
-      /* item_detail 物品細節 */
-      var $itemImg = $('.itemImg'),
-        imgCont = $itemImg.find('.imgCont'),
-        $imgList = $itemImg.find('.imgList'),
-        $itInfo = $('.itemTitle').find('li'),
-        $itInfoH = $itInfo.eq(1).height() + 'px',
-        $itMaxH = $itInfo.eq(1).css('max-height'),
-        $btn_like = $('.btn_like'),
-        $infoPad = $('.conBlock.infoBlock').find('.infoPad'),
-        $infoPadH = $infoPad.eq(0).height(),
-        $btnPadH = $('.btnPad').outerHeight(true);
-      $infoPad.eq(1).css({
-        'min-height': $infoPadH
-      });
-      $infoPad.eq(1).find('dl').css({
-        'height': $infoPadH - $btnPadH
-      });
-      $btn_like.click(function () {
-        $(this).toggleClass('action');
-      });
-      $('.backTop').click(function () {
-        $('html,body').animate({
-          scrollTop: $('#main').offset().top
-        }, 800, 'easeOutCirc');
-      });
 
-      //物品照片切換
-      $imgList.click(function () {
-        var imgInd = $(this).index('.imgList'),
-          img = $(this).find('img').attr('src');
-        imgCont.find('img').attr('src', img);
-        $(this).addClass('action').siblings('.imgList').removeClass('action');
-      });
-      $('.btn_cancel').click(function () {
-        $('#popContainer').stop().animate({
-          top: -100 + 'vh'
-        }, 500);
-      });
-      //物品說明more.less
-      if ($itInfoH < $itMaxH) {
-        if ($itTips == true) {
-          $itTips.remove();
-        }
-      } else {
-        $itInfo.eq(1).append('<span class="itTips">more<i></i><i></i><i></i></span>');
-      }
-      var $itTips = $('.itTips');
-      $itTips.click(function () {
-        $itTips.toggleClass('action');
-        $itInfo.eq(1).toggleClass('action');
-        if ($itTips.hasClass('action')) {
-          $itTips.text('less');
-        } else {
-          $itTips.html('more<i></i><i></i><i></i>');
-        }
-      });
+      
       // Yep, that's it!
       //$('#scene').parallax();
 
@@ -771,7 +819,7 @@ export default {
        
 
       })
-    }, 0)
+    }, 100)
   }
 
 }

@@ -42,7 +42,7 @@
 				</div>
 				<div class="itemPad clear" >
 					 <div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0">
-						<div class="itemImg"><img src="product.PictureUrls" alt=""></div>
+						<div class="itemImg"><img :src="(product.PictureUrls)[0]" alt=""></div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart" id="iHeart"></span>
@@ -53,7 +53,7 @@
 						</div>
 					</div>
 					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 0 && index <= 9 ">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></div>
+						<div class="itemImg"><img :src="product.PictureUrls[0]" alt=""></div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart action"></span>
@@ -74,7 +74,7 @@
 						</div>
 					</div>
 					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 9 ">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></div>
+						<div class="itemImg"><img :src="product.PictureUrls[0]" alt=""></div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart action"></span>
@@ -386,7 +386,6 @@ export default {
 	    this.getToken();  
 		this.resData = await api.get('GetProductWithLocationAndCategory_V2',localStorage.getItem('api_token'),'&filterDate=16')
 		console.log(this.resData)
-		
 	  },
 	   async getToken(){
 		   await api.getToken()
@@ -412,13 +411,11 @@ export default {
           $boxS.css({
             'min-height': maxHeight + 'px'
 		  });
-		 //this.$refs.itemS.style.minHeight = maxHeight + 'px'
           $boxL.css({
             'min-height': maxHeight * 2 + 10 + 'px'
           });
         }
-        //console.log(itemW);
-        $('.itemPad').masonry({
+		 $('.itemPad').masonry({
           itemSelector: '.itemBox',
           columnWidth: itemW,
           gutter: 10
@@ -426,7 +423,7 @@ export default {
 		   $('.iHeart').click(function(){
 	    	$(this).toggleClass('action');
 		  });
-	   },50)
+	   },100)
   },
   mounted() {
 	 
@@ -446,12 +443,12 @@ export default {
 	  });
 	 
 	$('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
-			 $(window).on('load', function () {
-        if ($(window).width() > 1024) {
+	    $(window).on('load', function () {
+          if ($(window).width() > 1024) {
           var s = skrollr.init();
 				}
 				
-				})
+		})
 
 
 				

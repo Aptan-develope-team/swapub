@@ -11,12 +11,12 @@
 		<div class="content">
             <h1>編輯個人資料</h1>
             <div class="innerCoverBlock">
-                <span class="coverImg"></span>
-                <label for="editCover" class="btn_w btn_edit">點擊編輯圖片<input type="file" id="editCover"></label>
+                <span class="coverImg" :style="{ backgroundImage:`url(${this.CoverUrl})`}"></span>
+                <label for="editCover" class="btn_w btn_edit">點擊編輯圖片<input type="file" id="editCover" @change="onCoverChanged"></label>
                 <div>
                     <ul class="userInfo">
                         <li class="userPic">
-                            <label for="editUImg" class="editUserImg"><img src="../../../static/images/ws_user_img_4.png" alt=""><input type="file" id="editUImg" @change="onFileChanged"></label>
+                            <label for="editUImg" class="editUserImg"><img :src="this.imgUrl" alt=""><input type="file" id="editUImg" @change="onFileChanged"></label>
                         </li>
                     </ul>
                 </div>
@@ -96,11 +96,13 @@ export default {
         Mobile:"",
         Email:""
       },
-      isAllowEditUserName:{}
+      isAllowEditUserName:{},
+      imgUrl:"",
+      CoverUrl:""
     }
   },
   created(){
-  this.getUser();
+     this.getUser();
   },
   methods:{
     async getUser(){
@@ -110,7 +112,10 @@ export default {
         this.changeInfo.City = this.resData.Location.City 
         this.changeInfo.Country = this.resData.Location.Country
         this.changeInfo.Mobile = this.resData.Mobile
-        this.changeInfo.Email = this.resData.Email        
+        this.changeInfo.Email = this.resData.Email 
+        this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
+        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Cover.jpg"
+        console.log(this.CoverUrl)
         console.log(this.resData)
         
     },
@@ -161,7 +166,7 @@ export default {
         this.PicInfo.FileContent = e.target.result.split(',')[1]
         console.log(this.PicInfo)
 
-        axios.post('api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=1',this.PicInfo,{headers: {
+      axios.post('api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=1',this.PicInfo,{headers: {
 			'Content-Type': 'application/json',
       'appid':'TestAppID_2',
       'AppVersion':'2.14.0'
@@ -170,9 +175,26 @@ export default {
           })
       }         
       reader.readAsDataURL(file);
-      setTimeout(() => {
       
-            },1000)
+      },
+      onCoverChanged(event){
+            const file = event.target.files[0];
+            console.log(file.name)
+            const reader = new FileReader();
+            this.PicInfo.FileName = file.name
+            reader.onload = e => { 
+            this.PicInfo.FileContent = e.target.result.split(',')[1]
+            console.log(this.PicInfo)
+
+            axios.post('api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=2',this.PicInfo,{headers: {
+            'Content-Type': 'application/json',
+            'appid':'TestAppID_2',
+            'AppVersion':'2.14.0'
+            }}).then((res) => {
+                      console.log(res)
+                })
+      }         
+      reader.readAsDataURL(file);
       }
   
     
