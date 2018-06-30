@@ -341,8 +341,8 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 .infoPad .editPad.otherUserMD li:nth-child(3){float: right; margin-right: 0; margin-left: 3rem;}
 .infoPad .editPad .btn_good::after, .infoPad .editPad .btn_like::after {content: ''; position: absolute; margin-top: -2.4rem; margin-left: 2.5rem; font-size: 0.8rem; color: #808080;}
 .infoPad .editPad li.action p, .infoPad .editPad li.action::after{color: #ff7150;}
-.infoPad .editPad .btn_good::after{content: '4';}
-.infoPad .editPad .btn_like::after{content: '0';}
+.infoPad .editPad .btn_good::after{content: attr(data-good);}
+.infoPad .editPad .btn_like::after{content: attr(data-like);}
 body.item .conBlock.infoBlock .infoPad:nth-child(2) dd.btnPad{width: 100%; margin-top: 3rem; position: relative; bottom: 0;}
 .infoPad .btnPad{display:none; width: 100%;}
 .infoPad.otherUserMD .btnPad{display: inline-block;}

@@ -7,7 +7,7 @@ const url = "api/"
 
 export default{
     CdnUrl:"https://d11am61bl9q9du.cloudfront.net",
-    
+    userID:"",
     async getToken() {
       await axios.post(url + 'PeformLogon', qs.stringify({
         Email: "evilgame389@gmail.com",
@@ -25,17 +25,33 @@ export default{
         localStorage.setItem('api_token', res.data.Token)
       })
     },
+    async login(api,data){
+      var response = await axios.post(url + api,qs.stringify(data), {headers: {
+     'Content-Type': 'application/x-www-form-urlencoded',
+     'appid':'TestAppID_3',
+     'AppVersion':'2.14.0'
+     }}).then((res) => {
+           console.log(res)
+           return res.data
+         })
+         .catch((error) =>{
+           console.log(error)
+         })
+       return response 
+   },
     async post(api,data,token,param){
-        await axios.post(url + api + '?accessToken=' + token + param,qs.stringify(data), {headers: {
+       var response = await axios.post(url + api + '?accessToken=' + token + param,qs.stringify(data), {headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
       'appid':'TestAppID_3',
       'AppVersion':'2.14.0'
 			}}).then((res) => {
             console.log(res)
+            return res
           })
           .catch((error) =>{
             console.log(error)
-          }) 
+          })
+        return response 
     },
     async postJSON(api,data,token,param){
       await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
@@ -61,15 +77,17 @@ export default{
         return response 
     },
     async put(api,data,token,param){
-        var response = await axios.put(url + api +'?accessToken=' + token + param,qs.stringify(data), {headers: {
+      var response = await axios.put(url + api +'?accessToken=' + token + param,qs.stringify(data), {headers: {
       'appid':'TestAppID_3',
       'AppVersion':'2.14.0'
 			}}).then((res) => {
                 console.log(res)
+                return res
                 
         })
         .catch((error) =>{
         })
+        return response
     },
     delete(){
 

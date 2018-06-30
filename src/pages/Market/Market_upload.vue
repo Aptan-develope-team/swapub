@@ -68,20 +68,20 @@
                 <dd>
                   <p class="itemTitle">
                     <textarea name="" placeholder="物品名稱 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);"
-									onpaste="setHeight(this);" oninput="setHeight(this);" ></textarea>
+									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.ProductName"></textarea>
                   </p>
                   <p class="itemData">
                     <textarea name="" placeholder="描述物品 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);"
-									onpaste="setHeight(this);" oninput="setHeight(this);" ></textarea>
+									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Description"></textarea>
                   </p>
                   <p class="addTag noDot">
-                    <input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)">
+                    <input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)" v-model="Product.Tags"> 
                   </p>
                 	<p class="itemOption itemType"><b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required"></p>
                   <p class="itemOption icoPad">
                     <span>
                       <i>
-                        <img src="../../../static/images/icon_item_man.png" alt="">男士時尚</i>
+                        <img src="../../../static/images/icon_item_man.png" alt="" @click="setCategory('ow')" >男士時尚</i>
                       <i>
                         <img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</i>
                       <i>
@@ -132,13 +132,13 @@
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (國家)</b>
-                    <select name="">
+                    <select name="" v-model="Product.Location.Country">
                       <option value=""></option>
                     </select>
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (城市)</b>
-                    <select name="">
+                    <select name="" v-model="Product.Location.City">
                       <option value=""></option>
                     </select>
                   </p>
@@ -148,22 +148,22 @@
                 <dt>
                   <span>Step3</span>你想要交換的東西&nbsp;(至少選擇一項)</dt>
                 <dd>
-                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required"></p>
+                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data"></p>
 								<p class="noDot">物品價值範圍
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
 									</span>
-									<span><input type="number" name="" min="0">-<input type="number" name="" min="0"></span>
+									<span><input type="number" name="" min="0" v-model="Product.SwapTarget.Price_Start.Value">-<input type="number" name="" min="0" v-model="Product.SwapTarget.Price_End.Value"></span>
 								</p>
 								<p><textarea name="" placeholder="我想換到的服務" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
-									onpaste="setHeight(this);" oninput="setHeight(this);"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
+									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
 								<p>我要賣
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
 									</span>
                   <p class="noDot check editFree">
                     <label>
-                      <input type="checkbox" id="checkFree">
+                      <input type="checkbox" id="checkFree" value="true" v-model="Product.FreeToGive">
                     </label>我願意免費贈送</p>
                 </dd>
               </dl>
@@ -173,28 +173,28 @@
                 <dd>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="">
+                      <input type="checkbox" name="" v-model="Product.Options[3]">
                     </label>郵寄
                     <br>
                     <input type="text" name="" value="" placeholder="交貨細節 例如：交貨便、郵寄、快遞、免運費">
                   </p>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="">
+                      <input type="checkbox" name="" v-model="Product.Options[2]">
                     </label>面交
                     <br>
                     <input type="text" name="" value="" placeholder="交貨細節 例如：台北車站捷運站2號出口、台北市承德路一段1號">
                   </p>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="">
+                      <input type="checkbox" name="" v-model="Product.Options[1]">
                     </label>願意與海外交換</p>
                 </dd>
               </dl>
               <dl class="btnPad">
                 <dt>
                   <input class="btn_w" type="button" name="" value="取消">
-                  <input class="btn_w btn_submit" type="button" name="" value="送出" onclick="checkRq()">
+                  <input class="btn_w btn_submit" type="button" name="" value="送出" @click="upload()">
                 </dt>
               </dl>
             </form>
@@ -273,12 +273,62 @@
 <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 
 export default {
   components: {
     'app-header': Header,
     'app-footer': Footer
 
+  },
+  data(){
+    return {
+      Product:{
+          ProductName:"yeasa",
+          Infos:["woadsfw"],
+          Options:[0,0,0,0],
+          Description:"cooasdfl",
+          Location:{
+            Country:"台灣d",
+            AdministrativeArea:"",
+            City:"台北d"
+          },
+          Gps:[1.1,2.1],
+          Wants:{
+            DataSize:2,
+            Data:["ok"],
+            MoneyInfo:{
+              Type:"TWD",
+              Value:0
+            }
+          },
+          SwapTarget:{
+            Price_Start:{
+              Type:"TWD",
+              Value:0
+            },
+            Price_End:{
+              Type:"TWD",
+              Value:0
+            }
+          },
+          CategoryIDs:["524a426c430cb207947788fk"],
+          Tags:["#wowd"],
+          FaceToFaceInfos:[""],
+          FreeToGive:false
+      },
+    }
+  },
+  created(){
+  },
+  methods:{
+    async upload(){
+      console.log(this.Product.CategoryIDs)
+      await api.postJSON("Product",this.Product,localStorage.getItem('login_token'),"")
+    },
+    setCategory(id){
+      this.Product.CategoryIDs[0] = id
+    }
   },
   mounted() {
     setTimeout(() => {

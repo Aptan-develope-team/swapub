@@ -15,7 +15,7 @@
 						<dt>
 							<ul class="userInfo">
 								<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
-								<li class="userDetail"><h3 class="userName"><i>我(</i>{{this.user.Name}}<i>)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
+								<li class="userDetail"><h3 class="userName"><i v-if="isShow == true">我(</i>{{this.user.Name}}<i v-if="isShow == true">)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
 								<li class="timer"><span>53分鐘前</span></li>
 							</ul>
 						</dt>
@@ -27,7 +27,7 @@
 								<!-- <li class="imgList vedio"><img src="../../../static/images/img_item_02.jpg" alt=""></li> -->
 							</ul>
 						</dd>
-						<dd class="editPad action">
+						<dd class="editPad">
 							<ul>
 								<li class="btn_edit"><router-link to='/market_edit'><p>編輯</p></router-link></li>
 								<li class="btn_del"><p>刪除</p></li>
@@ -36,8 +36,8 @@
 						</dd>
 						<dd class="editPad otherUserMD">
 							<ul>
-								<li class="btn_good action"><p>讚</p></li>
-								<li class="btn_like"><p>追蹤</p></li>
+								<li class="btn_good" @click="postLike()"><p>讚</p></li>
+								<li class="btn_like" @click="postGood()"><p>追蹤</p></li>
 								<li class="btn_report"><p>檢舉</p></li>
 								<li class="btn_share"><p>分享</p></li>
 							</ul>
@@ -48,7 +48,7 @@
 					<dl class="CG_scorll">
 						<dt>
 							<ul class="itemTitle">
-								<li><h1>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</h1></li>
+								<li><h1>{{this.resData.ProductName}}</h1></li>
 								<li>
 									<!-- <p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
 									<p>產品功能 /居家擺飾、書擋、門擋</p>
@@ -150,14 +150,14 @@
 			<div class="conBlock socialBlock">
 				<div class="btnPad clear">
 					<span class="action">留言<i>({{this.messageNum}})</i></span>
-					<span>交換<i>(3)</i></span>
+					<span>交換<i>({{this.Exchange.length}})</i></span>
 				</div>
 				<div class="socialPad">
 					<dl>
 						<dt class="socialList msgPad action">
 							<ul>
 								<li>
-									<span class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></span>
+									<span class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.userImg" alt=""></a></span>
                   <p><input type="text" name="" value="" placeholder="我想說..." v-model="message"></p>
 									<a class="btn_sentMsg btn_o" @click="sendMessage()"></a>
 								</li>
@@ -384,6 +384,7 @@
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import api from '../../api/Api.js'
+import moment from 'moment-timezone'
 
 export default {
   components: {
@@ -399,30 +400,65 @@ export default {
 			user:{},
 			location:{},
 			productImg:[],
+			User:{},
+			Exchange:{},
+			TrackCount:{},
+			Smart:{},
+			Like:{},
 			imgUrl:"",
 			messageNum:"",
 			messageList:{},
-			message:""
+			message:"",
+			userImg:"",
+			isShow:""
     }
   },
   created(){
-	 this.getProductInfo(); 
-	 this.getMessageNum();
-	 this.getMessageList();
+			this.getProductInfo();
+			this.getMessageNum();
+			this.getMessageList();
+			this.getExchange();
+			this.getSmart()
+			this.getProductTrackCount();
+			
+		
+
   },
   methods:{
 	  async getProductInfo(){
 				this.getToken();  
 				this.resData = await api.get('Product/'+ this.id,localStorage.getItem('api_token'),'')
 				this.user = this.resData.Owner
-				this.location = this.resData.Location
+				this.location = this.user.Location
 				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
 				this.productImg = this.resData.PictureUrls
+				this.User = await api.get('User',localStorage.getItem('login_token'),'')
+				this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+				//this.getSmart(this.resData.ProductName)
+				$('.btn_good').attr('data-good',this.resData.LikeCount);
+				if(this.resData.IsTracked == true){
+					$('.btn_like').addClass("action");
+				}
+				if(this.resData.LikeStatus == true){
+					$('.btn_good').addClass("action");
+				}
+
+				if(this.user.ID == this.User.ID){
+						this.isShow = true
+						$('.editPad').addClass("action");
+						$('.otherUserMD').removeClass("action");
+						//$('.btnPad').css("display","none")					
+			  }
+			  else{
+						this.isShow = false
+						$('.otherUserMD').addClass("action");
+						$('.btnPad').css("display","block")
+
+			  }
 				console.log(this.resData)
 		},
 		async getMessageNum(){
 				this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
-				console.log(this.messageNum)
 		},
 	  async getToken(){
 		   await api.getToken()
@@ -430,16 +466,43 @@ export default {
 		async sendMessage(){
 			 await api.postJSON('PublicMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&productID=' + this.id)
 			 this.getMessageNum()
+			 this.getMessageList();
 			 this.message=""
 		},
 		async getMessageList(){
 				this.messageList = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id + "&maxtime=1")
-				console.log(this.messageList)
+		},
+		async getExchange(){
+				this.Exchange = await api.get('Message',localStorage.getItem('api_token'),'&productID=' + this.id )
+				console.log(this.Exchange)
+		},
+		async getSmart(ProductName){
+				this.Smart = await api.get('search_product_es',localStorage.getItem('login_token'),'&keyword='+ ProductName + "&skip=0")
+					console.log(this.Smart)
+		},
+		async getProductTrackCount(){
+				this.TrackCount = await api.get('GetProductTrackCount',localStorage.getItem('api_token'),'&productID=' + this.id)
+				$('.btn_like').attr('data-like',this.TrackCount.Value);
+
+				console.log(this.TrackCount)
+		},
+		async postLike(){
+				this.Like = await api.put('Product',"",localStorage.getItem('api_token'),'&productID=' + this.id)
+				$('.btn_good').attr('data-good',this.Like.LikeCount);
+
+
+		},
+		postGood(){
+				api.postJSON('Track',"1",localStorage.getItem('api_token'),"")
 		}
+		
+
 		
 		
 	},
 	updated(){
+		      setTimeout(() => {
+
       /* item_detail 物品細節 */
       var $itemImg = $('.itemImg'),
         imgCont = $itemImg.find('.imgCont'),
@@ -455,7 +518,7 @@ export default {
         'min-height': $infoPadH
       });
       $infoPad.eq(1).find('dl').css({
-        'height': $infoPadH - $btnPadH
+        //'height': $infoPadH - $btnPadH
       });
       $btn_like.click(function () {
         $(this).toggleClass('action');
@@ -510,13 +573,17 @@ export default {
         } else {
           $itTips.html('more<i></i><i></i><i></i>');
         }
-      });
+			});
+			var $btn_good = $('.btn_good');
+			$btn_good.click(function(){
+					$('.btn_good').toggleClass('action');
+			});
+			
+			},100)
+
 	},
   mounted() {
-
-    console.log(this.id)
-
-    setTimeout(() => {
+    setTimeout(() => {	
       var Gw = $(window),
         Gww = Gw.width(),
         Gwh = Gw.height(),
@@ -533,7 +600,9 @@ export default {
         $('.loadPad').css({
           'display': 'none'
         });
-      });
+			});
+		
+
       var $sugBlock = $('.suggestBlock'),
         conW = $('#main').find('.content').width(),
         conW = conW / 2;
@@ -541,8 +610,9 @@ export default {
         'padding-left': (Gww / 2) - conW,
         'padding-right': (Gww / 2) - conW,
         'margin-left': -(Gww / 2) + conW
-      });
-
+			});
+			
+		
       //留言.交換區塊 socialBlock
       var $btnPad = $('.socialBlock').find('.btnPad'),
         $scBtn = $btnPad.find('span'),
@@ -550,7 +620,7 @@ export default {
         $scUL = $scPad.find('.socialList'),
         $showMore = $scPad.find('.showMore'),
         $paction, pInd, pLen;
-      $scBtn.click(function () {
+        $scBtn.click(function () {
         var scInd = $(this).index();
         $scBtn.eq(scInd).addClass('action').siblings().removeClass('action');
         $scUL.eq(scInd).addClass('action').siblings().removeClass('action');
@@ -588,7 +658,27 @@ export default {
             $scItem.eq(i).fadeIn();
           }
         }
-      }
+			}
+			
+			 var btnWhi = $('.btnPad').find('.btn_whisper'),
+        whisperPad = $('.whisperPad'),
+        whGoTop = whisperPad.find('.goTop'),
+        closeWhBt = whisperPad.find('.btn_closePop');
+      btnWhi.click(function () {
+        whisperPad.animate({
+          'left': 0,
+          'opacity': '1'
+        }, 300);
+      });
+      whGoTop.click(function () {
+        $('.wMsgPad').scrollTop(0);
+      });
+      closeWhBt.click(function () {
+        whisperPad.animate({
+          'left': -110 + '%',
+          'opacity': '0'
+        }, 300);
+      });
 
       //交換區塊的開啟交換頁 socialBlock
       var $openSwap = $('.swapPad').find('.swapList');

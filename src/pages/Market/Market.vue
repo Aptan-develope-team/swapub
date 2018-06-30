@@ -41,11 +41,11 @@
 					<p>[享受交換樂趣，充滿無限可能]</p>
 				</div>
 				<div class="itemPad clear" >
-					 <div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0">
-						<div class="itemImg"><img :src="(product.PictureUrls)[0]" alt=""></div>
+					 <div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0" >
+						<div class="itemImg"><img :src="(product.PictureUrls)[0]" alt="" ></div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
 						<div class="itemInfo">
-							<span class="iQua">4</span><span class="iHeart" id="iHeart"></span>
+							<span class="iQua">{{ getExchangeCount(product._id) }}</span><span class="iHeart" id="iHeart"></span>
 						</div>
 						<div class="itemTitle">
 							<h3>{{product.ProductName}}</h3>
@@ -53,7 +53,7 @@
 						</div>
 					</div>
 					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 0 && index <= 9 ">
-						<div class="itemImg"><img :src="product.PictureUrls[0]" alt=""></div>
+						<div class="itemImg"><img :src="product.PictureUrls[0]" alt="" ></div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
 							<span class="iQua">4</span><span class="iHeart action"></span>
@@ -83,227 +83,6 @@
 							<h3>{{product.ProductName}}</h3>
 						</div>
 					</div>
-					<!--<div class="itemBox itemS iFinish">
-						<div class="itemImg"><img src="../../../static/images/img_item_08.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">12</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>手做造型彩色隔熱杯套</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">10</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>木製貓頭鷹造型桌飾</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_5.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">48</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Apple watch第一代，附上一個全新錶帶</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_6.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">39</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Canon單眼相機</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_7.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">20</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>PS遊戲片（多換一可）</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_8.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">40</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>針織外套（米色）</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_9.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Watch dogs遊戲片（專屬ps4，換出不退</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_10.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>PS遊戲片NINIA 2</h3>
-						</div>
-					</div>
-					<div class="itemBox itemL itemAd">
-						<p>廣告</p>
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_11.jpg" alt=""></div>
-						<a href="#"></a>
-						<div class="itemInfo">
-							<span>&nbsp;</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>《天堂M》凌晨開服瞬間18萬人熱爆，遊戲橘子：營運預算無上限</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_12.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">40</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>d系列保養組</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_13.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Rongjia晚霜系列</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_14.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>MAKE UP FOR EVER</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS" >
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_15.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">40</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>烏克麗麗</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_16.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>絨球耳環聖誕系列</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS noSwap">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_17.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">0</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Watch dogs遊戲片（專屬ps4，換出不退</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_18.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">13</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>金工手做搖水杯</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_19.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">20</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>全新air pod</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_20.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">1192</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>iphone7 全新機，只患部售，等值商品就換</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_21.jpg" alt=""></div>
-						<a href="item_detail.html?j"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>正韓淺紫上衣</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_22.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">29</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>YSL經典有提包</h3>
-						</div>
-					</div>
-					<div class="itemBox itemS">
-						<div class="itemImg"><img src="../../../static/images/mk_it_img_23.jpg" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">4</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>野豬瓦愣造壁掛</h3>
-						</div>
-					</div> -->
-					<!-- <div class="itemBox itemS" v-for="r in resData">
-						<div class="itemImg"><img :src="r.PictureUrls[0]" alt=""></div>
-						<a href="item_detail.html?c"></a>
-						<div class="itemInfo">
-							<span class="iQua">20</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>{{r.ProductName}}</h3>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -373,24 +152,46 @@ export default {
   data() {
     return {
 		resData:[],
-		data:{}
+		data:{},
+		Owner:{},
+		User:{},
+		Exchange:{}
     }
   },
   created(){
 	 this.getItem();
-
+	 this.getUser();
 	 
   },
   methods:{
 	  async getItem(){
 	    this.getToken();  
 		this.resData = await api.get('GetProductWithLocationAndCategory_V2',localStorage.getItem('api_token'),'&filterDate=16')
-		console.log(this.resData)
+				console.log(this.resData)
+		for (var i = 0; i < this.resData.length; i++) {
+		}
 	  },
 	   async getToken(){
 		   await api.getToken()
+	   },
+	//    goDetail(id,owner){
+	// 	   if(owner.ID != this.User.ID){
+	// 	   		this.$router.push({name:'Market_detail_follow',params: { id:id}})
+	// 	   }
+	// 	   else{
+	// 		    this.$router.push({name:'Market_detail',params: { id:id}})
+
+	// 	   }		   
+	//    },
+	   async getUser(){
+			this.User = await api.get('User',localStorage.getItem('login_token'),'')
+	   },	
+	   getExchangeCount(id){
+			this.Exchange = api.get('Message',localStorage.getItem('api_token'),'&productID=' + id )
+		    console.log(this.Exchange)
+			return this.Exchange.length
 	   }
-	  
+	   
   },
   updated(){
 	   setTimeout(() => {			 

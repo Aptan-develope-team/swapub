@@ -14,21 +14,21 @@
 					<dl>
 						<dt>
 							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/sr_na_img_1.jpg" alt=""></a></li>
-								<li class="userDetail"><h3 class="userName otherUser"><i>我(</i>Sia<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
+								<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
+								<li class="userDetail"><h3 class="userName otherUser"><i>我(</i>{{this.user.Name}}<i>)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
 								<li class="timer"><span>53分鐘前</span></li>
 							</ul>
 						</dt>
 						<dd>
 							<ul class="itemImg CGt">
-								<li class="imgCont"><img src="../../../static/images/img_item_10.jpg" alt=""></li>
-								<li class="imgList action"><img src="../../../static/images/img_item_10.jpg" alt=""></li>
-								<li class="imgList"><img src="../../../static/images/img_item_10.jpg" alt=""></li>
+								<li class="imgCont"><img :src="(this.productImg)[0]" alt=""></li>
+								<li class="imgList action"><img :src="(this.productImg)[0]" alt=""></li>
+								<li class="imgList" v-for="(img,index) in productImg" v-if="index > 0"><img :src="img" alt=""></li>
 							</ul>
 						</dd>
 						<dd class="editPad">
 							<ul>
-								<li class="btn_edit"><a href="item_edit.html" title=""><p>編輯</p></a></li>
+								<li class="btn_edit"><router-link to='/market_edit'><p>編輯</p></router-link></li>
 								<li class="btn_del"><p>刪除</p></li>
 								<li class="btn_share"><p>分享</p></li>
 							</ul>
@@ -47,9 +47,9 @@
 					<dl class="CG_scorll">
 						<dt>
 							<ul class="itemTitle">
-								<li><h1>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</h1></li>
+								<li><h1>{{this.resData.ProductName}}</h1></li>
 								<li>
-									<p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
+									<!-- <p>產品概念 /<br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p>
 									<p>產品功能 /居家擺飾、書擋、門擋</p>
 									<p>尺寸：(W)27cm×(H)20.5cm×(D)10 cm<br>材質：poly</p>
 									<p>-----------------------------------------------------------</p>
@@ -58,7 +58,8 @@
 									<p>※國際運費注意事項：<br>
 										寄送其他國家的運費，請先詢問設計師，我們會協助估算最優惠的寄送方式。<br>
 										確認好實際運費之後，我們會另開運費專屬賣場給您下單付款。
-									</p>
+									</p> -->
+                  		{{this.resData.Description}}
 								</li>
 							</ul>
 						</dt>
@@ -148,25 +149,25 @@
 			
 			<div class="conBlock socialBlock">
 				<div class="btnPad">
-					<span class="action">留言<i>(3)</i></span>
-					<span>交換<i>(3)</i></span>
+					<span class="action">留言<i>({{this.messageNum}})</i></span>
+					<span>交換<i>({{this.Exchange.length}})</i></span>
 				</div>
 				<div class="socialPad">
 					<dl>
 						<dt class="socialList msgPad action">
 							<ul>
 								<li>
-									<span class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-  								<p><input type="text" name="" value="" placeholder="我想說..."></p>
-									<a class="btn_sentMsg btn_o"></a>
+									<span class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.userImg" alt=""></a></span>
+                  <p><input type="text" name="" value="" placeholder="我想說..." v-model="message"></p>
+									<a class="btn_sentMsg btn_o" @click="sendMessage()"></a>
 								</li>
-								<li>
-									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_1.png" alt=""></a></span>
-									<span class="date">2017/10/27 19:55</span>
-									<p class="userName"><a href="menu_u_myitem_other.html?j">Yu_Fang cheng</a></p>
-									<p>看看喔!</p>
+								<li v-for="message in messageList">
+									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="message.AvatarUrl" alt=""></a></span>
+									<span class="date">{{((message.CreateDate).split('.')[0]).replace("T","     ")}}</span>
+                  <p class="userName"><a href="menu_u_myitem_other.html?j">{{message.Name}}</a></p>
+									<p>{{message.Message}}</p>
 								</li>
-								<li>
+								<!-- <li>
 									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_2.png" alt=""></a></span>
 									<span class="date">2017/10/27 19:55</span>
 									<p class="userName"><a href="menu_u_myitem_other.html?j">Victor Wang</a></p>
@@ -177,7 +178,7 @@
 									<span class="date">2017/10/27 19:55</span>
 									<p class="userName"><a href="menu_u_myitem_other.html?j">Amy Tesi</a></p>
 									<p>有更新,看看!</p>
-								</li>
+								</li> -->
 							</ul>
 						</dt>
 						<dd class="socialList swapPad">
@@ -353,6 +354,8 @@
 <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
+
 
 export default {
   components: {
@@ -360,6 +363,74 @@ export default {
     'app-footer': Footer
 
   },
+  	props: ["id"],
+	data() {
+    return {
+			resData:{},
+			user:{},
+			location:{},
+			productImg:[],
+			User:{},
+			Exchange:{},
+			Smart:{},
+			imgUrl:"",
+			messageNum:"",
+			messageList:{},
+			message:"",
+			userImg:""
+    }
+  },
+  created(){
+			this.getProductInfo();
+			this.getMessageNum();
+			this.getMessageList();
+			this.getUser();
+			this.getExchange();
+			this.getSmart()
+
+  },
+  methods:{
+	  async getProductInfo(){
+				this.getToken();  
+				this.resData = await api.get('Product/'+ this.id,localStorage.getItem('api_token'),'')
+				this.user = this.resData.Owner
+				this.location = this.user.Location
+				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
+				this.productImg = this.resData.PictureUrls
+				this.getSmart(this.resData.ProductName)
+				console.log(this.resData)
+		},
+		async getMessageNum(){
+				this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
+		},
+	  async getToken(){
+		   await api.getToken()
+		},
+		async sendMessage(){
+			 await api.postJSON('PublicMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&productID=' + this.id)
+			 this.getMessageNum()
+			 this.getMessageList();
+			 this.message=""
+		},
+		async getMessageList(){
+				this.messageList = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id + "&maxtime=1")
+		},
+		async getUser(){
+				this.User = await api.get('User',localStorage.getItem('login_token'),'')
+			  this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+		},
+		async getExchange(){
+				this.Exchange = await api.get('Message',localStorage.getItem('api_token'),'&productID=' + this.id )
+				console.log(this.Exchange)
+		},
+		async getSmart(ProductName){
+			  	this.Smart = await api.get('search_product_es',localStorage.getItem('login_token'),'&keyword='+ ProductName + "&skip=0")
+					console.log(this.Smart)
+		}
+
+		
+		
+	},
   mounted() {
     setTimeout(() => {
       var Gw = $(window),

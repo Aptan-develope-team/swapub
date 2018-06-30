@@ -655,16 +655,16 @@ $(document).ready(function(){
 		//$vedList = $itemImg.find('.imgList.vedio'),
 		$itInfo = $('.itemTitle').find('li'),
 		$itInfoH = $itInfo.eq(1).height() + 'px',
-		$itMaxH = $itInfo.eq(1).css('max-height'),
-		$btn_like = $('.btn_like'),
-		$btn_good = $('.btn_good');
-	imgCont.append('<i class="vedioMD"></i>');	
-	$btn_like.click(function(){
-		$(this).toggleClass('action');
-	});
-	$btn_good.click(function(){
-		$(this).toggleClass('action');
-	});
+		$itMaxH = $itInfo.eq(1).css('max-height')
+		//$btn_like = $('.btn_like'),
+		//$btn_good = $('.btn_good');
+	 imgCont.append('<i class="vedioMD"></i>');	
+	// $btn_like.click(function(){
+	// 	$(this).toggleClass('action');
+	// });
+	// $btn_good.click(function(){
+	// 	$(this).toggleClass('action');
+	// });
 	//物品照片切換
 	$imgList.hover(function(){
 		var imgInd = $(this).index('.imgList'),
@@ -841,7 +841,7 @@ $(document).ready(function(){
 		$itemType = $('.itemOption.itemType').find('input'),
 		$itemTag = $('.itemOption.itemType').find('span'),
 		icInd, icTXT;
-	$('.itemOption.itemType').append('<i class="clearVal">清除</i>');
+	//$('.itemOption.itemType').append('<i class="clearVal">清除</i>');
 	if($('.itemOption.itemType').hasClass('action')){
 		var itL = $itemType.val().length;
 		if(itL < 3){

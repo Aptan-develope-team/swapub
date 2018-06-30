@@ -90,7 +90,7 @@ export default {
 			alert('請輸入密碼')
 		}
 		else{
-		this.resData = await api.post('PeformLogon',this.UserInfo)
+		this.resData = await api.login('PeformLogon',this.UserInfo)
 		//this.resData = await api.get('User','D6DStlpfWsJLNPNCOWMp8%2beSW%2bbPEh1c9El40E%2b2mNoy5l5RHAhAJ2MTQigid4Uujq1E6DA6%2fpqGkbLbBhKmPEUlYoyEvxHAS%2fS1%2fvxf65tIhWyeVHsxw%3d%3d','')
 		// let copy = Object.assign({}, this.resData);
 		// copy.About = "cool"

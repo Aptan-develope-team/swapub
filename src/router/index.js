@@ -44,9 +44,10 @@ export default new Router({
       component: Market,
     },
     {
-      path: '/market_detail_follow',
+      path: '/market_detail_follow/:id',
       name: 'Market_detail_follow',
-      component: Market_detail_follow
+      component: Market_detail_follow,
+      props: true
     },
     {
       path: '/market_detail_whisper',
