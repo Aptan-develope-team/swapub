@@ -21,7 +21,8 @@
                 <dt>
                   <span>Step1</span>上傳照片或影片</dt>
                 <dd class="imgPad clear" id="imgPad">
-                 	<div class="editImg addImg"></div>
+                 	<!-- <div class="editImg addImg"></div> -->
+                   <input class="editImg addImg" type="file">
                   <div class="imgMaskW"></div>
                   <div class="imgMask">
 									<dl class="imgBlock CG_scorll">
@@ -75,71 +76,71 @@
 									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Description"></textarea>
                   </p>
                   <p class="addTag noDot">
-                    <input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)" v-model="Product.Tags"> 
+                    <input type="text" name="" value="" placeholder="加上標籤 (#Apple #Nike)" v-model="Product.Tags[0]"> 
                   </p>
                 	<p class="itemOption itemType"><b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required"></p>
                   <p class="itemOption icoPad">
                     <span>
                       <i>
-                        <img src="../../../static/images/icon_item_man.png" alt="" @click="setCategory('ow')" >男士時尚</i>
+                        <img src="../../../static/images/icon_item_man.png" alt="" @click="setCategory('524a426c430cb207947788fd')" >男士時尚</i>
                       <i>
-                        <img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</i>
+                        <img src="../../../static/images/icon_item_lady.png" alt="" @click="setCategory('524a427e430cb207947788fe')">女士時尚</i>
                       <i>
-                        <img src="../../../static/images/icon_item_baby.png" alt="">媽咪寶貝</i>
+                        <img src="../../../static/images/icon_item_baby.png" alt="" @click="setCategory('524a428d430cb207947788ff')">媽咪寶貝</i>
                       <i>
-                        <img src="../../../static/images/icon_item_pet.png" alt="">寵物用品</i>
+                        <img src="../../../static/images/icon_item_pet.png" alt="" @click="setCategory('524a4298430cb20794778900')">寵物用品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_book.png" alt="">書籍</i>
+                        <img src="../../../static/images/icon_item_book.png" alt="" @click="setCategory('524a491e430cb20c9c163a3c')">書籍</i>
                       <i>
-                        <img src="../../../static/images/icon_item_game.png" alt="">遊戲</i>
+                        <img src="../../../static/images/icon_item_game.png" alt="" @click="setCategory('524a4929430cb20c9c163a3d')">遊戲</i>
                       <i>
-                        <img src="../../../static/images/icon_item_media.png" alt="">數位影音</i>
+                        <img src="../../../static/images/icon_item_media.png" alt="" @click="setCategory('524a4931430cb20c9c163a42')">數位影音</i>
                       <i>
-                        <img src="../../../static/images/icon_item_toy.png" alt="">玩具公仔</i>
+                        <img src="../../../static/images/icon_item_toy.png" alt="" @click="setCategory('524a4941430cb20c9c163a43')">玩具公仔</i>
                       <i>
-                        <img src="../../../static/images/icon_item_3c.png" alt="">3C電子</i>
+                        <img src="../../../static/images/icon_item_3c.png" alt="" @click="setCategory('524a494f430cb20c9c163a44')">3C電子</i>
                       <i>
-                        <img src="../../../static/images/icon_item_electric.png" alt="">家電</i>
+                        <img src="../../../static/images/icon_item_electric.png" alt="" @click="setCategory('524a4957430cb20c9c163a45')">家電</i>
                       <i>
-                        <img src="../../../static/images/icon_item_furniture.png" alt="">傢俱</i>
+                        <img src="../../../static/images/icon_item_furniture.png" alt="" @click="setCategory('524a495f430cb20c9c163a46')">傢俱</i>
                       <i>
-                        <img src="../../../static/images/icon_item_garden.png" alt="">居家園藝</i>
+                        <img src="../../../static/images/icon_item_garden.png" alt="" @click="setCategory('524a4966430cb20c9c163a47')">居家園藝</i>
                       <i>
-                        <img src="../../../static/images/icon_item_sport.png" alt="">戶外活動</i>
+                        <img src="../../../static/images/icon_item_sport.png" alt="" @click="setCategory('524a4970430cb20c9c163a48')">戶外活動</i>
                       <i>
-                        <img src="../../../static/images/icon_item_fitness.png" alt="">健身</i>
+                        <img src="../../../static/images/icon_item_fitness.png" alt="" @click="setCategory('524a497b430cb20c9c163a49')">健身</i>
                       <i>
-                        <img src="../../../static/images/icon_item_makeup.png" alt="">美妝保養</i>
+                        <img src="../../../static/images/icon_item_makeup.png" alt="" @click="setCategory('524a4983430cb20c9c163a4a')">美妝保養</i>
                       <i>
-                        <img src="../../../static/images/icon_item_food.png" alt="">美食</i>
+                        <img src="../../../static/images/icon_item_food.png" alt="" @click="setCategory('524a498b430cb20c9c163a4b')">美食</i>
                       <i>
-                        <img src="../../../static/images/icon_item_stationery.png" alt="">文具用品</i>
+                        <img src="../../../static/images/icon_item_stationery.png" alt="" @click="setCategory('524a4994430cb20c9c163a4c')">文具用品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_art.png" alt="">藝術古董</i>
+                        <img src="../../../static/images/icon_item_art.png" alt="" @click="setCategory('524a499d430cb20c9c163a4d')">藝術古董</i>
                       <i>
-                        <img src="../../../static/images/icon_item_musical.png" alt="">樂器</i>
+                        <img src="../../../static/images/icon_item_musical.png" alt="" @click="setCategory('524a49a6430cb20c9c163a4e')">樂器</i>
                       <i>
-                        <img src="../../../static/images/icon_item_crafts.png" alt="">手工藝品</i>
+                        <img src="../../../static/images/icon_item_crafts.png" alt="" @click="setCategory('524a49c2430cb20c9c163a4f')">手工藝品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_traffic.png" alt="">交通工具</i>
+                        <img src="../../../static/images/icon_item_traffic.png" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')">交通工具</i>
                       <i>
-                        <img src="../../../static/images/icon_item_ticket.png" alt="">票券</i>
+                        <img src="../../../static/images/icon_item_ticket.png" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')">票券</i>
                       <i>
-                        <img src="../../../static/images/icon_item_service.png" alt="">個人服務</i>
+                        <img src="../../../static/images/icon_item_service.png" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')">個人服務</i>
                       <i>
-                        <img src="../../../static/images/icon_item_gift.png" alt="">免費贈與</i>
+                        <img src="../../../static/images/icon_item_gift.png" alt="" @click="setCategory('')">免費贈與</i>
                     </span>
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (國家)</b>
                     <select name="" v-model="Product.Location.Country">
-                      <option value=""></option>
+                      <option value="台灣">台灣</option>
                     </select>
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (城市)</b>
                     <select name="" v-model="Product.Location.City">
-                      <option value=""></option>
+                      <option value="台北市">台北市</option>
                     </select>
                   </p>
                 </dd>
@@ -148,7 +149,7 @@
                 <dt>
                   <span>Step3</span>你想要交換的東西&nbsp;(至少選擇一項)</dt>
                 <dd>
-                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data"></p>
+                 <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data[0]"></p>
 								<p class="noDot">物品價值範圍
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
@@ -156,7 +157,7 @@
 									<span><input type="number" name="" min="0" v-model="Product.SwapTarget.Price_Start.Value">-<input type="number" name="" min="0" v-model="Product.SwapTarget.Price_End.Value"></span>
 								</p>
 								<p><textarea name="" placeholder="我想換到的服務" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
-									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
+									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data[1]"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
 								<p>我要賣
 									<span class="currency btn_g"><i>TWD</i>
 										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
@@ -173,21 +174,21 @@
                 <dd>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="" v-model="Product.Options[3]">
+                      <input type="checkbox" name="" v-model="Product.Options[3]" :true-value="1" :false-value="0">
                     </label>郵寄
                     <br>
-                    <input type="text" name="" value="" placeholder="交貨細節 例如：交貨便、郵寄、快遞、免運費">
+                    <input type="text" name="" value="" placeholder="交貨細節 例如：交貨便、郵寄、快遞、免運費" v-model="Product.Infos[0]">
                   </p>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="" v-model="Product.Options[2]">
+                      <input type="checkbox" name="" v-model="Product.Options[2]" :true-value="1" :false-value="0">
                     </label>面交
                     <br>
-                    <input type="text" name="" value="" placeholder="交貨細節 例如：台北車站捷運站2號出口、台北市承德路一段1號">
+                    <input type="text" name="" value="" placeholder="交貨細節 例如：台北車站捷運站2號出口、台北市承德路一段1號" v-model="Product.FaceToFaceInfos[0]">
                   </p>
                   <p class="noDot check">
                     <label>
-                      <input type="checkbox" name="" v-model="Product.Options[1]">
+                      <input type="checkbox" name="" v-model="Product.Options[1]" :true-value="1" :false-value="0">
                     </label>願意與海外交換</p>
                 </dd>
               </dl>
@@ -284,10 +285,10 @@ export default {
   data(){
     return {
       Product:{
-          ProductName:"yeasa",
-          Infos:["woadsfw"],
+          ProductName:"",
+          Infos:[""],
           Options:[0,0,0,0],
-          Description:"cooasdfl",
+          Description:"",
           Location:{
             Country:"台灣d",
             AdministrativeArea:"",
@@ -296,7 +297,7 @@ export default {
           Gps:[1.1,2.1],
           Wants:{
             DataSize:2,
-            Data:["ok"],
+            Data:[""],
             MoneyInfo:{
               Type:"TWD",
               Value:0
@@ -305,29 +306,33 @@ export default {
           SwapTarget:{
             Price_Start:{
               Type:"TWD",
-              Value:0
+              Value:""
             },
             Price_End:{
               Type:"TWD",
-              Value:0
+              Value:""
             }
           },
-          CategoryIDs:["524a426c430cb207947788fk"],
-          Tags:["#wowd"],
+          CategoryIDs:[""],
+          Tags:[""],
           FaceToFaceInfos:[""],
           FreeToGive:false
       },
+      PicInfo:{
+        FileName:"123",
+        FileContent:""
+      }
     }
   },
   created(){
   },
   methods:{
     async upload(){
-      console.log(this.Product.CategoryIDs)
       await api.postJSON("Product",this.Product,localStorage.getItem('login_token'),"")
     },
     setCategory(id){
       this.Product.CategoryIDs[0] = id
+      console.log(this.Product.CategoryIDs[0])
     }
   },
   mounted() {
