@@ -54,16 +54,18 @@ export default{
         return response 
     },
     async postJSON(api,data,token,param){
-      await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
+      var response = await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
     'Content-Type': 'application/json',
     'appid':'TestAppID_3',
     'AppVersion':'2.14.0'
     }}).then((res) => {
           console.log(res)
+          return res.data
         })
         .catch((error) =>{
           console.log(error)
         }) 
+        return response 
     },
     async get(api,token,param){
         axios.defaults.headers.get['appid'] = 'TestAppID_3'
@@ -73,6 +75,7 @@ export default{
                 return res.data
         })
         .catch((error) =>{
+          console.log(error)
         })
         return response 
     },
@@ -86,10 +89,19 @@ export default{
                 
         })
         .catch((error) =>{
+          console.log(error)
         })
         return response
     },
-    delete(){
-
+    async delete(api,token,param){
+      axios.defaults.headers.delete['appid'] = 'TestAppID_3'
+      axios.defaults.headers.delete['AppVersion'] = '2.14.0'
+      await axios.delete(url + api + '?accessToken=' + token + param)
+      .then((res) => {
+          console.log(res)
+      })
+      .catch((error) =>{
+          console.log(error)
+      })
     }
 }

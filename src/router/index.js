@@ -55,9 +55,10 @@ export default new Router({
       component: Market_detail_whisper
     },
     {
-      path: '/market_edit',
+      path: '/market_edit/:id',
       name: 'Market_edit',
-      component: Market_edit
+      component: Market_edit,
+      props: true
     },
     {
       path: '/market_search',

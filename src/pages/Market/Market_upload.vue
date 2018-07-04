@@ -20,17 +20,19 @@
               <dl class="stepPad">
                 <dt>
                   <span>Step1</span>上傳照片或影片</dt>
-                <dd class="imgPad clear" id="imgPad">
-                 	<!-- <div class="editImg addImg"></div> -->
-                   <input class="editImg addImg" type="file">
+                   <dd class="imgPad clear" id="imgPad">
+                 	<div class="editImg addImg">
+                     <label for="uploadImg"><input id="uploadImg" type="file" @change="onFileChanged"></label>
+                     </div>
+                  
                   <div class="imgMaskW"></div>
                   <div class="imgMask">
 									<dl class="imgBlock CG_scorll">
                         <dt class="editImg imgList">
-                        <img src="../../../static/images/img_item_01.jpg" alt="">
+                        <img :src="this.imgUrl" alt="">
                         <span>
                           <b class="btn_w btn_editimg">編輯</b>
-                          <i class="delImg"></i>
+                          <i class="delImg" @click="removeImg()"></i>
                         </span>
                         <i>1</i>
                       </dt>
@@ -152,7 +154,7 @@
                  <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data[0]"></p>
 								<p class="noDot">物品價值範圍
 									<span class="currency btn_g"><i>TWD</i>
-										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
+										<span class="curBlock"><b @click="setCurrencyPrice('AED')">AED</b><b @click="setCurrencyPrice('AUD')">AUD</b><b @click="setCurrencyPrice('CAD')">CAD</b><b @click="setCurrencyPrice('CNY')">CNY</b><b @click="setCurrencyPrice('EUR')">EUR</b><b @click="setCurrencyPrice('HKD')">HKD</b><b @click="setCurrencyPrice('JPY')">JPY</b><b @click="setCurrencyPrice('KRW')">KRW</b><b @click="setCurrencyPrice('TWD')">TWD</b><b @click="setCurrencyPrice('USD')">USD</b></span>
 									</span>
 									<span><input type="number" name="" min="0" v-model="Product.SwapTarget.Price_Start.Value">-<input type="number" name="" min="0" v-model="Product.SwapTarget.Price_End.Value"></span>
 								</p>
@@ -160,8 +162,9 @@
 									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data[1]"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
 								<p>我要賣
 									<span class="currency btn_g"><i>TWD</i>
-										<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
+										<span class="curBlock"><b @click="setCurrencyType('AED')">AED</b><b @click="setCurrencyType('AUD')">AUD</b><b @click="setCurrencyType('CAD')">CAD</b><b @click="setCurrencyType('CNY')">CNY</b><b @click="setCurrencyType('EUR')">EUR</b><b @click="setCurrencyType('HKD')">HKD</b><b @click="setCurrencyType('JPY')">JPY</b><b @click="setCurrencyType('KRW')">KRW</b><b @click="setCurrencyType('TWD')">TWD</b><b @click="setCurrencyType('USD')">USD</b></span>
 									</span>
+                  <span><input type="number" name="" min="0"></span>
                   <p class="noDot check editFree">
                     <label>
                       <input type="checkbox" id="checkFree" value="true" v-model="Product.FreeToGive">
@@ -290,9 +293,9 @@ export default {
           Options:[0,0,0,0],
           Description:"",
           Location:{
-            Country:"台灣d",
+            Country:"",
             AdministrativeArea:"",
-            City:"台北d"
+            City:""
           },
           Gps:[1.1,2.1],
           Wants:{
@@ -321,18 +324,51 @@ export default {
       PicInfo:{
         FileName:"123",
         FileContent:""
-      }
+      },
+      imgUrl:"",
+      productID:""
     }
   },
   created(){
   },
   methods:{
     async upload(){
-      await api.postJSON("Product",this.Product,localStorage.getItem('login_token'),"")
+      if(this.PicInfo.FileContent != ""){
+        this.productID = await api.postJSON("Product",this.Product,localStorage.getItem('login_token'),"")  
+        console.log(this.productID)
+        await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.productID)
+      }
+      else{
+        alert("請上傳照片")
+      }
     },
     setCategory(id){
       this.Product.CategoryIDs[0] = id
       console.log(this.Product.CategoryIDs[0])
+    },
+    onFileChanged (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      this.PicInfo.FileName = file.name
+      reader.onload = e => { 
+        this.imgUrl = e.target.result
+        this.PicInfo.FileContent = e.target.result.split(',')[1]
+      }         
+      reader.readAsDataURL(file);   
+    },
+    setCurrencyPrice(currency){
+      this.Product.SwapTarget.Price_Start.Type = currency
+      this.Product.SwapTarget.Price_End.Type = currency
+
+    },
+    setCurrencyType(currency){
+        this.MoneyInfo.Type = currency
+    },
+    removeImg(){
+      this.imgUrl = ""
+    },
+    clearCategory(){
+      this.Product.CategoryIDs[0] = ""
     }
   },
   mounted() {
@@ -393,7 +429,7 @@ export default {
         $itemType = $('.itemOption.itemType').find('input'),
         $itemTag = $('.itemOption.itemType').find('span'),
         icInd, icTXT;
-      $('.itemOption.itemType').append('<i class="clearVal">清除</i>');
+      $('.itemOption.itemType').append('<i class="clearVal" @click="clearCategory()">清除</i>');
       if ($('.itemOption.itemType').hasClass('action')) {
         var itL = $itemType.val().length;
         if (itL < 3) {
@@ -474,8 +510,21 @@ export default {
           scrollTop: $('#main').offset().top
         }, 800, 'easeOutCirc');
       });
-
-
+      var $btnCUR = $('.currency'),
+      $curBlock = $('.curBlock'),
+      $curList = $curBlock.find('b')
+    //點幣別按鈕
+    $btnCUR.click(function(){btnCUR($(this));});
+    $curList.click(function(){curList($(this));});
+    function btnCUR(obj){
+      if($('#checkFree').prop('checked') == false){
+        obj.find('.curBlock').fadeToggle();
+      }}
+      function curList(tag, txt){
+        var txt = tag.text(),
+        $thisCUR = tag.parent().parent().find('i');
+        $thisCUR.text(txt);
+	   }
       // Yep, that's it!
       //$('#scene').parallax();
 

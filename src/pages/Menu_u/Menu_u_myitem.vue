@@ -21,8 +21,8 @@
             <p class="countPad">
                 <span class="countSwap"><i>2</i>筆交換</span>
                 <span class="countAssess">
-                    <i class="btn_smile">3</i>
-                    <i class="btn_cry">0</i>
+                    <i class="btn_smile">{{this.Comment.good}}</i>
+                    <i class="btn_cry">{{this.Comment.bad}}</i>
                 </span>
                 <span><a href="user_attention.html" class="iconAttention"></a></span>
                 <span>
@@ -133,8 +133,8 @@
                 </div>
                 <p class="countPad">
                     <span class="countSwap"><i>2</i>筆交換</span>
-                    <span class="countAssess"><i class="btn_smile">3</i><i class="btn_cry">0</i></span>
-                    <a href="user_attention.html" class="iconAttention"></a>
+                    <span class="countAssess"><i class="btn_smile">{{this.Comment.good}}</i><i class="btn_cry">{{this.Comment.bad}}</i></span>
+                    <router-link to='/user_attention' class="iconAttention"></router-link>
                 </p>
                 <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
                 <router-link to='/menu_u_myinfo' class="btn_w btn_edit action">編輯</router-link>
@@ -228,7 +228,7 @@
             </div>
             <div class="itemBlock">
                 <div class="conBlock marketPad">
-                    <h2 class="action"><i></i>我的物品(<span>10</span>)</h2><h2><i></i>物品(<span>10</span>)</h2>
+                    <h2 class="action"><i></i>我的物品(<span>{{this.Item.length}}</span>)</h2><h2><i></i>物品(<span>10</span>)</h2>
                     <div class="itemPad clear">
                         <div class="itemBox mBox">
                             <div class="itemImg">
@@ -238,10 +238,11 @@
                             <a href="item_upload.html"></a>
                         </div>
                         <div class="itemBox mBox" v-for="product in Item">
-                            <div class="itemImg"><img src="../../../static/images/ws_user_img_5.png" alt=""></div>
-                            <a href="item_detail.html?j"></a>
+                            <div class="itemImg" v-if="product.PictureUrls"><img :src="(product.PictureUrls)[0]" alt=""></div>
+                            <!-- <a href="item_detail.html?j"></a> -->
+                            <router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
                             <div class="itemInfo">
-                                <span class="iQua">12</span><span class="iHeart"></span>
+                                <span class="iQua">{{product.OfferNum}}</span><span class="iHeart"></span>
                             </div>
                             <div class="itemTitle">
                                 <h3>{{product.ProductName}}</h3>
@@ -320,7 +321,7 @@
                     </div>
                 </div>
                 <div class="conBlock wishPad">
-                    <h2 class="action"><i></i>我想要(<span>5</span>)</h2><h2><i></i>許願牆(<span>5</span>)</h2>
+                    <h2 class="action"><i></i>我想要(<span>{{this.Wish.length}}</span>)</h2><h2><i></i>許願牆(<span>5</span>)</h2>
                     <div class="itemPad">
                         <div class="itemBox">
                             <div class="itemTitle">
@@ -397,12 +398,13 @@ export default {
            resData:{},
            imgUrl:"",
            CoverUrl:"",
-           Item:[]
+           Item:[],
+           Wish:[],
+           Comment:{}
       }
   },
   created(){
-            this.getUser();
-
+        this.getUser();
   },
   methods:{
     async getUser(){
@@ -411,7 +413,13 @@ export default {
         this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Cover.jpg"
         this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.resData.ID + "&filterDate=1" )
         console.log(this.Item)
-    }
+        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.resData.ID + "&filterDate=1" )
+        console.log(this.Wish)
+        this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.resData.ID)
+        console.log(this.Comment)
+
+    },
+   
   },
   updated(){
  //item排版_marketPad

@@ -167,9 +167,9 @@ export default {
 	  async getItem(){
 	    this.getToken();  
 		this.resData = await api.get('GetProductWithLocationAndCategory_V2',localStorage.getItem('api_token'),'&filterDate=16')
-				console.log(this.resData)
-		for (var i = 0; i < this.resData.length; i++) {
-		}
+		console.log(this.resData)
+		// for (var i = 0; i < this.resData.length; i++) {
+		// }
 	  },
 	   async getToken(){
 		   await api.getToken()
@@ -224,7 +224,7 @@ export default {
 		   $('.iHeart').click(function(){
 	    	$(this).toggleClass('action');
 		  });
-	   },100)
+	   },500)
   },
   mounted() {
 	 

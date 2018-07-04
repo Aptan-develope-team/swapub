@@ -152,19 +152,19 @@
 						<ul class="dealPad clear">
 							<li class="icon_deal"></li>
 							<li class="swapPad">
-								<span class="userPic checked"><img src="images/ws_user_img_5.png" alt=""></span>
-								<div class="itemImg"><img src="images/mk_it_img_23.jpg" alt=""></div>
+								<span class="userPic checked"><img src="../../static/images/ws_user_img_5.png" alt=""></span>
+								<div class="itemImg"><img src="../../static/images/mk_it_img_23.jpg" alt=""></div>
 								<p>TRWIWA手錶</p>
 							</li>
 							<li class="swapPad">
-								<span class="userPic checked"><img src="images/ws_user_img_4.png" alt=""></span>
-								<div class="itemImg"><img src="images/mk_it_img_1.jpg" alt=""></div>
+								<span class="userPic checked"><img src="../../static/images/ws_user_img_4.png" alt=""></span>
+								<div class="itemImg"><img src="../../static/images/mk_it_img_1.jpg" alt=""></div>
 								<p>桌上型盆栽擺飾</p>
 							</li>
 						</ul>
 					</div>
 					<div class="popAssessPad">
-						<span class="userPic checked"><img src="images/ws_user_img_4.png" alt=""></span>
+						<span class="userPic checked"><img src="../../static/images/ws_user_img_4.png" alt=""></span>
 						<textarea name="" id="" placeholder="請填寫評價內容"></textarea>
 						<p><b>請給予評價</b></p>
 						<div class="popAssessBtn">
@@ -200,17 +200,17 @@
 								<div class="result">
 									<div class="success clearfix">
 										<li>
-											<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+											<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 											<div class="name">台灣</div>
 										</li>
 										<li>
-											<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+											<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 											<div class="name">日本</div>
 										</li>
 									</div>
 									<div class="fail false"> <!-- false 拿掉就會顯示 -->
 										<div class="failImg">
-											<img src="images/search_default.png" alt="">
+											<img src="../../static/images/search_default.png" alt="">
 										</div>
 										<span>沒有搜尋結果</span>
 									</div>
@@ -250,88 +250,88 @@
 											<dl>
 												<!-- <dt>亞洲</dt> -->
 												<dd>
-													<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 													<div class="name">台灣</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 													<div class="name">中國</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">香港</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">澳門</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">日本</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 													<div class="name">南韓</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_dprk.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_dprk.png" alt=""></div>
 													<div class="name">北韓</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">馬來西亞</div>
 												</dd>
 												<!-- <dt>歐洲</dt> -->
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">泰國</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">印度</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">越南</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">緬甸</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">柬埔寨</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">聖誕島</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">菲律賓</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">寮國</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">科科島</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">東帝汶</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">蒙古國</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_tw.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 													<div class="name">汶萊</div>
 												</dd>
 												<dd>
-													<div class="countryImg"><img src="images/flag_uae.png" alt=""></div>
+													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">阿拉伯聯合大公國</div>
 												</dd>
 											</dl>
@@ -394,10 +394,11 @@ export default {
   },
   methods:{
 	  async getUser(){
-			this.resData = await api.get('User',localStorage.getItem('login_token'),'')
-			this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
-			console.log(this.resData)
-		
+			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
+					this.resData = await api.get('User',localStorage.getItem('login_token'),'')
+					this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
+					console.log(this.resData)
+			}
 	  },
 	  logout(){
 		  localStorage.setItem('login_token','')
@@ -485,7 +486,7 @@ export default {
         $('body.userPage').find('.btn_report').removeClass('action');
         $('body.userPage').find('.btn_edit').addClass('action');
         $('body.userPage').find('.btn_attention').removeClass('action');
-	  }
+	     }
 	  }
       // 商品細節最下方tab交換_商品是自己的
       if (!$('body').hasClass('follow')) {

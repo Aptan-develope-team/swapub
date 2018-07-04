@@ -22,6 +22,7 @@ $(window).on("load",function() {
 	$sideBt = $login.find('.sideBt'),
 	$sideBarPad = $('.sideBarPad'),
 	$sideList = $sideBarPad.find('.sideList')
+
 	// 	$sideBarPadW,
 	// 	$closeBt = $sideBarPad.find('.btn_close');
 	// //點header頭像及選項、通知按鈕 - 頭像.選項彈出menu為400px, 通知彈出menu為500px
@@ -202,73 +203,73 @@ $(window).on("load",function() {
 	// 	$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
 	// }
 
-	if(url.indexOf("?")!=-1){
-		if($urlUser == 'j'){
-			//網址?j 登入為Jing Yun Lee的狀態 >>預設的我自己
-			$login.addClass('action');
-			//$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
-			if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
-				$('body.userPage').find('.btn_report').addClass('action');
-				$('body.userPage').find('.btn_edit').removeClass('action');
-				$('body.userPage').find('.btn_attention').addClass('action');
-			} else if ($('body').hasClass('userPage') ){
-				$('body.userPage').find('.btn_report').removeClass('action');
-				$('body.userPage').find('.btn_edit').addClass('action');
-				$('body.userPage').find('.btn_attention').removeClass('action');
-			}
-			// 商品細節最下方tab交換_商品是自己的
-			if(!$('body').hasClass('follow')){
-				$('.openSwap').addClass('action');
-				$('.swapList').find('a.openDetail').css({'display':'block'});
-			}
-			if($('body').hasClass('mItem') && $('body').hasClass('other')){
-				//我的物品與願望_我看別人
-				$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
-				$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
-			}
-		}else if($urlUser == 'c'){
-			//網址?c 登入為Chloe Chen或是Rocky stone的狀態 >>預設的別人
-			$login.addClass('action');
-			$('#header').find('.userName').html('<i>我</i>Chloe Chen');
-			$('.login').addClass('otherUser');
-			$('.userInfo').addClass('otherUserMD');
-			$('.userInfo.otherUserMD').find('h3').addClass('otherUser');
-			$('.editPad.otherUserMD').addClass('action').siblings('.editPad').removeClass('action');
-			$infoPad.eq(1).addClass('otherUserMD');
-			if($('body').hasClass('mItem') && $('body').hasClass('other') ){
-				//我的物品與願望_別人看他自己
-				$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'block'});
-				$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'block'});
-			}else if($('body').hasClass('mItem')){
-				//我的物品與願望_別人看我
-				$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
-				$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
-				$('h2.action').removeClass('action').siblings('h2').addClass('action');
-			}
-			//自己跟別人 關注/編輯/檢舉 按鈕切換
-			if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
-				$('body.userPage').find('.iHeart').css({'display': 'none'});
-				$('body.userPage').find('.btn_report').removeClass('action');
-				$('body.userPage').find('.btn_edit').addClass('action');
-				$('body.userPage').find('.btn_attention').removeClass('action');
-				$('.userPic').css({'background-image':'url(images/sr_na_img_4.png)'});
-				$('.userName').not('.srNamePad .userName').html('<i>我</i>Rocky stone');
-			} else if ($('body').hasClass('userPage') ){
-				$('body.userPage').find('.iHeart').css({'display': 'block'});
-				$('body.userPage').find('.btn_report').addClass('action');
-				$('body.userPage').find('.btn_edit').removeClass('action');
-				$('body.userPage').find('.btn_attention').addClass('action');
-			}
-			// 商品細節最下方tab交換_商品不是自己的
-			$('.openSwap').removeClass('action');
-			$('.swapList').find('a.openDetail').css({'display':'none'});
-		}
-		else{//console.log('?j = Jing login / ?c = Chloe login');
-	    }
-	}
-	if ($('body').hasClass('menuPage') || $('body').hasClass('edit') || $('body').hasClass('item') || $('body').hasClass('userPage')) {
-		$login.addClass('action');
-	}
+	// if(url.indexOf("?")!=-1){
+	// 	if($urlUser == 'j'){
+	// 		//網址?j 登入為Jing Yun Lee的狀態 >>預設的我自己
+	// 		$login.addClass('action');
+	// 		//$('#header').find('.userName').html('<i>我</i>Jing Yun Lee');
+	// 		if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
+	// 			$('body.userPage').find('.btn_report').addClass('action');
+	// 			$('body.userPage').find('.btn_edit').removeClass('action');
+	// 			$('body.userPage').find('.btn_attention').addClass('action');
+	// 		} else if ($('body').hasClass('userPage') ){
+	// 			$('body.userPage').find('.btn_report').removeClass('action');
+	// 			$('body.userPage').find('.btn_edit').addClass('action');
+	// 			$('body.userPage').find('.btn_attention').removeClass('action');
+	// 		}
+	// 		// 商品細節最下方tab交換_商品是自己的
+	// 		if(!$('body').hasClass('follow')){
+	// 			$('.openSwap').addClass('action');
+	// 			$('.swapList').find('a.openDetail').css({'display':'block'});
+	// 		}
+	// 		if($('body').hasClass('mItem') && $('body').hasClass('other')){
+	// 			//我的物品與願望_我看別人
+	// 			$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
+	// 			$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
+	// 		}
+	// 	}else if($urlUser == 'c'){
+	// 		//網址?c 登入為Chloe Chen或是Rocky stone的狀態 >>預設的別人
+	// 		$login.addClass('action');
+	// 		$('#header').find('.userName').html('<i>我</i>Chloe Chen');
+	// 		$('.login').addClass('otherUser');
+	// 		$('.userInfo').addClass('otherUserMD');
+	// 		$('.userInfo.otherUserMD').find('h3').addClass('otherUser');
+	// 		$('.editPad.otherUserMD').addClass('action').siblings('.editPad').removeClass('action');
+	// 		$infoPad.eq(1).addClass('otherUserMD');
+	// 		if($('body').hasClass('mItem') && $('body').hasClass('other') ){
+	// 			//我的物品與願望_別人看他自己
+	// 			$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'block'});
+	// 			$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'block'});
+	// 		}else if($('body').hasClass('mItem')){
+	// 			//我的物品與願望_別人看我
+	// 			$('.itemPad').eq(0).find('.itemBox').eq(0).css({'display':'none'});
+	// 			$('.itemPad').eq(1).find('.itemBox').eq(0).css({'display':'none'});
+	// 			$('h2.action').removeClass('action').siblings('h2').addClass('action');
+	// 		}
+	// 		//自己跟別人 關注/編輯/檢舉 按鈕切換
+	// 		if ($('body').hasClass('userPage') && $('body').hasClass('other') ){
+	// 			$('body.userPage').find('.iHeart').css({'display': 'none'});
+	// 			$('body.userPage').find('.btn_report').removeClass('action');
+	// 			$('body.userPage').find('.btn_edit').addClass('action');
+	// 			$('body.userPage').find('.btn_attention').removeClass('action');
+	// 			$('.userPic').css({'background-image':'url(images/sr_na_img_4.png)'});
+	// 			$('.userName').not('.srNamePad .userName').html('<i>我</i>Rocky stone');
+	// 		} else if ($('body').hasClass('userPage') ){
+	// 			$('body.userPage').find('.iHeart').css({'display': 'block'});
+	// 			$('body.userPage').find('.btn_report').addClass('action');
+	// 			$('body.userPage').find('.btn_edit').removeClass('action');
+	// 			$('body.userPage').find('.btn_attention').addClass('action');
+	// 		}
+	// 		// 商品細節最下方tab交換_商品不是自己的
+	// 		$('.openSwap').removeClass('action');
+	// 		$('.swapList').find('a.openDetail').css({'display':'none'});
+	// 	}
+	// 	else{//console.log('?j = Jing login / ?c = Chloe login');
+	//     }
+	// }
+	// if ($('body').hasClass('menuPage') || $('body').hasClass('edit') || $('body').hasClass('item') || $('body').hasClass('userPage')) {
+	// 	$login.addClass('action');
+	// }
 	
 	/* ----------暫時的登入/用戶判斷end---------- */
 

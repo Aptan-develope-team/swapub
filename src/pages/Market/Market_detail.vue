@@ -14,7 +14,7 @@
 					<dl>
 						<dt>
 							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
+								<li class="userPic"><router-link to='menu_u_myitem'><img :src="this.imgUrl" alt=""></router-link></li>
 								<li class="userDetail"><h3 class="userName"><i v-if="isShow == true">我(</i>{{this.user.Name}}<i v-if="isShow == true">)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
 								<li class="timer"><span>53分鐘前</span></li>
 							</ul>
@@ -29,7 +29,7 @@
 						</dd>
 						<dd class="editPad">
 							<ul>
-								<li class="btn_edit"><router-link to='/market_edit'><p>編輯</p></router-link></li>
+								<li class="btn_edit"><router-link :to="{name:'Market_edit',params: { id: this.id}} "><p>編輯</p></router-link></li>
 								<li class="btn_del"><p>刪除</p></li>
 								<li class="btn_share"><p>分享</p></li>
 							</ul>
@@ -66,8 +66,8 @@
 						</dt>
 						<dd>
 							<ul class="itemInfo">
-								<li class="itemTag"><a>#dog</a><a>#black</a></li>
-								<li><span>我想要交換到的物品</span><p>大型的家居擺飾或是其他等值商品都可以!</p></li>
+								<li class="itemTag" v-if="this.resData.Tags"><a>{{this.resData.Tags[0]}}</a><a></a></li>
+								<li><span>我想要交換到的物品</span><p v-if="this.Data.Data">{{this.Data.Data[0]}}</p></li>
                 <li><p>TWD <i>4500</i></p></li>
 								<li><span>交貨細節</span><p>郵寄&nbsp;&nbsp;&nbsp;&nbsp;NT$70<br>全家取貨 (出貨後48hr店到店)&nbsp;&nbsp;&nbsp;&nbsp;NT$60<br>7-11取貨 (出貨後48hr店到店)&nbsp;&nbsp;&nbsp;&nbsp;NT$60</p></li>
 							</ul>
@@ -282,11 +282,11 @@
 	<div id="popContainer" style="top:-100vh;">
 		<div class="popContent popSys popDelPad">
 			<h3>提醒</h3>
-			<form action="menu_u_myitem.html">
+			<form>
 				<p>你確定要刪除嗎？</p>
 				<div class="popCheckPad">
 					<input type="button" class="btn_gr btn_cancel" value="取消">
-					<input type="submit" class="btn_o btn_sure" value="確定">
+					<input type="submit" class="btn_o btn_sure" value="確定" @click="deleteItem()">
 				</div>
 			</form>
 		</div>
@@ -343,8 +343,8 @@
 				<div class="popChoImg">
 					<dl>
 						<dt class="addImg btn_upload"><span>+選擇照片或物品</span><i>01</i></dt>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></dd>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic" v-for="item in Item"><img :src="item.PictureUrls[0]" alt="" @click="setItem(item._id)"></dd>
+						<!-- <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_04.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_03.jpg" alt=""></dd>
@@ -355,7 +355,7 @@
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_06.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_07.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_08.jpg" alt=""></dd>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd> -->
 					</dl>
 				</div>
 			</div>
@@ -384,7 +384,6 @@
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import api from '../../api/Api.js'
-import moment from 'moment-timezone'
 
 export default {
   components: {
@@ -410,7 +409,10 @@ export default {
 			messageList:{},
 			message:"",
 			userImg:"",
-			isShow:""
+			isShow:"",
+			Data:{},
+			Item:{},
+			Change:[]
     }
   },
   created(){
@@ -418,22 +420,24 @@ export default {
 			this.getMessageNum();
 			this.getMessageList();
 			this.getExchange();
-			this.getSmart()
+			//this.getSmart()
 			this.getProductTrackCount();
-			
-		
-
+			this.getMessageID();
   },
   methods:{
 	  async getProductInfo(){
 				this.getToken();  
 				this.resData = await api.get('Product/'+ this.id,localStorage.getItem('api_token'),'')
+				this.Data = this.resData.Wants
 				this.user = this.resData.Owner
 				this.location = this.user.Location
 				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
 				this.productImg = this.resData.PictureUrls
-				this.User = await api.get('User',localStorage.getItem('login_token'),'')
-				this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+				if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
+						this.User = await api.get('User',localStorage.getItem('login_token'),'')	
+						this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+						this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
+				}
 				//this.getSmart(this.resData.ProductName)
 				$('.btn_good').attr('data-good',this.resData.LikeCount);
 				if(this.resData.IsTracked == true){
@@ -442,7 +446,6 @@ export default {
 				if(this.resData.LikeStatus == true){
 					$('.btn_good').addClass("action");
 				}
-
 				if(this.user.ID == this.User.ID){
 						this.isShow = true
 						$('.editPad').addClass("action");
@@ -456,6 +459,7 @@ export default {
 
 			  }
 				console.log(this.resData)
+
 		},
 		async getMessageNum(){
 				this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
@@ -489,20 +493,34 @@ export default {
 		async postLike(){
 				this.Like = await api.put('Product',"",localStorage.getItem('api_token'),'&productID=' + this.id)
 				$('.btn_good').attr('data-good',this.Like.LikeCount);
-
-
 		},
+		async getMessageID(){
+					await api.postJSON('Message',"",localStorage.getItem('api_token'),'&productID=' + this.id )
+		}, 
 		postGood(){
 				api.postJSON('Track',"1",localStorage.getItem('api_token'),"")
+		},
+		async deleteItem(){
+				api.delete('Product/'+ this.id,localStorage.getItem('login_token'),"")
+				this.$router.push('/')
+				location.reload()
+		},
+		setItem(id){
+			if(this.Change.length == 0){
+				this.Change[0] = id 
+			}
+			else if(this.Change.length == 1){
+				this.Change[1] = id 
+			}
+			else{
+				this.Change[2] = id 
+			}
+			console.log(this.Change)
 		}
-		
-
-		
 		
 	},
 	updated(){
-		      setTimeout(() => {
-
+		  setTimeout(() => {
       /* item_detail 物品細節 */
       var $itemImg = $('.itemImg'),
         imgCont = $itemImg.find('.imgCont'),
@@ -578,11 +596,53 @@ export default {
 			$btn_good.click(function(){
 					$('.btn_good').toggleClass('action');
 			});
+
+			//提出交換
+	var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+		$picList = $('.btn_choosePic'),
+		btnInd=0,
+		$popAddImg = $('.popImgList').find('.addImg'),
+		$uploadW;
+	//點提出物品框框,出現圖片清單
+	$imgBox.click(function(){chooseImg($(this));});
+	function chooseImg(obj){
+		if($('#checkFree').prop('checked') == false){
+			btnInd = obj.index('.btn_imgBox');
+			$('#popContainer').removeClass('popShare');
+			$('#popContainer').removeClass('popReport');
+			$('#popContainer').removeClass('popDel');
+			$('.popImgList').stop().animate({top : 0}, 300);
+			$('#popContainer').addClass('popChooseImg');
+			$uploadW = $popAddImg.eq(1).outerWidth();
+			$popAddImg.css({'height': $uploadW});
+		}
+	}
+
+	$picList.click(function(){
+		var pInd = $(this).index('.btn_choosePic');
+		$picList.eq(pInd).addClass('action').siblings().removeClass('action'); //橘色邊框
+		var img = $picList.eq(pInd).find('img').attr('src'); //取得點選的圖片連結
+		$('.popImgList').stop().animate({top : -100 + 'vh'}, 300); //圖片清單消失
+		$('#popContainer').removeClass('popChooseImg');
+		$imgBox.eq(btnInd).addClass('getImg').css({'background-image':'url('+img+')'}); //將圖片匯入當下的提出物品框框
+	});
+
+	$('.btn_closeThisPop').click(function(){
+		$('.fake').stop().animate({top : -100 + 'vh'}, 500, function(){
+			$('#popContainer').removeClass('popChooseImg');
+			$('#popContainer').removeClass('popGuaQaC');
+			//$('.fake').stop().fadeOut();
+		});
+	});
+
+
 			
 			},100)
 
 	},
   mounted() {
+		this.isShow = false
+
     setTimeout(() => {	
       var Gw = $(window),
         Gww = Gw.width(),
@@ -853,7 +913,9 @@ export default {
             'display': 'none'
           }).siblings('.inquireDeta').fadeIn();
         }
-      });
+			});
+			
+
 
 
       
