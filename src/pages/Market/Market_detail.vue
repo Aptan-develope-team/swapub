@@ -307,7 +307,7 @@
 		<div class="popContent popEditSwap">
 			<div class="btn_closePop"></div>
 			<h3>您可以提出物品、價錢、服務等組合來交換</h3>
-			<form action="swap_item_detail.html?c">
+			<form>
 				<div class="popChoImg">
 					<h4>提出物品</h4>
 					<p>最多可以提出三個物品</p>
@@ -323,16 +323,16 @@
 						<span class="currency btn_g"><i>TWD</i>
                             <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
                         </span>
-						<input type="number" min="0"></p>
+						<input type="number" min="0" v-model="Change.OfferMoney.Value"></p>
 				</div>
 				<div class="popAddServ">
 					<h4>提供服務</h4>
-					<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗"></p>
+					<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" v-model="Change.OfferService"></p>
 				</div>
 				<div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
 				<div class="popCheckPad">
 					<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
-					<input type="submit" class="btn_o btn_sure" value="送出">
+					<input type="submit" class="btn_o btn_sure" value="送出" @click="postOffer()">
 				</div>
 			</form>
 		</div>
@@ -342,7 +342,7 @@
 				<h3>選擇照片或物品</h3>
 				<div class="popChoImg">
 					<dl>
-						<dt class="addImg btn_upload"><span>+選擇照片或物品</span><i>01</i></dt>
+					<router-link to='/market_upload'>	<dt class="addImg btn_upload" style="height:189px"><span>+選擇照片或物品</span><i>01</i></dt></router-link>
 						<dd class="addImg btn_choosePic" v-for="item in Item"><img :src="item.PictureUrls[0]" alt="" @click="setItem(item._id)"></dd>
 						<!-- <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
@@ -391,7 +391,6 @@ export default {
     'app-footer': Footer
 
 	},
-	
 	props: ["id"],
 	data() {
     return {
@@ -412,7 +411,17 @@ export default {
 			isShow:"",
 			Data:{},
 			Item:{},
-			Change:[]
+			Change:{
+				Item:[],
+				OfferMoney:{
+					Type:"TWD",
+					Value:""
+				},
+				OfferService:""
+			},
+			checkMsgID:{},
+			checkUser:{},
+			msgID:""
     }
   },
   created(){
@@ -422,7 +431,6 @@ export default {
 			this.getExchange();
 			//this.getSmart()
 			this.getProductTrackCount();
-			this.getMessageID();
   },
   methods:{
 	  async getProductInfo(){
@@ -456,8 +464,21 @@ export default {
 						this.isShow = false
 						$('.otherUserMD').addClass("action");
 						$('.btnPad').css("display","block")
+						this.checkMsgID = await api.get('Message',localStorage.getItem('login_token'),'&productID=' + this.id )
+						console.log(this.checkMsgID)
+						for( var i = 0 ; i < this.checkMsgID.length;i++){
+							 if(this.checkMsgID[i].AccountID == this.User.ID){
+								 this.msgID = this.checkMsgID[i].ID
+							 }
+						}
+						if(this.msgID == ""){
+							this.msgID = await api.postJSON('Message',"",localStorage.getItem('login_token'),'&productID=' + this.id )
+						}
+						console.log(this.msgID)
 
-			  }
+				}
+				
+			
 				console.log(this.resData)
 
 		},
@@ -487,7 +508,6 @@ export default {
 		async getProductTrackCount(){
 				this.TrackCount = await api.get('GetProductTrackCount',localStorage.getItem('api_token'),'&productID=' + this.id)
 				$('.btn_like').attr('data-like',this.TrackCount.Value);
-
 				console.log(this.TrackCount)
 		},
 		async postLike(){
@@ -495,7 +515,7 @@ export default {
 				$('.btn_good').attr('data-good',this.Like.LikeCount);
 		},
 		async getMessageID(){
-					await api.postJSON('Message',"",localStorage.getItem('api_token'),'&productID=' + this.id )
+					//await api.postJSON('Message',"",localStorage.getItem('login_token'),'&productID=' + this.id )
 		}, 
 		postGood(){
 				api.postJSON('Track',"1",localStorage.getItem('api_token'),"")
@@ -506,16 +526,19 @@ export default {
 				location.reload()
 		},
 		setItem(id){
-			if(this.Change.length == 0){
-				this.Change[0] = id 
+			if(this.Change.Item.length == 0){
+				this.Change.Item[0] = id 
 			}
 			else if(this.Change.length == 1){
-				this.Change[1] = id 
+				this.Change.Item[1] = id 
 			}
 			else{
-				this.Change[2] = id 
+				this.Change.Item[2] = id 
 			}
-			console.log(this.Change)
+			console.log(this.Change.Item)
+		},
+		async postOffer(){
+			api.postJSON('Change',JSON.stringify(this.Change),localStorage.getItem('login_token'), "&msgID=" + this.msgID)
 		}
 		
 	},

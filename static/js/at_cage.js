@@ -1120,7 +1120,7 @@ $(document).ready(function(){
 		}
 	}
 	//點選擇照片或物品跳轉到上傳物品頁
-	$('.btn_upload').click(function(){window.location.href='item_upload.html';});
+	// $('.btn_upload').click(function(){window.location.href='item_upload.html';});
 	//選圖片
 	$picList.click(function(){
 		var pInd = $(this).index('.btn_choosePic');
