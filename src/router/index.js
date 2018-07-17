@@ -82,14 +82,16 @@ export default new Router({
       component: Wish
     },
     {
-      path: '/wish_detail',
+      path: '/wish_detail/:id',
       name: 'Wish_detail',
-      component: Wish_detail
+      component: Wish_detail,
+      props: true
     },
     {
-      path: '/wish_edit',
+      path: '/wish_edit/:id',
       name: 'Wish_edit',
-      component: Wish_edit
+      component: Wish_edit,
+      props: true
     },
     {
       path: '/wish_search',
@@ -162,9 +164,10 @@ export default new Router({
       component: Menu_u_myinfo
     },
     {
-      path: '/menu_u_myitem',
+      path: '/menu_u_myitem/:id',
       name: 'Menu_u_myitem',
-      component: Menu_u_myitem
+      component: Menu_u_myitem,
+      props: true
     },
     {
       path: '/menu_u_my_item_other',
@@ -187,9 +190,10 @@ export default new Router({
       component: Exp_rule
     },
     {
-      path: '/user_attention',
+      path: '/user_attention/:id',
       name: 'User_attention',
-      component: User_attention
+      component: User_attention,
+      props: true
     },
     {
       path: '/user_attention_other',

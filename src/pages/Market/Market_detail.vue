@@ -16,7 +16,7 @@
 							<ul class="userInfo">
 								<li class="userPic"><router-link to='menu_u_myitem'><img :src="this.imgUrl" alt=""></router-link></li>
 								<li class="userDetail"><h3 class="userName"><i v-if="isShow == true">我(</i>{{this.user.Name}}<i v-if="isShow == true">)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
-								<li class="timer"><span>53分鐘前</span></li>
+								<!-- <li class="timer"><span>53分鐘前</span></li> -->
 							</ul>
 						</dt>
 						<dd>
@@ -38,10 +38,11 @@
 							<ul>
 								<li class="btn_good" @click="postLike()"><p>讚</p></li>
 								<li class="btn_like" @click="postGood()"><p>追蹤</p></li>
-								<li class="btn_report"><p>檢舉</p></li>
 								<li class="btn_share"><p>分享</p></li>
+								<li class="btn_report"><p>檢舉</p></li>
 							</ul>
 						</dd>
+						<dd class="timer"><span>53分鐘前</span></dd>
 					</dl>
 				</div>
 				<div class="infoPad">
@@ -74,12 +75,12 @@
 						</dd>
 						<dd class="btnPad">
 							<ul>
-								<li><a class="btn_o btn_whisper"><i><img src="../../../static/images/icon_swap_w.png" alt=""></i>悄悄話來交換</a></li>
+								<li><a class="btn_o btn_whisper" @click="openComment()"><i><img src="../../../static/images/icon_swap_w.png" alt=""></i>悄悄話來交換</a></li>
 							</ul>
 						</dd>
 						<dd>
 							<ul class="whisperPad">
-								<li>悄悄話來交換<span class="btn_closePop"></span></li>
+								<li>悄悄話來交換<span class="btn_closePop" ></span></li>
 								<li>
 									<dl>
 										<dt class="swapPad">
@@ -90,18 +91,20 @@
 										</dt>
 										<dd class="wMsgPad CG_scorll_auto">
 											<div class="msgMask">
-												<div class="otherUserMsg">
-													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
+												<div v-for="comment in Comment">
+												<div class="otherUserMsg" v-if="comment.AccountID != User.ID">
+													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="this.AvatarUrl" alt=""></a></span>
 													<p class="msgBlock">
-														<span>請問1600元可以換嗎？</span><i class="date">2017/10/27 19：55</i>
+														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
-												<div class="myMsg">
+												<div class="myMsg" v-if="comment.AccountID == User.ID">
 													<p class="msgBlock">
-														<span>嗯！可以啊～那要怎麼換？</span><i class="date">2017/10/27 19：55</i>
+														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
-												<div class="otherUserMsg">
+												</div>
+												<!-- <div class="otherUserMsg">
 													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
 													<p class="msgBlock">
 														<span>請問1600元可以換嗎？</span><i class="date">2017/10/27 19：55</i>
@@ -128,7 +131,7 @@
 													<p class="msgBlock">
 														<span>嗯嗯！好的沒問題</span><i class="date">2017/10/27 20：15</i>
 													</p>
-												</div>
+												</div> -->
 											</div>
 											<span class="goTop"></span>
 										</dd>
@@ -137,8 +140,8 @@
 												<label for="sendImg"></label>
 												<input type="file" id="sendImg">
 											</span>
-											<input type="text" name="" value="" placeholder="我想說...">
-											<span class="btn_o"></span>
+											<input type="text" name="" value="" placeholder="我想說..." v-model="privateMessage" >
+											<span class="btn_o" @click="sendComment()"></span>
 										</dd>
 									</dl>
 								</li>
@@ -195,14 +198,21 @@
 						</dt>
 						<dd class="socialList swapPad">
 							<ul>
-								<li class="swapList">
-									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
-									<span class="date">2017/10/27 19:55</span>
+								<li class="swapList" v-for="exchange in Exchange">
+									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="exchange.AvatarUrl" alt=""></a></span>
+									<span class="date">{{((exchange.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
 									<span class="openSwap action"></span>
-									<p class="userName"><a href="menu_u_myitem_other.html?j">Chloe Chen</a></p>
-									<p class="swapImg"><img src="../../../static/images/img_swapPad_01.jpg" alt=""></p>
+									<p class="userName"><a href="menu_u_myitem_other.html?j">{{exchange.Name}}</a></p>
+									<div v-if="exchange.Offer != '' && exchange.Offer != undefined">
+										<p class="swapImg" v-if="exchange.Offer.length == 1"><img :src="exchange.Offer[0].PictureUrl" alt=""></p>
+										<p class="swapImg" v-if="exchange.Offer.length == 2"><img :src="exchange.Offer[0].PictureUrl" alt="">+<img :src="exchange.Offer[1].PictureUrl" alt=""></p>
+										<p class="swapImg" v-if="exchange.Offer.length == 3"><img :src="exchange.Offer[0].PictureUrl" alt="">+<img :src="exchange.Offer[1].PictureUrl" alt="">+<img :src="exchange.Offer[2].PictureUrl" alt=""></p>
+									</div>
+									<p class="swapAdd" v-if="exchange.OfferMoney != '' && exchange.OfferMoney != undefined">+<img src="../../../static/images/icon_addmoney.png" alt=""> {{exchange.OfferMoney.Type}} {{exchange.OfferMoney.Value}}</p>
+									<p class="swapAdd"v-if="exchange.OfferService != '' && exchange.OfferService != undefined ">+<img src="../../../static/images/icon_addserv.png" alt=""> {{exchange.OfferService}}</p>
+									<p v-if="exchange.ChangeID == '000000000000000000000000'"><b>悄悄話來交換</b></p>
 								</li>
-								<li class="swapList">
+								<!-- <li class="swapList">
 									<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_7.png" alt=""></a></span>
 									<span class="date">2017/10/27 18:07</span>
 									<span class="openSwap action"></span>
@@ -233,7 +243,7 @@
 									<span class="openSwap action"></span>
 									<p class="userName"><a href="menu_u_myitem_other.html?j">皮梅 陳</a></p>
 									<p><b>悄悄話來交換</b></p>
-								</li>
+								</li> -->
 							</ul>
 						</dd>
 						<dd class="showMore"><p class="action">顯示更多</p></dd>
@@ -342,7 +352,7 @@
 				<h3>選擇照片或物品</h3>
 				<div class="popChoImg">
 					<dl>
-					<router-link to='/market_upload'>	<dt class="addImg btn_upload" style="height:189px"><span>+選擇照片或物品</span><i>01</i></dt></router-link>
+					<router-link to='/market_upload'>	<dt class="addImg btn_upload" style="height:189px"><span>+選擇照片或商品</span></dt></router-link>
 						<dd class="addImg btn_choosePic" v-for="item in Item"><img :src="item.PictureUrls[0]" alt="" @click="setItem(item._id)"></dd>
 						<!-- <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
@@ -412,7 +422,7 @@ export default {
 			Data:{},
 			Item:{},
 			Change:{
-				Item:[],
+				Items:[],
 				OfferMoney:{
 					Type:"TWD",
 					Value:""
@@ -421,7 +431,9 @@ export default {
 			},
 			checkMsgID:{},
 			checkUser:{},
-			msgID:""
+			msgID:"",
+			Comment:{},
+			privateMessage:""
     }
   },
   created(){
@@ -464,21 +476,7 @@ export default {
 						this.isShow = false
 						$('.otherUserMD').addClass("action");
 						$('.btnPad').css("display","block")
-						this.checkMsgID = await api.get('Message',localStorage.getItem('login_token'),'&productID=' + this.id )
-						console.log(this.checkMsgID)
-						for( var i = 0 ; i < this.checkMsgID.length;i++){
-							 if(this.checkMsgID[i].AccountID == this.User.ID){
-								 this.msgID = this.checkMsgID[i].ID
-							 }
-						}
-						if(this.msgID == ""){
-							this.msgID = await api.postJSON('Message',"",localStorage.getItem('login_token'),'&productID=' + this.id )
-						}
-						console.log(this.msgID)
-
-				}
-				
-			
+				}		
 				console.log(this.resData)
 
 		},
@@ -490,7 +488,7 @@ export default {
 		},
 		async sendMessage(){
 			 await api.postJSON('PublicMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&productID=' + this.id)
-			 this.getMessageNum()
+			 this.getMessageNum();
 			 this.getMessageList();
 			 this.message=""
 		},
@@ -514,9 +512,6 @@ export default {
 				this.Like = await api.put('Product',"",localStorage.getItem('api_token'),'&productID=' + this.id)
 				$('.btn_good').attr('data-good',this.Like.LikeCount);
 		},
-		async getMessageID(){
-					//await api.postJSON('Message',"",localStorage.getItem('login_token'),'&productID=' + this.id )
-		}, 
 		postGood(){
 				api.postJSON('Track',"1",localStorage.getItem('api_token'),"")
 		},
@@ -526,19 +521,39 @@ export default {
 				location.reload()
 		},
 		setItem(id){
-			if(this.Change.Item.length == 0){
-				this.Change.Item[0] = id 
+			if(this.Change.Items.length == 0){
+				this.Change.Items[0] = id 
 			}
 			else if(this.Change.length == 1){
-				this.Change.Item[1] = id 
+				this.Change.Items[1] = id 
 			}
 			else{
-				this.Change.Item[2] = id 
+				this.Change.Items[2] = id 
 			}
-			console.log(this.Change.Item)
+			console.log(this.Change.Items)
 		},
 		async postOffer(){
 			api.postJSON('Change',JSON.stringify(this.Change),localStorage.getItem('login_token'), "&msgID=" + this.msgID)
+		},
+		async sendComment(){
+			api.putJSON('Message',JSON.stringify(this.privateMessage),localStorage.getItem('login_token'),"&msgID=" + this.msgID)
+			this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)
+			this.privateMessage = ""
+		},
+		async openComment(){
+			      this.checkMsgID = await api.get('Message',localStorage.getItem('login_token'),'&productID=' + this.id )
+						console.log(this.checkMsgID)
+						for( var i = 0 ; i < this.checkMsgID.length;i++){
+							 if(this.checkMsgID[i].AccountID == this.User.ID){
+								 this.msgID = this.checkMsgID[i].ID
+							 }
+						}
+						if(this.msgID == ""){
+							this.msgID = await api.postJSON('Message',"",localStorage.getItem('login_token'),'&productID=' + this.id )
+						}
+						//console.log(this.msgID)
+						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)
+						console.log(this.Comment)
 		}
 		
 	},

@@ -24,22 +24,119 @@
                     <i class="btn_smile">{{this.Comment.good}}</i>
                     <i class="btn_cry">{{this.Comment.bad}}</i>
                 </span>
-                <span><a href="user_attention.html" class="iconAttention"></a></span>
+                <span><router-link to='/user_attention' class="iconAttention"></router-link></span>
                 <span>
                     <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
-                    <a href="menu_u_myinfo.html" class="btn_gr btn_edit action">編輯</a>
+                    <router-link to='/menu_u_myinfo' class="btn_gr btn_edit action">編輯</router-link>
                 </span>
                 <a class="btn_report">檢舉</a>
             </p>
-            <div class="assessMsgPad">
+            <div class="assMsgPad assessMsgPad">
+                <div v-for="rating in RatingList">
+                    <ul class="userInfo oUserMsg clear">
+                        <li class="userPic"><a href="menu_u_myitem_other.html">
+                            <img :src="rating.AvatarUrl" alt=""></a>
+                        </li>
+                        <li class="userDetail">
+                            <h3 class="userName">{{rating.Name}}</h3>
+                            <p class="ovLine">{{rating.Comment}}</p>
+                            <span class="date">2017/10/27 18:07</span>
+                        </li>
+                        <li class="swapInfo">
+                            <a href="menu_t_deal_detail.html">
+                                <dl class="dealPad clear">
+                                    <dt class="icon_deal"></dt>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>                                    </dd>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                         <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </li>
+                        <li class="assessFace">
+                                   <img src="../../../static/images/icon_smile_o.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="assMsgPad badAssMsgPad">
                 <div>
+                    <ul class="userInfo oUserMsg clear">
+                        <li class="userPic"><a href="menu_u_myitem_other.html?j">
+                            <img src="../../../static/images/ws_user_img_4.png" alt=""></a>
+                        </li>
+                        <li class="userDetail">
+                            <h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3>
+                            <p class="ovLine">我有在悄悄話裡面留言</p>
+                            <span class="date">2017/10/27 18:07</span>
+                        </li>
+                        <li class="swapInfo">
+                            <a href="menu_t_deal_detail.html">
+                                <dl class="dealPad clear">
+                                    <dt class="icon_deal"></dt>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>
+                                    </dd>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </li>
+                        <li class="assessFace">
+                            <img src="images/icon_cry_b.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div>
                     <ul class="userInfo oUserMsg">
                         <li class="userPic"><a href="menu_u_myitem_other.html">
                             <img src="../../../static/images/ws_user_img_5.png" alt=""></a>
                         </li>
                         <li class="userDetail">
                             <h3 class="userName">Rock stone</h3>
-                            <p>謝謝你~ 超級好換友</p>
+                             <p class="ovLine">謝謝你~ 超級好換友</p>
                             <span class="date">2017/10/27 18:07</span>
                         </li>
                         <li class="swapInfo">
@@ -87,35 +184,7 @@
                             <img src="../../../static/images/icon_smile.png" alt="">
                         </li>
                     </ul>
-                </div>
-                <div>
-                    <ul class="userInfo oUserMsg">
-                        <li class="userPic"><a href="menu_u_myitem_other.html">
-                            <img src="../../../static/images/ws_user_img_5.png" alt=""></a>
-                        </li>
-                        <li class="userDetail">
-                            <h3 class="userName">Rock stone</h3>
-                            <p>謝謝你~ 超級好換友</p>
-                            <span class="date">2017/10/27 18:07</span>
-                        </li>
-                        <li class="swapInfo">
-                            <a href="menu_t_deal_detail.html">
-                                <dl class="dealPad clear">
-                                    <dt class="icon_deal"></dt>
-                                    <dd class="swapPad itemImg">
-                                        <img src="../../../static/images/mk_it_img_23.jpg" alt="">
-                                    </dd>
-                                    <dd class="swapPad itemImg">
-                                        <img src="../../../static/images/mk_it_img_1.jpg" alt="">
-                                    </dd>
-                                </dl>
-                            </a>
-                        </li>
-                        <li class="assessFace">
-                            <img src="../../../static/images/icon_smile.png" alt="">
-                        </li>
-                    </ul>
-                </div>
+                </div> -->
             </div>
         </div>
 		<div class="content">
@@ -134,41 +203,111 @@
                 <p class="countPad">
                     <span class="countSwap"><i>2</i>筆交換</span>
                     <span class="countAssess"><i class="btn_smile">{{this.Comment.good}}</i><i class="btn_cry">{{this.Comment.bad}}</i></span>
-                    <router-link to='/user_attention' class="iconAttention"></router-link>
+                    <router-link :to="{name:'User_attention',params: { id: this.id}} " class="iconAttention"></router-link>
                 </p>
                 <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
                 <router-link to='/menu_u_myinfo' class="btn_w btn_edit action">編輯</router-link>
                 <a class="btn_report">檢舉</a>
-                <div class="assessMsgPad">
-                    <div>
-                        <ul class="userInfo oUserMsg">
+                <div class="assMsgPad assessMsgPad">
+                    <div  v-for="rating in RatingList">
+                        <ul class="userInfo oUserMsg clear">
                             <li class="userPic"><a href="menu_u_myitem_other.html">
-                                <img src="../../../static/images/ws_user_img_5.png" alt=""></a>
+                                <img :src="rating.AvatarUrl" alt=""></a>
                             </li>
                             <li class="userDetail">
-                                <h3 class="userName">Rock stone</h3>
-                                <p>謝謝你~ 超級好換友</p>
+                                <h3 class="userName">{{rating.Name}}</h3>
+                                <p class="ovLine">{{rating.Comment}}</p>
                                 <span class="date">2017/10/27 18:07</span>
                             </li>
                             <li class="swapInfo">
                                 <a href="menu_t_deal_detail.html">
                                     <dl class="dealPad clear">
                                         <dt class="icon_deal"></dt>
-                                        <dd class="swapPad itemImg">
-                                            <img src="../../../static/images/mk_it_img_23.jpg" alt="">
+                                        <dd class="itemCon_1 itemImg swapPad">
+                                            <div class="cssTable">
+                                                <dl>
+                                                    <div class="itemCon_2 cssTable">
+                                                        <ul>
+                                                            <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                            <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                                <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </dl>
+                                                <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            </div>
                                         </dd>
-                                        <dd class="swapPad itemImg">
-                                            <img src="../../../static/images/mk_it_img_1.jpg" alt="">
+                                        <dd class="itemCon_1 itemImg swapPad">
+                                            <div class="cssTable">
+                                                <dl>
+                                                    <div class="itemCon_2 cssTable">
+                                                        <ul>
+                                                            <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                        </ul>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </dd>
                                     </dl>
                                 </a>
                             </li>
                             <li class="assessFace">
-                                <img src="images/icon_smile.png" alt="">
+                                 <img src="../../../static/images/icon_smile_o.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="assMsgPad badAssMsgPad">
+                <div>
+                    <ul class="userInfo oUserMsg clear">
+                        <li class="userPic"><a href="menu_u_myitem_other.html?j">
+                            <img src="../../../static/images/ws_user_img_4.png" alt=""></a>
+                        </li>
+                        <li class="userDetail">
+                            <h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3>
+                            <p class="ovLine">我有在悄悄話裡面留言</p>
+                            <span class="date">2017/10/27 18:07</span>
+                        </li>
+                        <li class="swapInfo">
+                            <a href="menu_t_deal_detail.html">
+                                <dl class="dealPad clear">
+                                    <dt class="icon_deal"></dt>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>
+                                    </dd>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </li>
+                        <li class="assessFace">
+                            <img src="../../../static/images/icon_cry_b.svg" alt="">
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <!-- <div>
                         <ul class="userInfo oUserMsg">
                             <li class="userPic"><a href="menu_u_myitem_other.html">
                                 <img src="../../../static/images/ws_user_img_5.png" alt=""></a>
@@ -223,7 +362,7 @@
                                 <img src="images/icon_smile.png" alt="">
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="itemBlock">
@@ -393,6 +532,7 @@ export default {
     'app-footer': Footer
 
   },
+  props: ["id"],
   data(){
       return{
            resData:{},
@@ -400,31 +540,52 @@ export default {
            CoverUrl:"",
            Item:[],
            Wish:[],
-           Comment:{}
+           Comment:{},
+           RatingList:{},
+           DealList:{}
       }
   },
   created(){
         this.getUser();
+        console.log(this.id)
   },
   methods:{
     async getUser(){
-        this.resData = await api.get('User',localStorage.getItem('login_token'),'')
-        this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
-        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Cover.jpg"
-        this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.resData.ID + "&filterDate=1" )
+        this.resData = await api.get('User/' + this.id,localStorage.getItem('login_token'),'')
+        this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Avatar.jpg"
+        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Cover.jpg"
+        this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
         console.log(this.Item)
-        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.resData.ID + "&filterDate=1" )
+        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
         console.log(this.Wish)
-        this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.resData.ID)
+        this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id)
         console.log(this.Comment)
-
+        this.RatingList = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id + "&filterDate=1" )
+        console.log(this.RatingList)
+        this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'')
+        console.log(this.DealList)
+        for(var i = 0 ; i< this.RatingList.length; i++){
+            for(var j = 0; j < this.DealList.length; j++){
+                if(this.RatingList[i].ChangeID == this.DealList[j].ChangeID){
+                    this.RatingList[i].leftImg = this.DealList[j].Product.PictureUrl
+                    console.log("cool")
+                }
+                //console.log(this.DealList[j].ChangeID)
+            }
+        }
     },
+    
    
   },
   updated(){
  //item排版_marketPad
     setTimeout(() => {
-       
+        var Gw = $(window),
+        Gww = Gw.width(),
+        Gwh = Gw.height(),
+        Gd = $(document),
+        Gdw = Gd.width(),
+        Gdh = Gd.height();
      var $itemPad = $('.marketPad').find('.itemPad'),
           $itemPadW = $itemPad.width(),
           itemW = $itemPadW / 3 - 8,
@@ -440,12 +601,32 @@ export default {
             'min-height': maxHeight + 'px'
           });
         }
-        console.log(itemW);
+        //console.log(itemW);
         $itemPad.masonry({
           itemSelector: '.mBox',
           columnWidth: itemW,
           gutter: 10
         });
+        var $coverBts = $('.coverBlock').find('.btn_smile'),
+		$coverMsgPad = $('.coverBlock').find('.assessMsgPad');
+	$coverBts.click(function(){
+		var $btnPo = $coverBts.offset(),
+			$msgPadW = $coverMsgPad.outerWidth();
+		$coverMsgPad.css({'left': $btnPo.left - $msgPadW / 2});
+	});
+	var $innerBts = $('.innerCoverBlock').find('.btn_smile'),
+		$innerMsgPad = $('.innerCoverBlock').find('.assessMsgPad');
+	$innerBts.click(function(){
+		var $btnPo = $innerBts.offset(),
+			$msgPadW = $innerMsgPad.outerWidth();
+		if(Gww > 1280){
+			var conW = $('.innerCoverBlock').outerWidth(),
+				conMG = ( Gww - conW ) / 2;
+			$innerMsgPad.css({'left': $btnPo.left - conMG - $msgPadW / 2});
+		}else{
+			$innerMsgPad.css({'left': $btnPo.left - $msgPadW / 2 - 14 + 'px'});
+		}
+	});
    },850)
        
 
@@ -611,13 +792,25 @@ export default {
 				$('#popContainer').addClass('popReport');
             });
 
-            var $btnSmile = $('.btn_smile'),
-                $assPad = $('.assessMsgPad');
+             var $btnSmile = $('.btn_smile'),
+                $btnCry = $('.btn_cry'),
+                $assPad = $('.assessMsgPad'),
+                $bAssPad = $('.badAssMsgPad');
             $btnSmile.eq(0).click(function () {
                 $assPad.eq(0).fadeToggle();
+                $bAssPad.eq(0).fadeOut();
             });
             $btnSmile.eq(1).click(function () {
                 $assPad.eq(1).fadeToggle();
+                $bAssPad.eq(1).fadeOut();
+            });
+            $btnCry.eq(0).click(function () {
+                $bAssPad.eq(0).fadeToggle();
+                $assPad.eq(0).fadeOut();
+            });
+            $btnCry.eq(1).click(function () {
+                $bAssPad.eq(1).fadeToggle();
+                $assPad.eq(1).fadeOut();
             });
 
             var $coverBlock = $('.coverBlock'),
@@ -632,6 +825,7 @@ export default {
                 if (_nowHeight >= $icH) {
                     $icBlock.stop().animate({ 'opacity': 0 }, 150);
                     $assPad.eq(1).fadeOut();
+                    $bAssPad.eq(1).fadeOut();
                     $coverBlock.stop().animate({ 'top': 100 + 'px', 'opacity': 1 }, 500);
                     if (_nowHeight >= lastPos) {
                         $coverBlock.stop().animate({ 'top': 0 + 'px', 'opacity': 1 }, 150);
@@ -642,6 +836,7 @@ export default {
                     $icBlock.stop().animate({ 'opacity': 1 }, 150);
                     $coverBlock.stop().animate({ 'top': -60 + 'px', 'opacity': 0 , 'display':'none'}, 500);
                     $assPad.eq(0).fadeOut();
+                    $bAssPad.eq(0).fadeOut();
                 }
             });
 

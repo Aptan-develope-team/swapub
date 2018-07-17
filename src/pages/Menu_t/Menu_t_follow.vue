@@ -12,18 +12,18 @@
             <h1>我的追蹤(<span>7</span>)</h1>
             <div class="conBlock">
                 <div class="itemPad clear">
-					<div class="itemBox">
+					<div class="itemBox" v-for="track in Track">
                         <span class="iHeart"></span>
-						<div class="itemImg"><img src="../../../static/images/img_item_10.jpg" alt=""></div>
-						<a href="item_detail_follow.html?j"></a>
+						<div class="itemImg"><img :src="track.PictureUrl" alt=""></div>
+						<router-link :to="{name:'Market_detail',params: { id: track.ProductID}} "></router-link>
 						<div class="itemInfo">
-							<span class="iQua">4</span><span class="iMark">194.92公里</span>
+							<span class="iQua">{{track.OfferNum}}</span><span class="iMark">194.92公里</span>
 						</div>
 						<div class="itemTitle">
-							<h3>Medium Envelope Chain Bag</h3>
+							<h3>{{track.ProductName}}</h3>
 						</div>
 					</div>
-					<div class="itemBox">
+					<!-- <div class="itemBox">
                         <span class="iHeart"></span>
 						<div class="itemImg"><img src="../../../static/images/mk_it_img_22.jpg" alt=""></div>
 						<a href="item_detail_follow.html?j"></a>
@@ -88,7 +88,7 @@
                         <div class="itemTitle">
                             <h3>SAINT LAURENT LouLou Monogram Small leather ... </h3>
                         </div>
-                    </div>
+                    </div> -->
 				</div>
             </div>
 		</div>
@@ -110,12 +110,55 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
+
 
 export default {
   components: {
     'app-header': Header,
     'app-footer': Footer
 
+  },
+  data(){
+      return{
+          Track:{}
+  
+      }
+  },
+  created(){
+    this.getTrack();
+  },
+  methods:{
+      async getTrack(){
+					this.Track = await api.get('Track',localStorage.getItem('login_token'),'')
+          console.log(this.Track)
+      }
+  },
+  updated(){
+    	   setTimeout(() => {			 
+
+        var $itemPad = $('.itemPad'),
+          $itemPadW = $itemPad.width(),
+          itemW = $itemPadW / 5 - 8,
+          $allBox = $itemPad.find('.itemBox'),
+          boxLen = $allBox.length;
+        var boxHArr = [];
+        for (var i = 0; i < boxLen; i++) {
+          var boxH = $allBox.eq(i).outerHeight();
+          boxHArr.push(boxH);
+          var maxHeight = Math.max(...boxHArr);
+          // console.log('maxHeight= ' +maxHeight);
+          $allBox.css({
+            'min-height': maxHeight + 3 + 'px'
+          });
+        }
+
+        $itemPad.masonry({
+          itemSelector: '.itemBox',
+          columnWidth: itemW,
+          gutter: 10
+        });
+         },500)
   },
   mounted() {
     setTimeout(() => {
@@ -138,27 +181,7 @@ export default {
         // $('#header').find('.market').addClass('action');
     
         })
-        var $itemPad = $('.itemPad'),
-          $itemPadW = $itemPad.width(),
-          itemW = $itemPadW / 5 - 8,
-          $allBox = $itemPad.find('.itemBox'),
-          boxLen = $allBox.length;
-        var boxHArr = [];
-        for (var i = 0; i < boxLen; i++) {
-          var boxH = $allBox.eq(i).outerHeight();
-          boxHArr.push(boxH);
-          var maxHeight = Math.max(...boxHArr);
-          // console.log('maxHeight= ' +maxHeight);
-          $allBox.css({
-            'min-height': maxHeight + 3 + 'px'
-          });
-        }
-
-        $itemPad.masonry({
-          itemSelector: '.itemBox',
-          columnWidth: itemW,
-          gutter: 10
-        });
+        
       $(document).ready(function () {
         // $('.btn_deal').click(function(){
         //     $('#popContainer').removeClass();

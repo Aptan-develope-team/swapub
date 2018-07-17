@@ -16,6 +16,7 @@ a:active, a:focus {border: none; outline: none;}
 input, textarea, select, option {outline:none; padding:5px 15px; font-size: 1rem; -moz-appearance:none; -webkit-appearance:none; appearance:none;}
 input[type='date']::-webkit-inner-spin-button, input[type='date']::-webkit-calendar-picker-indicator { opacity: 0; } 
 input[type='submit'], input[type='button'] {cursor:pointer;}
+input[type='file']{display: none;}
 textarea {resize:none; overflow:hidden;}
 .height_F {/*Full Height @ at_cage.js*/}
 .height_F2 {/*Full Height - header @ at_cage.js*/}
@@ -82,6 +83,10 @@ input[type='text'], input[type='email'], input[type='password'], input[type='dat
 input[type='button'], input[type='submit']{
 	font-size: 1rem; color: #fff; line-height: 150%; padding: 5px 3rem; letter-spacing: 0.05rem; -webkit-border-radius:60px; -moz-border-radius:60px; -o-border-radius:60px; border-radius:60px;}
 
+input[type='checkbox'] {
+	width: auto; padding: 0.5rem; margin-right: 0.5rem;	background: #fff; border: 1px solid #808080; -webkit-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px;}
+input[type='checkbox']:checked {background:url(../images/icon_checked.png) #ff7150 no-repeat center; background-size: contain; border: 1px solid #ff7150;}
+
 input[type='radio'] {width:30px; height:30px; margin:5px;}
 select {background:url(../images/chevron_down.png) no-repeat left center;}
 select::-ms-expand {display:none;}
@@ -111,9 +116,9 @@ i[class^="icon_"], i[class*="icon_"] {}
 .CG_scorll::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0); -moz-box-shadow: inset 0 0 0 rgba(0,0,0,0); -o-box-shadow: inset 0 0 0 rgba(0,0,0,0); box-shadow: inset 0 0 0 rgba(0,0,0,0);}
 .CG_scorll::-webkit-scrollbar-thumb {background-color:transparent; outline: none;}
 
-.CG_scorll_auto::-webkit-scrollbar {width:2px;}
-.CG_scorll_auto::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); -moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); -o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
-.CG_scorll_auto::-webkit-scrollbar-thumb {background-color:rgba(0, 0, 0, 0.2); outline: none;}
+.CG_scorll_auto::-webkit-scrollbar {width:2px; height: 4px;}
+.CG_scorll_auto::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.05); -moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.05); -o-box-shadow: inset 0 0 2px rgba(0,0,0,0.05); box-shadow: inset 0 0 2px rgba(0,0,0,0.05);}
+.CG_scorll_auto::-webkit-scrollbar-thumb {background-color:rgba(0, 0, 0, 0.03); outline: none;}
 
 .CG_contactPad input, .CG_contactPad textarea  {background:#ff7150; color:#fff;}
 .CG_contactPad input {border:none; padding:8px; font-size:1.2em; margin-top:10px;}
@@ -132,9 +137,9 @@ i[class^="icon_"], i[class*="icon_"] {}
 	-webkit-transform:rotate(0deg); -o-transform:rotate(0deg); -moz-transform:rotate(0deg); transform:rotate(0deg);
 }
 .btn_pdCancel:hover {opacity:1; -webkit-transform:rotate(180deg); -o-transform:rotate(180deg); -moz-transform:rotate(180deg); transform:rotate(180deg);}
-.btn_o, .btn_g, .btn_r, .btn_w, .btn_gr, .btn_b, .btn_fb, .btn_tw{
+.btn_o, .btn_g, .btn_r, .btn_w, .btn_gr, .btn_b, .btn_nb, .btn_fb, .btn_tw{
 	font-size: 1rem; color: #fff; padding: 5px 15px; letter-spacing: 0.05rem; font-weight: 600; line-height: 150%; cursor: pointer; -webkit-border-radius:60px; -moz-border-radius:60px; -o-border-radius:60px; border-radius:60px;}
-.ico_fb, .ico_tw, .ico_mail, .ico_line, .ico_whats, .ico_cohref{
+.ico_fb, .ico_tw, .ico_mail, .ico_line, .ico_whats, .ico_cohref, .btn_info{
 	width:50px; height:50px; padding: 0; display: inline-block; vertical-align: middle; text-align: center; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%; background-size: 52%; background-repeat: no-repeat; background-position: center;}
 .ico_fb img, .ico_tw img, .ico_mail img, .ico_line img, .ico_whats img, .ico_cohref img{
 	margin-top: 5px; height: 27px;}
@@ -146,12 +151,14 @@ i[class^="icon_"], i[class*="icon_"] {}
 .ico_line{background-image:url(../images/icon_line.png); background-color: #008A00;}
 .ico_whats{background-image:url(../images/icon_whats.png); background-color: #3F801F;}
 .ico_cohref{background-image:url(../images/icon_copyhref.png); background-color: #60A795;}
+.btn_info{background-image:url(../images/btn_guarantee_w.svg); background-color: #ff7150; background-size: 80%; width: 20px; height: 20px;}
 .btn_o{background:#ff7150;}
 .btn_g{background:#60b4a2;}
 .btn_r{background:#eb6767;}
 .btn_w, input[type='button'].btn_w, input[type='submit'].btn_w{background:#fff; border:1px solid#808080; color: #808080; padding: 4px calc(3rem - 1px);}
 .btn_gr{background: #808080;}
 .btn_b{background: #639dde;}
+.btn_nb{background: #0055aa;}
 
 .btn_close{width:30px; height:30px; display:block; cursor: pointer; position: absolute; right: 1rem; top: 1rem;}
 .btn_close i{width:20px; height:2px; display:block; position: absolute; top:45%; right:15%; background: #808080;}
@@ -197,11 +204,13 @@ ul#scene > li > img {width:auto; height:100%; position:absolute;}
 
 /* 首頁.許願牆 新增物品.許願按鈕 */
 .indexBtPad{width:100%; max-width:16rem; margin: auto; margin-bottom: 1.5rem; text-align:center;}
-.indexBtPad a{width: 100%; max-width:6.6rem; padding-top: 7.1rem; display: block; float: left; font-size:1.3rem; font-weight: 600; background-repeat: no-repeat; background-position: center top; background-size: contain;}
-.indexBtPad .btn_item{color:#ff7150; background-image: url(../images/btn_article.png);}
-.indexBtPad .btn_item:hover{background-image: url(../images/btn_article_action.png);}
-.indexBtPad .btn_wish{float: right; color:#60a896; background-image: url(../images/btn_wish.png);}
-.indexBtPad .btn_wish:hover{background-image: url(../images/btn_wish_action.png);}
+
+.indexBtPad a {width: 100%; max-width: 6.6rem; padding-top: 7.1rem; display: block; float: left; font-size: 1.3rem; font-weight: 600; background-repeat: no-repeat; background-position: left top; background-size: auto 6.6rem;}
+.indexBtPad .btn_item{color:#ff7150; background-image: url(../images/btn_article.svg);}
+.indexBtPad .btn_item:hover {background-position: right top;}
+.indexBtPad .btn_wish{float: right; color:#60a896; background-image: url(../images/btn_wish.svg);}
+.indexBtPad .btn_wish:hover {background-position: right top;}
+
 
 /* ============= Inner ============= */
 .breadcrumb{width:100%; max-width:1440px; position: absolute; margin-top: 0.8rem; left: 50%; margin-left: -720px; color:#808080; font-size:0.8rem;}
@@ -242,7 +251,7 @@ body.mainPage .conBlock h1::after{content: ''; width:100%; height:2px; left: 0; 
 .itemBox .itemImg img{width:100%;}
 .itemBox .itemTitle{width: 94%; margin: 0.3rem auto 0;}
 .itemBox .itemInfo {width: 94%; margin: 0.5rem auto 0.3rem;}
-.iQua{padding: 0.2rem 0 0.2rem 1.9rem; font-size: 0.8rem; color:#ff7150; background-image: url(../images/icon_mkt_swap.png); background-repeat:no-repeat; background-position:left center; -webkit-background-size: 1.4rem; background-size: 1.4rem;}
+.iQua{padding: 0.2rem 0 0.2rem 1.9rem; font-size: 0.8rem; color:#ff7150; background-image: url(../images/icon_mkt_swap.svg); background-repeat:no-repeat; background-position:left center; -webkit-background-size: 1.4rem; background-size: 1.4rem;}
 .iHeart{padding: 1rem; position: absolute; right: 0; top: -0.3rem; background-image: url(../images/icon_mkt_love.png); background-repeat:no-repeat; background-position:center center; -webkit-background-size: 1.9rem; background-size: 1.9rem; z-index: 1;}
 .iHeart.action{background-image:url(../images/icon_mkt_love.action.png);}
 .iMark{padding: 0.2rem 0 0.2rem 1.5rem; position: absolute; right: -0.3rem; font-size: 0.7rem; color: #9D9D9D; background-image:url(../images/icon_mark.png); background-repeat:no-repeat; background-position:left center; background-size: 1.5rem;}
@@ -259,6 +268,7 @@ body.mFollow .iHeart {background-image: url(../images/btn_menu_like_o.png); curs
 .itemBox.itemAd{} /* 廣告 */
 .itemBox.itemAd{float: right;}
 .itemBox.itemAd p:first-child {position: absolute; z-index: 1; background: #ff7150; width: auto; padding: 0.3rem 1.3rem; color: #fff; margin-top: 0;}
+.itemBox.itemAd .iHeart {display: none;}
 
 .itemBox.iFinish{} /* 已交易 */
 .itemBox.iFinish .itemImg{background:#000;}
@@ -268,7 +278,7 @@ body.mFollow .iHeart {background-image: url(../images/btn_menu_like_o.png); curs
 
 .userPic {width: 3rem; height: 3rem; width: 48px; height: 48px; display: inline-block; background-repeat: no-repeat; background-size: contain; background-position: center; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 .userPic img {width: 100%; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
-.userName {font-size: 1rem; font-weight: 600;}
+.userName {font-size: 1rem; font-weight: 600; padding: 0;}
 
 /* item item_detail 商品細節 */
 body.item{}
@@ -276,6 +286,7 @@ body.item .conBlock.infoBlock .infoPad{width: calc(50% - 1.75rem - 4px); min-hei
 body.item .conBlock.infoBlock .infoPad:first-child{margin-right:3.5rem;}
 body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 /* body.item .conBlock.infoBlock .infoPad:nth-child(2) dl{overflow: auto;} */
+body.item .infoPad dl{position: relative;}
 .infoBlock ul{margin-bottom: 1rem;}
 .infoBlock li{margin-bottom: 1rem;}
 .infoPad h3 {padding:0 0 0.3rem 0;}
@@ -284,7 +295,7 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 .infoPad .userInfo{border-bottom: 1.5px dotted #ff7150}
 .infoPad .userInfo > *{display: inline-block; vertical-align: middle;}
 .infoPad .userInfo .userDetail {width: calc(70% - 1.6rem); margin-left: 1rem;}
-.infoPad .userInfo .assessFace, .infoPad .userInfo .timer {width: 19%; text-align: right; color: #808080;}
+.infoPad .userInfo .timer {width: 19%; text-align: right; color: #808080;}
 .timer, .timer > span, .date {font-size: 0.7rem; color: #808080;}
 #main .userAdd {font-size: 1rem; color: #579f92; }
 .infoPad .userInfo .assessFace{height: 30px;}
@@ -293,7 +304,7 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 .infoPad .itemTitle li:nth-child(2){max-height:20rem; padding-bottom: 2rem; margin-bottom: 1rem; overflow: hidden; position: relative;}
 .infoPad .itemTitle li:nth-child(2).action{max-height: unset;}
 
-.infoPad .itemTag a{color: #017ccb; margin-right: 0.8rem;}
+.itemTag a{color: #017ccb; margin-right: 0.8rem;}
 .infoPad .itemInfo span{color: #ff7150;}
 
 .itTips{width: 100%; position: absolute; bottom: 0; color: #ff7150; text-align: right; background:#fff; cursor: pointer;}
@@ -314,7 +325,7 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 
 .infoPad .itemImg.itemDeal img {opacity: 0.4;}
 .infoPad .itemImg.itemDeal li{background: #000;}
-.infoPad .itemImg.itemDeal li:first-child::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: -1px; bottom: 0; background-image: url(../images/icon_deal_gw.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
+.infoPad .itemImg.itemDeal li:first-child::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: -1px; bottom: 0; background-image: url(../images/icon_deal_gw.svg); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
 
 .infoPad .itemImg.itemFinish img {opacity: 0.4;}
 .infoPad .itemImg.itemFinish li{background: #000;}
@@ -323,7 +334,7 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 .infoPad .editPad{display: none; margin-bottom: 0;}
 .infoPad .editPad.action{display: block;}
 .infoPad .editPad li{display: inline-block; position: relative; margin-right: 3rem;}
-.infoPad .editPad li:last-child {float: right; margin-right: 0;}
+/* .infoPad .editPad li:last-child {float: right; margin-right: 0;} */
 .infoPad .editPad li p{cursor: pointer; text-align: center; font-size: 0.8rem;}
 .infoPad .editPad li p::before{content:''; display:block; width: 30px; height: 30px; background-repeat:no-repeat; -webkit-background-size:cover; background-size:cover; background-position: center;}
 .infoPad .editPad .btn_msg p {cursor: auto;}
@@ -337,8 +348,9 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2){overflow-x: hidden;}
 .infoPad .editPad .btn_report p::before{background-image:url(../images/btn_report.png);}
 .infoPad .editPad .btn_msg p::before{background-image: url(../images/icon_chat_dg.png);}
 .infoPad .editPad .btn_msg.action p::before{background-image: url(../images/icon_chat_o.png);}
+.infoPad dd.timer{position: absolute; right: 0; bottom: 2rem;}
 
-.infoPad .editPad.otherUserMD li:nth-child(3){float: right; margin-right: 0; margin-left: 3rem;}
+/* .infoPad .editPad.otherUserMD li:nth-child(3){float: right; margin-right: 0; margin-left: 3rem;} */
 .infoPad .editPad .btn_good::after, .infoPad .editPad .btn_like::after {content: ''; position: absolute; margin-top: -2.4rem; margin-left: 2.5rem; font-size: 0.8rem; color: #808080;}
 .infoPad .editPad li.action p, .infoPad .editPad li.action::after{color: #ff7150;}
 .infoPad .editPad .btn_good::after{content: attr(data-good);}
@@ -375,7 +387,7 @@ body.item .conBlock.infoBlock .infoPad:nth-child(2) dd.btnPad{width: 100%; margi
 .infoPad .whisperPad li dd:last-child > * {display: inline-table;}
 .infoPad .whisperPad input{width: 73%;}
 .infoPad .whisperPad .btn_img{width: 14%;}
-.infoPad .whisperPad .btn_img label{width: 100%; height: 30px; display: inline-block; cursor: pointer; background: url(../images/btn_sendimg_w.png) no-repeat center; background-size:65%;}
+.infoPad .whisperPad .btn_img label{width: 100%; height: 30px; display: inline-block; cursor: pointer; background: url(../images/btn_sendimg_w.svg) no-repeat center; background-size:65%;}
 .infoPad .whisperPad .btn_img input{display: none;}
 .infoPad .whisperPad dd:last-child .btn_o{width: 34px; height: 34px; margin: 0 0 0 2.5%; display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 1rem; float: right; background: url(../images/btn_sendmsg.png) #ff7150 no-repeat; background-position: 0.3rem center; background-size: 60%;}
 .infoPad .whisperPad .wMsgPad {max-height: calc(100% - 18.4rem); padding: 0 1rem 5%; overflow-x: hidden; overflow-y: auto;}
@@ -477,12 +489,14 @@ body.edit{}
 body.edit h1{color: #ff7150; text-align: center;}
 body.edit .editList{}
 body.edit .stepPad{margin-bottom: 2rem;}
-body.edit .stepPad input {width: 100%; background: transparent; padding-left: 0;}
+/* body.edit .stepPad input {width: 100%; background: transparent; padding-left: 0;} */
+body.edit .stepPad input[type='text'], body.edit .stepPad input[type='number'] {width: 100%; background: transparent; padding-left: 0;}
 body.edit .stepPad p:first-child input[type='text']:first-child {padding-top: 0;}
+body.edit .stepPad input[type='checkbox'] {margin-top: -0.5rem;}
 
-body.edit .stepPad input[type='checkbox'] {
+/* body.edit .stepPad input[type='checkbox'] {
 	width: auto; padding: 0.5rem; margin-top: -0.3rem; margin-right: 0.5rem; margin-left: -2rem; background: #fff; border: 1px solid #808080; -webkit-border-radius: 30%; -moz-border-radius: 30%; -o-border-radius: 30%; border-radius: 30%;}
-body.edit .stepPad input[type='checkbox']:checked {background:#ff7150; -webkit-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -moz-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -o-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); box-shadow: inset 0 0 0 2px rgba(255,255,255,1);}
+body.edit .stepPad input[type='checkbox']:checked {background:#ff7150; -webkit-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -moz-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -o-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); box-shadow: inset 0 0 0 2px rgba(255,255,255,1);} */
 
 body.edit .stepPad dt{color: #ff7150; margin-bottom: 1.3rem;}
 body.edit .stepPad > dt > span{font-size: 1.5rem; margin-right: 2rem; color: #ff7150;}
@@ -499,19 +513,18 @@ body.edit .stepPad .imgMaskW::before{
 	left: 0; background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );}
 body.edit .stepPad .imgMaskW::after{
 	right: 0; background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );}
-body.edit .stepPad .imgMask{width: calc(100% - 195px); position: absolute; left: 195px; top: 0;}
+body.edit .stepPad .imgMask{width: calc(100% - 195px); position: absolute; padding-bottom: 8px; left: 195px; top: 0; overflow-x: auto; }
 body.edit .stepPad .imgPad .editImg, body.edit .stepPad .smallImg{
 	padding: 0; border: 2px solid #ff7150; position: relative; cursor: pointer; box-sizing: border-box;}
 body.edit .stepPad .imgPad .imgList{margin-right: 8px;}
 body.edit .stepPad .smallImg{border:none;}
 body.edit .stepPad .smallImg:last-child{margin-right: 0;}
-body.edit .stepPad .addImg{width: calc(100% / 4 - 9px); margin-right: 12px;}
+body.edit .stepPad .addImg {width: calc(100% / 4 - 9px); margin-right: 12px;}
 body.edit .stepPad .addImg label{width: 100%; height: 100%; position: absolute; cursor: pointer;}
-body.edit .stepPad .addImg input[type='file']{display: none;}
 body.edit .stepPad .addImg::before,
 body.edit .stepPad .addImg::after {content: ''; width: 6px; height: 26%; background: #ff7150; display: block; position: absolute; margin: 37% calc(50% - 3px); -webkit-border-radius: 60px; -moz-border-radius: 60px; -o-border-radius: 60px; border-radius: 60px;}
 
-body.edit .stepPad .imgBlock{min-width: 100%; width: 100%; overflow: hidden; overflow-x: auto; white-space: nowrap;}
+body.edit .stepPad .imgBlock{min-width: 100%; width: 100%; white-space: nowrap;}
 body.edit .stepPad .imgPad .imgList{display: inline; display: inline-block; zoom: 1; vertical-align: top;}
 body.edit .stepPad .editImg:first-child::after {
 	-webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); -o-transform: rotate(90deg); transform: rotate(90deg);}
@@ -523,9 +536,9 @@ body.edit .stepPad .editImg span{
 body.edit .stepPad .editImg span.action{visibility: visible; opacity: 1;}
 body.edit .stepPad .editImg span b{
 	position: relative; margin: calc(50% - 0.85rem) 0; padding: 0.2rem 0.7rem; display: inline-block; font-size:0.8rem; color: #333;}
-body.edit .stepPad .editImg.editVideo span b{background: url(../images/btn_play_w.png) no-repeat center; background-size:contain; width:60px; height: 60px; margin: calc(50% - 30px); border:none; -webkit-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4)); filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));}
+body.edit .stepPad .editImg.editVideo span b{background: url(../images/btn_play_w.svg) no-repeat center; background-size:contain; width:60px; height: 60px; margin: calc(50% - 30px); border:none; -webkit-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4)); filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));}
 body.edit .stepPad .editImg span i, body.edit .stepPad .smallImg span i {
-	width: 2rem; height: 2rem; display: block; position: absolute; right: 0.1rem; top: 0.1rem; background: url(../images/btn_del_w.png) no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4)); filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));}
+	width: 2rem; height: 2rem; display: block; position: absolute; right: 0.1rem; top: 0.1rem; background: url(../images/btn_del_w.svg) no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4)); filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.4));}
 
 body.edit .stepPad .smallImg ul{width: 100%; height: 100%; position: relative;}
 body.edit .stepPad .smallImg .editImg{width: 48%; height: 48%; margin: 0 4% 4% 0; box-sizing: border-box; float: left;}
@@ -601,29 +614,68 @@ body.edit .stepPad.expectPad dd p.disabled :-ms-input-placeholder {color:#d7d7d7
 
 /* .item.swap 交換_商品細節 */
 body.swap{}
-body.swap .infoPad .itemImg {border-bottom: none;}
-body.swap .infoPad .editPad li:last-child {width: 100%; padding: 1rem; float: none; box-sizing: border-box; background: #cbcbcb;}
-body.swap .infoPad .editPad li p {cursor: auto; padding: 1rem 0; text-align: left; color: #333; border-bottom: 1px solid #898989;}
-body.swap .infoPad .editPad li p:first-child{padding-top: 0;}
-body.swap .infoPad .editPad li p:last-child{padding-bottom: 0; border-bottom: none;}
-body.swap .infoPad .editPad li p::before{display: none;}
-body.swap .infoPad h3 i{display: none;}
-body.swap .infoPad .userInfo.user h3 i{display: inline-block;} /* 登入Jing Yun Lee */
-body.swap .infoPad .userInfo.user h3.otherUser i{display: none;} /* 登入Chloe Chen */
-body.swap .infoPad .btnPad{margin-bottom: 1rem;}
-body.swap .infoPad .btn_o, body.swap .infoPad .btn_g {width: 45%; line-height: 150%; padding: 5px 0; float: left; margin: 0 2.5%; text-align: center;}
-body.swap .infoPad .btnPad i {width: 1.4rem; height: 1.4rem; margin: -0.6rem 0.8rem 0 0; display: inline-block; vertical-align: middle;}
-body.swap .infoPad .btnPad:nth-last-child(2) {display: block;}
-body.swap .infoPad.otherUserMD .btnPad:nth-last-child(2){display: none;}
-body.swap .infoPad.otherUserMD .btnPad:nth-last-child(3){display: block;}
-body.swap.user .infoPad .btnPad:nth-last-child(2) {display: none;}
-body.swap.user .infoPad .btnPad:nth-last-child(3) {display: block;}
-body.swap.user .infoPad.otherUserMD .btnPad:nth-last-child(2){display: block;}
-body.swap.user .infoPad.otherUserMD .btnPad:nth-last-child(3){display: none;}
-body.swap.other .infoPad .userInfo.user h3 i{display: none;}
-body.swap.other .infoPad .userInfo.user h3.otherUser i{display: inline-block;}
+body.swap .userPad .userInfo {width: 100%; border-bottom: 1.5px dotted #ff7150;}
+body.swap .userPad .userInfo > * {display: inline-block; vertical-align: middle;}
+body.swap .userPad .userInfo .userDetail {width: calc(70% - 1.6rem); margin-left: 1rem;}
+body.swap .userPad .userInfo .userDetail .userName {padding: 0 0 0.3rem 0;}
+body.swap .userPad .userInfo .btnPad {width: 20%; float: right; margin-bottom: 0; margin-top: 0.45rem;}
+body.swap .userPad .userInfo .btnPad a {width: 65%; position: absolute; text-align: center; right: 0;}
+body.swap .userPad .userInfo .btnPad.finish a {display: none;}
+body.swap .userPad .userInfo .btn_g i {width: 1.4rem; height: 1.4rem; margin: -0.6rem 0.8rem 0 0; display: inline-block; vertical-align: middle;}
+body.swap .userPad .userInfo .btnPad .btn_change {display: block;}
+body.swap .userPad .userInfo .btnPad .btn_deal {display: none;}
+body.swap .userPad .userInfo .btnPad.otherUser .btn_change {display: none;}
+body.swap .userPad .userInfo .btnPad.otherUser .btn_deal {display: block;}
 
-body.swap .infoPad ul:nth-last-child(2) {margin-bottom: 1rem;}
+body.swap .infoPad_plus {width: calc(50% - 1.75rem); margin-right: 3.5rem; float: left;}
+body.swap .infoPad.infoPad_plus:last-of-type {margin-right: 0; position: relative; display: block; min-height: 700px;}
+body.swap .infoPad_plus .itemImg {border-bottom: none;}
+body.swap .infoPad_plus .editPad {display: none;}
+body.swap .infoPad_plus .editPad.action {display: block;}
+body.swap .infoPad_plus .editPad li:first-child {margin-bottom: 0.3rem;}
+body.swap .infoPad_plus .editPad li:last-child {width: 100%; padding: 1rem 0.6rem; float: none; box-sizing: border-box; background: #cbcbcb;}
+body.swap .infoPad_plus .editPad li i{width: 45px; display: inline-block;}
+body.swap .infoPad_plus .editPad li i img {filter: drop-shadow(0 0 2px #666);}
+body.swap .infoPad_plus .editPad li p {width: calc(100% - 60px); display: inline-block; cursor: auto; text-align: left; color: #333; border-bottom: none;}
+body.swap .infoPad_plus .editPad li:last-child p{margin-left: 5px; border-left: 1px solid #fff; padding: 0.5rem 0 0.5rem 1rem; min-height: 2.5rem;}
+body.swap .infoPad_plus .editPad li p b{font-size: 1.5rem; line-height: 1rem; display: inline-block; vertical-align: top; margin-right: 0.2rem;}
+body.swap .infoPad_plus dd .editPad.price li:last-child p, body.swap .infoPad_plus dd .editPad.free li:last-child p {font-weight: 600; font-size: 1.3rem;}
+body.swap .infoPad_plus .editPad.free li:last-child {padding: 0.5rem 1rem;}
+body.swap .infoPad_plus .editPad.free li i {width: 80px;}
+body.swap .infoPad_plus .editPad.free li p {width: calc(100% - 90px);}
+body.swap .infoPad_plus .editPad.free li:last-child p {border-left: none;}
+
+body.swap .infoPad_plus h3 i{display: none;}
+body.swap .infoPad_plus .userInfo.user h3 i{display: inline-block;} /* 登入Jing Yun Lee */
+body.swap .infoPad_plus .userInfo.user h3.otherUser i{display: none;} /* 登入Chloe Chen */
+body.swap .infoPad_plus .whisperPad {height: 700px; left: 0; opacity: 1;}
+
+.pd_block {display: none; background-color: #d7d7d7;}
+.pd_block.action {display: block;}
+.pd_block ul {height: 320px; position: relative; background: #fff; -webkit-transition: width 0.2s, height 0.2s; transition: width 0.2s, height 0.2s;}
+.pd_block li .btn_info {left: 0.3rem; position: absolute; bottom: 0.3rem;}
+.pd_block li {
+	width: calc(100% / 3); height: 100%; border-right: 1px solid #efefee; border-bottom: 1px solid #efefee; position: absolute; top: 0;
+ margin: 0 !important; -webkit-transition: width 0.2s, height 0.2s; transition: width 0.2s, height 0.2s; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat; background-color: #d7d7d7; cursor: pointer; box-sizing: border-box;}
+.pd_block li > span {width: 100%; height: 100%; display: block; position: absolute; left: 0; top: 0;}
+.pd_block li .itResize{}
+.pd_block li .openInfo{display: none; opacity: 0;}
+.pd_block li.big .openInfo{display: block; opacity: 1;}
+.pd_block ul li:nth-child(1) {left: 0;}
+.pd_block ul li:nth-child(2) {left: calc(100% / 3);}
+.pd_block ul li:nth-child(3) {height: calc(100% / 2); left: calc(100% / 3 * 2); border-right: 0px none; top: 50%;}
+.pd_block li.big {
+	width: calc(100% / 3 * 2); height: 100%; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; transition: all 0.2s ease;}
+.pd_block ul li.big + li {border-right: 0px none; height: calc(100% / 2); left: calc(100% / 3 * 2);}
+
+body.swap .itInfoPad {display: none; width: 100%; padding: 1rem; background: #f2f2f2; position: absolute; z-index: 10;}
+body.swap .itInfoPad.action {display: block; position: relative;}
+body.swap .itInfoPad .itInfo {display: none; }
+body.swap .itInfoPad .itInfo.action {display: block;}
+body.swap .itInfoPad li:first-child {text-align: right; position: relative; margin-bottom: 0;}
+body.swap .itInfoPad .btn_closePop {position: relative; top: unset; right: unset; display: inline-block;}
+body.swap .itInfoPad h3 {color: #ff7150;}
+body.swap .infoPad_plus.action .editPad.action{display: none;}
 
 /* 許願牆 wish */
 body.wish.mainPage{background: #e6f4f0;}
@@ -660,7 +712,7 @@ body.wish.edit .stepPad:first-child {margin-right: 20px; padding:0; border: 2px 
 body.wish.edit .stepPad:first-child dd .editImg {/*width: 100%; height: auto;*/ padding: 50%; border: none; position: relative; margin-right: 0; cursor: pointer; background-image: url(../images/ws_it_img_7.jpg); background-repeat: no-repeat; background-position: center; background-size: cover;}
 body.wish.edit .stepPad:first-child span {position: absolute; top:0; left: 0; text-align: center; width: 100%; color: #ff7150;}
 body.wish.edit .stepPad .editImg span b {margin: 46% 0;}
-body.wish.edit .stepPad .editImg span i {display: none;}
+/* body.wish.edit .stepPad .editImg span i {display: none;} */
 /* .editImg .btn_w:hover { background: #fff; border: 1px solid#808080; color: #808080;} */
 
 /* 許願商品細節 */
@@ -673,7 +725,7 @@ body.wishDetail .socialPad .msgPad li::after{width: 100%; left: 0;}
 body.wishDetail .socialPad .msgPad li:first-child::after {background: transparent; border-bottom: 1px dashed  #FF7050;}
 body.wishDetail .socialPad .msgPad li input {width: calc(100% - 3.5rem);}
 body.wishDetail .infoPad:last-child p {margin-bottom: 0rem; padding-left: 4rem;}
-body.wishDetail p.userName.otherUser i {display: none;}
+/* body.wishDetail p.userName.otherUser i {display: none;} */
 body.wishDetail .infoPad .btn_sentMsg {width: 2.3rem; height: 2.3rem; right: 0;}
 body.wishDetail .infoPad .btnPad{display: block; position: relative; width: 100%; height: 3rem; margin-bottom: 2rem;}
 body.wishDetail .infoPad h3 {color: #60a896;}
@@ -689,10 +741,10 @@ body.wishDetail .infoPad .itemInfo p {color: #333; padding-bottom: 2rem; border-
 body.wishDetail .infoPad .userInfo {border-bottom: thin dotted #FF7050; padding: 0.7rem 0; margin-bottom: 1rem;}
 body.wishDetail .infoPad .userInfo li:first-child {max-width: 50px; margin-top: -1rem;}
 body.wishDetail .infoPad .userInfo h3{color: #000;}
-body.wishDetail .infoPad .editPad {text-align: right;}
+/* body.wishDetail .infoPad .editPad {text-align: right;} */
 body.wishDetail .infoPad .editPad ul {margin-bottom: 0;}
-body.wishDetail .infoPad .editPad li:first-child{float: left;}
-body.wishDetail .infoPad .editPad.otherUserMD li{margin-right: 0;}
+/* body.wishDetail .infoPad .editPad li:first-child{float: left;} */
+/* body.wishDetail .infoPad .editPad.otherUserMD li{margin-right: 0;} */
 .infoPad .editPad .btn_msg i{position: absolute; top: 0.6rem; left: 115%; color: #808080; font-size: 0.8rem;}
 .infoPad .editPad .btn_msg.action i{color: #FF7050;}
 body.wishDetail .suggestBlock .sgCont ul {height: 180px; padding-left: 0.3rem;}
@@ -729,38 +781,54 @@ body.wish.edit.upload .stepPad:first-child{margin-right: 20px; border: 2px solid
 body.wish.edit.upload .stepPad:first-child dd .editImg {padding: 50%; background: #d7d7d7; border: none;}
 body.wish.edit.upload .stepPad:first-child span {top: 58%; width: 100%; left: 0;}
 
-/* menu_t_deal 側邊欄頁面_成交紀錄 */
-.dealBlock {padding-bottom: 3rem; padding-left: 1rem; margin-bottom: 4rem; border-bottom: 1px solid #808080;}
-.dealBlock dt{float: left;}
-
+/* 側邊欄頁面_dealPad共用設定 */
 .dealPad {width: 100%; position: relative; margin-top: 2rem;}
 .dealPad > a{position: absolute; width: 100%; height: 100%; left: 0; z-index: 2;}
-.dealPad .swapPad{width: calc(50% - 0.5rem); float: left; text-align: left;}
-.dealPad .swapPad:nth-child(2){margin-right: 1rem;}
-.dealPad .swapPad:nth-child(2) .userPic{left: -1rem;}
-.dealPad .swapPad:nth-child(3) .userPic{right: -1rem;}
-.dealPad .icon_deal {position: absolute; width: 3rem; height: 3rem; left: 50%; top: 45%; margin-left: -1.5rem; margin-top: -1.5rem; background: #fff; text-align: center; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%; z-index: 1; background: url(../images/icon_deal.png) #fff no-repeat center 0.4rem; background-size: 70%;}
+.dealPad .swapPad{width: calc(50% - 0.5rem); float: left; text-align: left; margin-right: 1rem;}
+.dealPad .swapPad:last-of-type {margin-right: 0;}
+.dealPad .swapPad .userPic {left: -1rem;}
+.dealPad .swapPad:last-of-type .userPic {right: -1rem; left: auto;}
+.dealPad .icon_deal, .dealPad .icon_swap {position: absolute; width: 3rem; height: 3rem; left: 50%; top: 50%; margin-left: -1.5rem; margin-top: -1.5rem; text-align: center; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%; z-index: 1; background-color: #fff; background-repeat: no-repeat; background-position: center; background-size: 70%;}
+.dealPad .icon_deal {background-image: url(../images/icon_deal.svg);}
+.dealPad .icon_swap {background-image: url(../images/btn_menu_swap_o.svg);}
 .dealPad p{color: #333;}
 
-.dealPad .itemCon_1 {position: relative;}
+.dealPad .itemCon_1 {position: relative; height: 194px;}
 .dealPad .itemCon_1 .cssTable {width:100%; height:100%;}
 .dealPad .itemCon_1 .cssTable dl {height:100%;}
 .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) {height: 1.5rem; background-color: #e9e9e9;}
 .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt {padding: 0.15rem; border-top: 2px solid #fff;}
-.dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt i {width: 1.5rem; height: 1.5rem; display: block; float: left; margin-right: 0.3rem; background-repeat:no-repeat; background-position:50% 50%; background-size:cover; -webkit-filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.7)); filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.7));}
-.dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt span {width: calc(100% - 2rem); display: block; float: right; font-size: 0.8rem; line-height: 1.5rem; color: #333;}
-.dealPad .itemCon_1 .itemCon_2 li p {width:100%; height:100%; border: 1px solid #efefee; background-repeat:no-repeat; background-position:50% 50%; background-size:cover;}
+.dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt i {width: 1.5rem; height: 1.5rem; display: block; float: left; background-repeat:no-repeat; background-position:50% 50%; background-size:cover; -webkit-filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.7)); filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.7));}
+.dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt b {width: 1rem; float: left; font-size: 1.4rem; line-height: 90%; color: #333; font-weight: 300;}
+.dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt span {width: calc(100% - 2.8rem); display: block; float: right; font-size: 0.8rem; line-height: 1.5rem; color: #333;}
+.dealPad .itemCon_1 .itemCon_2 li p {width:calc(100% - 1px); height:100%; border: 1px solid #efefee; background-repeat:no-repeat; background-position:50% 50%; background-size:cover;}
+.dealPad .itemCon_1 .itemCon_2 li:only-child p{width:100%;}
 .dealPad .itemCon_1 .itemCon_2 li + li {width:50%;}
-.dealPad .itemCon_1 .itemCon_2 li:nth-child(2) p {height:50%;}
+
+.dealPad .itemCon_1 .itemCon_2 li:nth-child(2) p {height:calc(50% - 1px); float: right;}
+.dealPad .itemCon_1 .itemCon_2 li:nth-child(2) p + p {margin-top: 2px;}
 .dealPad .itemCon_1 .itemCon_2 li:nth-child(2) p:only-child {height:100%;}
 .dealPad .itemCon_1 a {width: 100%; height: 100%; display: block; position: absolute; left: 0; top: 0;}
+
+.dealPad .itemImg.itemDeal > div {opacity: 0.4;}
+.dealPad .itemImg.itemDeal {background: #000;}
+.dealPad .itemImg.itemDeal::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: 0; bottom: 0; background-image: url(../images/icon_deal_gw.svg); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
 
 .dealPad .itemImg {border: none;}
 .dealPad .itemImg.itemFinish {background: #000;}
 .dealPad .itemImg.itemFinish > div {opacity: 0.4;}
-.dealPad .itemImg.itemFinish::after {content: ''; display: block; width: 3.5rem; height: 3.5rem;position: absolute; right: -1px; bottom: 0; background-image: url(../images/icon_swap_r2.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
+.dealPad .itemImg.itemFinish::after {content: ''; display: block; width: 3.5rem; height: 3.5rem;position: absolute; right: 0; bottom: 0; background-image: url(../images/icon_swap_r2.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
 
-body.menuPage .content .dealPad{width: 40%; margin-top: 0; display: inline-block; vertical-align: top;}
+.conBlock .dealPad .swapPad{margin-top: 1.5rem;}
+
+
+/* menu_t_deal 側邊欄頁面_成交紀錄 */
+.dealBlock {padding-bottom: 3rem; padding-left: 1rem; margin-bottom: 4rem; border-bottom: 1px solid #808080;}
+/* .dealBlock dt{float: left;} */
+
+/* body.menuPage .content .dealPad{width: 40%; margin-top: 0; display: inline-block; vertical-align: top;} */
+body.menuPage .content .dealPad{width: 40%; margin-top: 0; display: block; float: left;}
+body.menuPage .content .conBlock .date{margin-bottom: 0.7rem; display: block; position: absolute; width: 100%; text-align: center;}
 
 body.menuPage h1{padding-bottom: 20px; color: #ff7150; text-align: center;}
 body.menuPage .mainBtPad > *{background: #e9e9e9; color: #808080;}
@@ -770,7 +838,7 @@ body.menuPage .content .userPic{display: inline-block; position: absolute; z-ind
 /* body.menuPage .content .itemImg{border: 1px solid #dfdfdd;} */
 /* body.menuPage .content .itemImg img{width: 100%;} */
 body.menuPage .content .swapPad > p{padding: 0.2rem 0;}
-body.menuPage .content .userPic.checked::after{content: ''; width: 1.2rem; height: 1.2rem; display: block; position: absolute; right: -0.05rem; top: -0.05rem; background: url(../images/icon_phone.png) #AD639D no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+body.menuPage .content .userPic.checked::after{content: ''; width: 1.2rem; height: 1.2rem; display: block; position: absolute; right: -0.05rem; top: -0.05rem; background: url(../images/icon_phone.svg) #AD639D no-repeat center; -webkit-background-size: 85%; background-size: 85%; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
 body.mDeal .conBlock {padding-top: 5rem; display: none;}
 .swapDetailPad{width: 50%; float: right;}
 .swapDetailPad .guaranteeInfo{margin-bottom: 1.5rem; background: #ff7150; border-radius: 60px; padding: 0.3rem 2.5rem; cursor: pointer;}
@@ -801,28 +869,43 @@ body.mDeal .btn_assess i{background-image: url(../images/btn_assess_w.png); back
 
 /* menu_t_deal_detail 成交紀錄商品細節 */
 body.item.mItemDetail .conBlock.infoBlock .infoPad:nth-child(2) dl {overflow: unset;}
-body.mItemDetail .content::before{content: ''; width: 80px; height: 80px; display: block; position: absolute; left: 50%; margin-top: 33%; margin-left: -40px; background: url(../images/icon_deal.png) #fff no-repeat center; -webkit-background-size: 70%; background-size: 70%; z-index: 1; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
-body.mItemDetail .conBlock.infoBlock .infoPad {width: calc(50% - 0.5rem); display: block; float: left;}
-body.mItemDetail .conBlock.infoBlock .infoPad:first-child {margin-right: 1rem;}
+body.mItemDetail .content::before{content: ''; width: 80px; height: 80px; display: block; position: absolute; left: 50%; margin-top: 33%; margin-left: -40px; background: url(../images/icon_deal.svg) #fff no-repeat center; -webkit-background-size: 70%; background-size: 70%; z-index: 1; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
+body.mItemDetail .conBlock.infoBlock .infoPad {width: calc(50% - 0.5rem); display: block; float: left; margin-right: 1rem;}
+body.mItemDetail .conBlock.infoBlock .infoPad:last-of-type {margin-right: 0;}
+body.mItemDetail .conBlock.infoBlock .infoPad dt {margin-bottom: 3rem;}
+body.mItemDetail .timer {position: absolute; width: 100%; margin-top: 5.3rem; text-align: center;}
 body.mItemDetail .infoPad:last-child p {margin-bottom: 0;}
 body.mItemDetail .infoPad .itemImg {border-bottom: none;}
 body.mItemDetail .infoPad .itemImg li{width: 100%;}
 body.mItemDetail .infoPad .itemImg img {height: 100%; min-width: auto;}
 
-.infoPad .userInfo.oUserMsg {padding-top: 1rem; border-top: 1.5px dotted #ff7150; border-bottom: 1.5px dotted #ff7150;}
-.userInfo.oUserMsg h3{color: #60b4a2;}
-.userInfo.oUserMsg .userPic{vertical-align: top;}
-.assessBlock{position: relative;}
-.assessBlock .userInfo.oUserMsg{padding-bottom: 1rem;}
-.assessBlock .btn_assess{width: 60%; margin: auto; display: block; border: 1px solid #ff7150; padding: 5px 1rem; text-align: center; color: #333;}
-.assessBlock .btn_assess:hover{background: #fff;}
+.assessCon{} /* menu_t_deal_detail.html 已交易商品評價區 */
+body.mItemDetail h2.assessTitle {width: 100%; height: 35px; position: relative; margin-bottom: 2.5rem; padding: 0; text-align: center; color: #fff; line-height: 35px;}
+body.mItemDetail h2.assessTitle::before {content: ''; width: 16%; height: 35px; left: 50%; margin-left: -8%; position: absolute; background: #ff7150; z-index: -1; -webkit-border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0; -o-border-radius: 10px 10px 0 0; border-radius: 10px 10px 0 0;}
+body.mItemDetail h2.assessTitle::after {content: ''; width: 100%; height: 0px; display: block; position: absolute; left: 0; bottom: 0px; border-top: 1px dashed #ff7150;}
+
+.assessBlock .userInfo h3{color: #60b4a2;}
+.assessBlock{width: 48%; float: left; position: relative;}
+.assessBlock:nth-of-type(2){float: right;}
+.assessBlock .userInfo{padding: 0.5rem 0;}
+.assessBlock .btn_assess{width: 60%; margin: auto; display: block; text-align: center;}
 .assessBlock .btn_assess .oUserName{margin: 0 0.5rem;}
 .assessBlock .btn_assess span{width: 1.2rem; height: 1.2rem; display: inline-block; vertical-align: sub; background: #ff7150; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 .assessBlock .btn_assess span img{width: 100%; vertical-align: unset;}
+.assessBlock .assessPad{display: none; margin-top: 0.5rem;}
+.assessBlock.actionAD .assessPad{display: block;}
+.assessBlock.action .assessPad{display: none;}
 .assessBlock .oUserMsg{display: none;}
-.assessBlock .assessPad{display: block; margin-bottom: 3rem;}
-body.mItemDetail .conBlock.infoBlock .infoPad dd:last-child {width: 100%; position: absolute; bottom: 0;}
-body.mItemDetail .conBlock.infoBlock .infoPad dd:nth-last-child(2) {margin-bottom: 12rem;}
+.assessBlock.actionAD.action .oUserMsg{display: block;}
+.assessBlock.action .oUserMsg{display: block;}
+.assessBlock .unAssess{display: block;}
+.assessBlock.actionAD .unAssess{display: none;}
+.assessBlock.action .unAssess{display: none;}
+.assessBlock .userInfo{border-top: 1px solid #ff7150; border-bottom: 1px solid #ff7150;}
+.assessBlock .userInfo > *{float: left;}
+.assessBlock .userInfo .userPic {margin-top: 8px;}
+.assessBlock .userInfo .userDetail {width: calc(91% - 48px - 1rem); margin-left: 1rem;}
+.assessBlock .userInfo .assessFace {width: 9%; margin-top: 12px; text-align: right; color: #808080;}
 
 /* menu_t_whisper 側邊欄頁面_悄悄話 */
 body.mWhisper{}
@@ -838,7 +921,7 @@ body.mWhisper .whisperList{margin-bottom: 1.5rem; padding-bottom: 1.5rem; border
 body.mWhisper .msgBlock a{width: 100%; height: 100%; position: absolute; left: 0; top: 0;}
 body.mWhisper .msgBlock .userName {color: #60b4a2; padding-top: 0;}
 body.mWhisper .msgBlock .userName i{display: none;}
-body.mWhisper .msgBlock .date {width:65%; position: absolute; bottom: 0; position: relative; display: block; margin-top: 0.7rem;}
+body.mWhisper .content .msgBlock .date {bottom: 0; position: relative; display: block; margin-top: 0.7rem; margin-bottom: 0; text-align: left;}
 body.mWhisper .itemInfo{width: 30%; float: right;}
 body.mWhisper .whisperList.me .msgBlock,
 body.mWhisper .whisperList.me .msgBlock::before{
@@ -848,13 +931,11 @@ body.mWhisper .whisperList.me .userName i{display: inline-block;}
 
 /* menu_t_swap 側邊欄頁面_討論中的交換 */
 body.mSwap{}
-body.menuPage.mSwap .dealPad {width: 50%; min-width: 50%; float: left;}
-body.mSwap .icon_deal{top: 40%;}
-body.mSwap .dealPad .icon_deal {top: 40%; background: url(../images/btn_menu_swap_o.png) #fff no-repeat center 0.4rem; background-size: 70%;}
+body.menuPage.mSwap .content .dealPad {width: 50%; min-width: 50%; float: left;}
+body.menuPage.mSwap .content .dealPad .itemCon_1 {height: 184px;}
 
-body.mSwap .content .date{margin-bottom: 0.7rem; display: block;}
 body.mSwap .mSwapList{align-items: center; margin-bottom: 1.4rem; padding-bottom: 1rem; border-bottom: 2px solid #c7c7c7;}
-body.mSwap .dealBtPad{width: 10rem; margin-top: 8%; text-align: center; float: right;}
+body.mSwap .dealBtPad{width: 10rem; margin-top: 14%; text-align: center; float: right;}
 body.mSwap .btn_deal, body.mSwap .btn_change{display: block; padding: 5px 2rem;}
 body.mSwap .btn_deal i{width: 1.3rem; height: 1.3rem; display: inline-block; vertical-align: text-top; margin-right: 0.2rem; background: url(../images/icon_deal_w.png) no-repeat center; background-size: contain;}
 
@@ -874,8 +955,8 @@ body.mItem #main .content p.countPad{width: 100%; margin-top: 4rem; position: re
 .countPad .iconAttention{margin-left: 0.5rem; border-right: none; padding: 0.5rem 1rem; background-image: url(../images/icon_att_o.png); background-repeat: no-repeat; background-position: left center; background-size: contain;}
 .countPad i{color: #ff7150; padding: 0.4rem;}
 .countAssess i{padding-left: 2.1rem; margin-right: 1rem; background-repeat: no-repeat; background-position: left center; background-size: 1.5rem;}
-.countAssess i:first-child{background-image: url(../images/icon_smile_w.png);}
-.countAssess i:last-child{margin-right: 0; background-image: url(../images/icon_cry_w.png);}
+.countAssess i:first-child{background-image: url(../images/icon_smile_w.svg);}
+.countAssess i:last-child{margin-right: 0; background-image: url(../images/icon_cry_w.svg);}
 body.userPage .btn_edit, body.userPage .btn_report{color: #fff;}
 body.userPage .btn_edit{position: absolute; right: 2.5rem; top: 2rem; padding: 5px 13px 5px 29px; font-size: 0.8rem; line-height: 1rem; color: #333; border: none; background: url(../images/icon_edit_b.png) rgba(255,255,255,0.8) no-repeat 9px center; background-size: 27%;}
 body.userPage .btn_report{position: absolute; right: 2.5rem; bottom: 1.5rem; padding: 5px 13px 5px 35px; font-size: 0.8rem; line-height: 1rem; background: url(../images/btn_report_b.png) no-repeat left center; background-size: 2rem;}
@@ -898,11 +979,11 @@ body.mItem h2.action{display: block;}
 body.mItem h2 i{width: 1.7rem; height: 1.7rem; display: inline-block; vertical-align: middle; margin-top: -0.3rem; margin-right: 0.3rem; background-repeat: no-repeat; background-position: center; background-size: contain;}
 body.mItem .itemBox {max-width: unset; width: calc((100% / 3) - 10px);}
 body.mItem .marketPad h2{background: #ff7150;}
-body.mItem .marketPad h2 i{background-image: url(../images/btn_searchitem_w.png);}
+body.mItem .marketPad h2 i{background-image: url(../images/btn_searchitem_w.svg);}
 
 body.mItem .wishPad{padding-left: 20px;}
 body.mItem .wishPad h2{background: #60a997;}
-body.mItem .wishPad h2 i{background-image: url(../images/icon_wish_w.png);}
+body.mItem .wishPad h2 i{background-image: url(../images/icon_wish_w.svg);}
 
 body.mItem .wishPad .itemBox {/* width: calc((100% / 3) - 10px); height: max-content; */ min-height: auto; margin-bottom: 13px; margin-right: 15px; background: #fff; border: thin solid #e8ebe9;}
 body.mItem .wishPad .itemBox:nth-child(3n+3){margin-right: 0;}
@@ -933,9 +1014,9 @@ body.mItem.info .innerCoverBlock {border: 2px solid #ff7150; text-align: center;
 body.mItem.info .innerCoverBlock > div{position: absolute; bottom: 3rem; left: 18%;}
 body.mItem.info #main .userInfo .userPic{position: absolute; left: 15%; border: none; cursor: pointer;}
 body.mItem.info #main .userInfo .userPic label{cursor: pointer;}
-body.mItem.info #main .userInfo .userPic::after{content: ''; width: 1.8rem; height: 1.8rem; display: block; position: absolute; right: -12px; bottom: -2px; background: url(../images/btn_sendimg_w.png) #ff7150 no-repeat center; background-size: 80%; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
+body.mItem.info #main .userInfo .userPic::after{content: ''; width: 1.8rem; height: 1.8rem; display: block; position: absolute; right: -12px; bottom: -2px; background: url(../images/btn_sendimg_w.svg) #ff7150 no-repeat center; background-size: 80%; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 body.mItem.info #main .userInfo .editUserImg input{display: none;}
-body.mItem.info .btn_edit{display: inline-block; width: 10rem; height: 2.6rem; padding: 8px 5px 7px 2.3rem; position: absolute; top: 50%; left: 50%; margin-top: -1.3rem; margin-left: -5rem; font-size: 1rem; line-height: 1.5rem; color: #333; background-image: url(../images/btn_sendimg_b.png); background-repeat: no-repeat; background-color: rgba(255,255,255,0.6); background-size: 1.8rem; background-position: 12px center;}
+body.mItem.info .btn_edit{display: inline-block; width: 10rem; height: 2.6rem; padding: 8px 5px 7px 2.3rem; position: absolute; top: 50%; left: 50%; margin-top: -1.3rem; margin-left: -5rem; font-size: 1rem; line-height: 1.5rem; color: #333; background-image: url(../images/btn_sendimg_b.svg); background-repeat: no-repeat; background-color: rgba(255,255,255,0.6); background-size: 1.8rem; background-position: 12px center;}
 body.mItem.info .btn_edit input{display: none;}
 body.mItem.info .formdataPad{padding: 1rem 3rem 1.7rem; border: 1px solid #bcbcbc; -webkit-border-radius:10px; -moz-border-radius:10px; -o-border-radius:10px; border-radius:10px;}
 body.mItem.info .formdataPad > * {width: calc(50% - 2rem); float: left;}
@@ -959,9 +1040,9 @@ body.mSet .content p{width: 100%; padding: 0.7rem 0; position: relative;}
 body.mSet select {width: 100%; height: 34px; padding-left: 5rem; border: 1px solid #ff7150; color: #333; font-size: 1rem; background-position: calc(100% - 2rem) center; -webkit-border-radius: 60px; -moz-border-radius: 60px; -o-border-radius: 60px; border-radius: 60px;}
 body.mSet .content span{line-height: 150%; position: absolute; padding: 5px 0 5px 1.5rem; color: #ff7150;}
 body.mSet h3{color: #ff7150; padding-left: 0; padding-bottom: 0;}
-body.mSet input[type='checkbox'] {
+/* body.mSet input[type='checkbox'] {
 	width: auto; padding: 0.5rem; margin-right: 0.5rem;	background: #fff; border: 1px solid #808080; -webkit-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px;}
-body.mSet input[type='checkbox']:checked {background:url(../images/icon_checked.png) #ff7150 no-repeat center; background-size: contain; border: 1px solid #ff7150;}
+body.mSet input[type='checkbox']:checked {background:url(../images/icon_checked.png) #ff7150 no-repeat center; background-size: contain; border: 1px solid #ff7150;} */
 body.mSet .content .setShareList{color: #333; padding-top: 0;}
 body.mSet .setShareList label{display: inline-block;}
 body.mSet .setShareList label:first-child {padding-right: 1rem;}
@@ -977,25 +1058,31 @@ body.userPage .coverBlock h3 {font-size: 1rem; font-weight: 600; color: #333; pa
 body.userPage .coverBlock .btn_report{position: absolute; right: 15%; bottom: unset; padding: 5px 13px 5px 35px; font-size: 0.8rem; color: #666666; background: url(../images/btn_report_gr.png) no-repeat left center; background-size: 2rem;}
 body.userPage .coverBlock .btn_edit {position: unset; right: unset; top: unset; color: #666; background-image: url(../images/icon_edit_gr.png); background-color: transparent; background-size: 1.8rem; font-size: 1rem; padding-left: 2.3rem;}
 
-.assessMsgPad > *{width: 100%;}
-.assessMsgPad::before {content: ''; width: 0; height: 0; position: absolute; display: inline-block; left: 50%; top: -11px; background: #fff; border-style: solid; border-width: 11px; border-color: transparent transparent #fff #fff; transform: rotate(135deg); box-shadow: -3px 3px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;}
-.assessMsgPad .date {position: absolute; bottom: 1.1rem;}
+.assMsgPad > *{width: 100%;}
+.assMsgPad::before {content: ''; width: 0; height: 0; position: absolute; display: inline-block; left: 50%; top: -11px; background: #fff; border-style: solid; border-width: 11px; border-color: transparent transparent #fff #fff; transform: rotate(135deg); box-shadow: -3px 3px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;}
+.assMsgPad .date {position: absolute; bottom: 1.1rem;}
 
-body.userPage .assessMsgPad {width: 545px; background: #fff; margin-top: 0.8rem; padding: 3rem 2rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 10px; position: absolute; z-index: 1; display: none;}
-body.userPage .assessMsgPad .userPic {width: 3rem; height: 3rem; width: 48px; height: 48px; border: none; position: relative; margin-right: 0.5rem; margin-top: 0; left: 0;}
-body.userPage .assessMsgPad .userDetail {width: 28%;}
-body.userPage .assessMsgPad .swapInfo {width: 52%;}
-body.userPage .assessMsgPad .userName {color: #60b4a2; font-size: 1rem; padding: 0;}
-body.userPage .assessMsgPad .dealPad {margin-top: 0;}
-body.userPage .assessMsgPad .icon_deal {margin-left: -1.3rem; margin-top: -1.3rem; width: 2.6rem; height: 2.6rem; top: 50%;}
-body.userPage .assessMsgPad .userInfo {padding: 0; border-bottom: 1px solid #808080; padding-bottom: 1rem; margin-bottom: 1rem;}
-body.userPage .assessMsgPad .userInfo li {display: inline-block; vertical-align: top;}
-body.userPage .assessMsgPad li.assessFace {width: 1.6rem; height: 1.6rem; padding: 2.95rem 0; float: right;}
-body.userPage #main .assessMsgPad p {text-align: left; font-size: 0.9rem;}
+.assMsgPad .userInfo > li {display: block; float: left;}
+.assMsgPad .dealPad .itemCon_1 {position: relative; width: 117px; height: 117px;}
+.assMsgPad .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt span {width: calc(100% - 2.3rem); font-size: 0.6rem; line-height: 1.2rem;} 
+.assMsgPad .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt {padding: 0.05rem; display: block; border-top: 2px solid #fff; width: 117px;}
+.assMsgPad .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt b {width: 0.8rem; font-size: 1.2rem;}
+.assMsgPad .dealPad .itemCon_1 .cssTable dl:nth-child(n + 2) dt i {width: 1.2rem; height: 1.2rem;}
 
-body.userPage .innerCoverBlock .assessMsgPad{width: 545px; z-index: 2; margin-top: 1.6rem;}
-body.userPage .innerCoverBlock .assessMsgPad .userInfo li{text-align: left;}
-body.userPage .innerCoverBlock .assessMsgPad .dealPad{width: 100%;}
+body.userPage .assMsgPad {width: 545px; background: #fff; margin-top: 0.8rem; padding: 3rem 2rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 10px; position: absolute; z-index: 1; display: none;}
+body.userPage .assMsgPad .userPic {width: 3rem; height: 3rem; width: 48px; height: 48px; border: none; position: relative; margin-right: 0.5rem; margin-top: 0; left: 0;}
+body.userPage .assMsgPad .userDetail {width: 28%;}
+body.userPage .assMsgPad .swapInfo {width: 52%;}
+body.userPage .assMsgPad .userName {color: #60b4a2; font-size: 1rem; padding: 0;}
+body.userPage .assMsgPad .dealPad {margin-top: 0;}
+body.userPage .assMsgPad .icon_deal {margin-left: -1.3rem; margin-top: -1.3rem; width: 2.6rem; height: 2.6rem; top: 50%;}
+body.userPage .assMsgPad .userInfo {padding: 0; border-bottom: 1px solid #808080; padding-bottom: 1rem; margin-bottom: 1rem;}
+body.userPage .assMsgPad li.assessFace {width: 1.6rem; height: 1.6rem; padding: 2.95rem 0; float: right;}
+body.userPage #main .assMsgPad p {text-align: left; font-size: 0.9rem;}
+
+body.userPage .innerCoverBlock .assMsgPad{width: 545px; z-index: 2; margin-top: 1.6rem;}
+body.userPage .innerCoverBlock .assMsgPad .userInfo li{text-align: left;}
+body.userPage .innerCoverBlock .assMsgPad .dealPad{width: 100%;}
 
 /* user_attention 關注 */
 body.userAtt{}
@@ -1015,13 +1102,12 @@ body.userAtt .srNamePad .itemBox:nth-child(4n+4) {margin-right: 20px;}
 .coverBlock .countPad span:nth-last-child(2) {border-right: none;}
 .coverBlock .countPad i{font-weight: 600;}
 .countAssess i{cursor: pointer;}
-.coverBlock .countAssess i:first-child {background-image: url(../images/icon_smile_gr.png);}
-.coverBlock .countAssess i:last-child {margin-right: 0; background-image: url(../images/icon_cry_gr.png);}
-.countAssess i:first-child:hover {background-image: url(../images/icon_smile_o.png);}
-.countAssess i:last-child:hover {margin-right: 0; background-image: url(../images/icon_cry_o.png);}
-
-.coverBlock .countPad .iconAttention{margin-left: 0; background-image: url(../images/icon_att_gr.png);}
-.coverBlock .countPad .iconAttention:hover {background-image: url(../images/icon_att_o.png);}
+.coverBlock .countAssess i:first-child {background-image: url(../images/icon_smile_gr.svg);}
+.coverBlock .countAssess i:last-child {margin-right: 0; background-image: url(../images/icon_cry_gr.svg);}
+.countAssess i:first-child:hover {background-image: url(../images/icon_smile_o.svg);}
+.countAssess i:last-child:hover {margin-right: 0; background-image: url(../images/icon_cry_b.svg);}
+.coverBlock .countPad .iconAttention{margin-left: 0; background-image: url(../images/icon_att_gr.svg);}
+.coverBlock .countPad .iconAttention:hover {background-image: url(../images/icon_att_o.svg);}
 
 body.userAtt .coverBlock {position: relative;}
 body.userAtt .conBlock {padding-top: 2rem;}
@@ -1192,7 +1278,7 @@ body.wish #header::after{background-image: url(../images/dot_line_g.png);}
 .headerConts dd.nav i:nth-child(3) {}
 
 /* searchPage_header */
-body.searchPage .headerConts dt a::after,
+/* body.searchPage .headerConts dt a::after,
 body.noSearchPage .headerConts dt a::after {content: ''; width: 1px; height: 2.5rem; background: #ff7150; display: block; margin-top: -1.25rem;  position: absolute; top: 50%; right: 0;}
 body.searchPage .headerConts dd.headerMenu a:hover, body.searchPage .headerConts dd.headerMenu a.action,
 body.noSearchPage .headerConts dd.headerMenu a:hover, body.noSearchPage .headerConts dd.headerMenu a.action{background:transparent;}
@@ -1204,7 +1290,7 @@ body.searchPage .headerConts dd.headerMenu a:nth-child(2):hover, body.noSearchPa
 body.searchPage .headerConts dd.headerMenu a:nth-child(2).action, body.noSearchPage .headerConts dd.headerMenu a:nth-child(2).action{color:#60a896;}
 
 body.searchPage .headerConts dd.headerMenu a:nth-child(3):hover, body.noSearchPage .headerConts dd.headerMenu a:nth-child(3):hover,
-body.searchPage .headerConts dd.headerMenu a:nth-child(3).action, body.noSearchPage .headerConts dd.headerMenu a:nth-child(3).action{color:#14a0e9;}
+body.searchPage .headerConts dd.headerMenu a:nth-child(3).action, body.noSearchPage .headerConts dd.headerMenu a:nth-child(3).action{color:#14a0e9;} */
 
 /* noSearchPage_header */
 body.noSearchPage .searchPad {visibility: hidden;}
@@ -1258,24 +1344,24 @@ body.wish .searchPad form.wishSearchForm{display: block;}
 
 .sideBarPad > div {display: none; position: absolute;}
 .sideBarPad .userMenu{}
-.sideBarPad .userMenu a:nth-child(1) i{background-image: url(../images/btn_myitem.png);}
-.sideBarPad .userMenu a:nth-child(2) i{background-image: url(../images/btn_mydetail.png);}
-.sideBarPad .userMenu a:nth-child(3) i{background-image: url(../images/btn_mysetting.png);}
-.sideBarPad .userMenu a:nth-child(4) i{background-image: url(../images/btn_signout.png);}
-.sideBarPad .userMenu a:nth-child(1):hover i{background-image: url(../images/btn_myitem_o.png);}
-.sideBarPad .userMenu a:nth-child(2):hover i{background-image: url(../images/btn_mydetail_o.png);}
-.sideBarPad .userMenu a:nth-child(3):hover i{background-image: url(../images/btn_mysetting_o.png);}
-.sideBarPad .userMenu a:nth-child(4):hover i{background-image: url(../images/btn_signout_o.png);}
+.sideBarPad .userMenu a:nth-child(1) i{background-image: url(../images/btn_myitem.svg);}
+.sideBarPad .userMenu a:nth-child(2) i{background-image: url(../images/btn_mydetail.svg);}
+.sideBarPad .userMenu a:nth-child(3) i{background-image: url(../images/btn_mysetting.svg);}
+.sideBarPad .userMenu a:nth-child(4) i{background-image: url(../images/btn_signout.svg);}
+.sideBarPad .userMenu a:nth-child(1):hover i{background-image: url(../images/btn_myitem_o.svg);}
+.sideBarPad .userMenu a:nth-child(2):hover i{background-image: url(../images/btn_mydetail_o.svg);}
+.sideBarPad .userMenu a:nth-child(3):hover i{background-image: url(../images/btn_mysetting_o.svg);}
+.sideBarPad .userMenu a:nth-child(4):hover i{background-image: url(../images/btn_signout_o.svg);}
 
 .sideBarPad .toolMenu{}
-.sideBarPad .toolMenu a:nth-child(1) i{background-image: url(../images/btn_menu_swap.png);}
-.sideBarPad .toolMenu a:nth-child(2) i{background-image: url(../images/btn_menu_deal.png);}
-.sideBarPad .toolMenu a:nth-child(3) i{background-image: url(../images/btn_menu_whisper.png);}
-.sideBarPad .toolMenu a:nth-child(4) i{background-image: url(../images/btn_menu_like.png);}
-.sideBarPad .toolMenu a:nth-child(1):hover i{background-image: url(../images/btn_menu_swap_o.png);}
-.sideBarPad .toolMenu a:nth-child(2):hover i{background-image: url(../images/btn_menu_deal_o.png);}
-.sideBarPad .toolMenu a:nth-child(3):hover i{background-image: url(../images/btn_menu_whisper_o.png);}
-.sideBarPad .toolMenu a:nth-child(4):hover i{background-image: url(../images/btn_menu_like_o.png);}
+.sideBarPad .toolMenu a:nth-child(1) i{background-image: url(../images/btn_menu_swap.svg);}
+.sideBarPad .toolMenu a:nth-child(2) i{background-image: url(../images/btn_menu_deal.svg);}
+.sideBarPad .toolMenu a:nth-child(3) i{background-image: url(../images/btn_menu_whisper.svg);}
+.sideBarPad .toolMenu a:nth-child(4) i{background-image: url(../images/btn_menu_like.svg);}
+.sideBarPad .toolMenu a:nth-child(1):hover i{background-image: url(../images/btn_menu_swap_o.svg);}
+.sideBarPad .toolMenu a:nth-child(2):hover i{background-image: url(../images/btn_menu_deal_o.svg);}
+.sideBarPad .toolMenu a:nth-child(3):hover i{background-image: url(../images/btn_menu_whisper_o.svg);}
+.sideBarPad .toolMenu a:nth-child(4):hover i{background-image: url(../images/btn_menu_like_o.svg);}
 
 .sideBarPad .noticeMenu {width: calc(100% - 6rem);}
 .sideBarPad .noticeMenu dd {position: absolute; width: 105%; display: none;}
@@ -1292,7 +1378,7 @@ body.wish .searchPad form.wishSearchForm{display: block;}
 .sideBarPad .noticeMenu dd p {position: relative; font-size: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #c1c1c1;}
 .sideBarPad .noticeMenu dd p.action::before {content: ''; width: 0.5rem; height: 0.5rem; display: block; position: absolute; left: -1.5rem; top: 1rem;background: #ff7150; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 .sideBarPad .noticeMenu dd .userImg {width: 45px; height: 45px; position: relative; display: inline-block; vertical-align: top;}
-.sideBarPad .noticeMenu dd .userImg.checked::after{content: ''; width: 1rem; height: 1rem; display: block; position: absolute; right: -0.1rem; top: -0.1rem; background: url('../images/icon_phone.png') #AD639D no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
+.sideBarPad .noticeMenu dd .userImg.checked::after{content: ''; width: 1rem; height: 1rem; display: block; position: absolute; right: -0.1rem; top: -0.1rem; background: url('../images/icon_phone.svg') #AD639D no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 .sideBarPad .noticeMenu dd .userImg img{width: 100%; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%; overflow: hidden;}
 .sideBarPad .noticeMenu dd .userInfo {width:62%; padding-left: 0.7rem; padding-bottom: 1rem; display: inline-block;}
 .sideBarPad .noticeMenu dd .date {width:60%; position: absolute; left: 3rem; bottom: 0; position: relative; display: block; margin-top: 0.7rem; padding-left: 0.7rem;}
@@ -1464,7 +1550,8 @@ body.wish .searchPad form.wishSearchForm{display: block;}
 .popAssignPad .assignList:nth-child(2) {margin-top: 2.5%;}
 .popAssignPad a{display: block; float: left; margin-right: calc((100% - 36rem) / 8 - 5px); color:#fff; text-align:center; font-size: 1rem; line-height: 100%;}
 .popAssignPad a:last-child {margin-right: 0;}
-.popAssignPad a img{display:block; max-width: 4rem; margin-bottom: 0.7rem; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
+.popAssignPad a i {width: 4rem; height: 4rem; display: block; overflow: hidden; margin-bottom: 0.7rem; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+.popAssignPad a img{display:block; width: 100%;}
 .popAssign .popAssignPad{display: block;}
 
 /* 系統訊息_確定刪除 */
@@ -1497,11 +1584,11 @@ body.userPage .popReportPad p{text-align: left; padding: 0.6rem 0 0.7rem 2.3rem;
 .popAssessBlock .dealPad {width: 92%; margin: auto; margin-top: 1.5rem;}
 .popAssessBlock{
 	width: 520px; height: 660px; margin-top: -330px; margin-left: -260px; padding: 25px 40px; -webkit-border-radius: 10px; -moz-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px;}
-.popAssessBlock .icon_deal {position: absolute; z-index: 1;}
+.popAssessBlock .icon_deal {z-index: 1;}
 .popAssessBlock .userPic, .popTrp.post .userPic {
 	position: absolute; border: 2px solid #fff; z-index: 1;}
 .popAssessBlock .userPic::after, .popTrp.post .userPic::after{
-	content: ''; width: 1.2rem; height: 1.2rem; display: block; position: absolute; right: -0.05rem; top: -0.05rem; background: url(../images/icon_phone.png) #AD639D no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+	content: ''; width: 1.2rem; height: 1.2rem; display: block; position: absolute; right: -0.05rem; top: -0.05rem; background: url(../images/icon_phone.svg) #AD639D no-repeat center; -webkit-background-size: contain; background-size: contain; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
 .popAssessBlock .itemImg img{width: 100%;}
 .popAssessBlock p{color: #333; margin-top: 0;}
 .popAssessPad{text-align: left; margin-top: 0.5rem; padding: 6px 0 15px; width: 100%; box-sizing: border-box; background: #d7d7d7; -webkit-border-radius: 0.5rem; -moz-border-radius: 0.5rem; -o-border-radius: 0.5rem; border-radius: 0.5rem;}
@@ -1512,8 +1599,8 @@ body.userPage .popReportPad p{text-align: left; padding: 0.6rem 0 0.7rem 2.3rem;
 .popAssessPad p:before {content: ''; width: 90%; height: 1px; background: #808080; display: block; position: absolute; top: 50%; left: 5%;}
 .popAssessPad .popAssessBtn {padding: 0 2rem; text-align: center;}
 .popAssessPad .popAssessBtn input {width: 8rem; margin: 0 2%; padding-left: 3rem; padding-right: 1rem; box-sizing: border-box; background-repeat: no-repeat; background-position: 1.8rem center; background-size: 1.3rem;}
-.popAssessPad .popAssessBtn input:first-child{background-image: url(../images/icon_cry_w.png);}
-.popAssessPad .popAssessBtn input:last-child{background-image: url(../images/icon_smile_w.png);}
+.popAssessPad .popAssessBtn input:first-child{background-image: url(../images/icon_cry_w.svg);}
+.popAssessPad .popAssessBtn input:last-child{background-image: url(../images/icon_smile_w.svg);}
 .popAssessBlock .popCheckPad {margin-top: 1rem;}
 .popAssess .popAssessBlock{display: block;}
 /* 履約保證金 */
@@ -1638,8 +1725,8 @@ body.upload{}
 .addSwap .popEditSwap{display: block; width: 600px; height: 740px; margin-top: -370px; margin-left: -300px; -webkit-border-radius: 10px; -moz-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px;}
 .popEditSwap .popCheckPad {margin-top: 1.5rem;}
 .popEditSwap input[type='text'], .popEditSwap input[type='number'] {width: auto; background: #d7d7d7; border: none;}
-.popEditSwap input[type='checkbox'] {width: auto; padding: 0.5rem; margin-top: -0.3rem; margin-right: 0.5rem; background: #fff; border: 1px solid #808080; -webkit-border-radius: 30%; -moz-border-radius: 30%; -o-border-radius: 30%; border-radius: 30%;}
-.popEditSwap input[type='checkbox']:checked {background:#ff7150; -webkit-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -moz-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -o-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); box-shadow: inset 0 0 0 2px rgba(255,255,255,1);}
+/* .popEditSwap input[type='checkbox'] {width: auto; padding: 0.5rem; margin-top: -0.3rem; margin-right: 0.5rem; background: #fff; border: 1px solid #808080; -webkit-border-radius: 30%; -moz-border-radius: 30%; -o-border-radius: 30%; border-radius: 30%;}
+.popEditSwap input[type='checkbox']:checked {background:#ff7150; -webkit-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -moz-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); -o-box-shadow: inset 0 0 0 2px rgba(255,255,255,1); box-shadow: inset 0 0 0 2px rgba(255,255,255,1);} */
 .popEditSwap h4 {margin: 1.5rem 0 0;}
 .popEditSwap h4::before, .popEditSwap h4::after{content: ''; display: inline-block; width: 38%; margin-top: 1.3rem; border-bottom: 1px dashed #ff7150;}
 .popEditSwap h4::before{float: left;}
@@ -1765,8 +1852,8 @@ body.itemDetail .popEditSwap .addImg.getImg{background-image: url(../images/mk_i
 	.bgBlock.pwBgBlock a:last-child h2 {bottom: 5rem;}
 
 	/* index */
-	.indexBtPad {max-width: 12.5rem;}
-	.indexBtPad a {max-width: 5rem; padding-top: 5.5rem; font-size: 1rem;}
+	/* .indexBtPad {max-width: 12.5rem;}
+	.indexBtPad a {max-width: 5rem; padding-top: 5.5rem; font-size: 1rem;} */
 
 	/* 物品內容 */
 	.infoPad .editPad li {margin-right: 2rem;}
@@ -1883,8 +1970,8 @@ body.itemDetail .popEditSwap .addImg.getImg{background-image: url(../images/mk_i
 
 	.coverBlock .userInfo {padding: 0px 11%;}
 	body.mItem .userInfo .userPic {left: 10px; margin-top: 1.4rem;}
-	body.userPage .assessMsgPad .userPic {margin-top: 0;}
-	body.userPage #main .assessMsgPad p {font-size: 0.85rem;}
+	body.userPage .assMsgPad .userPic {margin-top: 0;}
+	body.userPage #main .assMsgPad p {font-size: 0.85rem;}
 	body.mItem .addImg::before, body.mItem .addImg::after {height: 1.5rem;}
 	body.userPage #main .coverBlock p.countPad {padding-left: 5rem;}
 	body.userPage .coverBlock .btn_report {right: 0;}

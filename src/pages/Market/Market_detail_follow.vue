@@ -16,7 +16,7 @@
 							<ul class="userInfo">
 								<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
 								<li class="userDetail"><h3 class="userName otherUser"><i>我(</i>{{this.user.Name}}<i>)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
-								<li class="timer"><span>53分鐘前</span></li>
+								<!-- <li class="timer"><span>53分鐘前</span></li> -->
 							</ul>
 						</dt>
 						<dd>
@@ -37,10 +37,11 @@
 							<ul>
 								<li class="btn_good action"><p>讚</p></li>
 								<li class="btn_like action"><p>追蹤</p></li>
-								<li class="btn_report"><p>檢舉</p></li>
-								<li class="btn_share"><p>分享</p></li>
+                <li class="btn_share"><p>分享</p></li>
+								<li class="btn_report"><p>檢舉</p></li>						
 							</ul>
 						</dd>
+            <dd class="timer"><span>53分鐘前</span></dd>
 					</dl>
 				</div>
 				<div class="infoPad otherUserMD">
@@ -314,7 +315,7 @@
 				<h3>選擇照片或物品</h3>
 				<div class="popChoImg">
 					<dl>
-						<dt class="addImg btn_upload"><span>+選擇照片或物品</span><i>01</i></dt>
+						<dt class="addImg btn_upload"><span>+選擇照片或商品</span></dt>
   					<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>

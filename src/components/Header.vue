@@ -51,7 +51,7 @@
 		<div class="sideBarPad">
 			<span class="btn_close"><i></i><i></i></span>
 			<div class="sideList userMenu">
-				<router-link to='/menu_u_myitem'><i></i>我的物品與願望</router-link>
+				<router-link :to="{name:'Menu_u_myitem',params: { id: this.resData.ID}} "><i></i>我的物品與願望</router-link>
 				<router-link to='/menu_u_myinfo'><i></i>個人資料與檔案</router-link>
 				<router-link to='/menu_u_set'><i></i>設定</router-link>
 				<a @click="logout()"><i></i>登出</a>
@@ -153,12 +153,41 @@
 							<li class="icon_deal"></li>
 							<li class="swapPad">
 								<span class="userPic checked"><img src="../../static/images/ws_user_img_5.png" alt=""></span>
-								<div class="itemImg"><img src="../../static/images/mk_it_img_23.jpg" alt=""></div>
+								<!-- <div class="itemImg"><img src="../../static/images/mk_it_img_23.jpg" alt=""></div> -->
+								<div class="itemCon_1 itemImg">
+									<div class="cssTable">
+										<dl>
+											<div class="itemCon_2 cssTable">
+												<ul>
+													<li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
+													<li><!-- 如果只有一張圖，這個li 都不要 -->
+														<p style="background-image:url(images/ws_it_img_3.jpg)"></p>
+														<!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+													</li>
+												</ul>
+											</div>
+										</dl>
+										<dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+									</div>
+								</div>
 								<p>TRWIWA手錶</p>
 							</li>
 							<li class="swapPad">
 								<span class="userPic checked"><img src="../../static/images/ws_user_img_4.png" alt=""></span>
-								<div class="itemImg"><img src="../../static/images/mk_it_img_1.jpg" alt=""></div>
+								<!-- <div class="itemImg"><img src="../../static/images/mk_it_img_1.jpg" alt=""></div> -->
+								<div class="itemCon_1 itemImg">
+									<div class="cssTable">
+										<dl>
+											<div class="itemCon_2 cssTable">
+												<ul>
+													<li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
+												</ul>
+											</div>
+										</dl>
+										<dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+										<dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+									</div>
+								</div>
 								<p>桌上型盆栽擺飾</p>
 							</li>
 						</ul>
@@ -386,11 +415,17 @@ export default {
  data() {
     return {
 			resData:{},
-      imgUrl:"",
+			imgUrl:"",
+			Notify:{},
+			Feed:{},
+			Trade:{}
+			
     }
   },	
   created(){
 		this.getUser();
+		this.getNotify();
+
   },
   methods:{
 	  async getUser(){
@@ -404,7 +439,15 @@ export default {
 		  localStorage.setItem('login_token','')
 		  this.$router.push('/')
 		  location.reload();
-	  }
+		},
+		async getNotify(){
+				this.Notify = await api.get('Notification/GetNotifyCountWithType',localStorage.getItem('login_token'),'&unRead=true')
+				console.log(this.Notify)
+				this.Feed = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=0')
+				console.log(this.Feed)
+				this.Trade = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=1')
+				console.log(this.Trade)		
+		}
   },
   mounted() {
     setTimeout(() => {

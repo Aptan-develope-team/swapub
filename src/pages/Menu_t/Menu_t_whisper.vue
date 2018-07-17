@@ -120,12 +120,27 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 
 export default {
   components: {
     'app-header': Header,
     'app-footer': Footer
 
+  },
+  data(){
+      return{
+          List:{}
+      }
+  },
+  created(){
+      this.getList();
+  },
+  methods:{
+      async getList(){
+          this.List = await api.get('GetPrivateMessageList',localStorage.getItem('login_token'),'')
+          console.log(this.List)
+      }
   },
   mounted() {
     setTimeout(() => {

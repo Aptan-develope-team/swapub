@@ -67,11 +67,26 @@ export default{
         }) 
         return response 
     },
+    async postWish(api,data,token,param){
+      var response = await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
+    'Content-Type': 'multipart/form-data',
+    'appid':'TestAppID_3',
+    'AppVersion':'2.14.0'
+    }}).then((res) => {
+          console.log(res)
+          return res.data
+        })
+        .catch((error) =>{
+          console.log(error)
+        }) 
+        return response 
+    },
     async get(api,token,param){
         axios.defaults.headers.get['appid'] = 'TestAppID_3'
         axios.defaults.headers.get['AppVersion'] = '2.14.0'
         var response = await axios.get(url + api + '?accessToken=' + token + param)
         .then((res) => {
+                //console.log(res)
                 return res.data
         })
         .catch((error) =>{
@@ -87,6 +102,20 @@ export default{
                 console.log(res)
                 return res
                 
+        })
+        .catch((error) =>{
+          console.log(error)
+        })
+        return response
+    },
+    async putJSON(api,data,token,param){
+      var response = await axios.put(url + api +'?accessToken=' + token + param,data, {headers: {
+      'Content-Type': 'application/json',
+      'appid':'TestAppID_3',
+      'AppVersion':'2.14.0'
+			}}).then((res) => {
+                console.log(res)
+                return res              
         })
         .catch((error) =>{
           console.log(error)

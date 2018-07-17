@@ -27,7 +27,7 @@
 			<div class="sliderCtrl"></div>
 		</div>
 		<div class="content">
-			<div class="indexBtPad CGt clear">
+			<div class="indexBtPad clear">
 				<router-link to ='/market_upload' class="btn_item">+物品</router-link>
 				<router-link to ='/wish_upload' class="btn_wish">+許願</router-link>
 			</div>
@@ -100,35 +100,35 @@
 		<div class="popContent popAssignPad">
 			<div class="btn_closePop"></div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_all.png" alt="">全部</a>
-				<a><img src="../../../static/images/icon_item_man.png" alt="">男士時尚</a>
-				<a><img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</a>
-				<a><img src="../../../static/images/icon_item_baby.png" alt="">媽咪寶貝</a>
-				<a><img src="../../../static/images/icon_item_pet.png" alt="">寵物用品</a>
-				<a><img src="../../../static/images/icon_item_book.png" alt="">書籍</a>
-				<a><img src="../../../static/images/icon_item_game.png" alt="">遊戲</a>
-				<a><img src="../../../static/images/icon_item_media.png" alt="">數位影音</a>
-				<a><img src="../../../static/images/icon_item_toy.png" alt="">玩具公仔</a>
+				<a><i><img src="../../../static/images/icon_item_all.svg" alt=""></i>全部</a>
+				<a><i><img src="../../../static/images/icon_item_man.svg" alt=""></i>男士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_lady.svg" alt=""></i>女士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_baby.svg" alt=""></i>媽咪寶貝</a>
+				<a><i><img src="../../../static/images/icon_item_pet.svg" alt=""></i>寵物用品</a>
+				<a><i><img src="../../../static/images/icon_item_book.svg" alt=""></i>書籍</a>
+				<a><i><img src="../../../static/images/icon_item_game.svg" alt=""></i>遊戲</a>
+				<a><i><img src="../../../static/images/icon_item_media.svg" alt=""></i>數位影音</a>
+				<a><i><img src="../../../static/images/icon_item_toy.svg" alt=""></i>玩具公仔</a>
 			</div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_3c.png" alt="">3C電子</a>
-				<a><img src="../../../static/images/icon_item_electric.png" alt="">家電</a>
-				<a><img src="../../../static/images/icon_item_furniture.png" alt="">傢俱</a>
-				<a><img src="../../../static/images/icon_item_garden.png" alt="">居家園藝</a>
-				<a><img src="../../../static/images/icon_item_sport.png" alt="">戶外活動</a>
-				<a><img src="../../../static/images/icon_item_fitness.png" alt="">健身</a>
-				<a><img src="../../../static/images/icon_item_makeup.png" alt="">美妝保養</a>
-				<a><img src="../../../static/images/icon_item_food.png" alt="">美食</a>
-				<a><img src="../../../static/images/icon_item_stationery.png" alt="">文具用品</a>
+				<a><i><img src="../../../static/images/icon_item_3c.svg" alt=""></i>3C電子</a>
+				<a><i><img src="../../../static/images/icon_item_electric.svg" alt=""></i>家電</a>
+				<a><i><img src="../../../static/images/icon_item_furniture.svg" alt=""></i>傢俱</a>
+				<a><i><img src="../../../static/images/icon_item_garden.svg" alt=""></i>居家園藝</a>
+				<a><i><img src="../../../static/images/icon_item_sport.svg" alt=""></i>戶外活動</a>
+				<a><i><img src="../../../static/images/icon_item_fitness.svg" alt=""></i>健身</a>
+				<a><i><img src="../../../static/images/icon_item_makeup.svg" alt=""></i>美妝保養</a>
+				<a><i><img src="../../../static/images/icon_item_food.svg" alt=""></i>美食</a>
+				<a><i><img src="../../../static/images/icon_item_stationery.svg" alt=""></i>文具用品</a>
 			</div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_art.png" alt="">藝術古董</a>
-				<a><img src="../../../static/images/icon_item_musical.png" alt="">樂器</a>
-				<a><img src="../../../static/images/icon_item_crafts.png" alt="">手工藝品</a>
-				<a><img src="../../../static/images/icon_item_traffic.png" alt="">交通工具</a>
-				<a><img src="../../../static/images/icon_item_ticket.png" alt="">票券</a>
-				<a><img src="../../../static/images/icon_item_service.png" alt="">個人服務</a>
-				<a><img src="../../../static/images/icon_item_gift.png" alt="">免費贈與</a>
+				<a><i><img src="../../../static/images/icon_item_art.svg" alt=""></i>藝術古董</a>
+				<a><i><img src="../../../static/images/icon_item_musical.svg" alt=""></i>樂器</a>
+				<a><i><img src="../../../static/images/icon_item_crafts.svg" alt=""></i>手工藝品</a>
+				<a><i><img src="../../../static/images/icon_item_traffic.svg" alt=""></i>交通工具</a>
+				<a><i><img src="../../../static/images/icon_item_ticket.svg" alt=""></i>票券</a>
+				<a><i><img src="../../../static/images/icon_item_service.svg" alt=""></i>個人服務</a>
+				<a><i><img src="../../../static/images/icon_item_gift.svg" alt=""></i>免費贈與</a>
 			</div>
 		</div>
 	</div>

@@ -21,13 +21,12 @@
                 <dt>
                   <span>Step1</span>上傳照片或影片</dt>
                    <dd class="imgPad clear" id="imgPad">
-                 	<div class="editImg addImg">
-                     <label for="uploadImg"><input id="uploadImg" type="file" @change="onFileChanged"></label>
+                 	<div class="editImg addImg"><label for="uploadImg"><input id="uploadImg" type="file" @change="onFileChanged"></label>
                      </div>
                   
                   <div class="imgMaskW"></div>
-                  <div class="imgMask">
-									<dl class="imgBlock CG_scorll">
+                  <div class="imgMask CG_scorll_auto">
+									<dl class="imgBlock">
                         <dt class="editImg imgList">
                         <img :src="this.imgUrl" alt="">
                         <span>
@@ -84,53 +83,53 @@
                   <p class="itemOption icoPad">
                     <span>
                       <i>
-                        <img src="../../../static/images/icon_item_man.png" alt="" @click="setCategory('524a426c430cb207947788fd')" >男士時尚</i>
+                        <img src="../../../static/images/icon_item_man.svg" alt="" @click="setCategory('524a426c430cb207947788fd')" >男士時尚</i>
                       <i>
-                        <img src="../../../static/images/icon_item_lady.png" alt="" @click="setCategory('524a427e430cb207947788fe')">女士時尚</i>
+                        <img src="../../../static/images/icon_item_lady.svg" alt="" @click="setCategory('524a427e430cb207947788fe')">女士時尚</i>
                       <i>
-                        <img src="../../../static/images/icon_item_baby.png" alt="" @click="setCategory('524a428d430cb207947788ff')">媽咪寶貝</i>
+                        <img src="../../../static/images/icon_item_baby.svg" alt="" @click="setCategory('524a428d430cb207947788ff')">媽咪寶貝</i>
                       <i>
-                        <img src="../../../static/images/icon_item_pet.png" alt="" @click="setCategory('524a4298430cb20794778900')">寵物用品</i>
+                        <img src="../../../static/images/icon_item_pet.svg" alt="" @click="setCategory('524a4298430cb20794778900')">寵物用品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_book.png" alt="" @click="setCategory('524a491e430cb20c9c163a3c')">書籍</i>
+                        <img src="../../../static/images/icon_item_book.svg" alt="" @click="setCategory('524a491e430cb20c9c163a3c')">書籍</i>
                       <i>
-                        <img src="../../../static/images/icon_item_game.png" alt="" @click="setCategory('524a4929430cb20c9c163a3d')">遊戲</i>
+                        <img src="../../../static/images/icon_item_game.svg" alt="" @click="setCategory('524a4929430cb20c9c163a3d')">遊戲</i>
                       <i>
-                        <img src="../../../static/images/icon_item_media.png" alt="" @click="setCategory('524a4931430cb20c9c163a42')">數位影音</i>
+                        <img src="../../../static/images/icon_item_media.svg" alt="" @click="setCategory('524a4931430cb20c9c163a42')">數位影音</i>
                       <i>
-                        <img src="../../../static/images/icon_item_toy.png" alt="" @click="setCategory('524a4941430cb20c9c163a43')">玩具公仔</i>
+                        <img src="../../../static/images/icon_item_toy.svg" alt="" @click="setCategory('524a4941430cb20c9c163a43')">玩具公仔</i>
                       <i>
-                        <img src="../../../static/images/icon_item_3c.png" alt="" @click="setCategory('524a494f430cb20c9c163a44')">3C電子</i>
+                        <img src="../../../static/images/icon_item_3c.svg" alt="" @click="setCategory('524a494f430cb20c9c163a44')">3C電子</i>
                       <i>
-                        <img src="../../../static/images/icon_item_electric.png" alt="" @click="setCategory('524a4957430cb20c9c163a45')">家電</i>
+                        <img src="../../../static/images/icon_item_electric.svg" alt="" @click="setCategory('524a4957430cb20c9c163a45')">家電</i>
                       <i>
-                        <img src="../../../static/images/icon_item_furniture.png" alt="" @click="setCategory('524a495f430cb20c9c163a46')">傢俱</i>
+                        <img src="../../../static/images/icon_item_furniture.svg" alt="" @click="setCategory('524a495f430cb20c9c163a46')">傢俱</i>
                       <i>
-                        <img src="../../../static/images/icon_item_garden.png" alt="" @click="setCategory('524a4966430cb20c9c163a47')">居家園藝</i>
+                        <img src="../../../static/images/icon_item_garden.svg" alt="" @click="setCategory('524a4966430cb20c9c163a47')">居家園藝</i>
                       <i>
-                        <img src="../../../static/images/icon_item_sport.png" alt="" @click="setCategory('524a4970430cb20c9c163a48')">戶外活動</i>
+                        <img src="../../../static/images/icon_item_sport.svg" alt="" @click="setCategory('524a4970430cb20c9c163a48')">戶外活動</i>
                       <i>
-                        <img src="../../../static/images/icon_item_fitness.png" alt="" @click="setCategory('524a497b430cb20c9c163a49')">健身</i>
+                        <img src="../../../static/images/icon_item_fitness.svg" alt="" @click="setCategory('524a497b430cb20c9c163a49')">健身</i>
                       <i>
-                        <img src="../../../static/images/icon_item_makeup.png" alt="" @click="setCategory('524a4983430cb20c9c163a4a')">美妝保養</i>
+                        <img src="../../../static/images/icon_item_makeup.svg" alt="" @click="setCategory('524a4983430cb20c9c163a4a')">美妝保養</i>
                       <i>
-                        <img src="../../../static/images/icon_item_food.png" alt="" @click="setCategory('524a498b430cb20c9c163a4b')">美食</i>
+                        <img src="../../../static/images/icon_item_food.svg" alt="" @click="setCategory('524a498b430cb20c9c163a4b')">美食</i>
                       <i>
-                        <img src="../../../static/images/icon_item_stationery.png" alt="" @click="setCategory('524a4994430cb20c9c163a4c')">文具用品</i>
+                        <img src="../../../static/images/icon_item_stationery.svg" alt="" @click="setCategory('524a4994430cb20c9c163a4c')">文具用品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_art.png" alt="" @click="setCategory('524a499d430cb20c9c163a4d')">藝術古董</i>
+                        <img src="../../../static/images/icon_item_art.svg" alt="" @click="setCategory('524a499d430cb20c9c163a4d')">藝術古董</i>
                       <i>
-                        <img src="../../../static/images/icon_item_musical.png" alt="" @click="setCategory('524a49a6430cb20c9c163a4e')">樂器</i>
+                        <img src="../../../static/images/icon_item_musical.svg" alt="" @click="setCategory('524a49a6430cb20c9c163a4e')">樂器</i>
                       <i>
-                        <img src="../../../static/images/icon_item_crafts.png" alt="" @click="setCategory('524a49c2430cb20c9c163a4f')">手工藝品</i>
+                        <img src="../../../static/images/icon_item_crafts.svg" alt="" @click="setCategory('524a49c2430cb20c9c163a4f')">手工藝品</i>
                       <i>
-                        <img src="../../../static/images/icon_item_traffic.png" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')">交通工具</i>
+                        <img src="../../../static/images/icon_item_traffic.svg" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')">交通工具</i>
                       <i>
-                        <img src="../../../static/images/icon_item_ticket.png" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')">票券</i>
+                        <img src="../../../static/images/icon_item_ticket.svg" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')">票券</i>
                       <i>
-                        <img src="../../../static/images/icon_item_service.png" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')">個人服務</i>
+                        <img src="../../../static/images/icon_item_service.svg" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')">個人服務</i>
                       <i>
-                        <img src="../../../static/images/icon_item_gift.png" alt="" @click="setCategory('')">免費贈與</i>
+                        <img src="../../../static/images/icon_item_gift.svg" alt="" @click="setCategory('')">免費贈與</i>
                     </span>
                   </p>
                   <p class="itemOption">

@@ -23,8 +23,8 @@
 </template>
 <script>
     export default {
-      mounted() {
-		    setTimeout(() => {  
+	  updated(){
+		  	setTimeout(() => {  
 					var Gw = $(window), Gww = Gw.width(), Gwh = Gw.height(), Gd = $(document), Gdw = Gd.width(), Gdh = Gd.height();
 						if (Gwh < Gdh){
 							$('#footer').css({'position':'relative'});
@@ -33,6 +33,9 @@
 						}
 	  
 	  },100)
+	  },
+      mounted() {
+		    
 	  }
 	}
 	

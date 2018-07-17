@@ -24,9 +24,9 @@
 			<div class="sliderCtrl"></div>
 		</div>
 		<div class="content">
-			<div class="indexBtPad CGt clear">
-				<a href="item_upload.html" class="btn_item">+物品</a>
-				<a href="wish_upload.html" class="btn_wish">+許願</a>
+			<div class="indexBtPad clear">
+				<router-link to ='/market_upload' class="btn_item">+物品</router-link>
+				<router-link to ='/wish_upload' class="btn_wish">+許願</router-link>
 			</div>
 			<p class="textAd">行銷文案說明，保留一行文字區塊</p>
 			<div class="conBlock wishPad">
@@ -38,20 +38,61 @@
 					<p>[許一個心願，讓大家替你實現]</p>
 				</div>
 				<div class="itemPad">
+<!--
+				<div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0">
+						<div class="itemTitle">
+							<h4>我想要...</h4>
+							<h3>{{product.Name}}</h3>
+						</div>
+						<div class="itemImg"><i><img :src="(product.PictureUrls)" alt=""></i></div>
+						<router-link :to="{name:'Wish_detail',params: { id: product.ID}} "></router-link>
+						<div class="itemInfo">
+							<p>{{product.Description}}</p>
+							<p class="timer">{{product.Date}}</p>
+							<span class="iUser"><i><img :src="(product.UserInfo.AvatarUrl)"  alt=""/></i>{{product.UserInfo.Name}}</span>
+							<span class="iChat"><h3>{{product.Status}}</h3></span>
+						</div>
+					</div> 				
+					v-if="index > 0 && index <= 9 "
+-->
+
+					<div class="itemBox itemS" v-for="(product,index) in resData" >
+						
+						<div class="itemTitle">
+							<h4>我想要...</h4>
+							<h3>{{product.Name}}</h3>
+					  </div>
+						<div class="itemImg"><i><img v-bind:src="(product.PictureUrl)"  alt=""/></i></div>									
+						<router-link :to="{name:'Wish_detail',params: { id: product.ID}} "></router-link>
+						
+						<div class="itemInfo">	
+						<p>{{product.Description}}</p>
+						<p class="timer">{{product.Date}}</p>
+						<span class="iUser"><i><img v-bind:src="(product.UserInfo.AvatarUrl)"  alt=""/></i>{{product.UserInfo.Name}}</span>					
+						<span class="iChat"><h3>{{product.MessageCount}}</h3></span>
+						</div>
+					</div>
+<!--
+
 					<div class="itemBox">
 						<div class="itemTitle">
 							<h4>我想要...</h4>
 							<h3>拍立得相機粉紅</h3>
 						</div>
+
 						<div class="itemImg"><img src="../../../static/images/ws_it_img_1.jpg" alt=""></div>
 						<a href="wish_detail.html?j"></a>
+						
 						<div class="itemInfo">
 							<p>Nikon類單眼相機，一定要此款式，其他暫無需求</p>
 							<p class="timer">1小時前</p>
+
 							<span class="iUser"><i><img src="../../../static/images/ws_user_img_1.png" alt=""></i>Amy Tesi</span>
 							<span class="iChat">5</span>
 						</div>
 					</div>
+
+					
 					<div class="itemBox">
 						<div class="itemTitle">
 							<h4>我想要...</h4>
@@ -247,12 +288,12 @@
 							<span class="iUser"><i><img src="../../../static/images/ws_user_img_5.png" alt=""></i>Rock stone</span>
 							<span class="iChat">29</span>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
 	   <div class="btn_openPop"></div>
-	</div><!-- main END -->
+	</div> <!-- main END -->
 
 	<!-- Footer -->
 	<app-footer></app-footer>
@@ -262,36 +303,36 @@
 		<div class="popContent popAssignPad">
 			<div class="btn_closePop"></div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_all.png" alt="">全部</a>
-				<a><img src="../../../static/images/icon_item_man.png" alt="">男士時尚</a>
-				<a><img src="../../../static/images/icon_item_lady.png" alt="">女士時尚</a>
-				<a><img src="../../../static/images/icon_item_baby.png" alt="">媽咪寶貝</a>
-				<a><img src="../../../static/images/icon_item_pet.png" alt="">寵物用品</a>
-				<a><img src="../../../static/images/icon_item_book.png" alt="">書籍</a>
-				<a><img src="../../../static/images/icon_item_game.png" alt="">遊戲</a>
-				<a><img src="../../../static/images/icon_item_media.png" alt="">數位影音</a>
-				<a><img src="../../../static/images/icon_item_toy.png" alt="">玩具公仔</a>
+				<a><i><img src="../../../static/images/icon_item_all.svg" alt=""></i>全部</a>
+				<a><i><img src="../../../static/images/icon_item_man.svg" alt=""></i>男士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_lady.svg" alt=""></i>女士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_baby.svg" alt=""></i>媽咪寶貝</a>
+				<a><i><img src="../../../static/images/icon_item_pet.svg" alt=""></i>寵物用品</a>
+				<a><i><img src="../../../static/images/icon_item_book.svg" alt=""></i>書籍</a>
+				<a><i><img src="../../../static/images/icon_item_game.svg" alt=""></i>遊戲</a>
+				<a><i><img src="../../../static/images/icon_item_media.svg" alt=""></i>數位影音</a>
+				<a><i><img src="../../../static/images/icon_item_toy.svg" alt=""></i>玩具公仔</a>
 			</div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_3c.png" alt="">3C電子</a>
-				<a><img src="../../../static/images/icon_item_electric.png" alt="">家電</a>
-				<a><img src="../../../static/images/icon_item_furniture.png" alt="">傢俱</a>
-				<a><img src="../../../static/images/icon_item_garden.png" alt="">居家園藝</a>
-				<a><img src="../../../static/images/icon_item_sport.png" alt="">戶外活動</a>
-				<a><img src="../../../static/images/icon_item_fitness.png" alt="">健身</a>
-				<a><img src="../../../static/images/icon_item_makeup.png" alt="">美妝保養</a>
-				<a><img src="../../../static/images/icon_item_food.png" alt="">美食</a>
-				<a><img src="../../../static/images/icon_item_stationery.png" alt="">文具用品</a>
+				<a><i><img src="../../../static/images/icon_item_3c.svg" alt=""></i>3C電子</a>
+				<a><i><img src="../../../static/images/icon_item_electric.svg" alt=""></i>家電</a>
+				<a><i><img src="../../../static/images/icon_item_furniture.svg" alt=""></i>傢俱</a>
+				<a><i><img src="../../../static/images/icon_item_garden.svg" alt=""></i>居家園藝</a>
+				<a><i><img src="../../../static/images/icon_item_sport.svg" alt=""></i>戶外活動</a>
+				<a><i><img src="../../../static/images/icon_item_fitness.svg" alt=""></i>健身</a>
+				<a><i><img src="../../../static/images/icon_item_makeup.svg" alt=""></i>美妝保養</a>
+				<a><i><img src="../../../static/images/icon_item_food.svg" alt=""></i>美食</a>
+				<a><i><img src="../../../static/images/icon_item_stationery.svg" alt=""></i>文具用品</a>
 			</div>
 			<div class="assignList clear">
-				<a><img src="../../../static/images/icon_item_art.png" alt="">藝術古董</a>
-				<a><img src="../../../static/images/icon_item_musical.png" alt="">樂器</a>
-				<a><img src="../../../static/images/icon_item_crafts.png" alt="">手工藝品</a>
-				<a><img src="../../../static/images/icon_item_traffic.png" alt="">交通工具</a>
-				<a><img src="../../../static/images/icon_item_ticket.png" alt="">票券</a>
-				<a><img src="../../../static/images/icon_item_service.png" alt="">個人服務</a>
-				<a><img src="../../../static/images/icon_item_gift.png" alt="">免費贈與</a>
-			</div>
+				<a><i><img src="../../../static/images/icon_item_art.svg" alt=""></i>藝術古董</a>
+				<a><i><img src="../../../static/images/icon_item_musical.svg" alt=""></i>樂器</a>
+				<a><i><img src="../../../static/images/icon_item_crafts.svg" alt=""></i>手工藝品</a>
+				<a><i><img src="../../../static/images/icon_item_traffic.svg" alt=""></i>交通工具</a>
+				<a><i><img src="../../../static/images/icon_item_ticket.svg" alt=""></i>票券</a>
+				<a><i><img src="../../../static/images/icon_item_service.svg" alt=""></i>個人服務</a>
+				<a><i><img src="../../../static/images/icon_item_gift.svg" alt=""></i>免費贈與</a>
+			</div> 
 		</div>
 	</div>
 	<!-- Loader  -->
@@ -303,42 +344,36 @@
 <script>
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import api from '../../api/Api.js';
+
 export default {
   components: {
     "app-header": Header,
     "app-footer": Footer
+	},
+	data() {
+    return {
+		resData:[],
+		data:{}
+    }
   },
-  mounted() {
+  created(){
+	 this.getItem();
+	 
+  },
+  methods:{
+	  async getItem(){
+	  this.getToken();  
+		this.resData = await api.get('GetWishs',localStorage.getItem('api_token'),'&filterDate=16')
+		console.log(this.resData)
+		},
 
-    setTimeout(() => {
-     
-
-      var element = document.getElementById("body_class");
-      element.removeAttribute("class");
-      element.classList.add("wish", "mainPage");
-
-      $(".loadPad").animate({
-        opacity: 0
-      }, 1000, function () {
-        $(".loadPad").css({
-          display: "none"
-        });
-			});
-			
-			  
-
-     
-      $(window).on("load", function () {
-        if ($(window).width() > 1024) {
-          var s = skrollr.init();
-        }
-
-        // $('#header').find('.wish').addClass('action');
-
-			});
-				$('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
-
-			 //item排版
+		async getToken(){
+		await api.getToken()
+	  }
+	},
+updated(){		
+				 //item排版
        var $outBox = $('.itemPad'), //外層容器
 				$outBoxW = $outBox.width(), //外層容器寬度
 				$allBox = $outBox.find('.itemBox'), //每個item
@@ -351,7 +386,7 @@ export default {
           boxHeight = 0;
         for (var i = 0; i < boxLen; i++) {
           var boxH = $allBox.eq(i).outerHeight(true);
-          console.log(boxHeightArr);
+          //console.log(boxHeightArr);
           if (i < cols) {
             boxHeightArr.push(boxH);
           } else {
@@ -366,7 +401,6 @@ export default {
 					  boxHeightArr[minIndex] += $allBox[i].offsetHeight + boxMG;
             var maxHeight = Math.max(...boxHeightArr);
            	$outBox.css({'height': maxHeight * boxHeightArr.length / cols});
-
           }
 				}				
 				function getIndexByValue(arr, value) {
@@ -391,8 +425,30 @@ export default {
             return false;
           }
         }
-
-
+},
+  mounted() {
+    setTimeout(() => {
+     
+      var element = document.getElementById("body_class");
+      element.removeAttribute("class");
+      element.classList.add("wish", "mainPage");
+      $(".loadPad").animate({
+        opacity: 0
+      }, 1000, function () {
+        $(".loadPad").css({
+          display: "none"
+        });
+			});
+			
+     
+      $(window).on("load", function () {
+        if ($(window).width() > 1024) {
+          var s = skrollr.init();
+        }
+        // $('#header').find('.wish').addClass('action');
+			});
+				$('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
+			
 			
 						/* index Slider */
 	var i = 0,
@@ -452,7 +508,6 @@ export default {
 				$sliderBtList.eq(0).addClass('false');
 			}
 		}else if($sliderNow < $sliderLeng - 1){
-
 			$sliderBtList.eq(0).removeClass('false');
 			$sliderNow ++;
 		}else{
@@ -465,8 +520,6 @@ export default {
 						 
 						 
 						 $(document).ready(function () {
-
-
         $(".btn_assign").click(function () {
           $("#popContainer")
             .stop()
@@ -475,9 +528,7 @@ export default {
             }, 300);
           $("#popContainer").addClass("popAssign");
         });
-
         //自動載入還沒寫.........
-
         /* var htmlobj = $.ajax({url:"items.html",async:false});
 			var $newIten = htmlobj.find('.itemBox');
 			window.onscroll = function(){
@@ -514,5 +565,4 @@ export default {
     }, 100);
   }
 };
-
 </script>

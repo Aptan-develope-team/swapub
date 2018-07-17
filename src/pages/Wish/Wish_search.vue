@@ -10,8 +10,8 @@
 		</div>
 		<div class="content">
 			<div class="mainBtPad">
-				<a class="action"><i><img src="../../../static/images/btn_searchitem_w.png" alt=""></i>物品</a>
-				<a>人名<i><img src="../../../static/images/btn_searchname_w.png" alt=""></i></a>
+				<a class="action"><i><img src="../../../static/images/btn_searchitem_w.svg" alt=""></i>物品</a>
+				<a>人名<i><img src="../../../static/images/btn_searchname_w.svg" alt=""></i></a>
 			</div>
 			<p class="searchCounter">搜尋結果：<span>9</span>筆符合</p>
 			<div class="conBlock srItemPad action">

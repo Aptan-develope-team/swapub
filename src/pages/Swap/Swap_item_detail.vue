@@ -6,73 +6,103 @@
 	<!-- Header END -->
 <div id="main">
 		<div class="breadcrumb">
-			<i>Swapub</i><i> &#62; 交換</i><i> &#62; 傢俱</i><i> &#62; 商品細節</i><i></i>
+			<i>Swapub</i><i> &#62; 交換</i><i> &#62; 3C電子</i><i> &#62; 【Nikon】類單眼相機</i><i></i>
 		</div>
 		<div class="content">
 			<div class="conBlock infoBlock clear">
-				<div class="infoPad">
+				<div class="userPad">
+					<ul class="userInfo user">
+						<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></li>
+                        <li class="userDetail"><h3 class="userName otherUser"><i>我(</i>Rock stone<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
+                        <!-- .userName 有 .otherUser , 僅顯示人名部分 (Rock stone) ; 沒有 .otherUser , 會顯示"我"+"人名" (我Rock stone) -->
+						<li class="btnPad otherUser">
+                            <!-- .btnPad 有 .otherUser , 僅顯示"成交"按鈕 ; 沒有 .otherUser 時, 則顯示"更改交換"按鈕 -->
+							<a class="btn_o btn_change">更改交換</a>
+							<a class="btn_g btn_deal"><i><img src="../../../static/images/icon_deal_w.png" alt=""></i>成交</a>
+						</li>
+					</ul>
+				</div>
+				<div class="infoPad_plus">
 					<dl>
-						<dt>
-							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></li>
-								<li class="userDetail"><h3 class="userName"><i>我(</i>Chloe Chen<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
-								<li class="timer"><span>53分鐘前</span></li>
+						<dt class="pd_block action"> <!-- .pd_block隱藏, .pd_block.action 顯示 -->
+							<ul class="clearfix itemImg">
+								<li class="lazyload big" style="background-image: url(../../../static/images/ws_it_img_2.jpg);">
+									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
+								</li>
+								<!-- <li class="lazyload" style="background-image: url(images/ws_it_img_3.jpg);">
+									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
+								</li>
+								<li class="lazyload" style="background-image: url(images/ws_it_img_4.jpg);">
+									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
+								</li> -->
 							</ul>
-						</dt>
-						<dd>
-							<ul class="itemImg">
-								<li><img src="../../../static/images/img_swapPad_01.jpg" alt=""></li>
-								<li class="action"><img src="../../../static/images/img_swapPad_01.jpg" alt=""></li>
+                        </dt>
+                        <dd>
+                            <ul class="editPad free">
+                                <!-- 假如商品為免費索取, .editPad.free + .action 即顯示本區塊 -->
+                                <li>
+                                    <i><img src="../../../static/images/icon_itrm_free.svg" alt=""></i><p>免費索取</p>
+                                </li>
+                            </ul>
+                        </dd>
+						<dd class="itInfoPad"> <!-- .itInfoPad 隱藏, .itInfoPad.action 顯示 -->
+							<ul class="itInfo">
+								<li><span class="btn_closePop"></span></li>
+								<li><h2>類單眼相機</h2></li>
+								<li><p>來自韓國的contamo以「文創● 手作● 玩樂」為基本理念<br>運用專業美學及生動的結構設計<br>研發出寓教於樂且令人讚嘆的文創商品<br>讓孩子從組裝過程中訓練「耐心」與「專注力</p></li>
+								<li class="itemTag"><a>#dog</a><a>#black</a></li>
+								<li>
+									<h3>交貨細節</h3>
+									<p>可PvC<br>同意面交<br>台北車站捷運站</p>
+								</li>
+							</ul>
+							<ul class="itInfo">
+								<li><span class="btn_closePop"></span></li>
+								<li><h2>iphone6 plus粉紅</h2></li>
+								<li><p>來自韓國的contamo以「文創● 手作● 玩樂」為基本理念<br>運用專業美學及生動的結構設計<br>研發出寓教於樂且令人讚嘆的文創商品<br>讓孩子從組裝過程中訓練「耐心」與「專注力</p></li>
+								<li>
+									<h3>交貨細節</h3>
+									<p>可PvC<br>同意面交<br>萬華車站捷運站</p>
+								</li>
+							</ul>
+							<ul class="itInfo">
+								<li><span class="btn_closePop"></span></li>
+								<li><h2>VR數位眼鏡，全新改版新款式</h2></li>
+								<li><p>產品概念 / <br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p></li>
+								<li>
+									<h3>交貨細節</h3>
+									<p>可PvC<br>同意面交<br>汐止車站捷運站</p>
+								</li>
 							</ul>
 						</dd>
 						<dd>
-							<ul class="editPad action">
+							<ul class="editPad"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
+								<li><p><b>+</b>價格</p></li>
 								<li>
-									<p class="swapAdd">+<img src="../../../static/images/icon_addmoney.png" alt=""> TWD 100</p>
-									<p class="swapAdd">+<img src="../../../static/images/icon_addserv.png" alt=""> 免費代購商品一次</p>
+									<i><img src="../../../static/images/icon_addmoney_w.png" alt=""></i><p>TWD 100</p>
 								</li>
+							</ul>
+						</dd>
+						<dd>
+							<ul class="editPad"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
+								<li><p><b>+</b>服務</p></li>
+								<li>
+									<i><img src="../../../static/images/icon_addserv_w.png" alt=""></i><p>免費代購商品一次/免費打掃一次/免費當保姆一次/免費跑腿一次/幫忙代購一次/免費代購商品一次</p>
+								</li>
+							</ul>
+						</dd>
+						<dd>
+							<ul>
+								<li class="timer"><span>53分鐘前</span></li>
 							</ul>
 						</dd>
 					</dl>
 				</div>
-				<div class="infoPad">
+				<div class="infoPad infoPad_plus">
 					<dl class="CG_scorll">
-						<dt>
-							<ul class="itemTitle">
-								<li><h1>夏威夷風四弦烏克麗麗</h1></li>
-								<li>
-									<p>學音樂孩子不會變壞~ 不用再花大錢買樂器囉~ 夏威夷風四弦烏克麗麗，讓孩子可以輕鬆玩音樂~ 輕盈好拿，容易上手，孩子的小手也能穩穩拿住，玩得開心！還可調整琴弦，使音色更好聽~ 現在就來激發孩子的創造力，譜出屬於自己的樂曲吧！
-									</p>
-								</li>
-							</ul>
-						</dt>
-						<dd>
-							<ul class="itemInfo">
-								<li class="itemTag"><a>#dog</a><a>#black</a></li>
-								<li><span>我想要交換到的物品</span><p>大型的家居擺飾或是其他等值商品都可以!</p></li>
-								<li><p>TWD <i>4500</i></p></li>
-								<li><span>交貨細節</span><p>郵寄&nbsp;&nbsp;&nbsp;&nbsp;NT$120</p></li>
-							</ul>
-						</dd>
-						<dd class="btnPad">
-							<ul>
-								<li>
-									<a class="btn_o btn_change">更改交換</a>
-									<a class="btn_o btn_whisper"><i><img src="../../../static/images/icon_chat_w.png" alt=""></i>悄悄話</a>
-								</li>
-							</ul>
-						</dd>
-						<dd class="btnPad">
-							<ul>
-								<li>
-									<a class="btn_g btn_deal" href="menu_t_deal.html"><i><img src="../../../static/images/icon_deal_w.png" alt=""></i>成交</a>
-									<a class="btn_o btn_whisper"><i><img src="../../../static/images/icon_chat_w.png" alt=""></i>悄悄話</a>
-								</li>
-							</ul>
-						</dd>
 						<dd>
 							<ul class="whisperPad done">
-								<li>悄悄話來交換<span class="btn_closePop"></span></li>
+								<li>悄悄話來交換</li>
 								<li>
 									<dl>
 										<dt class="swapPad">
@@ -145,31 +175,32 @@
 	</div><!-- main END -->
 
 	<!-- Footer -->
-	<app-footer></app-footer>
+	<div id="footer">
+		<!-- footer.html -->
+	</div>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
-		<div class="popContent">
-			<h3>提醒</h3>
-			<p>你確定要刪除嗎？</p>
-			<div class="popCheckPad">
-				<span class="btn_gr btn_cancel">取消</span><span class="btn_o btn_sure">確定</span>
-			</div>
-		</div>
-		<div class="popContent">
-			<div class="btn_closePop"></div>
-			<h3>分享</h3>
-			<div class="shareList">
-				<a href=""><i class="ico_mail"><img src="../../../static/images/icon_mail.png" alt=""></i>E-mail</a>
-				<a href=""><i class="ico_fb"><img src="../../../static/images/icon_fb1.png" alt=""></i>Facebook</a>
-				<a href=""><i class="ico_tw"><img src="../../../static/images/icon_twitter1.png" alt=""></i>Twitter</a>
-				<a href=""><i class="ico_line"><img src="../../../static/images/icon_line.png" alt=""></i>Line</a>
-				<a href=""><i class="ico_whats"><img src="../../../static/images/icon_whats.png" alt=""></i>Whatsapp</a>
-			</div>
-			<div class="copyLink">
-				<label><i class="ico_cohref"><img src="../../../static/images/icon_copyhref.png" alt=""></i><input type="text" name="" value="https://www.swapub.com" placeholder=""></label>
-			</div>
-		</div>
+		<div class="popContent popDealPad">
+            <div class="btn_closePop"></div>
+            <h3>資訊確認</h3>
+            <p>請提供您的聯絡資訊，方便讓對方與您聯絡！</p>
+            <p>我們不會公開您的資料</p>
+            <form action="menu_t_deal.html">
+                <div class="dealDetail">
+                    <p>姓名<input type="text" value="Jing Yun Lee"></p>
+                    <p>電子信箱<input type="email" value="free@gmail.com"></p>
+                    <p>電話<input type="text" value="987654321"></p>
+                </div>
+                <p class="popCheckPad"><input type="checkbox">不要顯示我的手機號碼</p>
+                <div class="popCheckPad">
+                    <p>按下「送出」後表示我同意</p>
+                    <p><a href="exp_rule.html" target="_blank">服務條款</a>和<a href="exp_rule.html" target="_blank">隱私權政策</a></p>
+                    <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
+                    <input type="submit" class="btn_o btn_sure" value="確定" onclick="">
+                </div>
+            </form>
+        </div>
 		<div class="popContent popSys popChangePad">
 			<div class="btn_closePop"></div>
 			<h3>更改交換</h3>
@@ -189,44 +220,44 @@
             </div>
         </div>
 		<div class="popContent popEditSwap">
-			<div class="btn_closePop"></div>
-			<h3>您可以提出物品、價錢、服務等組合來交換</h3>
-			 <form action="swap_item_detail.html?c">
-			<div class="popChoImg">
-				<h4>提出物品</h4>
-				<p>最多可以提出三個物品</p>
-				<div class="imgBoxPad clear">
-					<span class="addImg btn_imgBox action getImg"></span>
-					<span class="addImg btn_imgBox"></span>
-					<span class="addImg btn_imgBox"></span>
-				</div>
-			</div>
-			<div class="popAddPrice">
-				<h4>給個價錢</h4>
-				<p><b>+</b><i></i>
-					<span class="currency btn_g"><i>TWD</i>
-						<span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
-					</span>
-					<input type="number" value="1000" min="0"></p>
-			</div>
-			<div class="popAddServ">
-				<h4>提供服務</h4>
-				<p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
-			</div>
-			<div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
-			<div class="popCheckPad">
-				<!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
-				<input type="submit" class="btn_o btn_sure" value="送出">
-			</div>
-			 </form>
-		</div>
-		<div class="popContent fake popImgList" style="top: 0px;">
-            <div class="popMask clear">
-                <div class="btn_closeThisPop"></div>
-                <h3>選擇照片或物品</h3>
+            <div class="btn_closePop"></div>
+            <h3>您可以提出物品、價錢、服務等組合來交換</h3>
+            <form action="swap_item_detail_user.html?j">
                 <div class="popChoImg">
-                    <dl>
-                        <dt class="addImg btn_upload"><span>+選擇照片或物品</span><i>01</i></dt>
+                    <h4>提出物品</h4>
+                    <p>最多可以提出三個物品</p>
+                    <div class="imgBoxPad clear">
+                        <span class="addImg btn_imgBox action getImg"></span>
+                        <span class="addImg btn_imgBox"></span>
+                        <span class="addImg btn_imgBox"></span>
+                    </div>
+                </div>
+                <div class="popAddPrice">
+                    <h4>給個價錢</h4>
+                    <p><b>+</b><i></i>
+                        <span class="currency btn_g"><i>TWD</i>
+                            <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
+                        </span>
+                        <input type="number" value="1000" min="0"></p>
+                </div>
+                <div class="popAddServ">
+                    <h4>提供服務</h4>
+                    <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
+                </div>
+                <div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
+                <div class="popCheckPad">
+                    <!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
+                    <input type="submit" class="btn_o btn_sure" value="送出">
+                </div>
+            </form>
+        </div>
+		<div class="popContent fake popImgList" style="top:-100vh;">
+			<div class="popMask clear">
+				<div class="btn_closeThisPop"></div>
+				<h3>選擇照片或物品</h3>
+				<div class="popChoImg">
+					<dl>
+						<dt class="addImg btn_upload"><span>+選擇照片或商品</span></dt>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
@@ -240,13 +271,14 @@
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_07.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_08.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+					</dl>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
+
 
 	<!-- Footer END -->
 </div>
@@ -342,20 +374,11 @@ export default {
 
 
       $(document).ready(function () {
-        $('.btn_share').click(function () {
-          $('#popContainer').removeClass('popDel');
-          $('#popContainer').stop().animate({
-            top: 0
-          }, 300);
-          $('#popContainer').addClass('popShare');
-        });
-        $('.btn_del').click(function () {
-          $('#popContainer').removeClass('popShare');
-          $('#popContainer').stop().animate({
-            top: 0
-          }, 300);
-          $('#popContainer').addClass('popDel');
-        });
+        $('.btn_deal').click(function(){
+                $('#popContainer').removeClass();
+				$('#popContainer').stop().animate({top : 0}, 300);
+				$('#popContainer').addClass('popDeal');
+			});
         $('.btn_change').click(function () {
           $('#popContainer').removeClass();
           $('#popContainer').stop().animate({
@@ -404,7 +427,85 @@ export default {
 			// 	$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
 			// 	$imgBox.eq(btnInd).addClass('getImg');
 			});
-      })
+
+
+			// =====商品圖.商品資訊設定================ //
+			var $btnInfo = $('.pd_block').find('.btn_info'),
+				$infoPad = $('.infoPad_plus'),
+				$itInfoPad = $('.itInfoPad'),
+				$itInfo = $itInfoPad.find('.itInfo'),
+				$itPad = $('.lazyload'),
+				$itLen = $itPad.length,
+				$itBig = $itPad.eq(0).find('span'),
+				$itClose = $itInfo.find('.btn_closePop');
+			// 基本尺寸設定
+			if($itLen == 1){
+				$itPad.css({"left":"0", "top":"0", "width": "100%", "height": "100%"});
+				$('.pd_block ul').css({"height": "482px"});
+			}else if($itLen == 2){
+				$itPad.eq(1).css({"left":"66.66%", "top":"0", "height": "100%"});
+			}
+			// 商品圖尺寸.位置變化
+			$(".pd_block li .itResize").click(function(){
+				closeInfo();
+				resizeImg($(this));
+			});
+			var resizeImg = function(obj){
+				var $this = obj.parent();
+				var index = $this.index();
+				if(index == 0){
+					$this.addClass('big').css({"left":"0", "top":"0", "height": "100%", "transition":"all 0.25s linear"});
+					$this.next(0).css({"left":"66.66%", "top":"0", "height": "50%", "transition":"all 0.25s linear"});
+					$this.next().next().css({"left":"66.666%", "top":"50%", "height": "50%", "transition":"all 0.25s linear"});
+					$this.siblings().removeClass('big');
+					return false;
+				}
+				if(index == 1){
+					$this.prev().css({"left":"66.66%", "top":"0%", "height": "50%", "transition":"all 0.25s linear"});
+					$this.next().css({"left":"66.66%", "top":"50%", "height": "50%", "transition":"all 0.25s linear"});
+					$this.addClass('big').css({"left":"0", "top":"0", "height": "100%", "transition":"all 0.25s linear"});
+					$this.siblings().removeClass('big');
+					return false;
+				}
+				if(index == 2){
+					$this.prev().prev().css({"left":"66.66%", "top":"0", "height": "50%", "transition":"all 0.25s linear"});
+					$this.prev().css({"left":"66.66%", "top":"50%", "height": "50%", "transition":"all 0.25s linear"});
+					$this.addClass('big').css({"left":"0", "top":"0", "height": "100%", "transition":"all 0.25s linear"}) ;
+					$this.siblings().removeClass('big');
+					return false;
+				}
+			}
+			// 點大圖 , 出現物品資訊
+			$(".openInfo").click(function(){
+				var $this = $(this).parent('li');
+				var bIndex = $this.index();
+				var $itInfo = $('.itInfo');
+				$itInfoPad.addClass('action');
+				$infoPad.addClass('action');
+				$itInfo.eq(bIndex).addClass('action').siblings().removeClass('action');
+				return false;
+			});
+			// 點物品照片上的 i , 出現物品資訊
+			$btnInfo.click(function(){
+				resizeImg($(this));
+				var ind = $(this).index('.btn_info');
+				$itInfoPad.addClass('action');
+				$infoPad.addClass('action');
+				$itInfo.eq(ind).addClass('action').siblings().removeClass('action');
+			});
+			// 點 x 物品資訊消失
+			$itClose.click(function(){
+				$itInfoPad.removeClass('action');
+				$itInfo.removeClass('action');
+				$infoPad.removeClass('action');
+			});
+			var closeInfo = function(){
+				$itInfoPad.removeClass('action');
+				$itInfo.removeClass('action');
+				$infoPad.removeClass('action');
+			}
+     })
+
 
       function deal() {
         $('.infoPad').find('.btn_deal').fadeOut(100);

@@ -14,34 +14,38 @@
 					<dl>
 						<dt>
 							<ul class="wishTitle">
-								<li class="timer"><span>18小時前</span>
+								<li>
+                  <!-- <span>{{this.resData.Date}}</span> -->
 								<h3>我想要...</h3>
 								</li>
-								<li><h1>SAINT LAURENT</h1></li>
+								<li>
+                <h1>{{this.resData.Name}}</h1></li>
 							</ul>
 						</dt>
 						<dd>
 							<ul class="itemImg">
-								<li><img src="../../../static/images/ws_it_img_7.jpg" alt=""></li>
+								<li><i><img :src="(this.productImg)"  alt=""/></i></li>
 							</ul>
 						</dd>
 						<dd>
 							<ul class="itemInfo">
-								<li><p>收！SAINT LAURENT<br>LouLou Monogram Small<br>leather shoulder bag </p></li>
+                
+								<li><p>{{this.resData.Description}}</p></li>
 							</ul>
 						</dd>
 						<dd>
 							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></li>
-								<li class="userDetail"><h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
-								<li class="timer"><span>53分鐘前</span></li>
+								<li class="userPic"><a href="menu_u_myitem.html?j"><i><img :src="this.imgUrl" alt=""></i></a></li>
+								<li class="userDetail"><h3 class="userName"><i>{{this.user.Name}}</i></h3><span class="userAdd">{{this.location}}</span></li>
+								<!-- <li class="timer"><span>{{this.resData.Date}}</span></li> -->
 							</ul>
 						</dd>
 						<dd class="editPad action">
 							<ul>
-								<li class="btn_msg action"><i>5</i><p>留言</p></li>
+								<li class="btn_msg action"><i>{{this.messageNum}}</i><p>留言</p></li>
 								<li class="btn_share"><p>分享</p></li>
-								<li class="btn_edit"><router-link to='/wish_edit'><p>編輯</p></router-link></li>
+								<li class="btn_edit"><router-link :to="{name:'Wish_edit',params: { id: this.id}} "><p>編輯</p></router-link></li>
+                
 								<li class="btn_del"><p>刪除</p></li>
 							</ul>
 						</dd>
@@ -52,44 +56,50 @@
 								<li class="btn_report"><p>檢舉</p></li>
 							</ul>
 						</dd>
+            <dd class="timer"><span>18小時前</span></dd>
 					</dl>
 				</div>
 				<div class="infoPad">
 					<div class="btnPad">
-						<span class="action">留言<i>(3)</i></span>
+						<span class="action">留言<i>({{this.messageNum}})</i></span>
 					</div>
 					<div class="socialPad">
 						<ul class="msgPad action">
 							<li>
-								<span class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-								<p><input type="text" name="" value="" placeholder="我想說..."></p>
-								<a class="btn_sentMsg btn_o"></a>
+								<span class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.userImg" alt=""></a></span>
+								<p><input type="text" name="" value="" placeholder="我想說..." v-model="message"></p>
+									<a class="btn_sentMsg btn_o" @click="sendMessage()"></a>
 							</li>
-							<li>
-								<span class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-								<p class="userName"><a href="menu_u_myitem.html?j"><i>我 (</i>Jing Yun Lee<i>)</i></a><span class="date">2017/10/27 19:55</span></p>
-								<p>看看喔!</p>
-							</li>
-							<li>
+
+                
+           <li v-for="message in messageList">
+                  
+                    <span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="message.UserInfo.AvatarUrl" alt=""></a></span>
+                    <span class="date">{{((message.Date).split('.')[0]).replace("T","     ")}}</span>
+                    <p class="userName"><a href="menu_u_myitem_other.html?j">{{message.UserInfo.Name}}</a></p>
+                    <p>{{message.Message}}</p>
+                    
+          </li> 
+							<!-- <li>
 								<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
 								<p class="userName"><a href="menu_u_myitem_other.html?j">Victor Wang</a><span class="date">2017/10/27 19:55</span></p>
 								<p>我有一支64G 但是金色 外觀有稍微用過痕跡，外盒與充電線都在，不介意再來談細節吧！</p>
-							</li>
-							<li>
+							</li> -->
+							<!-- <li>
 								<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
 								<p class="userName"><a href="menu_u_myitem_other.html?j">Victor Wang</a><span class="date">2017/10/27 19:55</span></p>
 								<p>有需要的話請加我的line：victor123</p>
-							</li>
-							<li>
+							</li> -->
+							<!-- <li>
 								<span class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
 								<p class="userName"><a href="menu_u_myitem.html?j"><i>我 (</i>Jing Yun Lee<i>)</i></a><span class="date">2017/10/27 19:55</span></p>
 								<p>有需求我可以留下聯絡方式給你</p>
-							</li>
-							<li>
+							</li> -->
+							<!-- <li>
 								<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_2.png" alt=""></a></span>
 								<p class="userName"><a href="menu_u_myitem_other.html?j">Rock stone</a><span class="date">2017/10/27 19:55</span></p>
 								<p>有需要！ 怎麼換？</p>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
@@ -178,13 +188,70 @@
 </template>
 
 <script>
-import Header from "../../components/Header.vue";
-import Footer from "../../components/Footer.vue";
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 export default {
   components: {
     "app-header": Header,
     "app-footer": Footer
+	},
+		props: ["id"],
+	data() {
+    return {
+		  resData:{},
+    	user:{},
+			location:{},
+			productImg:[],
+      imgUrl:"",		
+      userImg:"",
+      messageNum:"",
+			messageList:{}
+      
+    }
   },
+created(){
+   this.getProductInfo(); 
+   this.getMessageNum();
+   this.getMessageList();
+  },
+  methods:{
+	  async getProductInfo(){
+				this.getToken();  
+        this.resData = await api.get('GetWishInfo',localStorage.getItem('api_token'),'&wishID='+ this.id)
+				this.user = this.resData.UserInfo
+				this.location = this.resData.City  +","+ this.resData.Country 
+				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
+        this.productImg = this.resData.PictureUrl
+        this.messageNum = this.resData.MessageCount
+        	if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
+			  		this.User = await api.get('User',localStorage.getItem('login_token'),'')	
+						this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+						this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
+			    }
+				console.log(this.resData)
+		},
+
+	  async getToken(){
+       await api.getToken()
+    },
+
+    async getMessageNum(){
+			this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
+		},
+		async sendMessage(){
+			 await api.postJSON('AddWishMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&wishID=' + this.id)
+			 this.getMessageNum()
+			 this.getMessageList();
+			 this.message=""
+		},
+
+		async getMessageList(){
+        this.messageList = await api.get('GetWishMessageList',localStorage.getItem('api_token'),'&wishID=' + this.id + "&maxtime=1")
+        console.log(this.messageList)    
+    }
+	},
+
   mounted() {
     setTimeout(() => {
       var Gw = $(window),
@@ -210,7 +277,7 @@ export default {
           var s = skrollr.init();
         }
 
-        $('#header').find('.market').addClass('action');
+        $('#header').find('.wish').addClass('action');
 
       })
 

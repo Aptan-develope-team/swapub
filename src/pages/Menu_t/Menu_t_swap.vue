@@ -11,181 +11,72 @@
 		<div class="content">
             <h1>討論中的交換</h1>
             <div class="mainBtPad">
-                <a class="action">送出的交換(<i>3</i>)</a>
-                <a class="">收到的交換(<i>2</i>)</a>
+                <a class="action">送出的交換(<i>{{this.Offer.length}}</i>)</a>
+                <a class="">收到的交換(<i>{{this.GotOffer.length}}</i>)</a>
             </div>
 			<div class="conBlock send">
                 <ul>
-                    <li class="mSwapList clear">
+                    <li class="mSwapList clear" v-for="offer in Offer">
                         <div class="dealPad">
-                            <span class="icon_deal"></span>
+                            <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+                            <span class="icon_swap"></span>
                             <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <!-- <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="images/ws_it_img_2.jpg" alt=""></a>
-                                </div> -->
+                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img :src="imgUrl" alt=""></a></span>
+            
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(../../../../static/images/ws_it_img_2.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(../../../static/images/ws_it_img_3.jpg)"></p>
-                                                        <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                <ul v-if="offer.Offer.Items != '' && offer.Offer.Items != undefined ">
+                                                    <li><p v-if="offer.Offer.Items.length == 1 || offer.Offer.Items.length == 2 || offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[0].PictureUrl})`}"></p></li>
+                                                    <li v-if="offer.Offer.Items.length > 1"><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p v-if="offer.Offer.Items.length == 2 || offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[1].PictureUrl})`}"></p>
+                                                        <p v-if="offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[2].PictureUrl})`}"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                     </li>
                                                 </ul>
                                             </div>
                                         </dl>
-                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addtask_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+                                        <dl v-if="offer.Offer.OfferMoney != '' && offer.Offer.OfferMoney != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{offer.Offer.OfferMoney.Type}} {{offer.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        <dl v-if="offer.Offer.OfferService != '' && offer.Offer.OfferService != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">{{offer.Offer.OfferService}}</span></dt></dl>
                                     </div>
                                     <a href="swap_item_detail_user.html?j"></a>
                                 </div>
-                                <p>炫彩防燙布杯套</p>
+                                <p v-if="offer.Offer.Items[0]">{{offer.Offer.Items[0].ProductName}}</p>
                             </div>
                             <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
+                                <span class="userPic checked" v-if="offer.TargetUser"><a href="menu_u_myitem_other.html?j"><img :src="otherImgUrl + offer.TargetUser.ID + '/Avatar.jpg'" alt=""></a></span>
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
                                                 <ul>
-                                                    <li><p style="background-image:url(../../../static/images/sr_it_img_2.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(../../../static/images/sr_it_img_3.jpg)"></p>
-                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                    </li>
+                                                    <li><p :style="{ backgroundImage:`url(${offer.Product.PictureURL})`}"></p></li>
+                                                   
                                                 </ul>
                                             </div>
                                         </dl>
-                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        <!--<dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl> 如果有項目，就要新增 dl > dt > 內容 -->
                                     </div>
                                     <a href="swap_item_detail_other.html?j"></a>
                                 </div>
-                                <p>戴爾(Dell) Inspi-ron 5000二合一...</p>
+                                <p v-if="offer.Product">{{offer.Product.ProductName}}</p>
                             </div>
                         </div>
                         <div class="dealBtPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="btn_o btn_change">更改交換</span>
-                        </div>
-                    </li>
-                    <li class="mSwapList clear">
-                        <div class="dealPad">
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <!-- <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="images/mk_it_img_18.jpg" alt=""></a>
-                                </div> -->
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_18.jpg)"></p></li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="swap_item_detail_user.html?j"></a>
-                                </div>
-                                <p>金工手做搖水杯</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
-                                <!-- <div class="itemImg">
-                                    <a href="swap_item_detail_other.html?j"><img src="images/mk_it_img_19.jpg" alt=""></a>
-                                </div> -->
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_19.jpg)"></p></li>
-                                                </ul>
-                                            </div>
-                                        </dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="swap_item_detail_other.html?j"></a>
-                                </div>
-                                <p>全新air pod</p>
-                            </div>
-                        </div>
-                        <div class="dealBtPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="btn_o btn_change">更改交換</span>
-                        </div>
-                    </li>
-                    <li class="mSwapList clear">
-                        <div class="dealPad">
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                                <!-- <div class="itemImg">
-                                    <a href="swap_item_detail_user.html?j"><img src="images/mk_it_img_12.jpg" alt=""></a>
-                                </div> -->
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_12.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(../../../static/images/sr_it_img_3.jpg)"></p>
-                                                        <p style="background-image:url(../../../static/images/sr_it_img_4.jpg)"></p>
-                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="swap_item_detail_user.html?j"></a>
-                                </div>
-                                <p>植村秀眼線筆</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
-                                <!-- <div class="itemImg">
-                                    <a href="swap_item_detail_other.html?j"><img src="images/mk_it_img_13.jpg" alt=""></a>
-                                </div> -->
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_13.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(../../../static/images/mk_it_img_12.jpg)"></p>
-                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="swap_item_detail_other.html?j"></a>
-                                </div>
-                                <p>ysl潤色粉膚口紅</p>
-                            </div>
-                        </div>
-                        <div class="dealBtPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="btn_o btn_change">更改交換</span>
+                            <!-- <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span> -->
+                            <span class="btn_o btn_change" @click="openChange(offer.Offer,offer.MsgID)">更改交換</span>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="conBlock get">
                     <ul>
-                        <li class="mSwapList clear">
+                        <li class="mSwapList clear" v-for="offer in GotOffer">
                             <div class="dealPad">
-                                <span class="icon_deal"></span>
+                                <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+                                <span class="icon_swap"></span>
                                 <div class="swapPad">
-                                    <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
+                                <span class="userPic checked" v-if="offer.TargetUser"><a href="menu_u_myitem_other.html?j"><img :src="otherImgUrl + offer.TargetUser.ID + '/Avatar.jpg'" alt=""></a></span>
                                     <!-- <div class="itemImg itemFinish">
                                         <a href="swap_item_detail_finish-other.html?j"><img src="images/img_item_09.jpg" alt=""></a>
                                     </div> -->
@@ -193,23 +84,24 @@
                                         <div class="cssTable">
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
-                                                    <ul>
-                                                        <li><p style="background-image:url(../../../static/images/img_item_09.jpg)"></p></li>
-                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                            <p style="background-image:url(../../../static/images/img_item_08.jpg)"></p>
-                                                            <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                        </li>
-                                                    </ul>
+                                                    <ul v-if="offer.Offer.Items != '' && offer.Offer.Items != undefined ">
+                                                    <li><p v-if="offer.Offer.Items.length == 1 || offer.Offer.Items.length == 2 || offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[0].PictureUrl})`}"></p></li>
+                                                    <li v-if="offer.Offer.Items.length > 1"><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p v-if="offer.Offer.Items.length == 2 || offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[1].PictureUrl})`}"></p>
+                                                        <p v-if="offer.Offer.Items.length == 3" :style="{ backgroundImage:`url(${offer.Offer.Items[2].PictureUrl})`}"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                   </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        </div>
+                                           <dl v-if="offer.Offer.OfferMoney != '' && offer.Offer.OfferMoney != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{offer.Offer.OfferMoney.Type}} {{offer.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                           <dl v-if="offer.Offer.OfferService != '' && offer.Offer.OfferService != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addtask_w.png)"></i><span class="ovLine">{{offer.Offer.OfferService}}</span></dt></dl>
+                                    </div>
                                         <a href="swap_item_detail_finish-other.html?j"></a>
                                     </div>
-                                    <p>戴爾(Dell) Inspi-ron 5000二合一...</p>
+                                      <p v-if="offer.Offer.Items[0]">{{offer.Offer.Items[0].ProductName}}</p>
                                 </div>
                                 <div class="swapPad">
-                                    <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
+                                    <span class="userPic checked"><a href="menu_u_myitem.html?j"><img :src="imgUrl" alt=""></a></span>
                                     <!-- <div class="itemImg">
                                         <a href="swap_item_detail_user.html?j"><img src="images/ws_it_img_2.jpg" alt=""></a>
                                     </div> -->
@@ -218,25 +110,26 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/ws_it_img_2.jpg)"></p></li>
+                                                         <li><p :style="{ backgroundImage:`url(${offer.Product.PictureURL})`}"></p></li>
                                                     </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            <!-- <dl><dt><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl>如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>
                                         <a href="swap_item_detail_user.html?j"></a>
                                     </div>
-                                    <p>【Nikon】類單眼相機</p>
+                                    <p v-if="offer.Product">{{offer.Product.ProductName}}</p>
                                 </div>
                             </div>
                             <div class="dealBtPad">
-                                <span class="date">06/27/2017</span>
+                                <!-- <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span> -->
                                 <span class="btn_g btn_deal"><i></i>成交</span>
                             </div>
                         </li>
                         <li class="mSwapList clear">
                             <div class="dealPad">
-                                <span class="icon_deal"></span>
+                                <span class="date">06/27/2017</span>
+                                <span class="icon_swap"></span>
                                 <div class="swapPad">
                                     <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_3.png" alt=""></a></span>
                                     <!-- <div class="itemImg">
@@ -282,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="dealBtPad">
-                                <span class="date">06/27/2017</span>
+                                <!-- <span class="date">06/27/2017</span> -->
                                 <span class="btn_g btn_deal"><i></i>成交</span>
                             </div>
                         </li>
@@ -322,7 +215,7 @@
             <h3>更改交換</h3>
             <p>請問你要取消交換還是要更改交換物品?</p>
             <div class="popCheckPad">
-                <input type="button" class="btn_gr" value="取消交換" onclick="check();">
+                <input type="button" class="btn_gr" value="取消交換" @click="check()">
                 <input type="button" class="btn_o btn_popChange" value="更改交換">
             </div>
         </div>
@@ -338,14 +231,14 @@
         <div class="popContent popEditSwap">
             <div class="btn_closePop"></div>
             <h3>您可以提出物品、價錢、服務等組合來交換</h3>
-            <form action="swap_item_detail.html?c">
+            <form>
                 <div class="popChoImg">
                     <h4>提出物品</h4>
                     <p>最多可以提出三個物品</p>
                     <div class="imgBoxPad clear">
-                        <span class="addImg btn_imgBox action getImg"></span>
-                        <span class="addImg btn_imgBox"></span>
-                        <span class="addImg btn_imgBox"></span>
+                        <span class="addImg btn_imgBox firstImg"></span>
+                        <span class="addImg btn_imgBox secondImg"></span>
+                        <span class="addImg btn_imgBox thirdImg"></span>
                     </div>
                 </div>
                 <div class="popAddPrice">
@@ -354,43 +247,43 @@
                         <span class="currency btn_g"><i>TWD</i>
                             <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
                         </span>
-                        <input type="number" value="1000" min="0"></p>
+                        <input type="number" value="" min="0" v-model="changeOffer.OfferMoney.Value"></p>
                 </div>
                 <div class="popAddServ">
                     <h4>提供服務</h4>
-                    <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
+                    <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="" v-model="changeOffer.OfferService"></p>
                 </div>
                 <div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
                 <div class="popCheckPad">
                     <!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
-                    <input type="submit" class="btn_o btn_sure" value="送出">
+                    <input type="submit" class="btn_o btn_sure" value="送出" @click="upload()">
                 </div>
             </form>
         </div>
         <div class="popContent fake popImgList" style="top:-100vh;">
-            <div class="popMask clear">
-                <div class="btn_closeThisPop"></div>
-                <h3>選擇照片或物品</h3>
-                <div class="popChoImg">
-                    <dl>
-                        <dt class="addImg btn_upload"><span>+選擇照片或物品</span><i>01</i></dt>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_04.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_03.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic action"><img src="../../../static/images/img_swapPad_01.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_04.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_05.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/ws_it_img_1.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_06.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_07.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_08.jpg" alt=""></dd>
-                        <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+			<div class="popMask clear">
+				<div class="btn_closeThisPop"></div>
+				<h3>選擇照片或物品</h3>
+				<div class="popChoImg">
+					<dl>
+					<router-link to='/market_upload'>	<dt class="addImg btn_upload" style="height:189px"><span>+選擇照片或商品</span></dt></router-link>
+						<dd class="addImg btn_choosePic" v-for="item in Item"><img :src="item.PictureUrls[0]" alt="" @click="setItem(item._id)"></dd>
+						<!-- <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_04.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_03.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic action"><img src="../../../static/images/img_swapPad_01.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_04.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_05.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/ws_it_img_1.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_06.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_07.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_08.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd> -->
+					</dl>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
@@ -401,6 +294,8 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
+
 
 export default {
   components: {
@@ -408,12 +303,148 @@ export default {
     'app-footer': Footer
 
   },
+  data(){
+      return{
+          Offer:{},
+          GotOffer:{},
+          imgUrl:"",
+          otherImgUrl:"",
+          User:{},
+          Item:{},
+          MsgID:"",
+          changeOffer:{
+              Item:[],
+              OfferMoney:{
+                  Type:"",
+                  Value:""
+              },
+              OfferService:""
+          },
+          changeItem:[]
+        
+      }
+  },
+  created(){
+      this.getOffer();
+      this.getGotOffer();
+  },
   methods:{
       check(){
             $('#popContainer').removeClass();
             $('#popContainer').stop().animate({top : 0}, 300);
             $('#popContainer').addClass('popCheck');
+       },
+       async getOffer(){
+            this.Offer = await api.get('OfferingLists',localStorage.getItem('login_token'), "")
+            console.log(this.Offer)
+            this.User = await api.get('User',localStorage.getItem('login_token'),'')
+            this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.User.ID + "/Avatar.jpg"
+            this.otherImgUrl = api.CdnUrl + "/Uploads/User/"
+            this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
+
+
+       },
+       async getGotOffer(){
+            this.GotOffer  = await api.get('GotOfferLists',localStorage.getItem('login_token'), "")
+            console.log(this.GotOffer)
+       },
+       openChange(obj,MsgID){
+          $('#popContainer').removeClass();
+          $('#popContainer').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('popChange');
+          this.changeOffer = obj
+          if(this.changeOffer.Items[0] != undefined){      
+            $('.popEditSwap').find('.firstImg').css({'background-image':'url('+this.changeOffer.Items[0].PictureUrl+')'});
+            $('.popEditSwap').find('.firstImg').addClass('getImg');
+            this.changeItem[0] = this.changeOffer.Items[0].ProductID
+          }
+          if(this.changeOffer.Items[1] != undefined){      
+            $('.popEditSwap').find('.secondImg').css({'background-image':'url('+this.changeOffer.Items[1].PictureUrl+')'});
+            $('.popEditSwap').find('.secondImg').addClass('getImg');
+            this.changeItem[1] = this.changeOffer.Items[1].ProductID
+
+          }      
+          if(this.changeOffer.Items[2] != undefined){      
+            $('.popEditSwap').find('.thirdImg').css({'background-image':'url('+this.changeOffer.Items[2].PictureUrl+')'});
+            $('.popEditSwap').find('.thirdImg').addClass('getImg');
+            this.changeItem[2] = this.changeOffer.Items[2].ProductID
+
+          }
+          this.MsgID = MsgID
+
+       },
+       setItem(id){
+			if(this.changeItem.length == 0){
+				this.changeItem[0] = id 
+			}
+			else if(this.changeItem.length == 1){
+				this.changeItem[1] = id 
+			}
+			else{
+				this.changeItem[2] = id 
+			}
+		},
+       async upload(){
+           console.log(this.changeOffer)
+           console.log(this.MsgID)
+           this.changeOffer.Items = this.changeItem 
+           api.putJSON('Change',JSON.stringify(this.changeOffer),localStorage.getItem('login_token'), "&msgID=" + this.MsgID)
+           location.reload();
        }
+       
+  },
+  updated(){
+      setTimeout(()=>{
+          var $swapPad = $('.swapPad'),
+                $swapPadW = $swapPad.width(),
+                $itemImg  = $swapPad.find('.itemImg');
+            $itemImg.css({'height': "184px"});
+
+            // 提出交換
+        var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+          $picList = $('.btn_choosePic'),
+          $upload = $('.btn_upload'),
+          btnInd,
+          $popUpload = $('.popImgList').find('.btn_upload'),
+          $popAddImg = $('.popImgList').find('.addImg'),
+          $uploadW;
+        //點提出物品框框,出現圖片清單
+        $imgBox.click(function () {
+          btnInd = $(this).index('.btn_imgBox');
+          $('#popContainer').removeClass('popShare');
+          $('#popContainer').removeClass('popReport');
+          $('#popContainer').removeClass('popDel');
+          $('.popImgList').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('popChooseImg');
+          $uploadW = $popAddImg.eq(1).outerWidth();
+          $popAddImg.css({
+            'height': $uploadW
+          });
+        });
+
+        $picList.click(function () {
+          var pInd = $(this).index('.btn_choosePic');
+          //橘色邊框
+          $picList.eq(pInd).addClass('action').siblings().removeClass('action');
+          //取得點選的圖片連結
+          var img = $picList.eq(pInd).find('img').attr('src');
+          console.log(img);
+          //圖片清單消失
+          $('.popImgList').stop().animate({
+            top: -100 + 'vh'
+          }, 300);
+          $('#popContainer').removeClass('popChooseImg');
+          //將圖片匯入當下的提出物品框框
+         		$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
+				$imgBox.eq(btnInd).addClass('getImg');
+            });
+      },100)
+            
+
   },
   mounted() {
     setTimeout(() => {
@@ -447,6 +478,13 @@ export default {
             
       // Yep, that's it!
       //$('#scene').parallax();
+      	$('.btn_closeThisPop').click(function(){
+		$('.fake').stop().animate({top : -100 + 'vh'}, 500, function(){
+			$('#popContainer').removeClass('popChooseImg');
+			$('#popContainer').removeClass('popGuaQaC');
+			//$('.fake').stop().fadeOut();
+		});
+	});
 
       $('.btn_closePop').click(function () {
         $('#popContainer').stop().animate({
@@ -476,6 +514,13 @@ export default {
           top: -100 + 'vh'
         }, 500);
       });
+      $('.btn_popChange').click(function () {
+          $('#popContainer').removeClass();
+          $('#popContainer').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('addSwap');
+        });
 
       $(document).ready(function () {
         $('.btn_deal').click(function () {
@@ -513,51 +558,8 @@ export default {
           });
         });
         
-        var $swapPad = $('.swapPad'),
-                $swapPadW = $swapPad.width(),
-                $itemImg  = $swapPad.find('.itemImg');
-            $itemImg.css({'height': "184px"});
-
-        //提出交換
-        // var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
-        //   $picList = $('.btn_choosePic'),
-        //   $upload = $('.btn_upload'),
-        //   btnInd,
-        //   $popUpload = $('.popImgList').find('.btn_upload'),
-        //   $popAddImg = $('.popImgList').find('.addImg'),
-        //   $uploadW;
-        // //點提出物品框框,出現圖片清單
-        // $imgBox.click(function () {
-        //   btnInd = $(this).index('.btn_imgBox');
-        //   $('#popContainer').removeClass('popShare');
-        //   $('#popContainer').removeClass('popReport');
-        //   $('#popContainer').removeClass('popDel');
-        //   $('.popImgList').stop().animate({
-        //     top: 0
-        //   }, 300);
-        //   $('#popContainer').addClass('popChooseImg');
-        //   $uploadW = $popAddImg.eq(1).outerWidth();
-        //   $popAddImg.css({
-        //     'height': $uploadW
-        //   });
-        // });
-
-        // $picList.click(function () {
-        //   var pInd = $(this).index('.btn_choosePic');
-        //   //橘色邊框
-        //   $picList.eq(pInd).addClass('action').siblings().removeClass('action');
-        //   //取得點選的圖片連結
-        //   var img = $picList.eq(pInd).find('img').attr('src');
-        //   console.log(img);
-        //   //圖片清單消失
-        //   $('.popImgList').stop().animate({
-        //     top: -100 + 'vh'
-        //   }, 300);
-        //   $('#popContainer').removeClass('popChooseImg');
-        //   //將圖片匯入當下的提出物品框框
-        //  			$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
-		// 		$imgBox.eq(btnInd).addClass('getImg');
-        //     });
+        
+       
             
         })
 
