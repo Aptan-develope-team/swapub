@@ -111,7 +111,8 @@ export default new Router({
     {
       path: '/swap_item_detail',
       name: 'Swap_item_detail',
-      component: Swap_item_detail
+      component: Swap_item_detail,
+      props:true
     },
     {
       path: '/swap_item_detail_other',

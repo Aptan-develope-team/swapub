@@ -287,15 +287,25 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
+
 
 export default {
   components: {
     'app-header': Header,
     'app-footer': Footer
 
-  },
-  mounted() {
+	},
+	props:['cool','wow'],
+	updated(){
 
+	},
+	created(){
+		console.log(this.cool)
+		console.log(this.wow)
+	},
+  mounted() {
+		
     setTimeout(() => {
       var element = document.getElementById("body_class");
       element.removeAttribute("class");

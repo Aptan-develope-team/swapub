@@ -39,7 +39,7 @@
                                         <dl v-if="offer.Offer.OfferMoney != '' && offer.Offer.OfferMoney != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{offer.Offer.OfferMoney.Type}} {{offer.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         <dl v-if="offer.Offer.OfferService != '' && offer.Offer.OfferService != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">{{offer.Offer.OfferService}}</span></dt></dl>
                                     </div>
-                                    <a href="swap_item_detail_user.html?j"></a>
+                                    <router-link :to="{name:'Swap_item_detail',params: { cool:'wow',wow:'cool'}}"></router-link>
                                 </div>
                                 <p v-if="offer.Offer.Items[0]">{{offer.Offer.Items[0].ProductName}}</p>
                             </div>
@@ -341,8 +341,6 @@ export default {
             this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.User.ID + "/Avatar.jpg"
             this.otherImgUrl = api.CdnUrl + "/Uploads/User/"
             this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
-
-
        },
        async getGotOffer(){
             this.GotOffer  = await api.get('GotOfferLists',localStorage.getItem('login_token'), "")
@@ -392,6 +390,9 @@ export default {
            this.changeOffer.Items = this.changeItem 
            api.putJSON('Change',JSON.stringify(this.changeOffer),localStorage.getItem('login_token'), "&msgID=" + this.MsgID)
            location.reload();
+       },
+       async passData(obj){
+           api.changeData = obj
        }
        
   },

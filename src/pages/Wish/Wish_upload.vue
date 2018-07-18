@@ -175,7 +175,7 @@ export default {
           AdministrativeArea:"123", 
           City:"123",
         },
-        File:[]
+        File:{}
     },      
       Result:"",
       wishID:"",
@@ -185,13 +185,11 @@ export default {
   },
   methods:{
     async upload(){
-      if(1){
+      if(this.Result != ""){
         var bodyFormData = new FormData();
         bodyFormData.append('Info', JSON.stringify(this.data.Info));
-        bodyFormData.append('File',this.data.File[0])
-        console.log(this.data.File)
+        bodyFormData.append('File',this.data.File)
         this.wishID = await api.postWish("AddWish",bodyFormData,localStorage.getItem('login_token'),"")  
-        console.log(this.wishID)
         //await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.wishID)
       }
       else{
@@ -204,11 +202,11 @@ export default {
 		},
 		onFileChanged (event) {
       const file = event.target.files[0];
+      console.log(file)
+      this.data.File = file
       const reader = new FileReader();
       reader.onload = e => { 
         this.Result = e.target.result
-        this.data.File[0] = e.target.result.split(':')[1]
-        //this.data.File[0] = e.target.result
       }   
       reader.readAsDataURL(file);   
 		},

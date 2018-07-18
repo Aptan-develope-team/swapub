@@ -8,6 +8,7 @@ const url = "api/"
 export default{
     CdnUrl:"https://d11am61bl9q9du.cloudfront.net",
     userID:"",
+    changeData:{},
     async getToken() {
       await axios.post(url + 'PeformLogon', qs.stringify({
         Email: "evilgame389@gmail.com",
@@ -19,7 +20,6 @@ export default{
           'Content-Type': 'application/x-www-form-urlencoded',
           'appid': 'TestAppID_3',
           'AppVersion':'2.14.0'
-
         }
       }).then((res) => {
         localStorage.setItem('api_token', res.data.Token)
@@ -69,7 +69,6 @@ export default{
     },
     async postWish(api,data,token,param){
       var response = await axios.post(url + api + '?accessToken=' + token + param,data, {headers: {
-    'Content-Type': 'multipart/form-data',
     'appid':'TestAppID_3',
     'AppVersion':'2.14.0'
     }}).then((res) => {

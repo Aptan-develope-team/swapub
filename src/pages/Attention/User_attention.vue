@@ -48,14 +48,14 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
                                                         <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                            <p style="background-image:url(images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>
                                     </dd>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -63,7 +63,7 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
                                                     </ul>
                                                 </div>
                                             </dl>
@@ -73,10 +73,62 @@
                             </a>
                         </li>
                         <li class="assessFace">
-                            <img src="../../../static/images/icon_smile_o.svg" alt="">
+                            <img src="images/icon_smile_o.svg" alt="">
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div class="assMsgPad badAssMsgPad">
+                <div>
+                    <ul class="userInfo oUserMsg clear">
+                        <li class="userPic"><a href="menu_u_myitem_other.html?j">
+                            <img src="../../../static/images/sr_na_img_1.jpg" alt=""></a>
+                        </li>
+                        <li class="userDetail">
+                            <h3 class="userName otherUser"><i>我(</i>sia<i>)</i></h3>
+                            <p class="ovLine">我有在悄悄話裡面留言</p>
+                            <span class="date">2017/10/27 18:07</span>
+                        </li>
+                        <li class="swapInfo">
+                            <a href="menu_t_deal_detail.html">
+                                <dl class="dealPad clear">
+                                    <dt class="icon_deal"></dt>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li><!-- 如果只有一張圖，這個li 都不要 -->
+                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        </div>
+                                    </dd>
+                                    <dd class="itemCon_1 itemImg swapPad">
+                                        <div class="cssTable">
+                                            <dl>
+                                                <div class="itemCon_2 cssTable">
+                                                    <ul>
+                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                    </ul>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </li>
+                        <li class="assessFace">
+                            <img src="../../../static/images/icon_cry_b.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
                 <!-- <div>
                     <ul class="userInfo oUserMsg">
                         <li class="userPic"><a href="menu_u_myitem_other.html">
@@ -133,8 +185,7 @@
                         </li>
                     </ul>
                 </div> -->
-            </div>
-        </div>
+           
 		<div class="content">
 			<div class="mainBtPad">
 				<a class="action"><i>{{this.Follow.length}}</i>追蹤中</a>
@@ -413,6 +464,8 @@ export default {
           });
         }
       });
+
+      
 
       $(document).ready(function () {
         $('.btn_report').click(function () {
