@@ -109,7 +109,7 @@ export default new Router({
       component: Signin
     },
     {
-      path: '/swap_item_detail',
+      path: '/swap_item_detail/:id',
       name: 'Swap_item_detail',
       component: Swap_item_detail,
       props:true

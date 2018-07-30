@@ -167,13 +167,13 @@ export default {
     return {
     data:{
         Info:{ 
-          Name:"132", 
-          Description:"234", 
-          CategoryIDs:["524a498b430cb20c9c163a4b"],
-          Language:"123", 
-          Country:"1231", 
-          AdministrativeArea:"123", 
-          City:"123",
+          Name:"", 
+          Description:"", 
+          CategoryIDs:[],
+          Language:"", 
+          Country:"", 
+          AdministrativeArea:"", 
+          City:"",
         },
         File:{}
     },      
@@ -197,8 +197,8 @@ export default {
       }
     },
     setCategory(id){
-      this.Product.CategoryIDs[0] = id
-      console.log(this.Product.CategoryIDs[0])
+      this.data.Info.CategoryIDs[0] = id
+      console.log(this.data.Info.CategoryIDs[0])
 		},
 		onFileChanged (event) {
       const file = event.target.files[0];

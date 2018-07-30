@@ -432,7 +432,7 @@ export default {
 			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
 					this.resData = await api.get('User',localStorage.getItem('login_token'),'')
 					this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
-					console.log(this.resData)
+					//console.log(this.resData)
 			}
 	  },
 	  logout(){
@@ -442,7 +442,7 @@ export default {
 		},
 		async getNotify(){
 				this.Notify = await api.get('Notification/GetNotifyCountWithType',localStorage.getItem('login_token'),'&unRead=true')
-				console.log(this.Notify)
+				//console.log(this.Notify)
 				this.Feed = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=0')
 				console.log(this.Feed)
 				this.Trade = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=1')

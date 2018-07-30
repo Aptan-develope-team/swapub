@@ -19,7 +19,7 @@
                 </ul>
             </div>
             <p class="countPad">
-                <span class="countSwap"><i>2</i>筆交換</span>
+                <span class="countSwap"><i>{{this.DealList.length}}</i>筆交換</span>
                 <span class="countAssess">
                     <i class="btn_smile">{{this.Comment.good}}</i>
                     <i class="btn_cry">{{this.Comment.bad}}</i>
@@ -201,9 +201,9 @@
                     </ul>
                 </div>
                 <p class="countPad">
-                    <span class="countSwap"><i>2</i>筆交換</span>
+                    <span class="countSwap"><i>{{this.DealList.length}}</i>筆交換</span>
                     <span class="countAssess"><i class="btn_smile">{{this.Comment.good}}</i><i class="btn_cry">{{this.Comment.bad}}</i></span>
-                    <router-link :to="{name:'User_attention',params: { id: this.id}} " class="iconAttention"></router-link>
+                    <router-link :to="{name:'User_attention',params: {id: this.id}}" class="iconAttention"></router-link>
                 </p>
                 <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
                 <router-link to='/menu_u_myinfo' class="btn_w btn_edit action">編輯</router-link>
@@ -369,7 +369,7 @@
                 <div class="conBlock marketPad">
                     <h2 class="action"><i></i>我的物品(<span>{{this.Item.length}}</span>)</h2><h2><i></i>物品(<span>10</span>)</h2>
                     <div class="itemPad clear">
-                        <div class="itemBox mBox">
+                        <div class="itemBox mBox" v-if="this.id == this.User.ID">
                             <div class="itemImg">
                                 <span class="addImg"></span>
                                 <i>新增物品</i>
@@ -542,26 +542,32 @@ export default {
            Wish:[],
            Comment:{},
            RatingList:{},
-           DealList:{}
+           DealList:{},
+           User:{}
       }
   },
   created(){
         this.getUser();
-        console.log(this.id)
+        this.getRatingList();
+        this.getDealList();
+        this.getItem();
+        this.getComment();
+        this.getuser();
   },
   methods:{
+    async getuser(){
+        this.User = await api.get('User',localStorage.getItem('login_token'),'')
+    },
     async getUser(){
         this.resData = await api.get('User/' + this.id,localStorage.getItem('login_token'),'')
         this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Avatar.jpg"
-        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Cover.jpg"
-        this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
-        console.log(this.Item)
-        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
-        console.log(this.Wish)
-        this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id)
-        console.log(this.Comment)
+        this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Cover.jpg"   
+    },
+    async getRatingList(){
         this.RatingList = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id + "&filterDate=1" )
         console.log(this.RatingList)
+    },
+    async getDealList(){
         this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'')
         console.log(this.DealList)
         for(var i = 0 ; i< this.RatingList.length; i++){
@@ -574,6 +580,20 @@ export default {
             }
         }
     },
+    async getComment(){
+        this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id)
+        console.log(this.Comment)
+    },
+    async getItem(){
+        this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
+        console.log(this.Item)
+    },
+    async getWish(){
+        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
+        console.log(this.Wish) 
+    }
+    
+
     
    
   },
@@ -586,27 +606,24 @@ export default {
         Gd = $(document),
         Gdw = Gd.width(),
         Gdh = Gd.height();
-     var $itemPad = $('.marketPad').find('.itemPad'),
-          $itemPadW = $itemPad.width(),
-          itemW = $itemPadW / 3 - 8,
-          $allBox = $itemPad.find('.mBox'),
-          boxLen = $allBox.length;
-        var boxHArr = [];
-        for (var i = 0; i < boxLen; i++) {
-          var boxH = $allBox.eq(i).outerHeight();
-          boxHArr.push(boxH);
-          var maxHeight = Math.max(...boxHArr);
-          // console.log('maxHeight= ' +maxHeight);
-          $allBox.css({
-            'min-height': maxHeight + 'px'
-          });
-        }
-        //console.log(itemW);
-        $itemPad.masonry({
-          itemSelector: '.mBox',
-          columnWidth: itemW,
-          gutter: 10
-        });
+    var $itemPad = $('.marketPad').find('.itemPad'),
+				$itemPadW = $itemPad.width(),
+				itemW = $itemPadW / 3 - 8,
+				$allBox = $itemPad.find('.mBox'),
+				boxLen = $allBox.length;
+			var boxHArr = [];
+			for(var i=0; i<boxLen; i++){
+				var boxH = $allBox.eq(i).outerHeight();
+				boxHArr.push(boxH);
+				var maxHeight = Math.max(...boxHArr);
+				$allBox.css({'min-height':maxHeight + 'px'});
+			}
+			$itemPad.masonry({
+				itemSelector: '.mBox',
+				columnWidth: itemW,
+				gutter: 10
+            });
+            
         var $coverBts = $('.coverBlock').find('.btn_smile'),
 		$coverMsgPad = $('.coverBlock').find('.assessMsgPad');
 	$coverBts.click(function(){
@@ -627,7 +644,7 @@ export default {
 			$innerMsgPad.css({'left': $btnPo.left - $msgPadW / 2 - 14 + 'px'});
 		}
 	});
-   },850)
+   },800)
        
 
   },

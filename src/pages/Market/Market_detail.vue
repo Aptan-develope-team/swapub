@@ -79,12 +79,12 @@
 							</ul>
 						</dd>
 						<dd>
-							<ul class="whisperPad">
+							<ul class="whisperPad" style="height:690px">
 								<li>悄悄話來交換<span class="btn_closePop" ></span></li>
 								<li>
 									<dl>
 										<dt class="swapPad">
-											<span class="addImg btn_addSwap"></span>
+											<span class="addImg btn_addSwap action"></span>
 											<h3>按這裡提交換</h3>
 											<h4>安全交易提醒</h4>
 											<p>為何保障您的權益，建議您在此進行對話，提醒您再進行交易時請務必確認交易內容。若您使用第三方軟體溝通我們將無法為您記錄完整的交易過程，請協助我們保障您權益。</p>
@@ -93,14 +93,20 @@
 											<div class="msgMask">
 												<div v-for="comment in Comment">
 												<div class="otherUserMsg" v-if="comment.AccountID != User.ID">
-													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="this.AvatarUrl" alt=""></a></span>
-													<p class="msgBlock">
+													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="comment.AvatarUrl" alt=""></a></span>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
 														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
+													</p>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
+														<span><img :src="comment.Comment"></span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
 												<div class="myMsg" v-if="comment.AccountID == User.ID">
-													<p class="msgBlock">
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
 														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
+													</p>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') > -1 ">
+														<span><img :src="comment.Comment"></span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
 												</div>
@@ -138,7 +144,7 @@
 										<dd>
 											<span class="btn_img">
 												<label for="sendImg"></label>
-												<input type="file" id="sendImg">
+												<input type="file" id="sendImg" @change="onFileChanged">
 											</span>
 											<input type="text" name="" value="" placeholder="我想說..." v-model="privateMessage" >
 											<span class="btn_o" @click="sendComment()"></span>
@@ -433,7 +439,11 @@ export default {
 			checkUser:{},
 			msgID:"",
 			Comment:{},
-			privateMessage:""
+			privateMessage:"",
+			PicInfo:{
+        FileName:"",
+        FileContent:""
+      },
     }
   },
   created(){
@@ -443,6 +453,7 @@ export default {
 			this.getExchange();
 			//this.getSmart()
 			this.getProductTrackCount();
+			this.getComment()
   },
   methods:{
 	  async getProductInfo(){
@@ -536,9 +547,18 @@ export default {
 			api.postJSON('Change',JSON.stringify(this.Change),localStorage.getItem('login_token'), "&msgID=" + this.msgID)
 		},
 		async sendComment(){
-			api.putJSON('Message',JSON.stringify(this.privateMessage),localStorage.getItem('login_token'),"&msgID=" + this.msgID)
-			this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)
-			this.privateMessage = ""
+			if(this.$route.query.MsgID != undefined){
+							await api.putJSON('Message',JSON.stringify(this.privateMessage),localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID)
+							this.privateMessage = ""
+							this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+					
+			}
+			else{
+							await api.putJSON('Message',JSON.stringify(this.privateMessage),localStorage.getItem('login_token'),"&msgID=" + this.msgID)
+							this.privateMessage = ""
+							this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)			
+			}
+
 		},
 		async openComment(){
 			      this.checkMsgID = await api.get('Message',localStorage.getItem('login_token'),'&productID=' + this.id )
@@ -554,7 +574,29 @@ export default {
 						//console.log(this.msgID)
 						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)
 						console.log(this.Comment)
-		}
+		},
+		async getComment(){
+			  if(this.$route.query.MsgID != undefined){
+						$('.whisperPad').css({'left': 0, 'opacity': '1'});
+						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+						console.log(this.Comment)
+				}
+				console.log(this.$route.query.MsgID)
+
+		},
+	  onFileChanged (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      this.PicInfo.FileName = file.name
+      reader.onload = e => { 
+        this.imgUrl = e.target.result
+				this.PicInfo.FileContent = e.target.result.split(',')[1]
+			  api.postJSON('UploadCommentPicture',this.PicInfo,localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID)    
+
+			}
+			reader.readAsDataURL(file); 
+
+    }
 		
 	},
 	updated(){
@@ -673,7 +715,9 @@ export default {
 		});
 	});
 
-
+	if(this.$route.query.MsgID != undefined){
+			$('.whisperPad').css({'left': 0, 'opacity': '1'});
+	}
 			
 			},100)
 
@@ -1005,8 +1049,8 @@ export default {
         var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
           $picList = $('.btn_choosePic'),
           $upload = $('.btn_upload'),
-          btnInd;
-       
+					btnInd;
+
 
       })
     }, 100)

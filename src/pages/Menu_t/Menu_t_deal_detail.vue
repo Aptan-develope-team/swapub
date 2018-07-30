@@ -217,6 +217,7 @@
  <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import api from '../../api/Api.js'
 
 export default {
   components: {
@@ -224,13 +225,27 @@ export default {
     'app-footer': Footer
 
   },
+  data(){
+      return{
+          Deal:{}
+      }
+  },
+  created(){
+      this.getDeal()
+  },
   methods: {
     assess() {
       $('.assessBlock').addClass('active');
       $('.assessPad').fadeOut(200, function () {
         $('.oUserMsg').fadeIn();
       });
-    }
+    },
+     async getDeal(){
+            // this.DealList = await api.get('DealedLists',localStorage.getItem('login_token'), "")
+            // console.log(this.DealList)
+            this.Deal = await api.get('ProductDeal',localStorage.getItem('login_token'), "&changeID=" + this.$route.query.changeID)     
+            console.log(this.Deal)
+      },
   },
   mounted() {
     setTimeout(() => {

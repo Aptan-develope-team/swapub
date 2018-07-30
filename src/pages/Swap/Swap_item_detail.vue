@@ -12,12 +12,12 @@
 			<div class="conBlock infoBlock clear">
 				<div class="userPad">
 					<ul class="userInfo user">
-						<li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></li>
-                        <li class="userDetail"><h3 class="userName otherUser"><i>我(</i>Rock stone<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
+						<li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.Offer.AvatarUrl" alt=""></a></li>
+                        <li class="userDetail"><h3 class="userName otherUser"><i>我(</i>{{Offer.Name}}<i>)</i></h3><span class="userAdd" v-if="OtherUser.Location">{{OtherUser.Location.City}}，{{OtherUser.Location.Country}}</span></li>
                         <!-- .userName 有 .otherUser , 僅顯示人名部分 (Rock stone) ; 沒有 .otherUser , 會顯示"我"+"人名" (我Rock stone) -->
-						<li class="btnPad otherUser">
+						<li class="btnPad">
                             <!-- .btnPad 有 .otherUser , 僅顯示"成交"按鈕 ; 沒有 .otherUser 時, 則顯示"更改交換"按鈕 -->
-							<a class="btn_o btn_change">更改交換</a>
+							<a class="btn_o btn_change" @click="openChange()">更改交換</a>
 							<a class="btn_g btn_deal"><i><img src="../../../static/images/icon_deal_w.png" alt=""></i>成交</a>
 						</li>
 					</ul>
@@ -26,15 +26,15 @@
 					<dl>
 						<dt class="pd_block action"> <!-- .pd_block隱藏, .pd_block.action 顯示 -->
 							<ul class="clearfix itemImg">
-								<li class="lazyload big" style="background-image: url(../../../static/images/ws_it_img_2.jpg);">
+								<li class="lazyload big" :style="{ backgroundImage:`url(${Item1.PictureUrl})`}" v-if="Item1">
 									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
 								</li>
-								<!-- <li class="lazyload" style="background-image: url(images/ws_it_img_3.jpg);">
+								<li class="lazyload" :style="{ backgroundImage:`url(${Item2.PictureUrl})`}" v-if="Item2">
 									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
 								</li>
-								<li class="lazyload" style="background-image: url(images/ws_it_img_4.jpg);">
+								<li class="lazyload" :style="{ backgroundImage:`url(${Item3.PictureUrl})`}" v-if="Item3">
 									<span class="itResize"></span><span class="openInfo"></span><i class="btn_info"></i>
-								</li> -->
+								</li>
 							</ul>
                         </dt>
                         <dd>
@@ -46,48 +46,50 @@
                             </ul>
                         </dd>
 						<dd class="itInfoPad"> <!-- .itInfoPad 隱藏, .itInfoPad.action 顯示 -->
-							<ul class="itInfo">
+							<ul class="itInfo" v-if="this.Item1 != undefined">
 								<li><span class="btn_closePop"></span></li>
-								<li><h2>類單眼相機</h2></li>
-								<li><p>來自韓國的contamo以「文創● 手作● 玩樂」為基本理念<br>運用專業美學及生動的結構設計<br>研發出寓教於樂且令人讚嘆的文創商品<br>讓孩子從組裝過程中訓練「耐心」與「專注力</p></li>
-								<li class="itemTag"><a>#dog</a><a>#black</a></li>
+								<li><h2>{{this.Item1.ProductName}}</h2></li>
+								<li><p>{{this.Item1.Description}}</p></li>
+								<li class="itemTag" v-if="Item1.Tags"><a>{{Item1.Tags[0]}}</a></li>
 								<li>
 									<h3>交貨細節</h3>
-									<p>可PvC<br>同意面交<br>台北車站捷運站</p>
+									<p>{{this.Infos1[0]}}</p>
 								</li>
 							</ul>
-							<ul class="itInfo">
+							<ul class="itInfo" v-if="this.Item2 != undefined">
 								<li><span class="btn_closePop"></span></li>
-								<li><h2>iphone6 plus粉紅</h2></li>
-								<li><p>來自韓國的contamo以「文創● 手作● 玩樂」為基本理念<br>運用專業美學及生動的結構設計<br>研發出寓教於樂且令人讚嘆的文創商品<br>讓孩子從組裝過程中訓練「耐心」與「專注力</p></li>
+								<li><h2>{{this.Item2.ProductName}}</h2></li>
+								<li><p>{{this.Item2.Description}}</p></li>
+								<li class="itemTag" v-if="Item2.Tags"><a>{{Item2.Tags[0]}}</a></li>
 								<li>
 									<h3>交貨細節</h3>
-									<p>可PvC<br>同意面交<br>萬華車站捷運站</p>
+									<p>{{this.Infos2[0]}}</p>
 								</li>
 							</ul>
-							<ul class="itInfo">
+							<ul class="itInfo" v-if="this.Item3 != undefined">
 								<li><span class="btn_closePop"></span></li>
-								<li><h2>VR數位眼鏡，全新改版新款式</h2></li>
-								<li><p>產品概念 / <br>利用紙板可折疊的特性，作品以連續三角塊面拼接，透過不同角度的光影折射，來展現動物造型的力與美。</p></li>
+								<li><h2>{{this.Item3.ProductName}}</h2></li>
+								<li><p>{{this.Item3.Description}}</p></li>
+								<li class="itemTag" v-if="Item3.Tags"><a>{{Item3.Tags[0]}}</a></li>
 								<li>
 									<h3>交貨細節</h3>
-									<p>可PvC<br>同意面交<br>汐止車站捷運站</p>
+									<p>{{this.Infos3[0]}}</p>
 								</li>
 							</ul>
 						</dd>
-						<dd>
-							<ul class="editPad"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
+						<dd v-if="Offer.OfferMoney">
+							<ul class="editPad price action"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
 								<li><p><b>+</b>價格</p></li>
 								<li>
-									<i><img src="../../../static/images/icon_addmoney_w.png" alt=""></i><p>TWD 100</p>
+									<i><img src="../../../static/images/icon_addmoney_w.png" alt=""></i><p>{{Offer.OfferMoney.Type}} {{Offer.OfferMoney.Value}}</p>
 								</li>
 							</ul>
 						</dd>
-						<dd>
-							<ul class="editPad"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
+						<dd v-if="Offer.OfferService != ''">
+							<ul class="editPad action"> <!-- .editPad 隱藏, .editPad.action 顯示 -->
 								<li><p><b>+</b>服務</p></li>
 								<li>
-									<i><img src="../../../static/images/icon_addserv_w.png" alt=""></i><p>免費代購商品一次/免費打掃一次/免費當保姆一次/免費跑腿一次/幫忙代購一次/免費代購商品一次</p>
+									<i><img src="../../../static/images/icon_addserv_w.png" alt=""></i><p>{{Offer.OfferService}}</p>
 								</li>
 							</ul>
 						</dd>
@@ -113,18 +115,25 @@
 										</dt>
 										<dd class="wMsgPad CG_scorll_auto">
 											<div class="msgMask">
-												<div class="otherUserMsg">
-													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
-													<p class="msgBlock">
-														<span>請問1600元可以換嗎？</span><i class="date">2017/10/27 19：55</i>
+												<div v-for="comment in Comment">
+												<div class="otherUserMsg" v-if="comment.AccountID != User.ID">
+													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="comment.AvatarUrl" alt=""></a></span>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
+														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
+													</p>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') > -1">
+														<span><img :src="comment.Comment"></span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
-												<div class="myMsg">
-													<p class="msgBlock">
-														<span>嗯！可以啊～那要怎麼換？</span><i class="date">2017/10/27 19：55</i>
+												<div class="myMsg" v-if="comment.AccountID == User.ID">
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
+														<span>{{comment.Comment}}</span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
+													</p>
+													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') > -1 ">
+														<span><img :src="comment.Comment"></span><i class="date">{{((comment.CreateDate).split('.')[0]).replace("T","     ")}}</i>
 													</p>
 												</div>
-												<div class="otherUserMsg">
+												<!-- <div class="otherUserMsg">
 													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_6.png" alt=""></a></span>
 													<p class="msgBlock">
 														<span>請問1600元可以換嗎？</span><i class="date">2017/10/27 19：55</i>
@@ -151,6 +160,7 @@
 													<p class="msgBlock">
 														<span>嗯嗯！好的沒問題</span><i class="date">2017/10/27 20：15</i>
 													</p>
+												</div> -->
 												</div>
 											</div>
 											<span class="goTop"></span>
@@ -158,10 +168,10 @@
 										<dd>
 											<span class="btn_img">
 												<label for="sendImg"></label>
-												<input type="file" id="sendImg">
+												<input type="file" id="sendImg" @change="onFileChanged">
 											</span>
-											<input type="text" name="" value="" placeholder="我想說...">
-											<span class="btn_o"></span>
+											<input type="text" name="" value="" placeholder="我想說..." v-model="privateMessage">
+											<span class="btn_o" @click="sendComment()"></span>
 										</dd>
 									</dl>
 								</li>
@@ -175,9 +185,7 @@
 	</div><!-- main END -->
 
 	<!-- Footer -->
-	<div id="footer">
-		<!-- footer.html -->
-	</div>
+	<app-footer></app-footer>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
 	<div id="popContainer" style="top:-100vh;">
@@ -201,16 +209,16 @@
                 </div>
             </form>
         </div>
-		<div class="popContent popSys popChangePad">
-			<div class="btn_closePop"></div>
-			<h3>更改交換</h3>
-			<p>請問你要取消交換還是要更改交換物品?</p>
-			<div class="popCheckPad">
-				<input type="button" class="btn_gr" value="取消交換" onclick="check();">
-				<input type="button" class="btn_o btn_popChange" value="更改交換" onclick="">
-			</div>
-		</div>
-		<div class="popContent popSys popCheckCancel">
+	<div class="popContent popSys popChangePad">
+            <div class="btn_closePop"></div>
+            <h3>更改交換</h3>
+            <p>請問你要取消交換還是要更改交換物品?</p>
+            <div class="popCheckPad">
+                <input type="button" class="btn_gr" value="取消交換" @click="check()">
+                <input type="button" class="btn_o btn_popChange" value="更改交換">
+            </div>
+        </div>
+        <div class="popContent popSys popCheckCancel">
             <div class="btn_closePop"></div>
             <h3>取消交換</h3>
             <p>你確定要取消交換嗎？</p>
@@ -219,17 +227,17 @@
                 <input type="button" class="btn_o btn_sure" value="確定">
             </div>
         </div>
-		<div class="popContent popEditSwap">
+        <div class="popContent popEditSwap">
             <div class="btn_closePop"></div>
             <h3>您可以提出物品、價錢、服務等組合來交換</h3>
-            <form action="swap_item_detail_user.html?j">
+            <form>
                 <div class="popChoImg">
                     <h4>提出物品</h4>
                     <p>最多可以提出三個物品</p>
                     <div class="imgBoxPad clear">
-                        <span class="addImg btn_imgBox action getImg"></span>
-                        <span class="addImg btn_imgBox"></span>
-                        <span class="addImg btn_imgBox"></span>
+                        <span class="addImg btn_imgBox firstImg"></span>
+                        <span class="addImg btn_imgBox secondImg"></span>
+                        <span class="addImg btn_imgBox thirdImg"></span>
                     </div>
                 </div>
                 <div class="popAddPrice">
@@ -238,16 +246,16 @@
                         <span class="currency btn_g"><i>TWD</i>
                             <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
                         </span>
-                        <input type="number" value="1000" min="0"></p>
+                        <input type="number" value="" min="0" v-model="changeOffer.OfferMoney.Value"></p>
                 </div>
                 <div class="popAddServ">
                     <h4>提供服務</h4>
-                    <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="電玩展跑腿買遊戲"></p>
+                    <p><b>+</b><i></i><input type="text" placeholder="例：教我彈烏克麗麗" value="" v-model="changeOffer.OfferService"></p>
                 </div>
                 <div class="popFree"><p><input type="checkbox" id="checkFree">我能免費索取？</p></div>
                 <div class="popCheckPad">
                     <!-- <input type="button" class="btn_w btn_cancel" value="取消"> -->
-                    <input type="submit" class="btn_o btn_sure" value="送出">
+                    <input type="submit" class="btn_o btn_sure" value="送出" @click="upload()">
                 </div>
             </form>
         </div>
@@ -257,9 +265,9 @@
 				<h3>選擇照片或物品</h3>
 				<div class="popChoImg">
 					<dl>
-						<dt class="addImg btn_upload"><span>+選擇照片或商品</span></dt>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_1.jpg" alt=""></dd>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
+					<router-link to='/market_upload'>	<dt class="addImg btn_upload" style="height:189px"><span>+選擇照片或商品</span></dt></router-link>
+						<dd class="addImg btn_choosePic" v-for="item in Item"><img :src="item.PictureUrls[0]" alt="" @click="setItem(item._id)"></dd>
+						<!-- <dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_2.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_07.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_slider_04.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_03.jpg" alt=""></dd>
@@ -270,7 +278,7 @@
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_06.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_07.jpg" alt=""></dd>
 						<dd class="addImg btn_choosePic"><img src="../../../static/images/img_item_08.jpg" alt=""></dd>
-						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd>
+						<dd class="addImg btn_choosePic"><img src="../../../static/images/mk_it_img_4.jpg" alt=""></dd> -->
 					</dl>
 				</div>
 			</div>
@@ -296,13 +304,198 @@ export default {
     'app-footer': Footer
 
 	},
-	props:['cool','wow'],
+	props:['id'],
+	data(){
+		return{
+			User:{},
+			Offer:{},
+			OtherUser:{},
+			Item:{},
+			Item1:{},
+			Item2:{},
+			Item3:{},
+			Infos1:"",
+			Infos2:"",
+			Infos3:"",
+			Comment:{},
+			privateMessage:"",
+			Product:{},
+			changeOffer:{
+              Item:[],
+              OfferMoney:{
+                  Type:"",
+                  Value:""
+              },
+              OfferService:""
+          },
+			changeItem:[],
+			PicInfo:{
+        FileName:"",
+        FileContent:""
+      },
+		}
+	},
 	updated(){
+setTimeout(()=>{
+          var $swapPad = $('.swapPad'),
+                $swapPadW = $swapPad.width(),
+                $itemImg  = $swapPad.find('.itemImg');
+            $itemImg.css({'height': "184px"});
 
+            // 提出交換
+        var $imgBox = $('.popEditSwap').find('.btn_imgBox'),
+          $picList = $('.btn_choosePic'),
+          $upload = $('.btn_upload'),
+          btnInd,
+          $popUpload = $('.popImgList').find('.btn_upload'),
+          $popAddImg = $('.popImgList').find('.addImg'),
+          $uploadW;
+        //點提出物品框框,出現圖片清單
+        $imgBox.click(function () {
+          btnInd = $(this).index('.btn_imgBox');
+          $('#popContainer').removeClass('popShare');
+          $('#popContainer').removeClass('popReport');
+          $('#popContainer').removeClass('popDel');
+          $('.popImgList').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('popChooseImg');
+          $uploadW = $popAddImg.eq(1).outerWidth();
+          $popAddImg.css({
+            'height': $uploadW
+          });
+        });
+
+        $picList.click(function () {
+          var pInd = $(this).index('.btn_choosePic');
+          //橘色邊框
+          $picList.eq(pInd).addClass('action').siblings().removeClass('action');
+          //取得點選的圖片連結
+          var img = $picList.eq(pInd).find('img').attr('src');
+          console.log(img);
+          //圖片清單消失
+          $('.popImgList').stop().animate({
+            top: -100 + 'vh'
+          }, 300);
+          $('#popContainer').removeClass('popChooseImg');
+          //將圖片匯入當下的提出物品框框
+         		$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
+				$imgBox.eq(btnInd).addClass('getImg');
+            });
+      },100)
 	},
 	created(){
-		console.log(this.cool)
-		console.log(this.wow)
+		this.getUser();
+		this.getDetail();
+		this.getComment();
+	},
+	methods:{
+		async getUser(){
+				this.User = await api.get('User',localStorage.getItem('login_token'),'')
+				this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
+				this.OtherUser = await api.get('User/' + this.id,localStorage.getItem('login_token'),'')
+				console.log(this.OtherUser)				
+        if(this.User.ID == this.id){
+					$('.btn_change').addClass("action");
+				}
+				else{
+					$('.btn_deal').addClass("action");
+				}
+		},
+		async getDetail(){
+				this.Offer = await api.get('Message',localStorage.getItem('login_token'),'&productID='+ this.$route.query.ProductID + '&accountID=' + this.id)
+				console.log(this.Offer)
+				this.Item1 = this.Offer.Offer[0]				
+				this.Item2 = this.Offer.Offer[1]
+				this.Item3 = this.Offer.Offer[2]
+				if(this.Item1 != undefined){
+					this.Product = await api.get('Product/'+ this.Item1.ProductID,localStorage.getItem('api_token'),'')
+					this.Item1.ProductName = this.Product.ProductName
+					this.Item1.Description = this.Product.Description
+					this.Item1.Tags = this.Product.Tags
+					this.Infos1 = this.Product.Infos
+				}
+				if(this.Item2 != undefined){
+					this.Product = await api.get('Product/'+ this.Item2.ProductID,localStorage.getItem('api_token'),'')
+					this.Item2.ProductName = this.Product.ProductName
+					this.Item2.Description = this.Product.Description
+					this.Item2.Tags = this.Product.Tags
+					this.Infos2 = this.Product.Infos
+				}
+				if(this.Item3 != undefined){
+					this.Product = await api.get('Product/'+ this.Item3.ProductID,localStorage.getItem('api_token'),'')
+					this.Item3.ProductName = this.Product.ProductName
+					this.Item3.Description = this.Product.Description
+					this.Item3.Tags = this.Product.Tags
+					this.Infos3 = this.Product.Infos
+				}
+		},
+		async sendComment(){
+			api.putJSON('Message',JSON.stringify(this.privateMessage),localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID)
+			this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+			this.privateMessage = ""
+		},
+		async getComment(){
+						//console.log(this.msgID)
+						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+						console.log(this.Comment)
+						for(var i =0 ; i < this.Comment.length;i++){
+								if(this.Comment[i].Comment.indexOf('.jpg') > -1){
+										
+								}
+						}
+		},
+		openChange(){
+          $('#popContainer').removeClass();
+          $('#popContainer').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('popChange');
+          this.changeOffer = this.Offer
+          if(this.Item1 != undefined){      
+            $('.popEditSwap').find('.firstImg').css({'background-image':'url('+this.Item1.PictureUrl+')'});
+            $('.popEditSwap').find('.firstImg').addClass('getImg');
+            this.changeItem[0] = this.Item1.ProductID
+          }
+          if(this.Item2 != undefined){      
+            $('.popEditSwap').find('.secondImg').css({'background-image':'url('+this.Item2.PictureUrl+')'});
+            $('.popEditSwap').find('.secondImg').addClass('getImg');
+            this.changeItem[1] = this.Item2.ProductID
+
+          }      
+          if(this.Item3 != undefined){      
+            $('.popEditSwap').find('.thirdImg').css({'background-image':'url('+this.Item3.PictureUrl+')'});
+            $('.popEditSwap').find('.thirdImg').addClass('getImg');
+            this.changeItem[2] = this.Item3.ProductID
+          }
+			 },
+		setItem(id){
+					if(this.changeItem.length == 0){
+						this.changeItem[0] = id 
+					}
+					else if(this.changeItem.length == 1){
+						this.changeItem[1] = id 
+					}
+					else{
+						this.changeItem[2] = id 
+					}
+		},
+    async upload(){
+				this.changeOffer.Items = this.changeItem 
+				api.putJSON('Change',JSON.stringify(this.changeOffer),localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+    },
+   onFileChanged (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      this.PicInfo.FileName = file.name
+      reader.onload =  e => { 
+				this.PicInfo.FileContent = e.target.result.split(',')[1]
+				api.postJSON('UploadCommentPicture',this.PicInfo,localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID) 
+				
+			}
+			//this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+			reader.readAsDataURL(file);   
+    }
 	},
   mounted() {
 		

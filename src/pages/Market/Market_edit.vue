@@ -73,7 +73,7 @@
 								<p class="itemOption icoPad">
 									 <span>
                       <i>
-                        <img src="../../../static/images/icon_item_man.svg" alt="" @click="setCategory('524a426c430cb207947788fd')" >男士時尚</i>
+                        <img src="../../../static/images/icon_item_man.svg" alt="" @click="setCategory('524a426c430cb207947788fd')">男士時尚</i>
                       <i>
                         <img src="../../../static/images/icon_item_lady.svg" alt="" @click="setCategory('524a427e430cb207947788fe')">女士時尚</i>
                       <i>
@@ -276,6 +276,7 @@ export default {
         FileName:"",
         FileContent:""
       },
+      Categories:{}
     }
   },
   updated(){
@@ -339,7 +340,33 @@ export default {
         this.Product.Infos = this.resData.Infos
         this.Product.Options = this.resData.Options
         this.Product.Location = this.resData.Location
-				console.log(this.resData)
+        console.log(this.resData)
+        this.Categories = await api.get('Category/',localStorage.getItem('api_token'),'')
+        for(var i = 0; i< this.Categories.length; i++){
+            if(this.Product.CategoryIDs[0] == this.Categories[i].Value){
+              var $icoPad = $('.icoPad'),
+              $ico = $icoPad.find('i'),
+              $itemType = $('.itemOption.itemType').find('input'),
+              $itemTag = $('.itemOption.itemType').find('span'),
+              icInd, icTXT;
+              icTXT = $ico.eq(i).text();
+              $('.itemOption.itemType').addClass('action');
+              $itemType.eq(0).attr('value', icTXT);
+              console.log($ico.eq(i))
+              var itL = $itemType.val().length;
+              if (itL < 3) {
+                $itemType.attr('size', itL + 1 + 'rem');
+              } else {
+                $itemType.attr('size', itL + 3 + 'rem');
+              }
+              var itW = $itemType.outerWidth();
+              $itemTag.css({
+                'margin-left': itW
+              });
+              $icoPad.fadeOut(100);
+            }
+        }
+        
 		},
 	  async getToken(){
 		   await api.getToken()
@@ -349,7 +376,7 @@ export default {
         await api.put('Product',this.Product,localStorage.getItem('login_token'),'')
         await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.id)
     },
-     setCategory(id){
+    setCategory(id){
       this.Product.CategoryIDs[0] = id
     },
     onFileChanged (event) {

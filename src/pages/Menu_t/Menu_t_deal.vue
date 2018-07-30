@@ -10,60 +10,60 @@
 			<i>Swapub</i><i> &#62; 交換</i><i> &#62; 成交紀錄</i><i></i><i></i>
 		</div>
 		<div class="content">
-            <h1>成交紀錄(<span>5</span>)</h1>
+            <h1>成交紀錄(<span>{{List.length}}</span>)</h1>
             <div class="mainBtPad CGt">
                 <a class="action">全部</a>
                 <a class="">履約保證金</a>
             </div>
 			<div class="conBlock action">
                 <ul>
-                    <li class="dealBlock clear">
+                    <li class="dealBlock clear" v-for="list in List">
                         <div class="dealPad">
-                            <span class="date">06/27/2017</span>
+                            <span class="date">{{((list.UpdatedDate).split(' ')[0]).replace("T","     ")}}</span>
                             <span class="icon_deal"></span>
                             <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_5.png" alt=""></a></span>
+                                <span class="userPic checked"><router-link :to="{name:'Menu_u_myitem',params: { id: list.TargetUser.ID}}"><img :src="otherImgUrl + list.TargetUser.ID + '/Avatar.jpg'" alt=""></router-link></span>
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(images/ws_it_img_3.jpg)"></p>
-                                                        <p style="background-image:url(images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                <ul v-if="list.Offer.Items">
+                                                    <li><p :style="{ backgroundImage:`url(${list.Offer.Items[0].PictureUrl})`}" v-if="list.Offer.Items.length == 1 || list.Offer.Items.length == 2 || list.Offer.Items.length == 3 "></p></li>
+                                                    <li v-if="list.Offer.Items < 2"><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p :style="{ backgroundImage:`url(${list.Offer.Items[1].PictureUrl})`}" v-if="list.Offer.Items.length == 2 || list.Offer.Items.length == 3 "></p>
+                                                        <p :style="{ backgroundImage:`url(${list.Offer.Items[2].PictureUrl})`}" v-if="list.Offer.Items.length == 3" ></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                     </li>
                                                 </ul>
                                             </div>
                                         </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+                                        <dl v-if="list.Offer.OfferMoney"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{list.Offer.OfferMoney.Type}} {{list.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        <dl v-if="list.Offer.OfferService"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">{{list.Offer.OfferService}}</span></dt></dl>
                                     </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
+                                    <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': list.ChangeID}}"></router-link>
                                 </div>
-                                <p>TRWIWA手錶</p>
+                                <p v-if="list.Offer.Items[0]">{{list.Offer.Items[0].ProductName}}</p>
                             </div>
                             <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
+                                <span class="userPic checked"><router-link :to="{name:'Menu_u_myitem',params: { id: User.ID}} "><img :src="UserImg" alt=""></router-link></span>
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
                                                 <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
+                                                    <li v-if="list.Product"><p :style="{ backgroundImage:`url(${list.Product.PictureURL})`}"></p></li>
                                                 </ul>
                                             </div>
                                         </dl>
                                     </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
+                                    <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': list.ChangeID}}"></router-link>
                                 </div>
-                                <p>桌上型盆栽擺飾</p>
+                                <p v-if="list.Product">{{list.Product.ProductName}}</p>
                             </div>
                         </div>
                         <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_getGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad action"><span class="userName">Rock stone</span>已建議使用履約保證金</p>
+                            <div class="guaranteeInfo clear btn_getGua">
+                                <p class="guaranteePad action" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                                <p class="guaranteePad"><span class="userName">Rock stone</span>已建議使用履約保證金</p>
                                 <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
                             </div>
                             <div class="userInfo">
@@ -74,444 +74,7 @@
                                 <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
                             </div>
                             <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_1.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/ws_it_img_2.jpg)"></p></li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>【Nikon】類單眼相機</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_slider_01.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>彩色專業烘焙煮鍋</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad admin action"><span class="userName">Rock stone</span>我已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Amy Tasi</p>
-                                <p>電子信箱：<a href="mailto:amytasi12567@gmail.com">amytasi12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_1.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/ws_it_img_2.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>【Nikon】類單眼相機</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_slider_01.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>彩色專業烘焙煮鍋</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad admin action">我已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Amy Tasi</p>
-                                <p>電子信箱：<a href="mailto:amytasi12567@gmail.com">amytasi12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_6.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_slider_04.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>TRWIWA手錶</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/sr_it_img_2.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(images/ws_it_img_3.jpg)"></p>
-                                                        <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>acer 15吋筆電，用過2年</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua">
-                                <p class="guaranteePad action">我要使用履約保證金</p>
-                                <p class="guaranteePad"><span class="userName">Chloe Chen</span>已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Chloe Chen</p>
-                                <p>電子信箱：<a href="mailto:is_sun12567@gmail.com">is_sun12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_3.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_04.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>針織大紅漁夫帽</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_16.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>聖誕氣息濃濃毛絨耳環 (一對全新)</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua">
-                                <p class="guaranteePad action">我要使用履約保證金</p>
-                                <p class="guaranteePad"><span class="userName">Chloe Chen</span>已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Chloe Chen</p>
-                                <p>電子信箱：<a href="mailto:is_sun12567@gmail.com">is_sun12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="conBlock">
-            <!-- 第二組 conBlock 是篩選出第一組 conBlock 中已經使用履約保證金的部分 -->
-                <ul>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_5.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
-                                                    <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                        <p style="background-image:url(images/ws_it_img_3.jpg)"></p>
-                                                        <p style="background-image:url(images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>TRWIWA手錶</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>桌上型盆栽擺飾</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_getGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad action"><span class="userName">Rock stone</span>已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Rock stone</p>
-                                <p>電子信箱：<a href="mailto:rckone@gmail.com">rckone@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_1.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/ws_it_img_2.jpg)"></p></li>
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>【Nikon】類單眼相機</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_slider_01.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>彩色專業烘焙煮鍋</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad admin action"><span class="userName">Rock stone</span>我已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Amy Tasi</p>
-                                <p>電子信箱：<a href="mailto:amytasi12567@gmail.com">amytasi12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
-                                <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dealBlock clear">
-                        <div class="dealPad">
-                            <span class="date">06/27/2017</span>
-                            <span class="icon_deal"></span>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_1.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/ws_it_img_2.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>【Nikon】類單眼相機</p>
-                            </div>
-                            <div class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
-                                <div class="itemCon_1 itemImg">
-                                    <div class="cssTable">
-                                        <dl>
-                                            <div class="itemCon_2 cssTable">
-                                                <ul>
-                                                    <li><p style="background-image:url(images/img_item_slider_01.jpg)"></p></li>
-                                                    <!-- 如果有第二三張圖，新增 li > p*2 -->
-                                                </ul>
-                                            </div>
-                                        </dl>
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    </div>
-                                    <a href="menu_t_deal_detail.html?j"></a>
-                                </div>
-                                <p>彩色專業烘焙煮鍋</p>
-                            </div>
-                        </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_sendGua action">
-                                <p class="guaranteePad">我要使用履約保證金</p>
-                                <p class="guaranteePad admin action">我已建議使用履約保證金</p>
-                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
-                            </div>
-                            <div class="userInfo">
-                                <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Amy Tasi</p>
-                                <p>電子信箱：<a href="mailto:amytasi12567@gmail.com">amytasi12567@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
-                                <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
-                            </div>
-                            <div class="dealOption">
-                                <a href="item_detail_whisper.html?c" class="btn_whisper"><i></i>悄悄話</a>
+                               <router-link :to="{name:'Market_detail',params: { id:list.Product.ProductID},query:{MsgID:list.MsgID}}" class="btn_whisper"><i></i>悄悄話</router-link>
                                 <a class="btn_transport"><i></i>運送</a>
                                 <a class="btn_assess"><i></i>評價</a>
                             </div>
@@ -536,15 +99,15 @@
                     <ul class="dealPad clear">
                         <li class="icon_deal"></li>
                         <li class="swapPad">
-                            <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_5.png" alt=""></a></span>
+                            <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
                             <div class="itemCon_1 itemImg">
                                 <div class="cssTable">
                                     <dl>
                                         <div class="itemCon_2 cssTable">
                                             <ul>
-                                                <li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
+                                                <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
                                                 <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                    <p style="background-image:url(images/ws_it_img_3.jpg)"></p>
+                                                    <p style="background-image:url(../../../static/images/ws_it_img_3.jpg)"></p>
                                                     <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                 </li>
                                             </ul>
@@ -556,18 +119,18 @@
                             <p>TRWIWA手錶</p>
                         </li>
                         <li class="swapPad">
-                            <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
+                            <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
                             <div class="itemCon_1 itemImg">
                                 <div class="cssTable">
                                     <dl>
                                         <div class="itemCon_2 cssTable">
                                             <ul>
-                                                <li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
+                                                <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
                                             </ul>
                                         </div>
                                     </dl>
                                     <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+                                    <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
                                 </div>
                             </div>
                             <p>桌上型盆栽擺飾</p>
@@ -575,7 +138,7 @@
                     </ul>
                 </div>
                 <div class="popAssessPad">
-                    <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
+                    <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
                     <textarea name="" id="" placeholder="請填寫評價內容"></textarea>
                     <p><b>請給予評價</b></p>
                     <div class="popAssessBtn">
@@ -627,7 +190,7 @@
                 </div>
                 <div class="popCheckPad">
                     <!-- <input type="button" class="btn_gr btn_cancel" value="取消"/> -->
-                    <input type="button" class="btn_o btn_sure" value="送出"/>
+                    <input type="button" class="btn_o btn_sure" value="送出" @click="upload()"/>
                     <input type="button" class="btn_gr btn_editPrice" value="建議其他金額" onclick="editGua()"/>
                 </div>
             </form>
@@ -642,7 +205,7 @@
                         <span class="currency btn_g"><i>TWD</i>
                             <span class="curBlock"><b>AED</b><b>AUD</b><b>CAD</b><b>CNY</b><b>EUR</b><b>HKD</b><b>JPY</b><b>KRW</b><b>TWD</b><b>USD</b></span>
                         </span>
-                        <input type="number" value="200" class="guaPrice" min="0">
+                        <input type="number" value="200" class="guaPrice" min="0" v-model="Bond.Value">
                     </p>
                     <p>Swapub提供以下支付方式</p>
                     <p class="cardList">信用卡<span class="card_visa"></span><span class="card_jcb"></span><span class="card_master"></span></p>
@@ -673,7 +236,7 @@
                     <p>4-3如發生異常交易狀況協調不成之情形(包含但不限於一方無法原物返還、無法確認是否違反本服務同意書及/或Swapub會員之相關規範及/或相關法令及其他Swapub平台無權代為處理之任何狀況)時，交換雙方同意Swapub得將本案爭議提交Swapub所在地之調解委員會進行調解，Swapub將會協助進行調查，交換雙方均應配合出席Swapub安排之調解委員會，Swapub將依調解結果處理本件申訴案件。</p>
                 </div>
                 <div class="popCheckPad">
-                    <input type="button" class="btn_o btn_fake_sure" value="開始使用" onclick=""/>
+                    <input type="button" class="btn_o btn_fake_sure" value="開始使用"/>
                     <p>按下開始表示同意使用<i>履約保證金條款</i></p>
                 </div>
             </div>
@@ -712,30 +275,30 @@
                         <ul class="dealPad clear">
                             <li class="icon_deal"></li>
                             <li class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="images/ws_user_img_5.png" alt=""></a></span>
+                                <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
                                                 <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_23.jpg)"></p></li>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
                                                 </ul>
                                             </div>
                                         </dl>
                                         <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                        <dl><dt><b>+</b><i style="background-image:url(images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
+                                        <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
                                     </div>
                                 </div>
                                 <p>TRWIWA手錶</p>
                             </li>
                             <li class="swapPad">
-                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="images/ws_user_img_4.png" alt=""></a></span>
+                                <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
                                 <div class="itemCon_1 itemImg">
                                     <div class="cssTable">
                                         <dl>
                                             <div class="itemCon_2 cssTable">
                                                 <ul>
-                                                    <li><p style="background-image:url(images/mk_it_img_1.jpg)"></p></li>
+                                                    <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
                                                 </ul>
                                             </div>
                                         </dl>
@@ -813,62 +376,35 @@ export default {
   },
   data(){
       return{
-          DealList:{}
+          DealList:{},
+          List:{},
+          User:{},
+          UserImg:"",
+          otherImgUrl:"",
+          Bond:{
+              ChangeID:"",
+              Currency:2,
+              Value:"",
+              PaymentType:4
+          }
       }
   },
   created(){
       this.getDeal()
+      this.getUser()
   },
-  methods:{
-        async getDeal(){
-            this.DealList = await api.get('DealedLists',localStorage.getItem('login_token'), "")
-            console.log(this.DealList)
-        }
-  },
-  mounted(){
-         setTimeout(() => {
-             var element = document.getElementById("body_class");
-	element.removeAttribute("class");
-	element.classList.add("item","noSearchPage","menuPage","mDeal");
-	
-	$('.loadPad').animate({opacity:0},1000, function(){
-		$('.loadPad').css({'display':'none'});
-    });
-         $(window).on('load', function() {
-			if($(window).width() > 1024){
-			  var s = skrollr.init();
-			}
-
-            // $('#header').find('.market').addClass('action');
-        })
-        
-        $('.btn_closePop').click(function(){
-		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500, function(){
-			// $('#popContainer').fadeOut();
-			$('#popContainer').removeClass();
-		});
-		if($('body').hasClass('mDeal')){
-			$('.post').find('.btn_submit').css({'display':'none'}).siblings().fadeIn();
-			$('.post').find('.inquireDeta.userData').css({'display':'none'}).siblings('.inquireDeta').fadeIn();
-		}
-	});
-    $('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
-	$('.btn_cancel').click(function(){
-		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
-	});
-		// Yep, that's it!
-		//$('#scene').parallax();
-		$(document).ready(function(){
-			$('.btn_assess').click(function(){
-				$('#popContainer').removeClass();
-				$('#popContainer').stop().animate({top : 0}, 300);
-				$('#popContainer').addClass('popAssess');
-            });
+  updated(){
             $('.btn_guarantee_qa').click(function(){
                 $('#popContainer').removeClass();
 				$('#popContainer').stop().animate({top : 0}, 300);
 				$('#popContainer').addClass('popGuaQa');
             });
+            $('.btn_assess').click(function(){
+				$('#popContainer').removeClass();
+				$('#popContainer').stop().animate({top : 0}, 300);
+				$('#popContainer').addClass('popAssess');
+            });
+           
             $('.btn_GD_next').click(function(){
                 $('#popContainer').removeClass();
 				$('#popContainer').stop().animate({top : 0}, 300);
@@ -908,6 +444,64 @@ export default {
 				$('#popContainer').stop().animate({top : 0}, 300);
 				$('#popContainer').addClass('popPost');
             });
+  },
+  methods:{
+        async getDeal(){
+            // this.DealList = await api.get('DealedLists',localStorage.getItem('login_token'), "")
+            // console.log(this.DealList)
+            this.List = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'), "")
+            console.log(this.List)
+            this.otherImgUrl = api.CdnUrl + "/Uploads/User/"
+        },
+        async getUser(){
+            this.User = await api.get('User',localStorage.getItem('login_token'),'')
+            this.UserImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
+
+        },
+        useBond(id){
+            this.Bond.ChangeID = id
+            console.log(this.Bond.ChangeID)
+        },
+        async upload(){
+            await api.postJSON('AskPerformanceBond',JSON.stringify(this.Bond),localStorage.getItem('login_token'),'')
+        }
+
+  },
+  mounted(){
+         setTimeout(() => {
+             var element = document.getElementById("body_class");
+	element.removeAttribute("class");
+	element.classList.add("item","noSearchPage","menuPage","mDeal");
+	
+	$('.loadPad').animate({opacity:0},1000, function(){
+		$('.loadPad').css({'display':'none'});
+    });
+         $(window).on('load', function() {
+			if($(window).width() > 1024){
+			  var s = skrollr.init();
+			}
+
+            // $('#header').find('.market').addClass('action');
+        })
+        
+        $('.btn_closePop').click(function(){
+		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500, function(){
+			// $('#popContainer').fadeOut();
+			$('#popContainer').removeClass();
+		});
+		if($('body').hasClass('mDeal')){
+			$('.post').find('.btn_submit').css({'display':'none'}).siblings().fadeIn();
+			$('.post').find('.inquireDeta.userData').css({'display':'none'}).siblings('.inquireDeta').fadeIn();
+		}
+	});
+    $('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
+	$('.btn_cancel').click(function(){
+		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+	});
+		// Yep, that's it!
+		//$('#scene').parallax();
+		$(document).ready(function(){
+			
             
 
             $('.dealBlock').find('.dealPad').append('<a href="/#/menu_t_deal_detail"></a>');

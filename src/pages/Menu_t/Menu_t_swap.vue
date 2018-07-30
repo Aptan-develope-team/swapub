@@ -16,7 +16,7 @@
             </div>
 			<div class="conBlock send">
                 <ul>
-                    <li class="mSwapList clear" v-for="offer in Offer">
+                    <li class="mSwapList clear" v-for="offer in Offer" >
                         <div class="dealPad">
                             <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
                             <span class="icon_swap"></span>
@@ -39,7 +39,7 @@
                                         <dl v-if="offer.Offer.OfferMoney != '' && offer.Offer.OfferMoney != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{offer.Offer.OfferMoney.Type}} {{offer.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         <dl v-if="offer.Offer.OfferService != '' && offer.Offer.OfferService != undefined"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">{{offer.Offer.OfferService}}</span></dt></dl>
                                     </div>
-                                    <router-link :to="{name:'Swap_item_detail',params: { cool:'wow',wow:'cool'}}"></router-link>
+                                    <router-link :to="{name:'Swap_item_detail',params: { id:userID},query:{MsgID:offer.MsgID,ProductID:offer.Product.ProductID}}"></router-link>
                                 </div>
                                 <p v-if="offer.Offer.Items[0]">{{offer.Offer.Items[0].ProductName}}</p>
                             </div>
@@ -311,6 +311,7 @@ export default {
           otherImgUrl:"",
           User:{},
           Item:{},
+          userID:"",
           MsgID:"",
           changeOffer:{
               Item:[],
@@ -338,6 +339,7 @@ export default {
             this.Offer = await api.get('OfferingLists',localStorage.getItem('login_token'), "")
             console.log(this.Offer)
             this.User = await api.get('User',localStorage.getItem('login_token'),'')
+            this.userID = this.User.ID
             this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.User.ID + "/Avatar.jpg"
             this.otherImgUrl = api.CdnUrl + "/Uploads/User/"
             this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
@@ -391,9 +393,9 @@ export default {
            api.putJSON('Change',JSON.stringify(this.changeOffer),localStorage.getItem('login_token'), "&msgID=" + this.MsgID)
            location.reload();
        },
-       async passData(obj){
-           api.changeData = obj
-       }
+         passData(obj){
+            
+        }
        
   },
   updated(){

@@ -27,49 +27,73 @@
 							<dt>Step2&nbsp;&nbsp;說明一下你的願望</dt>
 							<dd>
 								<p class="itemTitle">
-									<textarea name="" placeholder="你想許什麼願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">{{this.resData.Name}}</textarea>								</p>
-								<p class="itemOption itemType action">
-									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="女士時尚" placeholder="" required="required"></p>
+									<textarea name="" placeholder="你想許什麼願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">{{Info.Name}}</textarea>								</p>
+								<p class="itemOption itemType">
+									<b>類別&nbsp;(必填)</b><span></span><input type="text" name="" value="" placeholder="" required="required"></p>
 								<p class="itemOption icoPad">
 									<span>
-										<i><img src="../../../static/images/icon_item_man.svg" alt="">男士時尚</i>
-										<i><img src="../../../static/images/icon_item_lady.svg" alt="">女士時尚</i>
-										<i><img src="../../../static/images/icon_item_baby.svg" alt="">媽咪寶貝</i>
-										<i><img src="../../../static/images/icon_item_pet.svg" alt="">寵物用品</i>
-										<i><img src="../../../static/images/icon_item_book.svg" alt="">書籍</i>
-										<i><img src="../../../static/images/icon_item_game.svg" alt="">遊戲</i>
-										<i><img src="../../../static/images/icon_item_media.svg" alt="">數位影音</i>
-										<i><img src="../../../static/images/icon_item_toy.svg" alt="">玩具公仔</i>
-										<i><img src="../../../static/images/icon_item_3c.svg" alt="">3C電子</i>
-										<i><img src="../../../static/images/icon_item_electric.svg" alt="">家電</i>
-										<i><img src="../../../static/images/icon_item_furniture.svg" alt="">傢俱</i>
-										<i><img src="../../../static/images/icon_item_garden.svg" alt="">居家園藝</i>
-										<i><img src="../../../static/images/icon_item_sport.svg" alt="">戶外活動</i>
-										<i><img src="../../../static/images/icon_item_fitness.svg" alt="">健身</i>
-										<i><img src="../../../static/images/icon_item_makeup.svg" alt="">美妝保養</i>
-										<i><img src="../../../static/images/icon_item_food.svg" alt="">美食</i>
-										<i><img src="../../../static/images/icon_item_stationery.svg" alt="">文具用品</i>
-										<i><img src="../../../static/images/icon_item_art.svg" alt="">藝術古董</i>
-										<i><img src="../../../static/images/icon_item_musical.svg" alt="">樂器</i>
-										<i><img src="../../../static/images/icon_item_crafts.svg" alt="">手工藝品</i>
-										<i><img src="../../../static/images/icon_item_traffic.svg" alt="">交通工具</i>
-										<i><img src="../../../static/images/icon_item_ticket.svg" alt="">票券</i>
-										<i><img src="../../../static/images/icon_item_service.svg" alt="">個人服務</i>
-										<i><img src="../../../static/images/icon_item_gift.svg" alt="">免費贈與</i>
-									</span>
+                      <i>
+                        <img src="../../../static/images/icon_item_man.svg" alt="" @click="setCategory('524a426c430cb207947788fd')" >男士時尚</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_lady.svg" alt="" @click="setCategory('524a427e430cb207947788fe')">女士時尚</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_baby.svg" alt="" @click="setCategory('524a428d430cb207947788ff')">媽咪寶貝</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_pet.svg" alt="" @click="setCategory('524a4298430cb20794778900')">寵物用品</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_book.svg" alt="" @click="setCategory('524a491e430cb20c9c163a3c')">書籍</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_game.svg" alt="" @click="setCategory('524a4929430cb20c9c163a3d')">遊戲</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_media.svg" alt="" @click="setCategory('524a4931430cb20c9c163a42')">數位影音</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_toy.svg" alt="" @click="setCategory('524a4941430cb20c9c163a43')">玩具公仔</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_3c.svg" alt="" @click="setCategory('524a494f430cb20c9c163a44')">3C電子</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_electric.svg" alt="" @click="setCategory('524a4957430cb20c9c163a45')">家電</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_furniture.svg" alt="" @click="setCategory('524a495f430cb20c9c163a46')">傢俱</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_garden.svg" alt="" @click="setCategory('524a4966430cb20c9c163a47')">居家園藝</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_sport.svg" alt="" @click="setCategory('524a4970430cb20c9c163a48')">戶外活動</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_fitness.svg" alt="" @click="setCategory('524a497b430cb20c9c163a49')">健身</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_makeup.svg" alt="" @click="setCategory('524a4983430cb20c9c163a4a')">美妝保養</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_food.svg" alt="" @click="setCategory('524a498b430cb20c9c163a4b')">美食</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_stationery.svg" alt="" @click="setCategory('524a4994430cb20c9c163a4c')">文具用品</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_art.svg" alt="" @click="setCategory('524a499d430cb20c9c163a4d')">藝術古董</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_musical.svg" alt="" @click="setCategory('524a49a6430cb20c9c163a4e')">樂器</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_crafts.svg" alt="" @click="setCategory('524a49c2430cb20c9c163a4f')">手工藝品</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_traffic.svg" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')">交通工具</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_ticket.svg" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')">票券</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_service.svg" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')">個人服務</i>
+                      <i>
+                        <img src="../../../static/images/icon_item_gift.svg" alt="" @click="setCategory('')">免費贈與</i>
+                    </span>
 								</p>
 								<p class="itemData">
-									<textarea name="" placeholder="描述願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">{{this.resData.Description}}</textarea>
+									<textarea name="" placeholder="描述願望 (必填)" required="required" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" onpaste="setHeight(this);" oninput="setHeight(this);">{{this.Info.Description}}</textarea>
 								</p>
 								<p class="myPos">我的位置</p>
 								<!-- <p class="itemOption myPos"><select name=""><option value="">物品地點&nbsp;(國家)&nbsp;&nbsp;台灣<img src="images/" alt=""></option></select></p>
 								<p class="itemOption myPos"><select name=""><option value="">物品地點&nbsp;(城市)&nbsp;&nbsp;台北市</option></select></p> -->
-								<p class="itemOption"><b>物品地點 (國家)</b><select name=""><option value="">{{this.resData.Country}}</option></select></p>
-								<p class="itemOption"><b>物品地點 (城市)</b><select name=""><option value="">{{this.resData.Categories}}</option></select></p>
+								<p class="itemOption"><b>物品地點 (國家)</b><select name="" v-model="Info.Country"><option value=""></option></select></p>
+								<p class="itemOption"><b>物品地點 (城市)</b><select name="" v-model="Info.City"><option value=""></option></select></p>
 							</dd>
 						</dl>
  						<dl class="btnPad">
-							<dt><input class="btn_w" type="button" name="" value="取消" onclick="backWD()"><input class="btn_w btn_submit" type="button" name="" value="送出" onclick="checkRq()"></dt>						</dl>
+							<dt><input class="btn_w" type="button" name="" value="取消" onclick="backWD()"><input class="btn_w btn_submit" type="button" name="" value="送出" @click="change()"></dt>						</dl>
 					</form>
 				</div>
 			</div>
@@ -136,7 +160,17 @@ props: ["id"],
     	user:{},
 			location:{},
 			productImg:[],
-      imgUrl:""
+      imgUrl:"",
+      Info:{ 
+          Name:"", 
+          Description:"", 
+          CategoryIDs:[],
+          Language:"", 
+          Country:"", 
+          AdministrativeArea:"", 
+          City:"",
+        },
+      Categories:{} 
     }
   },
 created(){
@@ -150,11 +184,52 @@ created(){
 				this.location = this.resData.City  +","+ this.resData.Country 
 				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
         this.productImg = this.resData.PictureUrl
-				console.log(this.resData)
-		},
+        console.log(this.resData)
+        this.Info.Name = this.resData.Name
+        this.Info.Description = this.resData.Description
+        this.Info.AdministrativeArea = this.resData.AdministrativeArea
+        this.Info.Country = this.resData.Country
+        this.Info.City = this.resData.City
+        this.Info.CategoryIDs[0] = this.resData.Categories[0].Value
 
+        this.Categories = await api.get('Category/',localStorage.getItem('api_token'),'')
+        for(var i = 0; i< this.Categories.length; i++){
+            if(this.Info.CategoryIDs[0] == this.Categories[i].Value){
+              var $icoPad = $('.icoPad'),
+              $ico = $icoPad.find('i'),
+              $itemType = $('.itemOption.itemType').find('input'),
+              $itemTag = $('.itemOption.itemType').find('span'),
+              icInd, icTXT;
+              icTXT = $ico.eq(i).text();
+              $('.itemOption.itemType').addClass('action');
+              $itemType.eq(0).attr('value', icTXT);
+              console.log($ico.eq(i))
+              var itL = $itemType.val().length;
+              if (itL < 3) {
+                $itemType.attr('size', itL + 1 + 'rem');
+              } else {
+                $itemType.attr('size', itL + 3 + 'rem');
+              }
+              var itW = $itemType.outerWidth();
+              $itemTag.css({
+                'margin-left': itW
+              });
+              $icoPad.fadeOut(100);
+            }
+        }
+
+		},
+   setCategory(id){
+      this.Info.CategoryIDs[0] = id
+      console.log(this.Info.CategoryIDs[0])
+		},
 	  async getToken(){
 		   await api.getToken()
+    },
+    async change(){
+        var bodyFormData = new FormData();
+        bodyFormData.append('Info', JSON.stringify(this.Info));
+        await api.putWish('UpdateWish',bodyFormData,localStorage.getItem('login_token'),'')
     },
 	},
   mounted() {

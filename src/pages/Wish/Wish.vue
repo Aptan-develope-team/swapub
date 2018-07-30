@@ -303,36 +303,36 @@
 		<div class="popContent popAssignPad">
 			<div class="btn_closePop"></div>
 			<div class="assignList clear">
-				<a><i><img src="../../../static/images/icon_item_all.svg" alt=""></i>全部</a>
-				<a><i><img src="../../../static/images/icon_item_man.svg" alt=""></i>男士時尚</a>
-				<a><i><img src="../../../static/images/icon_item_lady.svg" alt=""></i>女士時尚</a>
-				<a><i><img src="../../../static/images/icon_item_baby.svg" alt=""></i>媽咪寶貝</a>
-				<a><i><img src="../../../static/images/icon_item_pet.svg" alt=""></i>寵物用品</a>
-				<a><i><img src="../../../static/images/icon_item_book.svg" alt=""></i>書籍</a>
-				<a><i><img src="../../../static/images/icon_item_game.svg" alt=""></i>遊戲</a>
-				<a><i><img src="../../../static/images/icon_item_media.svg" alt=""></i>數位影音</a>
-				<a><i><img src="../../../static/images/icon_item_toy.svg" alt=""></i>玩具公仔</a>
+				<a><i><img src="../../../static/images/icon_item_all.svg" alt="" @click="setCategory('')"></i>全部</a>
+				<a><i><img src="../../../static/images/icon_item_man.svg" alt="" @click="setCategory('524a426c430cb207947788fd')"></i>男士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_lady.svg" alt="" @click="setCategory('524a427e430cb207947788fe')"></i>女士時尚</a>
+				<a><i><img src="../../../static/images/icon_item_baby.svg" alt="" @click="setCategory('524a428d430cb207947788ff')"></i>媽咪寶貝</a>
+				<a><i><img src="../../../static/images/icon_item_pet.svg" alt="" @click="setCategory('524a4298430cb20794778900')"></i>寵物用品</a>
+				<a><i><img src="../../../static/images/icon_item_book.svg" alt="" @click="setCategory('524a491e430cb20c9c163a3c')"></i>書籍</a>
+				<a><i><img src="../../../static/images/icon_item_game.svg" alt="" @click="setCategory('524a4929430cb20c9c163a3d')"></i>遊戲</a>
+				<a><i><img src="../../../static/images/icon_item_media.svg" alt="" @click="setCategory('524a4931430cb20c9c163a42')"></i>數位影音</a>
+				<a><i><img src="../../../static/images/icon_item_toy.svg" alt="" @click="setCategory('524a4941430cb20c9c163a43')"></i>玩具公仔</a>
 			</div>
 			<div class="assignList clear">
-				<a><i><img src="../../../static/images/icon_item_3c.svg" alt=""></i>3C電子</a>
-				<a><i><img src="../../../static/images/icon_item_electric.svg" alt=""></i>家電</a>
-				<a><i><img src="../../../static/images/icon_item_furniture.svg" alt=""></i>傢俱</a>
-				<a><i><img src="../../../static/images/icon_item_garden.svg" alt=""></i>居家園藝</a>
-				<a><i><img src="../../../static/images/icon_item_sport.svg" alt=""></i>戶外活動</a>
-				<a><i><img src="../../../static/images/icon_item_fitness.svg" alt=""></i>健身</a>
-				<a><i><img src="../../../static/images/icon_item_makeup.svg" alt=""></i>美妝保養</a>
-				<a><i><img src="../../../static/images/icon_item_food.svg" alt=""></i>美食</a>
-				<a><i><img src="../../../static/images/icon_item_stationery.svg" alt=""></i>文具用品</a>
+				<a><i><img src="../../../static/images/icon_item_3c.svg" alt="" @click="setCategory('524a494f430cb20c9c163a44')"></i>3C電子</a>
+				<a><i><img src="../../../static/images/icon_item_electric.svg" alt="" @click="setCategory('524a4957430cb20c9c163a45')"></i>家電</a>
+				<a><i><img src="../../../static/images/icon_item_furniture.svg" alt="" @click="setCategory('524a495f430cb20c9c163a46')"></i>傢俱</a>
+				<a><i><img src="../../../static/images/icon_item_garden.svg" alt="" @click="setCategory('524a4966430cb20c9c163a47')"></i>居家園藝</a>
+				<a><i><img src="../../../static/images/icon_item_sport.svg" alt="" @click="setCategory('524a4970430cb20c9c163a48')"></i>戶外活動</a>
+				<a><i><img src="../../../static/images/icon_item_fitness.svg" alt="" @click="setCategory('524a497b430cb20c9c163a49')"></i>健身</a>
+				<a><i><img src="../../../static/images/icon_item_makeup.svg" alt="" @click="setCategory('524a4983430cb20c9c163a4a')"></i>美妝保養</a>
+				<a><i><img src="../../../static/images/icon_item_food.svg" alt="" @click="setCategory('524a498b430cb20c9c163a4b')"></i>美食</a>
+				<a><i><img src="../../../static/images/icon_item_stationery.svg" alt="" @click="setCategory('524a4994430cb20c9c163a4c')"></i>文具用品</a>
 			</div>
 			<div class="assignList clear">
-				<a><i><img src="../../../static/images/icon_item_art.svg" alt=""></i>藝術古董</a>
-				<a><i><img src="../../../static/images/icon_item_musical.svg" alt=""></i>樂器</a>
-				<a><i><img src="../../../static/images/icon_item_crafts.svg" alt=""></i>手工藝品</a>
-				<a><i><img src="../../../static/images/icon_item_traffic.svg" alt=""></i>交通工具</a>
-				<a><i><img src="../../../static/images/icon_item_ticket.svg" alt=""></i>票券</a>
-				<a><i><img src="../../../static/images/icon_item_service.svg" alt=""></i>個人服務</a>
+				<a><i><img src="../../../static/images/icon_item_art.svg" alt="" @click="setCategory('524a499d430cb20c9c163a4d')"></i>藝術古董</a>
+				<a><i><img src="../../../static/images/icon_item_musical.svg" alt="" @click="setCategory('524a49a6430cb20c9c163a4e')"></i>樂器</a>
+				<a><i><img src="../../../static/images/icon_item_crafts.svg" alt="" @click="setCategory('524a49c2430cb20c9c163a4f')"></i>手工藝品</a>
+				<a><i><img src="../../../static/images/icon_item_traffic.svg" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')"></i>交通工具</a>
+				<a><i><img src="../../../static/images/icon_item_ticket.svg" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')"></i>票券</a>
+				<a><i><img src="../../../static/images/icon_item_service.svg" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')"></i>個人服務</a>
 				<a><i><img src="../../../static/images/icon_item_gift.svg" alt=""></i>免費贈與</a>
-			</div> 
+			</div>
 		</div>
 	</div>
 	<!-- Loader  -->
@@ -369,8 +369,11 @@ export default {
 		},
 
 		async getToken(){
-		await api.getToken()
-	  }
+			await api.getToken()
+		},
+		async setCategory(id){
+			 this.resData = await api.get('GetWishs',localStorage.getItem('api_token'),'&filterDate=16'+'&category='+id)
+		 }
 	},
 updated(){		
 				 //item排版
@@ -449,7 +452,17 @@ updated(){
 			});
 				$('.backTop').click(function(){$('html,body').animate({scrollTop:$('#main').offset().top}, 800, 'easeOutCirc');});
 			
-			
+				var $assBox = $('.assign').find('a'),
+		$assItem = $('.popAssignPad').find('.assignList').find('a');
+	$assItem.click(function(){
+		var ind = $(this).index(),
+			txt = $(this).text();
+		$assBox.text(txt);
+		$('#popContainer').stop().animate({top : -100 + 'vh'}, 500, function(){
+			$('#popContainer').removeClass();
+		});
+	 });
+	 
 						/* index Slider */
 	var i = 0,
 		$sliderCont = $('.sliderCont'),

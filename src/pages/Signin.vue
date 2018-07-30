@@ -11,8 +11,8 @@
 		</div>
 		<div class="content">
 			<div class="conBlock signinPad action">
-				<a href="index.html" class="swapubLogo"></a>
-				<form method="get" accept-charset="utf-8">
+				<router-link to='/' class="swapubLogo"></router-link>
+				<form>
 					<a href="#" class="btn_fb"><img src="../../static/images/icon_fb1.png" alt="">Facebook</a>
 					<a href="#" class="btn_tw"><img src="../../static/images/icon_twitter1.png" alt="">Twitter</a>
 					<p><i></i>電子信箱<input type="email" name="" value="" placeholder="" v-model="UserInfo.Email"></p>
@@ -27,7 +27,7 @@
 			</span>
 			<div class="conBlock registerPad">
 				<a href="index.html" class="swapubLogo"></a>
-				<form method="get" accept-charset="utf-8">
+				<form>
 					<p><i></i>輸入你的名字<input type="text" name="" value="" placeholder="" v-model="signupInfo.LastName"></p>
 					<p><i></i>輸入你的姓<input type="text" v-model="signupInfo.FirstName"></p>
 					<p><i></i>電子信箱<input type="email" name="" value="" placeholder="" v-model="signupInfo.Email"></p>
@@ -39,7 +39,7 @@
 				</form>
 			</div>
 			<div class="conBlock setpwPad">
-				<a href="index.html" class="swapubLogo"></a>
+				<router-link to='/' class="swapubLogo"></router-link>
 				<form action="index.html" method="get" accept-charset="utf-8">
 					<p><i></i>電子信箱<input type="email" name="" value="" placeholder=""></p>
 					<span>我們將透過電子郵件，重新發送新密碼給您。</span>

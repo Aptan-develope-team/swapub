@@ -121,6 +121,19 @@ export default{
         })
         return response
     },
+    async putWish(api,data,token,param){
+      var response = await axios.put(url + api +'?accessToken=' + token + param,data, {headers: {
+      'appid':'TestAppID_3',
+      'AppVersion':'2.14.0'
+			}}).then((res) => {
+                console.log(res)
+                return res              
+        })
+        .catch((error) =>{
+          console.log(error)
+        })
+        return response
+    },
     async delete(api,token,param){
       axios.defaults.headers.delete['appid'] = 'TestAppID_3'
       axios.defaults.headers.delete['AppVersion'] = '2.14.0'

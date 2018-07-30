@@ -40,7 +40,7 @@
 								<!-- <li class="timer"><span>{{this.resData.Date}}</span></li> -->
 							</ul>
 						</dd>
-						<dd class="editPad action">
+						<dd class="editPad">
 							<ul>
 								<li class="btn_msg action"><i>{{this.messageNum}}</i><p>留言</p></li>
 								<li class="btn_share"><p>分享</p></li>
@@ -206,8 +206,8 @@ export default {
       imgUrl:"",		
       userImg:"",
       messageNum:"",
-			messageList:{}
-      
+      messageList:{},
+      message:""    
     }
   },
 created(){
@@ -229,7 +229,18 @@ created(){
 						this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
 						this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
 			    }
-				console.log(this.resData)
+        console.log(this.resData)
+        	if(this.user.ID == this.User.ID){
+						this.isShow = true
+						$('.editPad').addClass("action");
+						$('.otherUserMD').removeClass("action");
+						//$('.btnPad').css("display","none")					
+			  }
+			  else{
+						this.isShow = false
+						$('.otherUserMD').addClass("action");
+						$('.btnPad').css("display","block")
+				}
 		},
 
 	  async getToken(){
