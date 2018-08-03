@@ -67,7 +67,7 @@
 						
 						<div class="itemInfo">	
 						<p>{{product.Description}}</p>
-						<p class="timer">{{product.Date}}</p>
+						<p class="timer">{{((product.Date).split('.')[0]).replace("T","     ")}}</p>
 						<span class="iUser"><i><img v-bind:src="(product.UserInfo.AvatarUrl)"  alt=""/></i>{{product.UserInfo.Name}}</span>					
 						<span class="iChat"><h3>{{product.MessageCount}}</h3></span>
 						</div>

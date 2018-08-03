@@ -469,7 +469,7 @@ export default {
 						this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
 						this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
 				}
-				//this.getSmart(this.resData.ProductName)
+				this.getSmart(this.resData.ProductName)
 				$('.btn_good').attr('data-good',this.resData.LikeCount);
 				if(this.resData.IsTracked == true){
 					$('.btn_like').addClass("action");
@@ -592,7 +592,6 @@ export default {
         this.imgUrl = e.target.result
 				this.PicInfo.FileContent = e.target.result.split(',')[1]
 			  api.postJSON('UploadCommentPicture',this.PicInfo,localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID)    
-
 			}
 			reader.readAsDataURL(file); 
 

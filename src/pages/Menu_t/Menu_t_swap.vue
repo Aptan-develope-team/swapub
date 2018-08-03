@@ -176,7 +176,7 @@
                             </div>
                             <div class="dealBtPad">
                                 <!-- <span class="date">06/27/2017</span> -->
-                                <span class="btn_g btn_deal"><i></i>成交</span>
+                                <span class="btn_g btn_deal" getChangeID(offer.ChangeID)><i></i>成交</span>
                             </div>
                         </li>
                     </ul>
@@ -321,7 +321,8 @@ export default {
               },
               OfferService:""
           },
-          changeItem:[]
+          changeItem:[],
+          ChangeID:""
         
       }
   },
@@ -445,6 +446,14 @@ export default {
          		$imgBox.eq(btnInd).css({'background-image':'url('+img+')'});
 				$imgBox.eq(btnInd).addClass('getImg');
             });
+
+            $('.btn_deal').click(function () {
+          $('#popContainer').removeClass();
+          $('#popContainer').stop().animate({
+            top: 0
+          }, 300);
+          $('#popContainer').addClass('popDeal');
+        });
       },100)
             
 
@@ -526,13 +535,7 @@ export default {
         });
 
       $(document).ready(function () {
-        $('.btn_deal').click(function () {
-          $('#popContainer').removeClass();
-          $('#popContainer').stop().animate({
-            top: 0
-          }, 300);
-          $('#popContainer').addClass('popDeal');
-        });
+        
         $('.btn_change').click(function () {
           $('#popContainer').removeClass();
           $('#popContainer').stop().animate({

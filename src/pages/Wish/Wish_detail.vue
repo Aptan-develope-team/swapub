@@ -146,11 +146,11 @@
 	<div id="popContainer" style="top:-100vh;">
 		<div class="popContent popSys popDelPad">
 			<h3>提醒</h3>
-			<form action="menu_u_myitem.html">
+			<form>
 				<p>你確定要刪除嗎？</p>
 				<div class="popCheckPad">
 					<input type="button" class="btn_gr btn_cancel" value="取消">
-					<input type="submit" class="btn_o btn_sure" value="確定">
+					<input type="submit" class="btn_o btn_sure" value="確定" @click="deleteItem()">
 				</div>
 			</form>
 		</div>
@@ -260,7 +260,11 @@ created(){
 		async getMessageList(){
         this.messageList = await api.get('GetWishMessageList',localStorage.getItem('api_token'),'&wishID=' + this.id + "&maxtime=1")
         console.log(this.messageList)    
-    }
+    },
+    async deleteItem(){
+				api.delete('DeleteWish/',localStorage.getItem('login_token'),"&wishID=" + this.id)
+				this.$router.push('/wish')
+		},
 	},
 
   mounted() {

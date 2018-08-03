@@ -17,7 +17,7 @@
             </div>
 			<div class="conBlock action">
                 <ul>
-                    <li class="dealBlock clear" v-for="list in List">
+                    <li class="dealBlock clear" v-for="(list,index) in List">
                         <div class="dealPad">
                             <span class="date">{{((list.UpdatedDate).split(' ')[0]).replace("T","     ")}}</span>
                             <span class="icon_deal"></span>
@@ -68,9 +68,9 @@
                             </div>
                             <div class="userInfo">
                                 <!-- <span class="date">06/27/2017</span> -->
-                                <p>姓名：Rock stone</p>
-                                <p>電子信箱：<a href="mailto:rckone@gmail.com">rckone@gmail.com</a></p>
-                                <p>電話：暫不提供</p>
+                                <p v-if="Data[index]">姓名：{{Data[index].Name}}</p>
+                                <p v-if="Data[index]">電子信箱：<a href="mailto:rckone@gmail.com">{{Data[index].Mail}}</a></p>
+                                <p v-if="Data[index]">電話：{{Data[index].Mobile}}</p>
                                 <span class="btn_guarantee_qa"><i></i>何謂履約保證金</span>
                             </div>
                             <div class="dealOption">
@@ -386,7 +386,9 @@ export default {
               Currency:2,
               Value:"",
               PaymentType:4
-          }
+          },
+          Deal:{},
+          Data:{}
       }
   },
   created(){
@@ -415,7 +417,7 @@ export default {
 				$('#popContainer').stop().animate({top : 0}, 300);
 				$('#popContainer').addClass('popGuaD');
             });
-            $('.btn_getGua').click(function(){
+           $('.btn_getGua').click(function(){
                 $('#popContainer').removeClass();
 				$('#popContainer').stop().animate({top : 0}, 300);
                 $('#popContainer').addClass('popGuaGet');
@@ -445,14 +447,26 @@ export default {
 				$('#popContainer').addClass('popPost');
             });
   },
-  methods:{
+
+methods:{
         async getDeal(){
             // this.DealList = await api.get('DealedLists',localStorage.getItem('login_token'), "")
             // console.log(this.DealList)
             this.List = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'), "")
             console.log(this.List)
             this.otherImgUrl = api.CdnUrl + "/Uploads/User/"
+            for(var i = 0 ; i< this.List.length;i++){
+                this.getData(i)
+            }
         },
+        async getData(i){
+            api.get('ProductDeal',localStorage.getItem('login_token'), "&changeID=" + this.List[i].ChangeID + "&Product=true&OwnerUser=true&Offer=true&OfferUser=true&DealTarget=true&")
+            .then((data)=>{
+                // this.Data.append(data.DealTarget)
+                this.$set(this.Data, i, data.DealTarget)
+                console.log(this.Data)
+            })
+       },
         async getUser(){
             this.User = await api.get('User',localStorage.getItem('login_token'),'')
             this.UserImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"

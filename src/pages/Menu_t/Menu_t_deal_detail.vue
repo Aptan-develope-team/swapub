@@ -16,21 +16,21 @@
                     <dl>
                         <dt>
                             <ul class="userInfo">
-                                <li class="userPic"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></li>
-                                <li class="userDetail"><h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3><span class="userAdd">台北市，台灣</span></li>
+                                <li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.ownerImg" alt=""></a></li>
+                                <li class="userDetail"><h3 class="userName"><i>我(</i>{{this.OwnerUser.Name}}<i>)</i></h3><span class="userAdd" >{{this.OwnerLocation.City}}，{{this.OwnerLocation.Country}}</span></li>
                                 <!-- <li class="timer"><span>53分鐘前</span></li> -->
                             </ul>
                         </dt>
                         <dd>
                             <ul class="itemImg itemDeal">
-                                <li><img src="../../../static/images/img_item_01.jpg" alt=""></li>
+                                <li><img :src="this.Offer.PictureUrl" alt=""></li>
                             </ul>
                         </dd>
                         <dd>
                             <ul class="itemInfo">
-                                <li><h2>【雪瑞纳犬-黑色】父親節.居家擺飾.動物.情人節.生日禮物.旅遊.婚禮.紀念品.送 老外.送 老闆</h2></li>
-                                <li class="itemTag"><a>#flower</a><a>#house</a><a>#red</a></li>
-                                <li><p>Paper Garden LED迷你植物燈/電話亭(附贈多肉植物)</p></li>
+                                <li><h2>{{this.OfferProduct.ProductName}}</h2></li>
+                                <li class="itemTag"><a></a></li>
+                                <li><p>{{this.OfferProduct.Description}}</p></li>
                                 <li><span>我想要交換到的物品</span><p>都可以，只要等值商品，喜歡就換！!</p></li>
                                 <li><p>TWD <i>4500</i></p></li>
                                 <li><span>交貨細節</span><p>店到店</p></li>
@@ -44,21 +44,21 @@
                     <dl>
                         <dt>
                             <ul class="userInfo oUser">
-                                <li class="userPic"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></li>
-                                <li class="userDetail"><h3 class="userName">Rock stone</h3><span class="userAdd">台北市，台灣</span></li>
+                                <li class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="this.offerImg" alt=""></a></li>
+                                <li class="userDetail"><h3 class="userName">{{this.OfferUser.Name}}</h3><span class="userAdd">{{this.OfferLocation.City}}，{{this.OwnerLocation.City}}</span></li>
                                 <!-- <li class="timer"><span>11分鐘前</span></li> -->
                             </ul>
                         </dt>
                         <dd>
                             <ul class="itemImg itemDeal">
-                                <li><img src="../../../static/images/mk_it_img_23.jpg" alt=""></li>
+                                <li><img :src="this.Product.PictureURL" alt=""></li>
                             </ul>
                         </dd>
                         <dd>
                             <ul class="itemInfo">
-                                <li><h2>野豬瓦愣造壁掛</h2></li>
+                                <li><h2>{{this.OwnerProduct.ProductName}}</h2></li>
                                 <!-- <li><a>#flower</a><a>#house</a><a>#red</a></li> -->
-                                <li><p>來自韓國的contamo以「文創● 手作● 玩樂」為基本理念<br>運用專業美學及生動的結構設計<br>研發出寓教於樂且令人讚嘆的文創商品<br>讓孩子從組裝過程中訓練「耐心」與「專注力</p></li>
+                                <li><p>{{this.OwnerProduct.Description}}</p></li>
                                 <li><p>TWD <i>4500</i></p></li>
                                 <li><span>交貨細節</span><p>可PC<br>同意面交<br>台北車站捷運站</p></li>
                             </ul>
@@ -227,7 +227,18 @@ export default {
   },
   data(){
       return{
-          Deal:{}
+          Deal:{},
+          OwnerUser:{},
+          OfferUser:{},
+          OwnerLocation:{},
+          OfferLocation:{},
+          Offer:{},
+          Product:{},
+          OwnerProduct:{},
+          OfferProduct:{},
+          ownerImg:"",
+          offerImg:"",
+          Rating:{}
       }
   },
   created(){
@@ -243,9 +254,21 @@ export default {
      async getDeal(){
             // this.DealList = await api.get('DealedLists',localStorage.getItem('login_token'), "")
             // console.log(this.DealList)
-            this.Deal = await api.get('ProductDeal',localStorage.getItem('login_token'), "&changeID=" + this.$route.query.changeID)     
+            this.Deal = await api.get('ProductDeal',localStorage.getItem('login_token'), "&changeID=" + this.$route.query.changeID + "&Product=true&OwnerUser=true&Offer=true&OfferUser=true&DealTarget=true&")     
             console.log(this.Deal)
-      },
+            this.OwnerUser = await api.get('User/'+this.Deal.OwnerUser.ID,localStorage.getItem('login_token'),'')
+            this.OfferUser = await api.get('User/'+this.Deal.OfferUser.ID,localStorage.getItem('login_token'),'')
+            this.OwnerLocation = this.OwnerUser.Location
+            this.OfferLocation = this.OfferUser.Location
+            this.Offer = this.Deal.Offer.Items[0]
+            this.Product = this.Deal.Product
+            this.ownerImg = api.CdnUrl + "/Uploads/User/" + this.Deal.OwnerUser.ID  + "/Avatar.jpg"
+            this.offerImg = api.CdnUrl + "/Uploads/User/" + this.Deal.OfferUser.ID  + "/Avatar.jpg"
+            this.OfferProduct = await api.get('Product/' + this.Offer.ProductID,localStorage.getItem('login_token'), "")     
+            this.OwnerProduct = await api.get('Product/' + this.Product.ProductID,localStorage.getItem('login_token'), "")     
+            this.Rating = await api.get('Rating',localStorage.getItem('login_token'),"&ratingID=" + this.Deal.RatingID)
+            console.log(this.OfferProduct)
+    },
   },
   mounted() {
     setTimeout(() => {

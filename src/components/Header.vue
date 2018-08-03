@@ -45,7 +45,7 @@
 			<div class="login">
 				<a class="sideBt userPic" :style="{ backgroundImage:`url(${this.imgUrl})`}"></a><span class="userName"><i>我</i>{{this.resData.Name}}</span>
 				<a class="sideBt userMenu CGc"></a>
-				<a class="sideBt userNoti CGc"><i class="noticeNum">2</i></a>
+				<a class="sideBt userNoti CGc"><i class="noticeNum">{{this.Notify.Total}}</i></a>
 			</div>
 		</div>
 		<div class="sideBarPad">
@@ -66,8 +66,8 @@
 				<dl>
 					<dt>
 						<h2>通知</h2>
-						<a class="action">動態(<i>7</i>)</a>
-						<a>交易(<i>4</i>)</a>
+						<a class="action">動態(<i>{{this.Feed.length}}</i>)</a>
+						<a>交易(<i>{{this.Trade.length}}</i>)</a>
 					</dt>
 					<dd class="action">
 						<div class="noticePad CG_scorll">
@@ -425,7 +425,8 @@ export default {
   created(){
 		this.getUser();
 		this.getNotify();
-
+		this.getFeed();
+		this.getTrade()
   },
   methods:{
 	  async getUser(){
@@ -442,12 +443,17 @@ export default {
 		},
 		async getNotify(){
 				this.Notify = await api.get('Notification/GetNotifyCountWithType',localStorage.getItem('login_token'),'&unRead=true')
-				//console.log(this.Notify)
+				console.log(this.Notify)						
+		},
+		async getFeed(){
 				this.Feed = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=0')
 				console.log(this.Feed)
+		},
+		async getTrade(){
 				this.Trade = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=1')
-				console.log(this.Trade)		
+				console.log(this.Trade)
 		}
+		
   },
   mounted() {
     setTimeout(() => {
