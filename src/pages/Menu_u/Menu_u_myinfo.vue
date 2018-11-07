@@ -13,13 +13,24 @@
             <div class="innerCoverBlock">
                 <span class="coverImg" :style="{ backgroundImage:`url(${this.CoverUrl})`}"></span>
                 <label for="editCover" class="btn_w btn_edit">點擊編輯圖片<input type="file" id="editCover" @change="onCoverChanged"></label>
-                <div>
+                <!-- <div>
                     <ul class="userInfo">
                         <li class="userPic">
-                            <label for="editUImg" class="editUserImg"><img :src="this.imgUrl" alt=""><input type="file" id="editUImg" @change="onFileChanged"></label>
+                            <label for="editUImg" class="editUserImg btn btn-primary btn-upload"><img :src="this.imgUrl" alt="">
+                            <input type="file" class="sr-only" id="inputImage" @change="onFileChanged">
+                            </label>
                         </li>
                     </ul>
+                </div> -->
+                <div class="userInfo">
+                    <div class="userPic">
+                        <label class="editUserImg btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="background-image: url(images/img_item_01.jpg);">
+                            <!-- 上傳的圖片由原本的<img>改為label的背景圖 -->
+                            <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                        </label>
+                    </div>
                 </div>
+                
             </div>
             <div class="conBlock">
                 <form>
@@ -28,7 +39,7 @@
                             <dt><p><span>姓</span><input type="text" name="" id=""  v-model="changeInfo.FirstName"></p></dt>
                             <dd><p><span>名</span><input type="text" name="" id="" v-model="changeInfo.LastName" ></p></dd>
                             <dd><p ><span>城市</span><input type="text" name="" id="" v-model="changeInfo.City"></p></dd>
-                            <dd><p><span>州/省</span><input type="text" name="" id="" ></p></dd>
+                            <dd><p><span>州/省</span><input type="text" name="" id="" v-model="changeInfo.AdministrativeArea"></p></dd>
                             <dd><p><span>國家</span><input type="text" name="" id="" v-model="changeInfo.Country"></p></dd>
                             <dd></dd>
                             <dd><p class="checked"><span>電話</span><input type="text" name="" id="" v-model="changeInfo.Mobile"></p></dd>
@@ -37,7 +48,7 @@
                     </div>
                     <div class="checkPad">
                         <input type="button" class="btn_w btn_cancel" value="取消" @click="cancel()">
-                        <input type="submit" class="btn_o btn_sure" value="送出" @click="changeData(changeInfo.FirstName,changeInfo.LastName,changeInfo.City,changeInfo.Country,changeInfo.Mobile)">
+                        <input type="submit" class="btn_o btn_sure" value="送出" @click="changeData(changeInfo.FirstName,changeInfo.LastName,changeInfo.City,changeInfo.AdministrativeArea,changeInfo.Country,changeInfo.Mobile)">
                     </div>
                 </form>
             </div>
@@ -49,14 +60,33 @@
 	<app-footer></app-footer>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
-	<div id="popContainer" style="top:-100vh;">
+<div id="popContainer" style="top:-100vh;">
         <div class="popContent popSys popImg">
             <div class="btn_closePop"></div>
             <p>請調整照片位置及大小</p>
-            <div class="popImgPad"><span class="popImgMask"><i></i><img src="../../../static/images/ws_user_img_4.png" alt=""></span></div>
-            <div class="popRangeBar">
-                <i>-</i><input type="range" min="0" max="100" step="1" value="50"><i>+</i>
-            </div>
+            <form action="">
+                <div class="popImgPad cropperPad">
+                    <div class="img-container">
+                        <img id="image" alt="Picture" />
+                    </div>
+                    <!-- Data -->
+                    <div class="docs-data" style="display:none;">
+                        <input type="text" id="dataX">
+                        <input type="text" id="dataY">
+                        <input type="text" id="dataWidth">
+                        <input type="text" id="dataHeight">
+                        <input type="text" id="dataRotate">
+                        <input type="text" id="dataScaleX">
+                        <input type="text" id="dataScaleY">
+                    </div>
+                </div>
+                <div class="testt">
+        hi
+     </div>
+                <div class="popCheckPad">
+                    <input type="submit" class="btn_o btn_submit" value="確定"/>
+                </div>
+            </form>
         </div>
 	</div>
 	<!-- Loader  -->
@@ -93,6 +123,7 @@ export default {
         LastName:"",
         City:"",
         Country:"",
+        AdministrativeArea:"",
         Mobile:"",
         Email:""
       },
@@ -110,16 +141,19 @@ export default {
         this.changeInfo.FirstName = this.resData.FirstName 
         this.changeInfo.LastName = this.resData.LastName
         this.changeInfo.City = this.resData.Location.City 
+        this.changeInfo.AdministrativeArea = this.resData.Location.AdministrativeArea
         this.changeInfo.Country = this.resData.Location.Country
         this.changeInfo.Mobile = this.resData.Mobile
         this.changeInfo.Email = this.resData.Email 
         this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
         this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Cover.jpg"
         console.log(this.CoverUrl)
+        console.log(this.imgUrl)
+
         console.log(this.resData)
         
     },
-    async changeData(FirstName,LastName,City,Country,Mobile,Email){
+    async changeData(FirstName,LastName,City,AdministrativeArea,Country,Mobile,Email){
         this.resData = await api.get('User',localStorage.getItem('login_token'),'')
         let copy = Object.assign({}, this.resData);
         this.isAllowEditUserName = await api.get('IsAllowEditUserName',localStorage.getItem('login_token'),'')
@@ -134,6 +168,7 @@ export default {
               copy.FirstName = FirstName
               copy.LastName = LastName
               copy.Location.City = City
+              copy.Location.AdministrativeArea = AdministrativeArea
               copy.Location.Country = Country
               copy.Mobile = Mobile
               copy.Verification.PhoneNumber = Mobile
@@ -145,6 +180,7 @@ export default {
         else{
             if(confirm("您確定要修改嗎？") == true){
               copy.Location.City = City
+              copy.Location.AdministrativeArea = AdministrativeArea
               copy.Location.Country = Country
               copy.Verification.PhoneNumber = Mobile
               copy.Mobile = Mobile
@@ -166,9 +202,9 @@ export default {
         this.PicInfo.FileContent = e.target.result.split(',')[1]
         console.log(this.PicInfo)
 
-      axios.post('api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=1',this.PicInfo,{headers: {
+      axios.post('http://dev-8085.swapub.com/api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=1',this.PicInfo,{headers: {
 			'Content-Type': 'application/json',
-      'appid':'TestAppID_2',
+      'appid':'TestAppID_3',
       'AppVersion':'2.14.0'
 			}}).then((res) => {
                 console.log(res)
@@ -186,7 +222,7 @@ export default {
             this.PicInfo.FileContent = e.target.result.split(',')[1]
             console.log(this.PicInfo)
 
-            axios.post('api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=2',this.PicInfo,{headers: {
+            axios.post('http://dev-8085.swapub.com/api/Upload?'+'accessToken='+localStorage.getItem('login_token')+'&type=2',this.PicInfo,{headers: {
             'Content-Type': 'application/json',
             'appid':'TestAppID_2',
             'AppVersion':'2.14.0'
@@ -230,6 +266,11 @@ export default {
           }, 300);
           $('#popContainer').addClass('popEditUImg');
         });
+         $('.userPic').on('change','#inputImage' , function(){
+                $('#popContainer').removeClass();
+				$('#popContainer').stop().animate({top : 0}, 300);
+				$('#popContainer').addClass('popEditUImg');
+            });
 
 
       })

@@ -131,7 +131,7 @@
 							<dd>
 								<p class=""><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data[0]"></p>
 								<p class="noDot">物品價值範圍
-									<span class="currency btn_g"><i>TWD</i>
+									<span class="currency btn_g"><i>{{this.currency}}</i>
 										<span class="curBlock"><b @click="setCurrencyPrice('AED')">AED</b><b @click="setCurrencyPrice('AUD')">AUD</b><b @click="setCurrencyPrice('CAD')">CAD</b><b @click="setCurrencyPrice('CNY')">CNY</b><b @click="setCurrencyPrice('EUR')">EUR</b><b @click="setCurrencyPrice('HKD')">HKD</b><b @click="setCurrencyPrice('JPY')">JPY</b><b @click="setCurrencyPrice('KRW')">KRW</b><b @click="setCurrencyPrice('TWD')">TWD</b><b @click="setCurrencyPrice('USD')">USD</b></span>
 									</span>
 									<span>
@@ -141,7 +141,7 @@
 								<p><textarea name="" placeholder="我想換到的服務" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
 									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data[1]"></textarea></p>
 								<p>我要賣
-									<span class="currency btn_g"><i>TWD</i>
+									<span class="currency btn_g"><i>{{this.currency}}</i>
 										<span class="curBlock"><b @click="setCurrencyType('AED')">AED</b><b @click="setCurrencyType('AUD')">AUD</b><b @click="setCurrencyType('CAD')">CAD</b><b @click="setCurrencyType('CNY')">CNY</b><b @click="setCurrencyType('EUR')">EUR</b><b @click="setCurrencyType('HKD')">HKD</b><b @click="setCurrencyType('JPY')">JPY</b><b @click="setCurrencyType('KRW')">KRW</b><b @click="setCurrencyType('TWD')">TWD</b><b @click="setCurrencyType('USD')">USD</b></span>
 									</span>
 									<input type="number" name="" min="0">
@@ -276,7 +276,8 @@ export default {
         FileName:"",
         FileContent:""
       },
-      Categories:{}
+      Categories:{},
+      currency:"TWD"
     }
   },
   updated(){
@@ -322,6 +323,12 @@ export default {
   },
   created(){
     this.getProductInfo();
+    if(localStorage.getItem("currency")!="" && localStorage.getItem("currency")!= undefined){
+      this.Product.Wants.MoneyInfo.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_Start.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_End.Type = localStorage.getItem("currency")
+      this.currency = localStorage.getItem("currency")
+    }
   },
   methods:{
 	  async getProductInfo(){

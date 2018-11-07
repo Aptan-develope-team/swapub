@@ -60,10 +60,61 @@
                                 <p v-if="list.Product">{{list.Product.ProductName}}</p>
                             </div>
                         </div>
-                        <div class="swapDetailPad">
-                            <div class="guaranteeInfo clear btn_getGua">
-                                <p class="guaranteePad action" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                        <div class="swapDetailPad" v-if="list.TargetUser">
+                            <div class="guaranteeInfo clear btn_getGua" v-if="list.TargetUser.ID == User.ID && list.ProductOwnerPaymentFlowStatus != 1">
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 0" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 2">是否同意使用安心交換</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 3">等待付款</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 4">已經付款，待確認</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 5">已經收到付款</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 6">重新建議新的金額</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 7">已經收到貨</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 8">雙方協議取消</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 11">延長7天</p>
+                                <p class="guaranteePad action" v-if="list.ProductOwnerPaymentFlowStatus == 12">已退款</p>
+                                <!-- <p class="guaranteePad"><span class="userName">我</span>已建議使用履約保證金</p>
+                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p>--><i></i> 
+                            </div>
+                             <div class="guaranteeInfo clear btn_getGua" v-if="list.TargetUser.ID != User.ID && list.OfferPaymentFlowStatus != 1">
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 0" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 2">是否同意使用安心交換</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 3">等待付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 4">已經付款，待確認</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 5">已經收到付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 6">重新建議新的金額</p>
+                                <p class="guaranteePad action " v-if="list.OfferPaymentFlowStatus == 7">已經收到貨</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 8">雙方協議取消</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 11">延長7天</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 12">以退貨</p>       
                                 <p class="guaranteePad"><span class="userName">Rock stone</span>已建議使用履約保證金</p>
+                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i> 
+                            </div>
+                             <div class="guaranteeInfo clear btn_getGua action" v-if="list.TargetUser.ID == User.ID && list.ProductOwnerPaymentFlowStatus == 1">                           
+                                <p class="guaranteePad" v-if="list.OfferPaymentFlowStatus == 0" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                                <!-- <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 2">是否同意使用安心交換</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 3">等待付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 4">已經付款，待確認</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 5">已經收到付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 6">重新建議新的金額</p>
+                                <p class="guaranteePad action " v-if="list.OfferPaymentFlowStatus == 7">已經收到貨</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 8">雙方協議取消</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 11">延長7天</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 12">以退貨</p>  -->
+                                <p class="guaranteePad action"><span class="userName">我</span>已建議使用履約保證金</p>
+                                <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
+                            </div>
+                             <div class="guaranteeInfo clear btn_getGua action" v-if="list.TargetUser.ID != User.ID && list.OfferPaymentFlowStatus == 1">                                   
+                                <p class="guaranteePad" v-if="list.OfferPaymentFlowStatus == 0" @click="useBond(list.ChangeID)">我要使用履約保證金</p>
+                                <!-- <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 2">是否同意使用安心交換</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 3">等待付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 4">已經付款，待確認</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 5">已經收到付款</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 6">重新建議新的金額</p>
+                                <p class="guaranteePad action " v-if="list.OfferPaymentFlowStatus == 7">已經收到貨</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 8">雙方協議取消</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 11">延長7天</p>
+                                <p class="guaranteePad action" v-if="list.OfferPaymentFlowStatus == 12">以退貨</p>  -->
+                                <p class="guaranteePad action"><span class="userName">Rock stone</span>已建議使用履約保證金</p>
                                 <p class="swapVal"><span class="currencyBlock">TWD</span><span class="price">9,999</span></p><i></i>
                             </div>
                             <div class="userInfo">
@@ -76,7 +127,7 @@
                             <div class="dealOption">
                                <router-link :to="{name:'Market_detail',params: { id:list.Product.ProductID},query:{MsgID:list.MsgID}}" class="btn_whisper"><i></i>悄悄話</router-link>
                                 <a class="btn_transport"><i></i>運送</a>
-                                <a class="btn_assess"><i></i>評價</a>
+                                <a class="btn_assess" @click="comment(index)"><i></i>評價</a>
                             </div>
                         </div>
                     </li>
@@ -99,55 +150,55 @@
                     <ul class="dealPad clear">
                         <li class="icon_deal"></li>
                         <li class="swapPad">
-                            <span class="userPic checked"><a href="menu_u_myitem_other.html?j"><img src="../../../static/images/ws_user_img_5.png" alt=""></a></span>
+                            <span class="userPic checked"><router-link :to="{name:'Menu_u_myitem',params: { id: TargetUser.ID}}"><img :src="otherImgUrl + TargetUser.ID + '/Avatar.jpg'" alt=""></router-link></span>
                             <div class="itemCon_1 itemImg">
                                 <div class="cssTable">
-                                    <dl>
-                                        <div class="itemCon_2 cssTable">
-                                            <ul>
-                                                <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
-                                                <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                    <p style="background-image:url(../../../static/images/ws_it_img_3.jpg)"></p>
-                                                    <!-- 如果有第三張圖，要放在第二個LI 裡面 -->
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </dl>
-                                    <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                </div>
+                                        <dl>
+                                            <div class="itemCon_2 cssTable">
+                                                <ul v-if="CommentOffer.Items">
+                                                    <li><p :style="{ backgroundImage:`url(${CommentOffer.Items[0].PictureUrl})`}" v-if="CommentOffer.Items.length == 1 || CommentOffer.Items.length == 2 || CommentOffer.Items.length == 3 "></p></li>
+                                                    <li v-if="this.Comment.Offer.Items < 2"><!-- 如果只有一張圖，這個li 都不要 -->
+                                                        <p :style="{ backgroundImage:`url(${CommentOffer.Items[1].PictureUrl})`}" v-if="CommentOffer.Items.length == 2 || CommentOffer.Items.length == 3 "></p>
+                                                        <p :style="{ backgroundImage:`url(${CommentOffer.Items[2].PictureUrl})`}" v-if="CommentOffer.Items.length == 3" ></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </dl>
+                                        <dl v-if="CommentOffer.OfferMoney"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{CommentOffer.OfferMoney.Type}} {{this.Comment.Offer.OfferMoney.Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                        <dl v-if="CommentOffer.OfferService"><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">{{CommentOffer.OfferService}}</span></dt></dl>
+                                    </div>
                             </div>
-                            <p>TRWIWA手錶</p>
+                            <p v-if="CommentOffer.Items">{{CommentOffer.Items[0].ProductName}}</p>
                         </li>
                         <li class="swapPad">
-                            <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
+                            <span class="userPic checked"><router-link :to="{name:'Menu_u_myitem',params: { id: User.ID}}"><img :src="UserImg" alt=""></router-link></span>
                             <div class="itemCon_1 itemImg">
                                 <div class="cssTable">
                                     <dl>
                                         <div class="itemCon_2 cssTable">
                                             <ul>
-                                                <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                <li v-if="Comment.Product"><p :style="{ backgroundImage:`url(${this.Comment.Product.PictureURL})`}"></p></li>
                                             </ul>
                                         </div>
                                     </dl>
                                     <!-- 如果有項目，就要新增 dl > dt > 內容 -->
-                                    <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addserv_w.png)"></i><span class="ovLine">幫忙跑腿一次，任何地點</span></dt></dl>
                                 </div>
                             </div>
-                            <p>桌上型盆栽擺飾</p>
+                            <p v-if="Comment.Product">{{Comment.Product.ProductName}}</p>
                         </li>
                     </ul>
                 </div>
                 <div class="popAssessPad">
-                    <span class="userPic checked"><a href="menu_u_myitem.html?j"><img src="../../../static/images/ws_user_img_4.png" alt=""></a></span>
-                    <textarea name="" id="" placeholder="請填寫評價內容"></textarea>
+                    <span class="userPic checked"><router-link :to="{name:'Menu_u_myitem',params: { id: User.ID}}"><img :src="UserImg" alt=""></router-link></span>
+                    <textarea name="" id="" placeholder="請填寫評價內容" v-model="Rating.Comment"></textarea>
                     <p><b>請給予評價</b></p>
                     <div class="popAssessBtn">
-                        <input type="button" class="btn_gr" value="不滿意"><input type="button" class="btn_gr" value="滿意">
+                        <input type="button" class="btn_gr" value="不滿意" @click="setBad()" id="bad"><input type="button" class="btn_gr" value="滿意" id="good" @click="setGood()">
                     </div>
                 </div>
                 <div class="popCheckPad">
                     <!-- <input type="button" class="btn_w btn_cancel" value="取消"/> -->
-                    <input type="button" class="btn_o btn_sure" value="確定"/>
+                    <input type="button" class="btn_o btn_sure" value="確定" @click="putRating()"/>
                 </div>
             </form>
         </div>
@@ -388,7 +439,17 @@ export default {
               PaymentType:4
           },
           Deal:{},
-          Data:{}
+          Data:{},
+          Money:{},
+          Rating:{
+              RatingID:"",
+              Comment:"",
+              Rating:0
+          },
+          Comment:{},
+          CommentOffer:{},
+          TargetUser:{},
+          RatingID:[]
       }
   },
   created(){
@@ -446,6 +507,13 @@ export default {
 				$('#popContainer').stop().animate({top : 0}, 300);
 				$('#popContainer').addClass('popPost');
             });
+            var $assBt = $('.popAssessBtn').find('input');
+            $assBt.eq(0).click(function(){
+                $(this).toggleClass('btn_o btn_nb').siblings().removeClass().addClass('btn_gr');
+            });
+            $assBt.eq(1).click(function(){
+		    $(this).toggleClass('btn_o btn_gr').siblings().removeClass().addClass('btn_gr');
+	});
   },
 
 methods:{
@@ -458,19 +526,50 @@ methods:{
             for(var i = 0 ; i< this.List.length;i++){
                 this.getData(i)
             }
+            if(this.List.length == 0){
+                var $conBlock = $('.conBlock')
+            //無資料預設畫面用--start--
+            $conBlockLi.css({'display':'none'});
+            //$conBlock.addClass('empty');
+            }
+        },
+        setBad(){
+            var element = document.getElementById("bad");
+	        element.removeAttribute("class");
+            element.classList.add("btn_o");
+             var element2 = document.getElementById("good");
+	        element2.removeAttribute("class");
+            element2.classList.add("btn_gr");
+            this.Rating.Rating = 2
+        },
+        setGood(){
+            var element = document.getElementById("good");
+	        element.removeAttribute("class");
+            element.classList.add("btn_o");
+             var element2 = document.getElementById("bad");
+	        element2.removeAttribute("class");
+            element2.classList.add("btn_gr");
+            this.Rating.Rating = 1
+            console.log(this.Rating)
         },
         async getData(i){
             api.get('ProductDeal',localStorage.getItem('login_token'), "&changeID=" + this.List[i].ChangeID + "&Product=true&OwnerUser=true&Offer=true&OfferUser=true&DealTarget=true&")
             .then((data)=>{
                 // this.Data.append(data.DealTarget)
                 this.$set(this.Data, i, data.DealTarget)
-                console.log(this.Data)
+                this.$set(this.RatingID, i, data.RatingID)
+                //console.log(data)
+            })
+            api.get('GetPaymentFlow',localStorage.getItem('login_token'), "&changeID=" + this.List[i].ChangeID + "&Product=true&OwnerUser=true&Offer=true&OfferUser=true&DealTarget=true&")
+            .then((data)=>{
+                // this.Data.append(data.DealTarget)
+                this.$set(this.Money, i, data.PerformanceBond)
+                //console.log(this.Money)
             })
        },
         async getUser(){
             this.User = await api.get('User',localStorage.getItem('login_token'),'')
             this.UserImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
-
         },
         useBond(id){
             this.Bond.ChangeID = id
@@ -478,12 +577,36 @@ methods:{
         },
         async upload(){
             await api.postJSON('AskPerformanceBond',JSON.stringify(this.Bond),localStorage.getItem('login_token'),'')
+        },
+        async putRating(){
+            if(this.Rating.Rating == 0){
+                alert("請選擇同意或不同意")
+            }
+            else if(this.Rating.Comment == ""){
+                alert("請輸入內容")
+            }
+            else{
+                await api.putJSON('Rating',JSON.stringify(this.Rating),localStorage.getItem('login_token'),'')
+                alert("評價成功")
+                this.Rating.Comment =""
+                this.Rating.Rating = 0
+                this.Rating.RatingID == ""
+            }
+        },
+        comment(i){
+            this.Comment = this.List[i]
+            this.CommentOffer = this.List[i].Offer
+            this.TargetUser= this.List[i].TargetUser
+            this.Rating.RatingID = this.RatingID[i]
+            
         }
 
   },
   mounted(){
-         setTimeout(() => {
-             var element = document.getElementById("body_class");
+    setTimeout(() => {
+             //$('.conBlock').addClass('empty');
+
+    var element = document.getElementById("body_class");
 	element.removeAttribute("class");
 	element.classList.add("item","noSearchPage","menuPage","mDeal");
 	
@@ -515,9 +638,6 @@ methods:{
 		// Yep, that's it!
 		//$('#scene').parallax();
 		$(document).ready(function(){
-			
-            
-
             $('.dealBlock').find('.dealPad').append('<a href="/#/menu_t_deal_detail"></a>');
 
             var $dealBtn = $('.mainBtPad').find('a'),
@@ -529,6 +649,25 @@ methods:{
                 $dealBtn.eq(ind).addClass('action').siblings('a').removeClass('action');
                 $dealBlock.eq(ind).fadeIn().siblings('.conBlock').fadeOut();
             });
+
+            var $mainBt = $('.mainBtPad').find('a'),
+                $conBlock = $('.conBlock'),
+                $conBlockLi = $conBlock.find('ul').find('li');
+            //無資料預設畫面用--start--
+            $conBlockLi.css({'display':'none'});
+            //$conBlock.addClass('empty');
+            //無資料預設畫面用--end--
+            $conBlock.eq(0).css({'display':'block'});
+            $mainBt.click(function(){
+                var ind = $(this).index();
+                $(this).addClass('action').siblings('a').removeClass('action');
+                $conBlock.eq(ind).fadeIn().siblings('.conBlock').css({'display':'none'});
+                //判斷無資料預設畫面
+                if($conBlockLi.css('display') == 'none'){
+                    //$conBlock.addClass('empty');
+                }
+            });
+
               //已使用保證金的不顯示"何謂履約保證金"
             var $guaPad = $('.swapDetailPad').find('.guaranteeInfo.action'),
                 $gua = $guaPad.parent(),
@@ -537,6 +676,9 @@ methods:{
 
 
         })
+        $('.btn_sure').click(function(){
+		    $('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+	    });
 
         // function sendGua(){
         //     var $value = $('.popGua.detail.send').find('.guaPrice');
@@ -571,7 +713,13 @@ methods:{
             document.execCommand("copy");
         }
 
-        
+            var $assBt = $('.popAssessBtn').find('input');
+                $assBt.eq(0).click(function(){
+                    $(this).toggleClass('btn_o btn_nb').siblings().removeClass().addClass('btn_gr');
+                });
+                $assBt.eq(1).click(function(){
+                    $(this).toggleClass('btn_o btn_gr').siblings().removeClass().addClass('btn_gr');
+                });
          },0)
     }
 }

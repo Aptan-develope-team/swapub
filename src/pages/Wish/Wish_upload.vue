@@ -19,8 +19,9 @@
 							<dt>Step1</dt>
 							<dd>
 								<p class="editImg addImg">
-                <label for="uploadImg"><img :src="this.Result" alt="">
+                <label for="uploadImg" :style="{ backgroundImage:`url(${this.Result})`}">
                   <input type="file" id="uploadImg" placeholder="" @change="onFileChanged"></label>
+                  <!-- <span><b class="btn_w btn_editimg"編輯></b><i class="delImg"></i></span> -->
 								</p><span>上傳照片</span>              
 							</dd>
 						</dl>
@@ -80,7 +81,7 @@
                       <i>
                         <img src="../../../static/images/icon_item_service.svg" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')">個人服務</i>
                       <i>
-                        <img src="../../../static/images/icon_item_gift.svg" alt="" @click="setCategory('')">免費贈與</i>
+                        <img src="../../../static/images/icon_item_gift.svg" alt="" @click="setCategory('')">免費索取</i>
                     </span>
 								</p>
 								<p class="itemData">
@@ -89,13 +90,13 @@
 								<p class="itemOption">
                   <b>物品地點 (國家)</b>
                   <select name="" v-model="data.Info.Country">
-                    <option value="台灣">台灣</option>
+                      <option :value="country" v-for="(country,key) in Country" @click="setCountry(key)">{{country}}</option>
                   </select>
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (城市)</b>
                     <select name="" v-model="data.Info.City">
-                      <option value="台北市">台北市</option>
+                      <option :value="city" v-for="(city,key) in City">{{city}}</option>
                     </select>
                   </p>
 							</dd>
@@ -116,7 +117,7 @@
 	<app-footer></app-footer>
 	<div class="backTop CGt"></div>
 	<!-- Light Box -->
-	<div id="popContainer" style="top:-100vh;">
+	<!-- <div id="popContainer" style="top:-100vh;">
 		<div class="popContent popEditImgPad">
 			<div class="btn_closePop"></div>
 			<p>請調整照片位置及大小</p>
@@ -146,7 +147,7 @@
 					<input type="button" class="btn_o btn_sure" value="確定">
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- Loader  -->
 	<div class="loadPad"><div class="loader_g"><i></i><i></i><i></i><i></i></div></div>
 </div>
@@ -158,6 +159,12 @@
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import api from '../../api/Api.js'
+import city from '../../language/zh-TW/city.js'
+import country from '../../language/zh-TW/country.js'
+import cityen from '../../language/en/city.json'
+import countryen from '../../language/en/country.json'
+import region from '../../language/region.js'
+
 export default {
   components: {
     "app-header": Header,
@@ -171,9 +178,9 @@ export default {
           Description:"", 
           CategoryIDs:[],
           Language:"", 
-          Country:"", 
+          Country:"台灣", 
           AdministrativeArea:"", 
-          City:"",
+          City:"台北市",
         },
         File:{}
     },      
@@ -182,19 +189,38 @@ export default {
 		}
 	},
   created(){
+     if(localStorage.getItem("currency")!="" && localStorage.getItem("currency")!= undefined){
+      this.Product.Wants.MoneyInfo.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_Start.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_End.Type = localStorage.getItem("currency")
+      this.currency = localStorage.getItem("currency")
+    }
+    if(localStorage.getItem('language')=='en'){
+      this.Country = countryen
+      this.City = cityen
+      this.data.Info.Country = "Taiwan"
+      this.data.Info.City = "Taipei"
+
+		}
   },
   methods:{
     async upload(){
-      if(this.Result != ""){
+        if(this.data.Info.Name == ""){
+          alert("請輸入願望名稱")
+        }
+        else if(this.data.Info.CategoryIDs[0] == ""){
+          alert("請選擇類別")
+        }
+        else if(this.data.Info.Description == ""){
+          alert("請輸入願望描述")
+        }
+        else{
         var bodyFormData = new FormData();
         bodyFormData.append('Info', JSON.stringify(this.data.Info));
         bodyFormData.append('File',this.data.File)
         this.wishID = await api.postWish("AddWish",bodyFormData,localStorage.getItem('login_token'),"")  
-        //await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.wishID)
-      }
-      else{
-        alert("請上傳照片")
-      }
+        //await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.wishID)    
+        }  
     },
     setCategory(id){
       this.data.Info.CategoryIDs[0] = id

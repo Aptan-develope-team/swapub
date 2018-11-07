@@ -42,10 +42,13 @@
 				</div>
 				<div class="itemPad clear" >
 					 <div class="itemBox itemL" v-for="(product,index) in resData" v-if="index == 0" >
-						<div class="itemImg"><img :src="(product.PictureUrls)[0]" alt="" ></div>
+						<div class="itemImg">
+							<!-- <img :src="(product.PictureUrls)[0]" alt="" > -->
+							 <u class="imgListMask" :style="{ backgroundImage:`url(${(product.PictureUrls)[0]})`}"></u>
+							</div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
 						<div class="itemInfo">
-							<span class="iQua">{{ getExchangeCount(product._id) }}</span><span class="iHeart" id="iHeart"></span>
+							<span class="iQua">{{product.OfferNum}}</span><span class="iHeart" id="iHeart"></span>
 						</div>
 						<div class="itemTitle">
 							<h3>{{product.ProductName}}</h3>
@@ -53,16 +56,20 @@
 						</div>
 					</div>
 					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 0 && index <= 9 ">
-						<div class="itemImg"><img :src="product.PictureUrls[0]" alt="" ></div>
+						<div class="itemImg">
+							<!-- <img :src="product.PictureUrls[0]" alt="" > -->
+							<u class="imgListMask" :style="{ backgroundImage:`url(${(product.PictureUrls)[0]})`}"></u>
+
+							</div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
-							<span class="iQua">4</span><span class="iHeart action"></span>
+							<span class="iQua">{{product.OfferNum}}</span><span class="iHeart"></span>
 						</div>
 						<div class="itemTitle">
 							<h3>{{product.ProductName}}</h3>
 						</div>
 					</div>
-					<div class="itemBox itemL itemAd">
+					<!-- <div class="itemBox itemL itemAd">
 						<p>廣告</p>
 						<div class="itemImg"><img src="../../../static/images/mk_it_img_11.jpg" alt=""></div>
 						<a href="#"></a>
@@ -72,12 +79,16 @@
 						<div class="itemTitle">
 							<h3>《天堂M》凌晨開服瞬間18萬人熱爆，遊戲橘子：營運預算無上限</h3>
 						</div>
-					</div>
+					</div> -->
 					<div class="itemBox itemS" v-for="(product,index) in resData" v-if="index > 9 ">
-						<div class="itemImg"><img :src="product.PictureUrls[0]" alt=""></div>
+						<div class="itemImg">
+							<!-- <img :src="product.PictureUrls[0]" alt=""> -->
+							<u class="imgListMask" :style="{ backgroundImage:`url(${(product.PictureUrls)[0]})`}"></u>
+
+							</div>
 						<router-link :to="{name:'Market_detail',params: { id: product._id}}"></router-link>
 						<div class="itemInfo">
-							<span class="iQua">4</span><span class="iHeart action"></span>
+							<span class="iQua">{{product.OfferNum}}</span><span class="iHeart"></span>
 						</div>
 						<div class="itemTitle">
 							<h3>{{product.ProductName}}</h3>
@@ -166,7 +177,7 @@ export default {
   methods:{
 	  async getItem(){
 	    this.getToken()
-		  this.resData = await api.get('GetProductWithLocationAndCategory_V2',localStorage.getItem('api_token'),'&filterDate=16')
+		  this.resData = await api.get('GetProductWithLocationAndCategory',localStorage.getItem('api_token'),'&filterDate=16')
 		  console.log(this.resData)
 		// for (var i = 0; i < this.resData.length; i++) {
 		// }

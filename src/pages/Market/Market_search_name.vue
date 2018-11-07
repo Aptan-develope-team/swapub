@@ -11,60 +11,30 @@
 		<div class="content">
 			
 			<p class="searchCounter">搜尋結果：<span>{{this.Data.length}}</span>筆符合</p>
-			<div class="conBlock srItemPad action">
+			
+			<div class="conBlock srNamePad action">
 				<div class="itemPad">
 					<div class="itemBox" v-for="data in Data">
 						<div class="itemImg">
-							<!-- <img :src="data.PictureUrls" alt=""> -->
-							<u class="imgListMask" :style="{ backgroundImage:`url(${data.PictureUrls})`}"></u>
-
-							</div>
-							<router-link :to="{name:'Market_detail',params: { id: data._id}} "></router-link>						<div class="itemInfo">
-							<span class="iQua">{{data.OfferNum}}</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>{{data.ProductName}}</h3>
-						</div>
+              <img :src="imgUrl + data.ID + '/Avatar.jpg'" alt="">
+              </div>
+						<div class="itemTitle"><h3>{{data.Name}}</h3></div><router-link :to="{name:'Menu_u_myitem',params: { id: data.ID}}"></router-link>
 					</div>
 					<!-- <div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_it_img_2.jpg" alt=""></div>
-						<a href="item_detail.html"></a>
-						<div class="itemInfo">
-							<span class="iQua">1192</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>iphone7 全新機，只換不售，等值商品就換</h3>
-						</div>
+						<div class="itemImg"><img src="../../../static/images/sr_na_img_2.jpg" alt=""></div>
+						<div class="itemTitle"><h3>Sam</h3></div><a href="menu_u_myitem_other.html?j"></a>
 					</div>
 					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_it_img_3.jpg" alt=""></div>
-						<a href="item_detail.html"></a>
-						<div class="itemInfo">
-							<span class="iQua">48</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Apple watch第一代，附上一個全新錶帶</h3>
-						</div>
+						<div class="itemImg"><img src="../../../static/images/sr_na_img_3.jpg" alt=""></div>
+						<div class="itemTitle"><h3>Sphia</h3></div><a href="menu_u_myitem_other.html?j"></a>
 					</div>
 					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_it_img_4.jpg" alt=""></div>
-						<a href="item_detail.html"></a>
-						<div class="itemInfo">
-							<span class="iQua">20</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>Apple i6手機殼</h3>
-						</div>
+						<div class="itemImg"><img src="../../../static/images/sr_na_img_4.jpg" alt=""></div>
+						<div class="itemTitle"><h3>Sam antoner</h3></div><a href="menu_u_myitem_other.html?j"></a>
 					</div>
 					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_it_img_5.jpg" alt=""></div>
-						<a href="item_detail.html"></a>
-						<div class="itemInfo">
-							<span class="iQua">86</span><span class="iHeart"></span>
-						</div>
-						<div class="itemTitle">
-							<h3>iphone X</h3>
-						</div>
+						<div class="itemImg"><img src="../../../static/images/sr_na_img_5.jpg" alt=""></div>
+						<div class="itemTitle"><h3>Steven</h3></div><a href="menu_u_myitem_other.html?j"></a>
 					</div> -->
 				</div>
 			</div>
@@ -99,25 +69,28 @@ export default {
 	},
 	data() {
     return {
-				Data:{}
+        Data:{},
+        imgUrl:""
     }
   },
   created(){
 			this.getData()
   },
   methods:{
-		async getData(){
-			this.Data = await api.get('search_v2',localStorage.getItem('login_token'), "&keyword="+this.$route.query.text+"&skip=1"+"&Country="+this.$route.query.Country+"&Area="+this.$route.query.Area+"&City="+this.$route.query.City)
-			console.log(this.Data)
-		}
-	},
+			async getData(){
+					this.Data = await api.get('SearchUser',localStorage.getItem('login_token'), "&keyword=" + this.$route.query.text + "&SkipRecord=1")
+                    console.log(this.Data)
+                    this.imgUrl = api.CdnUrl + "/Uploads/User/"
+		    }
+  },
   mounted() {
     setTimeout(() => {
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
-			element.classList.add("item", "searchPage");
-			var element2 = document.getElementById("market");
+      element.classList.add("item", "searchPage");
+      var element2 = document.getElementById("market");
       element2.classList.add("action");
+      
       $('.loadPad').animate({
         opacity: 0
       }, 1000, function () {

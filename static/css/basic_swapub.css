@@ -14,6 +14,7 @@ h1 span, h2 span, h4 span{font-size: inherit; color: inherit;}
 hr {height:1px; background:#666;}
 a:active, a:focus {border: none; outline: none;}
 input, textarea, select, option {outline:none; padding:5px 15px; font-size: 1rem; -moz-appearance:none; -webkit-appearance:none; appearance:none;}
+input::-ms-clear, input::-ms-reveal {display:none;}
 input[type='date']::-webkit-inner-spin-button, input[type='date']::-webkit-calendar-picker-indicator { opacity: 0; } 
 input[type='submit'], input[type='button'] {cursor:pointer;}
 input[type='file']{display: none;}
@@ -152,6 +153,9 @@ i[class^="icon_"], i[class*="icon_"] {}
 .ico_whats{background-image:url(../images/icon_whats.png); background-color: #3F801F;}
 .ico_cohref{background-image:url(../images/icon_copyhref.png); background-color: #60A795;}
 .btn_info{background-image:url(../images/btn_guarantee_w.svg); background-color: #ff7150; background-size: 80%; width: 20px; height: 20px;}
+.btn_android, .btn_ios {width: 110px; height: 40px; display: inline-block; vertical-align: middle; background-repeat: no-repeat; background-size: contain; background-position: center center;}
+.btn_android{background-image:url(../images/icon_android.png);}
+.btn_ios{width: 129px; background-image:url(../images/icon_ios.svg);}
 .btn_o{background:#ff7150;}
 .btn_g{background:#60b4a2;}
 .btn_r{background:#eb6767;}
@@ -244,11 +248,13 @@ body.mainPage .conBlock h1::after{content: ''; width:100%; height:2px; left: 0; 
 
 .itemPad{width:100%;}
 .itemBox{width: calc(20% - 8px); margin-bottom: 10px; cursor: pointer; float: left;}
-.itemImg{border: 1px solid #efefee;}
-.itemBox h3 {font-size: 0.9rem; padding: 0;}
+.itemImg {border: 1px solid #efefee; padding-bottom: calc(100% - 2px);}
+.itemImg .imgListMask {display: block; width: 100%; padding-bottom: 100%; position: absolute; background-repeat: no-repeat; background-position: center center; background-size: cover;}
+.itemImg iframe {display: none; position: absolute; width: 100%; height: 100%;}
+.itemBox.itemVd .itemImg iframe {display: block;}
+.itemBox h3 {font-size: 0.9rem; padding: 0; word-break: break-all; word-wrap: break-word;}
 .itemBox a {width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; z-index: 1;}
-.itemBox p{width: 70%; margin-top: 0.5rem; font-size: 0.9rem;}
-.itemBox .itemImg img{width:100%;}
+.itemBox p{width: 70%; margin-top: 0.5rem; font-size: 0.9rem; word-break: break-all; word-wrap: break-word;}
 .itemBox .itemTitle{width: 94%; margin: 0.3rem auto 0;}
 .itemBox .itemInfo {width: 94%; margin: 0.5rem auto 0.3rem;}
 .iQua{padding: 0.2rem 0 0.2rem 1.9rem; font-size: 0.8rem; color:#ff7150; background-image: url(../images/icon_mkt_swap.svg); background-repeat:no-repeat; background-position:left center; -webkit-background-size: 1.4rem; background-size: 1.4rem;}
@@ -272,7 +278,7 @@ body.mFollow .iHeart {background-image: url(../images/btn_menu_like_o.png); curs
 
 .itemBox.iFinish{} /* 已交易 */
 .itemBox.iFinish .itemImg{background:#000;}
-.itemBox.iFinish .itemImg img{opacity: 0.4;}
+.itemBox.iFinish .itemImg .imgListMask{opacity: 0.4;}
 .itemBox.iFinish .itemImg::before{content:'已交易'; display:block; position:absolute; width:40%; height:1.8rem; top:50%; left:50%; margin-top: -0.6rem; margin-left: -20%; background:#488a7d; font-size:1rem; line-height:1.8rem; color:#fff; text-align:center; -webkit-border-radius:20px; -moz-border-radius:20px; -o-border-radius:20px; border-radius:20px;}
 .itemBox.iFinish .itemImg::after{content:''; display: block; width:30%; height:30%; position: absolute; right: 0px; bottom: 0px; background-image:url(../images/icon_deal_gw.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
 
@@ -312,21 +318,24 @@ body.item .infoPad dl{position: relative;}
 .itTips i:first-child{margin-left:0.5rem;}
 .infoPad:last-child p {margin-bottom: 1rem;}
 
-.infoPad .itemImg{position: relative; border: none; border-bottom: 1px dashed #ff7150;}
-.infoPad .itemImg li.imgCont{min-width:100%; border: 1px solid #cacaca; position: relative;}
-.infoPad .itemImg li.imgCont .vedioMD {display: none; position: absolute; width: 60px; height: 60px; left: 50%; top: 50%; margin-left: -30px; margin-top: -30px; cursor: pointer; background-image: url(../images/btn_play_o.png); background-repeat: no-repeat; background-position: center; background-size: contain;}
-.infoPad .itemImg li.imgCont .vedioMD.action{display: block;}
-.infoPad .itemImg li.imgCont .vedioMD.action.pause{display: none; background-image: url(../images/btn_pause_o.png);}
-.infoPad .itemImg li.imgCont:hover .vedioMD.action.pause{display: block;}
-.infoPad .itemImg li:nth-child(n+2){margin-right: 1rem; width: calc(( 100% / 4 ) - ( 3rem / 4 )); /*max-width: calc(( 100% / 4 ) - ( 3rem / 4 ));*/ max-width: 80px; box-sizing: border-box; display: inline-block; cursor:pointer; border: 3px solid #fff;}
+.infoPad .itemImg{position: relative; border: none; border-bottom: 1px dashed #ff7150; padding-bottom: 0;}
+.infoPad .itemImg li.imgCont{min-width:100%; border: 1px solid #cacaca; position: relative; padding-bottom: 100%;}
+.infoPad .itemImg li.imgCont .videoMD {display: none; position: absolute; width: 60px; height: 60px; left: 50%; top: 50%; margin-left: -30px; margin-top: -30px; cursor: pointer; background-image: url(../images/btn_play_o.png); background-repeat: no-repeat; background-position: center; background-size: contain;}
+.infoPad .itemImg li.imgCont .videoMD.action{display: block;}
+.infoPad .itemImg li.imgCont .videoMD.action.pause{display: none; background-image: url(../images/btn_pause_o.png);}
+.infoPad .itemImg li.imgCont:hover .videoMD.action.pause{display: block;}
+.infoPad .itemImg li.imgCont iframe {display: none;}
+.infoPad .itemImg li.imgCont.vdCont iframe {display: block;}
+.infoPad .itemImg li.imgCont.vdCont .imgListMask {display: none;}
+.infoPad .itemImg li:nth-child(n+2) {margin-right: 1rem; width: calc(( 100% / 4 ) - ( 3rem / 4 )); max-width: 80px; box-sizing: border-box; display: inline-block; cursor:pointer; border: 3px solid #fff; position: relative; padding-bottom: 15.419%;}
 .infoPad .itemImg li:nth-child(n+2).action{border:3px solid #ff7150;}
+.infoPad .itemImg li:nth-child(n+2).video iframe {display: block;}
 .infoPad .itemImg li:nth-child(4n+5){margin-right:0;}
 .infoPad .itemImg li img{min-width: 100%;}
 
 .infoPad .itemImg.itemDeal img {opacity: 0.4;}
 .infoPad .itemImg.itemDeal li{background: #000;}
 .infoPad .itemImg.itemDeal li:first-child::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: -1px; bottom: 0; background-image: url(../images/icon_deal_gw.svg); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
-
 .infoPad .itemImg.itemFinish img {opacity: 0.4;}
 .infoPad .itemImg.itemFinish li{background: #000;}
 .infoPad .itemImg.itemFinish li:first-child::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: -1px; bottom: 0; background-image: url(../images/icon_swap_r2.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
@@ -352,7 +361,7 @@ body.item .infoPad dl{position: relative;}
 
 /* .infoPad .editPad.otherUserMD li:nth-child(3){float: right; margin-right: 0; margin-left: 3rem;} */
 .infoPad .editPad .btn_good::after, .infoPad .editPad .btn_like::after {content: ''; position: absolute; margin-top: -2.4rem; margin-left: 2.5rem; font-size: 0.8rem; color: #808080;}
-.infoPad .editPad li.action p, .infoPad .editPad li.action::after{color: #ff7150;}
+/* .infoPad .editPad li.action p, .infoPad .editPad li.action::after{color: #ff7150;} */
 .infoPad .editPad .btn_good::after{content: attr(data-good);}
 .infoPad .editPad .btn_like::after{content: attr(data-like);}
 body.item .conBlock.infoBlock .infoPad:nth-child(2) dd.btnPad{width: 100%; margin-top: 3rem; position: relative; bottom: 0;}
@@ -446,7 +455,6 @@ body.wishDetail .suggestBlock .sgBtPad .sliderBt{height: 180px; line-height: 180
 .socialPad .socialList{display:none;}
 .socialPad .socialList.action{display: block;}
 .socialPad li{position: relative; background: #cbcbcb; margin-bottom: 1.2rem; padding: 0.6rem 1rem; min-height: 3rem; -webkit-border-radius:10px; -moz-border-radius:10px; -o-border-radius:10px; border-radius:10px;}
-.socialPad li:nth-child(n+4){display: none;}
 .socialPad li::before{content: ''; display: block; margin-left: -2rem; margin-top: 0.5rem; position: absolute; width:1rem; height:1rem; background: #cbcbcb;}
 .socialPad li span:first-of-type{margin-left: -6rem; margin-top: -0.65rem; position: absolute; vertical-align: top;}
 .socialPad li span img{width:100%;}
@@ -482,6 +490,7 @@ body.wishDetail .suggestBlock .sgBtPad .sliderBt{height: 180px; line-height: 180
 .socialPad .msgPad p.userName a{color: #60a896;}
 .socialPad .msgPad p.userName::before{display: none;}
 .socialPad .msgPad li input {background: #d7d7d7; width: 92%; margin-top: 0.1rem; padding: 5px 15px; -webkit-border-radius: 60px; -moz-border-radius: 60px; -o-border-radius: 60px; border-radius: 60px; border: none;}
+body.itemDetail .socialPad li:nth-child(n+4){display: none;}
 .btn_sentMsg{width: 2.3rem; height: 2.3rem; display: inline-block; position: absolute; top: 0.6rem; right: 7rem;background: url(../images/btn_sendmsg.png) #ff7150 0.3rem center no-repeat; -webkit-background-size: 1.4rem; background-size: 1.4rem;}
 
 /* edit 編輯物品 */
@@ -516,7 +525,6 @@ body.edit .stepPad .imgMaskW::after{
 body.edit .stepPad .imgMask{width: calc(100% - 195px); position: absolute; padding-bottom: 8px; left: 195px; top: 0; overflow-x: auto; }
 body.edit .stepPad .imgPad .editImg, body.edit .stepPad .smallImg{
 	padding: 0; border: 2px solid #ff7150; position: relative; cursor: pointer; box-sizing: border-box;}
-body.edit .stepPad .imgPad .imgList{margin-right: 8px;}
 body.edit .stepPad .smallImg{border:none;}
 body.edit .stepPad .smallImg:last-child{margin-right: 0;}
 body.edit .stepPad .addImg {width: calc(100% / 4 - 9px); margin-right: 12px;}
@@ -525,12 +533,13 @@ body.edit .stepPad .addImg::before,
 body.edit .stepPad .addImg::after {content: ''; width: 6px; height: 26%; background: #ff7150; display: block; position: absolute; margin: 37% calc(50% - 3px); -webkit-border-radius: 60px; -moz-border-radius: 60px; -o-border-radius: 60px; border-radius: 60px;}
 
 body.edit .stepPad .imgBlock{min-width: 100%; width: 100%; white-space: nowrap;}
-body.edit .stepPad .imgPad .imgList{display: inline; display: inline-block; zoom: 1; vertical-align: top;}
+body.edit .stepPad .imgPad .imgList{margin-right: 8px; display: inline-block; zoom: 1; vertical-align: top;}
+body.edit .stepPad .imgListMask{position: relative; left: 0; top: 0; width: 100%; height: 100%; display: block; margin: 0; padding-bottom: 100%; background-repeat: no-repeat; background-position: center center; background-size: cover;}
 body.edit .stepPad .editImg:first-child::after {
 	-webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); -o-transform: rotate(90deg); transform: rotate(90deg);}
 body.edit .stepPad .editImg:last-child{margin-right: 0;}
 body.edit .stepPad .editImg img{width:100%;}
-body.edit .stepPad .editImg > i{color: #ff7150; float: right; margin-top: 0.3rem; display: block; position: relative; font-size: 0.9rem;}
+body.edit .stepPad .editImg > i{color: #ff7150; margin-top: 0.3rem; display: block; position: absolute; top: 100%; right: 0; font-size: 0.9rem;}
 body.edit .stepPad .editImg span{
 	display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; text-align: center; visibility: hidden; opacity: 0; -webkit-transition: all 0.25s ease-in; -moz-transition: all 0.25s ease-in; -ms-transition: all 0.25s ease-in; -o-transition: all 0.25s ease-in; transition: all 0.25s ease-in;}
 body.edit .stepPad .editImg span.action{visibility: visible; opacity: 1;}
@@ -562,7 +571,7 @@ body.edit .stepPad .itemOption input{width: 75.5%; padding-left: 1rem; padding-r
 body.edit .stepPad .itemOption select{width: calc(100% - 8rem); display: inline-block; vertical-align: middle; padding: 0px 1rem; right: 0;}
 body.edit .stepPad .itemOption .clearVal{display: inline-block; float: right; margin-left: 5.5px; margin-top: -0.75rem; padding: 1.1rem 0; vertical-align: middle; cursor: pointer;}
 body.edit .stepPad .itemOption .clearVal.clear{opacity: 0.5; cursor: auto;}
-body.edit .stepPad .itemOption.action input{width: auto; padding: 3px 0 3px 1rem;}
+body.edit .stepPad .itemOption.action input{width: auto; max-width: 6rem; padding: 3px 0 3px 1rem;}
 body.edit .stepPad .itemOption.action span {position: absolute;}
 
 body.edit .stepPad:nth-child(3) p:last-child{border-bottom: none;}
@@ -629,7 +638,7 @@ body.swap .userPad .userInfo .btnPad.otherUser .btn_deal {display: block;}
 
 body.swap .infoPad_plus {width: calc(50% - 1.75rem); margin-right: 3.5rem; float: left;}
 body.swap .infoPad.infoPad_plus:last-of-type {margin-right: 0; position: relative; display: block; min-height: 700px;}
-body.swap .infoPad_plus .itemImg {border-bottom: none;}
+body.swap .infoPad_plus .itemImg {border-bottom: none; height: 0;}
 body.swap .infoPad_plus .editPad {display: none;}
 body.swap .infoPad_plus .editPad.action {display: block;}
 body.swap .infoPad_plus .editPad li:first-child {margin-bottom: 0.3rem;}
@@ -700,7 +709,7 @@ body.wish .itemBox p {width: 100%; color: #333;}
 .itemBox p.timer {color: #808080 !important; text-align: right; font-size: 0.7rem; padding: 0rem 0 0.6rem; border-bottom: 2px solid #d4d4d4; margin-bottom: 0.5rem;}
 
 body.wish .itemBox .iUser{display: block; font-size: 1rem; color:#60ac9a;}
-body.wish .itemBox .iUser i{width: 30px; height: 30px; margin-right:0.5rem; display: inline-block;}
+body.wish .itemBox .iUser i{width: 30px; height: 30px; margin-right:0.5rem; display: inline-block; vertical-align: middle; overflow: hidden; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 body.wish .itemBox .iUser i img{width:100%;}
 .iChat{padding: 0.2rem 0 0.2rem 1.9rem; margin: 0.5rem 0 0.5rem 0.5rem; font-size: 0.9rem; display: block; color: #9c9c9c; background-image: url(../images/icon_chat_g.png); background-repeat: no-repeat; background-position: left center; -webkit-background-size: 1.5rem; background-size: 1.5rem;}
 body.wish .itemBox.noImg .itemImg {display:none;}
@@ -713,7 +722,7 @@ body.wish.edit .stepPad:first-child dd .editImg {/*width: 100%; height: auto;*/ 
 body.wish.edit .stepPad:first-child span {position: absolute; top:0; left: 0; text-align: center; width: 100%; color: #ff7150;}
 body.wish.edit .stepPad .editImg span b {margin: 46% 0;}
 /* body.wish.edit .stepPad .editImg span i {display: none;} */
-/* .editImg .btn_w:hover { background: #fff; border: 1px solid#808080; color: #808080;} */
+body.wish.edit .addImg.action::before, body.wish.edit .addImg.action::after, body.wish.edit .addImg.action + span {opacity: 0;}
 
 /* 許願商品細節 */
 body.wishDetail{}
@@ -764,7 +773,7 @@ body.wish.edit .stepPad dt {z-index: 1; left: 1rem; top: 1rem; color: #ff7150; f
 body.wish.edit .stepPad.action dt{z-index: 0;}
 
 body.wish.edit .stepPad .addImg::before, body.wish.edit .stepPad .addImg::after {height: 12%; background: #808080;}
-body.wish.edit .stepPad .addImg label {left: 0; top: 0;}
+body.wish.edit .stepPad .addImg label {left: 0; top: 0; background-repeat: no-repeat; background-size: cover; background-position: center;}
 body.wish.edit .stepPad textarea {height: 2rem; background: transparent;}
 body.wish.edit .stepPad .itemData textarea {height: 5rem;}
 body.wish.edit .stepPad p:nth-last-child(3){padding: 2rem 0 0; color: #ff7150; font-size: 1.1rem;}
@@ -773,13 +782,13 @@ body.wish.edit .stepPad p.myPos::before{display: none;}
 body.wish.edit .stepPad p.myPos select {width: 100%; position: relative; padding: 0.5rem 1rem; background: url(../images/chevron_down.png) no-repeat 94% center; border: 1px solid #ff7150; -webkit-border-radius: 50px; -moz-border-radius: 50px; -o-border-radius: 50px; border-radius: 50px;}
 body.wish.edit .stepPad p.myPos:nth-last-child(3){padding-top: 2rem;}
 body.wish.edit .stepPad .itemOption input{width: 40.5%;}
-body.wish.edit .stepPad .itemOption.action input {width: auto; padding: 3px 0 3px 0.5rem;}
+body.wish.edit .stepPad .itemOption.action input {width: auto; max-width: 6rem; padding: 3px 0 3px 0.5rem;}
 
 body.wish .stepPad p.icoPad span i {width: calc(100% / 4); font-size: 0.9rem; padding-bottom: 0.5rem;}
 body.wish .stepPad p.icoPad span i img {width: 70%; margin: -0.2rem auto -0.6rem;}
 body.wish.edit.upload .stepPad:first-child{margin-right: 20px; border: 2px solid #ff7150; background: #dbdbdb;}
 body.wish.edit.upload .stepPad:first-child dd .editImg {padding: 50%; background: #d7d7d7; border: none;}
-body.wish.edit.upload .stepPad:first-child span {top: 58%; width: 100%; left: 0;}
+body.wish.edit.upload .stepPad:first-child dd > span {top: 58%; width: 100%; left: 0;}
 
 /* 側邊欄頁面_dealPad共用設定 */
 .dealPad {width: 100%; position: relative; margin-top: 2rem;}
@@ -814,7 +823,7 @@ body.wish.edit.upload .stepPad:first-child span {top: 58%; width: 100%; left: 0;
 .dealPad .itemImg.itemDeal {background: #000;}
 .dealPad .itemImg.itemDeal::after {content: ''; display: block; width: 30%; height: 30%; position: absolute; right: 0; bottom: 0; background-image: url(../images/icon_deal_gw.svg); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
 
-.dealPad .itemImg {border: none;}
+.dealPad .itemImg {border: none; padding-bottom: 0;}
 .dealPad .itemImg.itemFinish {background: #000;}
 .dealPad .itemImg.itemFinish > div {opacity: 0.4;}
 .dealPad .itemImg.itemFinish::after {content: ''; display: block; width: 3.5rem; height: 3.5rem;position: absolute; right: 0; bottom: 0; background-image: url(../images/icon_swap_r2.png); background-repeat: no-repeat; background-position: center; -webkit-background-size: contain; background-size: contain;}
@@ -826,9 +835,14 @@ body.wish.edit.upload .stepPad:first-child span {top: 58%; width: 100%; left: 0;
 .dealBlock {padding-bottom: 3rem; padding-left: 1rem; margin-bottom: 4rem; border-bottom: 1px solid #808080;}
 /* .dealBlock dt{float: left;} */
 
-/* body.menuPage .content .dealPad{width: 40%; margin-top: 0; display: inline-block; vertical-align: top;} */
 body.menuPage .content .dealPad{width: 40%; margin-top: 0; display: block; float: left;}
 body.menuPage .content .conBlock .date{margin-bottom: 0.7rem; display: block; position: absolute; width: 100%; text-align: center;}
+
+/* -----------------------------------------------------------------------
+body.menuPage .conBlock 沒有內容時加上class "empty", 則顯示偽元素(無內容的icon) 
+--------------------------------------------------------------------------- */
+body.menuPage .conBlock::after {content: ''; opacity: 0; display: block; width: 100%; margin-top: 20vh; padding-top: 12%; text-align: center; font-size: 0.9rem; color: #808080; background-repeat: no-repeat; background-position: top center; background-size: 10%;}
+body.menuPage .conBlock.empty::after {opacity: 1;}
 
 body.menuPage h1{padding-bottom: 20px; color: #ff7150; text-align: center;}
 body.menuPage .mainBtPad > *{background: #e9e9e9; color: #808080;}
@@ -839,6 +853,9 @@ body.menuPage .content .userPic{display: inline-block; position: absolute; z-ind
 /* body.menuPage .content .itemImg img{width: 100%;} */
 body.menuPage .content .swapPad > p{padding: 0.2rem 0;}
 body.menuPage .content .userPic.checked::after{content: ''; width: 1.2rem; height: 1.2rem; display: block; position: absolute; right: -0.05rem; top: -0.05rem; background: url(../images/icon_phone.svg) #AD639D no-repeat center; -webkit-background-size: 85%; background-size: 85%; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+
+body.menuPage.mDeal .conBlock::after {content: '尚未有成交記錄'; background-image: url(../images/icon_empty_swap.svg);}
+
 body.mDeal .conBlock {padding-top: 5rem; display: none;}
 .swapDetailPad{width: 50%; float: right;}
 .swapDetailPad .guaranteeInfo{margin-bottom: 1.5rem; background: #ff7150; border-radius: 60px; padding: 0.3rem 2.5rem; cursor: pointer;}
@@ -909,11 +926,12 @@ body.mItemDetail h2.assessTitle::after {content: ''; width: 100%; height: 0px; d
 
 /* menu_t_whisper 側邊欄頁面_悄悄話 */
 body.mWhisper{}
+body.menuPage.mWhisper .conBlock::after {content: '您尚未跟任何人說過悄悄話'; background-image: url(../images/icon_empty_msg.svg);}
 body.mWhisper .content .userInfo{width: calc(70% - 2.3rem); float: left;}
 body.mWhisper .content .userPic{position: relative;}
 body.mWhisper .content .userPic.action::before{content: ''; width: 0.7rem; height: 0.7rem; display: block; position: absolute; left: -25px; background: #ff7150; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
-body.mWhisper .content .itemImg{width: calc(100% - 100px); display: inline-block;}
-body.mWhisper .content .itemImg img{width: 100%;}
+body.mWhisper .content .itemImg{width: calc(100% - 100px); display: inline-block; background-repeat: no-repeat; background-position: center; background-size: cover; padding-bottom: 55.73%; vertical-align: middle; position: relative;}
+body.mWhisper .content .itemImg a{position: absolute; width: 100%; height: 100%; top: 0; left: 0;}
 body.mWhisper .msgBlock{background: #dedede; margin-bottom: 1.2rem; padding: 0.6rem 1rem; min-height: 3rem; -webkit-border-radius: 10px; -moz-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px; width: calc(100% - 5rem); float: right;}
 body.mWhisper .msgBlock::before {content: ''; display: block; margin-left: -2rem; margin-top: 0.5rem; position: absolute; width: 1rem; height: 1rem; background: #dedede;}
 body.mWhisper .msgBlock::after{content: ''; display: block; margin-left: -2.93rem;	top: 0; margin-top: 1.3rem; position: absolute; width: 2rem; height: 1rem; background: #fff; -webkit-transform: rotate(35deg); -moz-transform: rotate(35deg); -o-transform: rotate(35deg); -ms-transform: rotate(35deg); transform: rotate(35deg); -webkit-border-radius: 0.5rem; -moz-border-radius: 0.5rem; -o-border-radius: 0.5rem; border-radius: 0.5rem;}
@@ -933,6 +951,8 @@ body.mWhisper .whisperList.me .userName i{display: inline-block;}
 body.mSwap{}
 body.menuPage.mSwap .content .dealPad {width: 50%; min-width: 50%; float: left;}
 body.menuPage.mSwap .content .dealPad .itemCon_1 {height: 184px;}
+body.menuPage.mSwap .conBlock.send::after {content: '你還沒有提出任何交換'; background-image: url(../images/icon_empty_swap.svg);}
+body.menuPage.mSwap .conBlock.get::after {content: '尚未有人向你提出交換'; background-image: url(../images/icon_empty_swap.svg);}
 
 body.mSwap .mSwapList{align-items: center; margin-bottom: 1.4rem; padding-bottom: 1rem; border-bottom: 2px solid #c7c7c7;}
 body.mSwap .dealBtPad{width: 10rem; margin-top: 14%; text-align: center; float: right;}
@@ -941,6 +961,7 @@ body.mSwap .btn_deal i{width: 1.3rem; height: 1.3rem; display: inline-block; ver
 
 /* menu_t_follow 側邊欄頁面_我的追蹤 */
 body.mFollow{}
+body.menuPage.mFollow .conBlock::after {content: '您還沒收藏任何物品'; background-image: url(../images/icon_empty_like.svg);}
 body.mFollow .itemBox{margin-bottom: 20px;}
 
 /* menu_u_myitem 側邊欄頁面_我的物品與願望 */
@@ -978,9 +999,9 @@ body.mItem h2{display: none; margin-bottom: 2.5rem; padding: 0; line-height: 2.5
 body.mItem h2.action{display: block;}
 body.mItem h2 i{width: 1.7rem; height: 1.7rem; display: inline-block; vertical-align: middle; margin-top: -0.3rem; margin-right: 0.3rem; background-repeat: no-repeat; background-position: center; background-size: contain;}
 body.mItem .itemBox {max-width: unset; width: calc((100% / 3) - 10px);}
+body.mItem .itemBox:first-child .itemImg {padding-bottom: 0;}
 body.mItem .marketPad h2{background: #ff7150;}
 body.mItem .marketPad h2 i{background-image: url(../images/btn_searchitem_w.svg);}
-
 body.mItem .wishPad{padding-left: 20px;}
 body.mItem .wishPad h2{background: #60a997;}
 body.mItem .wishPad h2 i{background-image: url(../images/icon_wish_w.svg);}
@@ -1012,9 +1033,9 @@ body.mItem.info .conBlock{width: 100%;}
 body.mItem.info #main::after{display: none;}
 body.mItem.info .innerCoverBlock {border: 2px solid #ff7150; text-align: center;}
 body.mItem.info .innerCoverBlock > div{position: absolute; bottom: 3rem; left: 18%;}
-body.mItem.info #main .userInfo .userPic{position: absolute; left: 15%; border: none; cursor: pointer;}
-body.mItem.info #main .userInfo .userPic label{cursor: pointer;}
-body.mItem.info #main .userInfo .userPic::after{content: ''; width: 1.8rem; height: 1.8rem; display: block; position: absolute; right: -12px; bottom: -2px; background: url(../images/btn_sendimg_w.svg) #ff7150 no-repeat center; background-size: 80%; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
+body.mItem.info #main .userInfo .userPic{position: absolute; left: 0; border: none; cursor: pointer;}
+body.mItem.info #main .userInfo .userPic label{width: 100%; padding-bottom: 100%; display: block; background-repeat: no-repeat; background-size: cover; background-position: center center; cursor: pointer; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+body.mItem.info #main .userInfo .userPic label::after{content: ''; width: 1.8rem; height: 1.8rem; display: block; position: absolute; right: -12px; bottom: -2px; background: url(../images/btn_sendimg_w.svg) #ff7150 no-repeat center; background-size: 80%; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
 body.mItem.info #main .userInfo .editUserImg input{display: none;}
 body.mItem.info .btn_edit{display: inline-block; width: 10rem; height: 2.6rem; padding: 8px 5px 7px 2.3rem; position: absolute; top: 50%; left: 50%; margin-top: -1.3rem; margin-left: -5rem; font-size: 1rem; line-height: 1.5rem; color: #333; background-image: url(../images/btn_sendimg_b.svg); background-repeat: no-repeat; background-color: rgba(255,255,255,0.6); background-size: 1.8rem; background-position: 12px center;}
 body.mItem.info .btn_edit input{display: none;}
@@ -1154,8 +1175,6 @@ body.signin .content .conBlock{/* display:none; */ width: 55%; min-width: 520px;
 body.signin .content .conBlock.setpwPad{height: auto;}
 
 body.signin .content .conBlock a.swapubLogo{display: block; width:100%; height:3rem; margin: 0 0 3rem 0; background: url(../images/swapub_logo.png) center center no-repeat; -webkit-background-size: contain; background-size: contain;}
-/* body.signin .conBlock::before{
-	content:''; display: block; width:100%; height:3.75rem; margin-bottom: 3rem; background: url(../images/swapub_logo.png) center center no-repeat; -webkit-background-size: contain; background-size: contain;} */
 body.signin .conBlock form{}
 body.signin .conBlock p, body.signin .conBlock a{padding: 1rem 0; display: block;}
 body.signin .conBlock p{
@@ -1171,11 +1190,16 @@ body.signin .conBlock.signinPad a {margin: 1rem 0;}
 body.signin .conBlock.signinPad span{cursor: pointer;}
 
 body.signin .conBlock.registerPad span{color: #808080;}
-body.signin .conBlock.registerPad p i{background: #60b4a2;}
+body.signin .conBlock.registerPad p {padding: 0.885rem 0;}
+body.signin .conBlock.registerPad p i{margin-top: 0.6rem; background: #60b4a2;}
 body.signin .conBlock.registerPad a{display: inline-block; width: auto; margin-bottom: 0; padding: 0.5rem 0.8rem; color: #60b4a2;}
 body.signin .content .conBlock.registerPad a.swapubLogo {margin: 0 0 1rem 0;}
-body.signin .conBlock.registerPad p input {padding: 0 4rem 0 16rem;}
 body.signin .conBlock.registerPad form > input[type='submit'] {margin: 1.45rem 0 0;}
+body.signin .conBlock.registerPad p input {padding: 0; position: relative;}
+body.signin .conBlock.registerPad p input::-webkit-input-placeholder {color:#888888;}
+body.signin .conBlock.registerPad p input:-moz-placeholder {color:#888888;}
+body.signin .conBlock.registerPad p input::-moz-placeholder {color:#888888;}
+body.signin .conBlock.registerPad p input:-ms-input-placeholder {color:#888888;}
 
 body.signin .conBlock.setpwPad span {color: #808080; text-align: left; padding-left: 0.5rem; padding-bottom: 3rem;}
 
@@ -1188,7 +1212,7 @@ body.searchPage .mainBtnPad a{
 body.searchPage .mainBtnPad a.action{background:#60a896;}
 body.searchPage .mainBtnPad a i {width: 2rem; height: 2rem; display: inline-block; margin: -0.3rem 0.2rem 0; vertical-align: middle;}
 body.searchPage .mainBtnPad a i img{vertical-align: unset;}
-body.searchPage .searchCounter {color: #333;}
+body.searchPage .searchCounter {color: #333;padding-top: 2rem;}
 body.searchPage .searchCounter span {color: #ff7150; margin-right: 0.3rem;}
 body.searchPage .conBlock {padding-top: 3rem; display:none;}
 body.searchPage .conBlock.action{display: block;}
@@ -1206,12 +1230,12 @@ body.wish .srItemPad .itemBox .itemImg{width: 92%; margin: auto; border: 1px sol
 .srNamePad .itemBox{width: calc(25% - 15px); max-width: inherit; margin-right: 20px; margin-bottom: 20px; min-height: inherit; padding: 0.7rem 1rem; background:#d7d7d7; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; border-radius:5px;}
 .srNamePad .itemBox:nth-child(4n+4) {margin-right: 0;}
 .srNamePad .itemBox .userName{font-size: 1rem;}
-.srNamePad .itemBox .itemImg{width: 3rem; height: 3rem; display: inline-block; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%; overflow: hidden;}
+.srNamePad .itemBox .itemImg{width: 3rem; height: 3rem; display: inline-block; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%; overflow: hidden; padding-bottom: 0;}
 .srNamePad .itemBox .itemTitle{width: auto; display: inline-block;}
 .srNamePad .itemBox h3:first-letter{color:#ff7150;}
 body.searchPage .hotSearch {clear: both; padding-top:5rem; color: #333;}
 body.searchPage .hotSearch a {margin-right: 1.3rem; color: #14a0e9;}
-
+body.noSearchPage .srNamePad .itemBox h3:first-letter{color:inherit;}
 
 /* footer連結頁面 */
 body.expPage{}
@@ -1296,22 +1320,31 @@ body.searchPage .headerConts dd.headerMenu a:nth-child(3).action, body.noSearchP
 body.noSearchPage .searchPad {visibility: hidden;}
 
 /* 搜尋列 */
-.searchPad {width: 25%; max-width: 280px; margin: -4.6rem auto 0; position: relative;}/*SearchBar*/
+.searchPad {width: 25%; max-width: 355px; margin: -4.6rem auto 0; position: relative;}/*SearchBar*/
 .searchPad form.itemSearchForm{display: block;}
 .searchPad form.wishSearchForm{display: none;}
 body.wish .searchPad form.itemSearchForm{display: none;}
 body.wish .searchPad form.wishSearchForm{display: block;}
 .searchPad ul {position: absolute; width: 100%;}
 .searchPad ul > li {box-sizing:border-box;}
-.searchPad ul > li:last-child {text-align: center;}
+.searchPad ul > li:nth-child(n+2) {width: 43%; float: left; text-align: center; position: relative;}
+.searchPad ul > li:nth-child(2) {width: 55%;}
 .searchPad ul > li input {width: 100%; height: 2rem; padding: 0 13px; border: 1.5px solid #ff7150; font-size: 0.8rem; line-height: 2rem;}
 .searchPad ul > li:first-child {overflow:hidden; -webkit-border-radius: 15px; -moz-border-radius: 15px; -o-border-radius: 15px; border-radius: 15px;}
 .searchPad .searchBt{width: 13%; height: 2rem; padding: 0; line-height: unset; top: 0; right: 0; position: absolute; z-index: 1; background: #ff7150; -webkit-border-radius: 0 50px 50px 0; -moz-border-radius: 0 50px 50px 0; -o-border-radius: 0 50px 50px 0; border-radius: 0 50px 50px 0; background-image: url(../images/icon_searchBt.png); background-repeat: no-repeat; -webkit-background-size: 55%; background-size: 55%; background-position: center;}
-.searchPad .btn_searchCt{width: 80%; margin: auto; font-size: 0.8rem; padding: 10px 0px; cursor: pointer;}
-.searchPad .btn_searchCt u {width: 1rem; height: 1rem; display: inline-block; vertical-align: bottom; margin-right: 0.5rem; background: url(../images/chevron_down.png) no-repeat left center; background-size: 13px;}
-.searchPad .btn_searchCt b {vertical-align: unset;}
-.searchPad .btn_searchCt span {width:auto; max-width: 5rem; display: inline-block; font-size: 0.8rem; color: inherit; vertical-align: bottom;}
-.searchPad .btn_searchCt i {width: 1rem; height: 1rem; margin-left: 0.8rem; display: inline-block; vertical-align: middle; margin-top: -0.15rem; background-image: url(../images/icon_country_tw.png); background-repeat: no-repeat; background-position: center; background-size: cover;}
+.searchPad .btn_search {width: 100%; margin: auto; padding: 10px 0px; font-size: 0.8rem; cursor: pointer;}
+.searchPad .btn_search u {width: 1rem; height: 1rem; display: inline-block; vertical-align: bottom; margin-right: 0.5rem; background: url(../images/chevron_down.png) no-repeat left center; background-size: 13px;}
+.searchPad .btn_search b {vertical-align: unset;}
+.searchPad .btn_search span {width:auto; max-width: 5rem; display: inline-block; font-size: 0.8rem; color: inherit; vertical-align: bottom;}
+.searchPad .btn_searchCt span {max-width: 3.5rem;}
+
+.searchPad .btn_search i {width: 1rem; height: 1rem; margin-left: 0.3rem; display: inline-block; vertical-align: middle; margin-top: -0.15rem; background-image: url(../images/icon_country_tw.png); background-repeat: no-repeat; background-position: center; background-size: cover;}
+/* 搜尋類別 */
+.searchPad .btn_searchTp {padding-left: 0.5rem; text-align: left;}
+.searchPad .btn_searchTp i {width: 1.4rem; height: 1rem; margin-left: 0.4rem; display: inline-block; margin-top: -0.15rem; background-repeat: no-repeat; background-position: center; background-size: cover;}
+.searchPad li:last-child .searchOp {width: 100%; display: none; position: absolute; right: 0; background-color: rgba(255,255,255,0.7); z-index: 1; padding: 5px 0; text-align: center; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px;}
+.searchPad li:last-child .searchOp span {width: 100%; line-height: 1.2rem; font-size: 0.8rem; float: right; cursor: pointer;}
+.searchPad li:last-child .searchOp i {width: 1.2rem; height: 1.2rem; margin-left: 0.4rem; display: inline-block; vertical-align: middle; margin-top: -0.15rem; background-repeat: no-repeat; background-position: center; background-size: cover;}
 
 /* 登入區 */
 .loginBlock{position: absolute; right:calc(50% - 710px); /* margin-top: 5px; */}
@@ -1324,6 +1357,7 @@ body.wish .searchPad form.wishSearchForm{display: block;}
 .loginBlock .login{display:none;}
 .loginBlock.action .logout{display:none;}
 .loginBlock.action .login{display:block;}
+.loginBlock .userName {max-width: 9rem; display: inline-block;}
 .login .userName i{margin-right: 0.2rem;}
 .login .userPic{margin-right: 0.5em; vertical-align: middle; border-radius: 60%; background-image: url('../images/ws_user_img_4.png');}
 .login.otherUser .userPic{background-image: url(../images/ws_user_img_6.png);}
@@ -1441,6 +1475,10 @@ body.wish .searchPad form.wishSearchForm{display: block;}
 .popVideoSize .popErrPad.vid{display: block;}
 .popConErr .popErrPad.con{display: block;}
 .popErr .popErrPad.false{display: block;}
+
+/* 系統訊息_畫面尺寸警告 */
+.popRwdPad {height: 240px; margin-top: -120px;}
+.popRwd .popRwdPad{display: block;}
 
 /* 搜尋範圍 */
 .ctStagePad{width: 800px; height: auto; margin-left: -400px; /*margin-top: -270px;*/}
@@ -1778,7 +1816,7 @@ body.itemDetail .popEditSwap .addImg.getImg{background-image: url(../images/mk_i
 .popDealPad .dealDetail {margin-top: 1rem; padding: 1.2rem 2rem; background: #e9e9e9; -webkit-border-radius: 10px; -moz-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px;}
 .popDealPad .dealDetail p{color: #ff7150; text-align: left; padding-bottom: 0.7rem; margin-left: 2rem; margin-bottom: 0.7rem; border-bottom: 1px solid #bcbcbc;}
 .popDealPad .dealDetail p::before{content: ''; width: 0.5rem; height: 0.5rem; display: block; position: absolute; background: #ff7150; left: 2.2rem; margin-top: 1rem; -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
-.popDealPad .dealDetail input{padding: 0px 2rem 3px; border: none; background: transparent;}
+.popDealPad .dealDetail input{width: 85%; padding: 0px 0 3px 2rem; border: none; background: transparent;}
 .popDealPad p.popCheckPad{margin-top: 1rem;	color: #808080; text-align: left;}
 .popDealPad p.popCheckPad input[type='checkbox']{width: 1.3rem; height: 1.3rem; margin: 0 0.5rem 0 1rem; padding: 0; vertical-align: sub; display: inline-block; border: 1px solid #808080; -webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
 .popDealPad p.popCheckPad input[type='checkbox']:checked {background:#ff7150; -webkit-box-shadow: inset 0 0 0 4px rgba(255,255,255,1); -moz-box-shadow: inset 0 0 0 4px rgba(255,255,255,1); -o-box-shadow: inset 0 0 0 4px rgba(255,255,255,1); box-shadow: inset 0 0 0 4px rgba(255,255,255,1);}
@@ -1788,17 +1826,19 @@ body.itemDetail .popEditSwap .addImg.getImg{background-image: url(../images/mk_i
 .popDealPad .popCheckPad p:nth-child(2){margin-bottom: 1rem;}
 .popDeal .popDealPad{display: block;}
 
-.popErrPad .popCheckPad input[type='button'], .popErrPad .popCheckPad input[type='submit'], .popGua .popCheckPad input[type='button'], .popAssessBlock .popCheckPad input[type='button'], .popTrp .popCheckPad input[type='button'], .popEditSwap .popCheckPad input[type='button'].btn_w, .popEditSwap .popCheckPad input[type='submit'], .popCheckCancel .popCheckPad input[type='button'], .popDealPad .popCheckPad input[type='submit'] {float: none;}
+.popErrPad .popCheckPad input[type='button'], .popErrPad .popCheckPad input[type='submit'], .popGua .popCheckPad input[type='button'], .popAssessBlock .popCheckPad input[type='button'], .popTrp .popCheckPad input[type='button'], .popEditSwap .popCheckPad input[type='button'].btn_w, .popEditSwap .popCheckPad input[type='submit'], .popCheckCancel .popCheckPad input[type='button'], .popDealPad .popCheckPad input[type='submit'], .popRwdPad .popCheckPad input[type='button'], .popImg .popCheckPad input[type='submit'] {float: none;}
 
 .popChangePad input[type='button'] {padding: 5px 1.7rem;}
 .popChange .popChangePad{display: block;}
 .popCheck .popCheckCancel{display: block;}
 
-.popEditUImg .popImg {width: 480px; height: 540px; padding: 30px 50px; margin-top: -270px; margin-left: -240px; display: block;}
+.popEditUImg .popImg {width: 480px; height: 570px; padding: 30px 50px; margin-top: -285px; margin-left: -240px; display: block;}
 .popImg p{margin-top: 0;}
-.popImg .popImgPad {background: #e5e5e5;}
-.popImg .popImgPad i{border: 25px solid rgba(200, 200, 200, 0.6); -webkit-border-radius:60%; -moz-border-radius:60%; -o-border-radius:60%; border-radius:60%;}
-.popImg .popImgMask{width: 100%; height: 100%; display: block; border-radius: 60%; overflow: hidden;}
+.popImg .popImgPad {padding-bottom: 100%; overflow: hidden;}
+.cropperPad .img-container {width: 100%; height: 100%; position: absolute; text-align: center;}
+.cropperPad .img-container img {width: 100%; max-width: 100%; height: auto;position: relative;}
+.cropperPad .cropper-view-box {-webkit-border-radius: 60%; -moz-border-radius: 60%; -o-border-radius: 60%; border-radius: 60%;}
+.cropperPad .ctrlCropper {position: absolute; bottom: 10px; width: 100%;}
 
 /* ============= Footer ============= */
 #footer {width:100%; height:45px; background:#e4e4e4; color:#333; bottom:0;}
@@ -1999,7 +2039,7 @@ body.itemDetail .popEditSwap .addImg.getImg{background-image: url(../images/mk_i
 	.searchPad {width: 30%; margin: -5.5rem 41% 0;}
 	.searchPad ul > li input {height: 1.8rem; font-size: 0.7em;}
 	.searchPad .searchBt {width: 15%; height: 1.8rem;}
-	.searchPad .btn_searchCt{width: 80%; font-size: 0.9em;}	
+	.searchPad .btn_search{width: 80%; font-size: 0.9em;}	
 	.login .userName {font-size: 0.85rem;}
 	.loginBlock a:nth-of-type(1) {font-size: 0.9rem; padding: 5px 8px; width: 35px; height: 35px; margin-right: 0.3em;}
 	.loginBlock a:nth-of-type(n+2) {width: 31px; height: 31px; margin: 0 0 0 0.3rem;}

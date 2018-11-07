@@ -24,26 +24,34 @@
                     <i class="btn_smile">{{this.Comment.good}}</i>
                     <i class="btn_cry">{{this.Comment.bad}}</i>
                 </span>
-                <span><router-link to='/user_attention' class="iconAttention"></router-link></span>
-                <span>
-                    <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
-                    <router-link to='/menu_u_myinfo' class="btn_gr btn_edit action">編輯</router-link>
+                <span><router-link :to="{name:'User_attention',params: {id: this.id}}" class="iconAttention"></router-link></span>
+                <span v-if="this.User.ID == this.id">
+                    <a id="attention" class="btn_g btn_attention" @click="follow()"><i class="action">關注</i><i>取消關注</i></a>
+                    <router-link to='/menu_u_myinfo' class="btn_gr btn_edit action" id="edit">編輯</router-link>
+                </span>
+                <span v-if="this.User.ID != this.id && isFollow == true">
+                <a class="btn_gr btn_attention action" id="attention" @click="follow()"><i>關注</i><i class="action" style="display: inline;">取消關注</i></a>
+                <router-link to='/menu_u_myinfo' class="btn_w btn_edit" id="edit">編輯</router-link>
+                </span>
+                <span v-if="this.User.ID != this.id && isFollow == false">
+                <a class="btn_g btn_attention action" id="attention" @click="follow()"><i class="action" style="display: inline;">關注</i><i>取消關注</i></a>
+                <router-link to='/menu_u_myinfo' class="btn_w btn_edit" id="edit">編輯</router-link>
                 </span>
                 <a class="btn_report">檢舉</a>
             </p>
             <div class="assMsgPad assessMsgPad">
-                <div v-for="rating in RatingList">
-                    <ul class="userInfo oUserMsg clear">
-                        <li class="userPic"><a href="menu_u_myitem_other.html">
+                <div v-for="(rating,index) in checkList">
+                    <ul class="userInfo oUserMsg clear" v-if="rating.Rating == 1">
+                        <li class="userPic"><a href="">
                             <img :src="rating.AvatarUrl" alt=""></a>
                         </li>
                         <li class="userDetail">
                             <h3 class="userName">{{rating.Name}}</h3>
                             <p class="ovLine">{{rating.Comment}}</p>
-                            <span class="date">2017/10/27 18:07</span>
+                            <span class="date">{{((rating.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
                         </li>
                         <li class="swapInfo">
-                            <a href="menu_t_deal_detail.html">
+                            <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': rating.ChangeID}}">
                                 <dl class="dealPad clear">
                                     <dt class="icon_deal"></dt>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -51,28 +59,28 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li v-if="Pic1[index]"><p :style="{ backgroundImage:`url(${Pic1[index].PictureUrl})`}"></p></li>
                                                         <li><!-- 如果只有一張圖，這個li 都不要 -->
-                                                            <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
+                                                            <p></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{OfferMoney[index].Type}} {{OfferMoney[index].Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>                                    </dd>
                                     <dd class="itemCon_1 itemImg swapPad">
                                          <div class="cssTable">
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                        <li><p :style="{ backgroundImage:`url(${(Product[index].PictureURL)})`}"></p></li>
                                                     </ul>
                                                 </div>
                                             </dl>
                                         </div>
                                     </dd>
                                 </dl>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="assessFace">
                                    <img src="../../../static/images/icon_smile_o.svg" alt="">
@@ -81,18 +89,18 @@
                 </div>
             </div>
             <div class="assMsgPad badAssMsgPad">
-                <div>
-                    <ul class="userInfo oUserMsg clear">
-                        <li class="userPic"><a href="menu_u_myitem_other.html?j">
-                            <img src="../../../static/images/ws_user_img_4.png" alt=""></a>
+                 <div v-for="(rating,index) in checkList">
+                    <ul class="userInfo oUserMsg clear" v-if="rating.Rating == 2">
+                        <li class="userPic"><a href="menu_u_myitem_other.html">
+                            <img :src="rating.AvatarUrl" alt=""></a>
                         </li>
                         <li class="userDetail">
-                            <h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3>
-                            <p class="ovLine">我有在悄悄話裡面留言</p>
-                            <span class="date">2017/10/27 18:07</span>
+                            <h3 class="userName">{{rating.Name}}</h3>
+                            <p class="ovLine">{{rating.Comment}}</p>
+                            <span class="date">{{((rating.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
                         </li>
                         <li class="swapInfo">
-                            <a href="menu_t_deal_detail.html">
+                            <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': rating.ChangeID}}">
                                 <dl class="dealPad clear">
                                     <dt class="icon_deal"></dt>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -100,14 +108,14 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li v-if="Pic1[index]"><p :style="{ backgroundImage:`url(${Pic1[index].PictureUrl})`}"></p></li>
                                                         <li><!-- 如果只有一張圖，這個li 都不要 -->
                                                             <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{OfferMoney[index].Type}} {{OfferMoney[index].Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>
                                     </dd>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -115,14 +123,14 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                        <li><p :style="{ backgroundImage:`url(${(Product[index].PictureURL)})`}"></p></li>
                                                     </ul>
                                                 </div>
                                             </dl>
                                         </div>
                                     </dd>
                                 </dl>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="assessFace">
                             <img src="images/icon_cry_b.svg" alt="">
@@ -205,11 +213,21 @@
                     <span class="countAssess"><i class="btn_smile">{{this.Comment.good}}</i><i class="btn_cry">{{this.Comment.bad}}</i></span>
                     <router-link :to="{name:'User_attention',params: {id: this.id}}" class="iconAttention"></router-link>
                 </p>
-                <a class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a>
-                <router-link to='/menu_u_myinfo' class="btn_w btn_edit action">編輯</router-link>
+                <span v-if="this.User.ID == this.id">
+                <a class="btn_g btn_attention" id="attention" ><span id="follow" @click="follow()"><i class=" ">關注</i></span><i class="action">取消關注</i></a>
+                <router-link to='/menu_u_myinfo' class="btn_w btn_edit action" id="edit">編輯</router-link>
+                </span>
+                <span v-if="this.User.ID != this.id && isFollow == true">
+                <a class="btn_gr btn_attention action" id="attention" @click="follow()"><i>關注</i><i class="action" style="display: inline;">取消關注</i></a>
+                <router-link to='/menu_u_myinfo' class="btn_w btn_edit" id="edit">編輯</router-link>
+                </span>
+                <span v-if="this.User.ID != this.id && isFollow == false">
+                <a class="btn_g btn_attention action" id="attention" @click="follow()"><i class="action" style="display: inline;">關注</i><i>取消關注</i></a>
+                <router-link to='/menu_u_myinfo' class="btn_w btn_edit" id="edit">編輯</router-link>
+                </span>
                 <a class="btn_report">檢舉</a>
                 <div class="assMsgPad assessMsgPad">
-                    <div  v-for="rating in RatingList">
+                    <div  v-for="(rating,index) in checkList">
                         <ul class="userInfo oUserMsg clear">
                             <li class="userPic"><a href="menu_u_myitem_other.html">
                                 <img :src="rating.AvatarUrl" alt=""></a>
@@ -217,10 +235,10 @@
                             <li class="userDetail">
                                 <h3 class="userName">{{rating.Name}}</h3>
                                 <p class="ovLine">{{rating.Comment}}</p>
-                                <span class="date">2017/10/27 18:07</span>
+                                <span class="date">{{((rating.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
                             </li>
                             <li class="swapInfo">
-                                <a href="menu_t_deal_detail.html">
+                            <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': rating.ChangeID}}">
                                     <dl class="dealPad clear">
                                         <dt class="icon_deal"></dt>
                                         <dd class="itemCon_1 itemImg swapPad">
@@ -228,14 +246,14 @@
                                                 <dl>
                                                     <div class="itemCon_2 cssTable">
                                                         <ul>
-                                                            <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li v-if="Pic1[index]"><p :style="{ backgroundImage:`url(${Pic1[index].PictureUrl})`}"></p></li>
                                                             <li><!-- 如果只有一張圖，這個li 都不要 -->
                                                                 <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </dl>
-                                                <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                                <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{OfferMoney[index].Type}} {{OfferMoney[index].Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                             </div>
                                         </dd>
                                         <dd class="itemCon_1 itemImg swapPad">
@@ -243,14 +261,14 @@
                                                 <dl>
                                                     <div class="itemCon_2 cssTable">
                                                         <ul>
-                                                            <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                        <li><p :style="{ backgroundImage:`url(${(Product[index].PictureURL)})`}"></p></li>
                                                         </ul>
                                                     </div>
                                                 </dl>
                                             </div>
                                         </dd>
                                     </dl>
-                                </a>
+                            </router-link>
                             </li>
                             <li class="assessFace">
                                  <img src="../../../static/images/icon_smile_o.svg" alt="">
@@ -259,18 +277,18 @@
                 </div>
             </div>
             <div class="assMsgPad badAssMsgPad">
-                <div>
-                    <ul class="userInfo oUserMsg clear">
-                        <li class="userPic"><a href="menu_u_myitem_other.html?j">
-                            <img src="../../../static/images/ws_user_img_4.png" alt=""></a>
+                 <div v-for="(rating,index) in checkList">
+                    <ul class="userInfo oUserMsg clear" v-if="rating.Rating == 2">
+                        <li class="userPic"><a href="menu_u_myitem_other.html">
+                            <img :src="rating.AvatarUrl" alt=""></a>
                         </li>
                         <li class="userDetail">
-                            <h3 class="userName"><i>我(</i>Jing Yun Lee<i>)</i></h3>
-                            <p class="ovLine">我有在悄悄話裡面留言</p>
-                            <span class="date">2017/10/27 18:07</span>
+                            <h3 class="userName">{{rating.Name}}</h3>
+                            <p class="ovLine">{{rating.Comment}}</p>
+                            <span class="date">{{((rating.UpdatedDate).split('.')[0]).replace("T","     ")}}</span>
                         </li>
                         <li class="swapInfo">
-                            <a href="menu_t_deal_detail.html">
+                            <router-link :to="{name:'Menu_t_deal_detail',query: { 'changeID': rating.ChangeID}}">
                                 <dl class="dealPad clear">
                                     <dt class="icon_deal"></dt>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -278,14 +296,14 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_23.jpg)"></p></li>
+                                                        <li v-if="Pic1[index]"><p :style="{ backgroundImage:`url(${Pic1[index].PictureUrl})`}"></p></li>
                                                         <li><!-- 如果只有一張圖，這個li 都不要 -->
                                                             <p style="background-image:url(../../../static/images/ws_it_img_4.jpg)"></p><!-- 如果有第三張圖，要放在第二個LI 裡面 -->
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </dl>
-                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">TWD 2000</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
+                                            <dl><dt><b>+</b><i style="background-image:url(../../../static/images/icon_addmoney_w.png)"></i><span class="ovLine">{{OfferMoney[index].Type}} {{OfferMoney[index].Value}}</span></dt></dl><!-- 如果有項目，就要新增 dl > dt > 內容 -->
                                         </div>
                                     </dd>
                                     <dd class="itemCon_1 itemImg swapPad">
@@ -293,14 +311,14 @@
                                             <dl>
                                                 <div class="itemCon_2 cssTable">
                                                     <ul>
-                                                        <li><p style="background-image:url(../../../static/images/mk_it_img_1.jpg)"></p></li>
+                                                        <li><p :style="{ backgroundImage:`url(${(Product[index].PictureURL)})`}"></p></li>
                                                     </ul>
                                                 </div>
                                             </dl>
                                         </div>
                                     </dd>
                                 </dl>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="assessFace">
                             <img src="../../../static/images/icon_cry_b.svg" alt="">
@@ -374,10 +392,13 @@
                                 <span class="addImg"></span>
                                 <i>新增物品</i>
                             </div>
-                            <a href="item_upload.html"></a>
+                            <router-link to="/market_upload"></router-link>
                         </div>
                         <div class="itemBox mBox" v-for="product in Item">
-                            <div class="itemImg" v-if="product.PictureUrls"><img :src="(product.PictureUrls)[0]" alt=""></div>
+                            <div class="itemImg" v-if="product.PictureUrls">
+                                <!-- <img :src="(product.PictureUrls)[0]" alt=""> -->
+                                <u class="imgListMask" :style="{ backgroundImage:`url(${(product.PictureUrls)[0]})`}"></u>
+                            </div>
                             <!-- <a href="item_detail.html?j"></a> -->
                             <router-link :to="{name:'Market_detail',params: { id: product._id}} "></router-link>
                             <div class="itemInfo">
@@ -466,24 +487,28 @@
                             <div class="itemTitle">
                                 <h4>我想要...</h4>
                             </div>
-                            <div class="itemImg">
+                            <div class="itemImg" v-if="this.id == this.User.ID">
                                 <span class="addImg"></span>
                                 <i>新增願望</i>
                             </div>
-                            <a href="wish_upload.html"></a>
+                            <router-link to="/wish_upload"></router-link>
                         </div>
-                        <div class="itemBox">
+                        <div class="itemBox" v-for="wish in Wish">
                             <div class="itemTitle">
                                 <h4>我想要...</h4>
-                                <h3>棒球帽</h3>
+                                <h3>{{wish.Name}}</h3>
                             </div>
-                            <div class="itemImg"><img src="../../../static/images/wss_it_img_1.jpg" alt=""></div>
-                            <a href="wish_detail.html?j"></a>
+                            <div class="itemImg">
+                                <!-- <img src="../../../static/images/wss_it_img_1.jpg" alt=""> -->
+                                <u class="imgListMask" :style="{ backgroundImage:`url(${wish.PictureUrl})`}"></u>
+
+                                </div>
+						    <router-link :to="{name:'Wish_detail',params: { id: wish.ID}} "></router-link>
                             <div class="itemInfo">
-                                <p>類似此素色款式棒球帽，用商品交換，喜歡再留言</p>
+                                <p>{{wish.Description}}</p>
                                 <p class="timer">1小時前</p>
                                 <!-- <span class="iUser"><i><img src="images/ws_user_img_1.png" alt=""></i>Amy Tesi</span> -->
-                                <span class="iChat">5</span>
+                                <span class="iChat">{{wish.MessageCount}}</span>
                             </div>
                         </div>
                     </div>
@@ -543,7 +568,16 @@ export default {
            Comment:{},
            RatingList:{},
            DealList:{},
-           User:{}
+           User:{},
+           GoodRatingList:{},
+           BadRatingList:{},
+           checkList:{},
+           isFollow:"",
+           Pic1:{},
+           Pic2:{},
+           Pic3:{},
+           Product:{},
+           OfferMoney:{}
       }
   },
   created(){
@@ -553,6 +587,9 @@ export default {
         this.getItem();
         this.getComment();
         this.getuser();
+        this.getWish();
+        this.getFollow();
+       
   },
   methods:{
     async getuser(){
@@ -563,22 +600,68 @@ export default {
         this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Avatar.jpg"
         this.CoverUrl = api.CdnUrl + "/Uploads/User/" + this.id  + "/Cover.jpg"   
     },
+    async getWish(){
+        console.log("cool")
+        this.Wish = await api.get('GetWishs',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=2018-10-16T16:17:30Z")
+        console.log(this.Wish)
+    },
+    async getFollow(){
+        this.isFollow = await api.get('Follow',localStorage.getItem('login_token'),"&followID=" + this.id)
+        console.log(this.isFollow)
+    },
     async getRatingList(){
-        this.RatingList = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id + "&filterDate=1" )
+        this.RatingList = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id + "&filterDate=2018-10-20T16:17:30Z")
         console.log(this.RatingList)
+        console.log(this.DealList)
+        // while(this.DealList.length != 0){
+        //     if(this.DealList && this.DealList.length >= 19){
+        //         this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'&targetUser=' + this.id +'&maxTime='+ this.DealList[19].UpdatedDate)       
+        //         this.checkList = this.checkList.concat(this.DealList)          
+        //     }
+        // }
+        for(var i = 0 ; i< this.RatingList.length; i++){
+            this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'&targetUser=' + this.id +'&maxTime=' + this.RatingList[i].LastUpdatedDate)
+                for(var j = 0; j < this.DealList.length; j++){
+                    if(this.RatingList[i].ChangeID == this.DealList[j].ChangeID){
+                        //this.RatingList[i].leftImg = this.DealList[j].Product.PictureUrl
+                        this.checkList[i] = this.DealList[j]
+                        this.checkList[i].Rating = this.RatingList[i].Rating
+                        this.checkList[i].Name = this.RatingList[i].Name
+                        this.checkList[i].AvatarUrl = this.RatingList[i].AvatarUrl
+                        this.checkList[i].Comment = this.RatingList[i].Comment
+                        this.Pic1[i] = this.checkList[i].Offer.Items[0]
+                        this.Pic2[i] = this.checkList[i].Offer.Items[1]
+                        this.Pic3[i] = this.checkList[i].Offer.Items[2]
+                        this.Product[i] = this.checkList[i].Product
+                        this.OfferMoney[i] = this.checkList[i].Offer.OfferMoney
+                    }
+                    // if(j == this.DealList.length - 1 && x == 0){
+                    //     this.DealList = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id + "&filterDate=" + this.DealList[j].UpdatedDate)
+                    // }
+                }
+        }
+    },
+    follow(){
+        api.postJSON('Follow',this.id,localStorage.getItem('login_token'),'')
     },
     async getDealList(){
-        this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'')
+        this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'&targetUser=' + this.id)
         console.log(this.DealList)
-        for(var i = 0 ; i< this.RatingList.length; i++){
-            for(var j = 0; j < this.DealList.length; j++){
-                if(this.RatingList[i].ChangeID == this.DealList[j].ChangeID){
-                    this.RatingList[i].leftImg = this.DealList[j].Product.PictureUrl
-                    console.log("cool")
-                }
-                //console.log(this.DealList[j].ChangeID)
-            }
-        }
+        // this.DealList = await api.get('DealedListsWithDealStatus_v2',localStorage.getItem('login_token'),'&targetUser=471&maxTime='+ this.DealList[19].UpdatedDate)
+        // console.log(this.DealList)
+        // console.log(this.RatingList)
+        // for(var i = 0 ; i< this.RatingList.length; i++){
+        //     for(var j = 0; j < this.DealList.length; j++){
+        //         if(this.RatingList[i].ChangeID == this.DealList[j].ChangeID){
+        //             this.RatingList[i].leftImg = this.DealList[j].Product.PictureUrl
+        //             console.log("cool")
+        //         }
+        //         console.log("Wow")
+        //         if(j==5){
+        //             break
+        //         }
+        //     }
+        // }
     },
     async getComment(){
         this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id)
@@ -587,10 +670,6 @@ export default {
     async getItem(){
         this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
         console.log(this.Item)
-    },
-    async getWish(){
-        this.Wish = await api.get('Wish',localStorage.getItem('login_token'),"&ownerID=" + this.id + "&filterDate=1" )
-        console.log(this.Wish) 
     }
     
 
@@ -600,13 +679,18 @@ export default {
   updated(){
  //item排版_marketPad
     setTimeout(() => {
+        // if(this.isFollow == false){
+        //      var element = document.getElementById("nofollow");
+        //      element.classList.add("action");
+        //     console.log("coo")
+        // }
         var Gw = $(window),
         Gww = Gw.width(),
         Gwh = Gw.height(),
         Gd = $(document),
         Gdw = Gd.width(),
         Gdh = Gd.height();
-    var $itemPad = $('.marketPad').find('.itemPad'),
+        var $itemPad = $('.marketPad').find('.itemPad'),
 				$itemPadW = $itemPad.width(),
 				itemW = $itemPadW / 3 - 8,
 				$allBox = $itemPad.find('.mBox'),
@@ -643,6 +727,28 @@ export default {
 		}else{
 			$innerMsgPad.css({'left': $btnPo.left - $msgPadW / 2 - 14 + 'px'});
 		}
+    });
+    
+    //btn_cry 彈出視窗
+	var $coverBtc = $('.coverBlock').find('.btn_cry'),
+		$coverBMsgPad = $('.coverBlock').find('.badAssMsgPad');
+	$coverBtc.click(function(){
+		var $btnPo = $coverBtc.offset(),
+			$msgPadW = $coverBMsgPad.outerWidth();
+		$coverBMsgPad.css({'left': $btnPo.left - $msgPadW / 2});
+	});
+	var $innerBtc = $('.innerCoverBlock').find('.btn_cry'),
+		$innerBMsgPad = $('.innerCoverBlock').find('.badAssMsgPad');
+	$innerBtc.click(function(){
+		var $btnPo = $innerBtc.offset(),
+			$msgPadW = $innerBMsgPad.outerWidth();
+		if(Gww > 1280){
+			var conW = $('.innerCoverBlock').outerWidth(),
+				conMG = ( Gww - conW ) / 2;
+			$innerBMsgPad.css({'left': $btnPo.left - conMG - $msgPadW / 2});
+		}else{
+			$innerBMsgPad.css({'left': $btnPo.left - $msgPadW / 2 - 14 + 'px'});
+		}
 	});
    },800)
        
@@ -661,7 +767,7 @@ export default {
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
       element.classList.add("noSearchPage", "menuPage", "userPage", "mItem");
-
+      
       $('.loadPad').animate({
         opacity: 0
       }, 1000, function () {

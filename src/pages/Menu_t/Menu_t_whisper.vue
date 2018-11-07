@@ -249,6 +249,13 @@ export default {
         }, 800, 'easeOutCirc');
       });
 
+       //無資料預設畫面用--start--
+            var $conBlock = $('.conBlock'),
+                $conBlockLi = $conBlock.find('ul').find('li');
+            $conBlockLi.css({'display':'none'});
+            $conBlock.addClass('empty');
+            //無資料預設畫面用--end--
+
     }, 100)
   }
 }

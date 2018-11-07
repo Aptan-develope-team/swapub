@@ -5,33 +5,55 @@
 			<dl>
 				<dt><router-link to='/' class="header_logo"><img src="../../static/images/swapub_logo.png" alt=""></router-link></dt>
 				<dd class="headerMenu CGc">
-					<router-link to="/" active-class="market action" exact><b>市集</b></router-link>
-					<router-link to="/wish" active-class="wish action"><b>許願牆</b></router-link>
+					<router-link to="/" id="market" active-class="market action" exact><b>市集</b></router-link>
+					<router-link to="/wish" id="wish" active-class="wish action"><b>許願牆</b></router-link>
 					<a href="#" class="club"><b>俱樂部</b></a>
 				</dd>
 				<dd class="nav"><i></i><i></i><i></i></dd>
 			</dl>
 		</div>
 		<div class="searchPad">
-			<form action="item_search.html" method="get" accept-charset="utf-8" class="itemSearchForm">
+			<form class="itemSearchForm">
 				<ul>
 					<li>
-						<input type="text" placeholder="你想要搜尋什麼商品或人名呢?"/>
-						<input type="submit" name="" value="" class="searchBt">
+						<input type="text" placeholder="你想要搜尋什麼商品或人名呢?" v-model="searchText"/>
+						<input type="submit" name="" value="" class="searchBt" @click="search()"/>
 					</li>
 					<li>
-						<div class="btn_searchCt"><u></u><b>搜尋範圍：</b><span class="ovLine">台灣</span><i></i></div>
+						<div class="btn_search btn_searchCt"><u></u><b>搜尋範圍：</b><span class="ovLine">{{taiwan}}</span><i></i></div>
 					</li>
+					<li>
+						<div class="btn_search btn_searchTp"><u></u><b>類型：</b>
+							<span class="ovLine opCont">-<i style="background-image: none"></i></span>
+						</div>
+						<div class="searchOp clear">
+							<span class="ovLine" @click="setCategory('product')">物品<i style="background-image: url(../../static/images/btn_myitem_o.svg)"></i></span>
+							<span class="ovLine" @click="setCategory('name')">人名<i style="background-image: url(../../static/images/icon_att_o.svg)"></i></span>
+							<span class="ovLine" @click="setCategory('wish')">願望<i style="background-image: url(../../static/images/icon_att_o.svg)"></i></span>
+
+						</div>
+						</li>
 				</ul>
 			</form>
-			<form action="wish_search.html" method="get" accept-charset="utf-8" class="wishSearchForm">
+			<form class="wishSearchForm">
 				<ul>
 					<li>
-						<input type="text" placeholder="你想要搜尋什麼商品或人名呢?"/>
-						<router-link to='/wish_search'><input type="submit" name="" value="" class="searchBt"></router-link>
+						<input type="text" placeholder="你想要搜尋什麼商品或人名呢?" v-model="searchText"/>
+						<input type="submit" name="" value="" class="searchBt" @click="search()">
 					</li>
 					<li>
-						<div class="btn_searchCt"><u></u><b>搜尋範圍：</b><span class="ovLine">台灣</span><i></i></div>
+						<div class="btn_search btn_searchCt"><u></u><b>搜尋範圍：</b><span class="ovLine">台灣</span><i></i></div>
+					</li>
+					<li>
+						<div class="btn_search btn_searchTp"><u></u><b>類型：</b>
+							<span class="ovLine opCont">-<i style="background-image: none"></i></span>
+						</div>
+						<div class="searchOp clear">
+							<span class="ovLine" @click="setCategory('product')">物品<i style="background-image: url(../../static/images/btn_myitem_o.svg)"></i></span>
+							<span class="ovLine" @click="setCategory('name')">人名<i style="background-image: url(../../static/images/icon_att_o.svg)"></i></span>
+							<span class="ovLine" @click="setCategory('wish')">願望<i style="background-image: url(../../static/images/icon_att_o.svg)"></i></span>
+
+						</div>				
 					</li>
 				</ul>
 			</form>
@@ -40,15 +62,15 @@
 			<div class="logout">
 				<router-link to='/signin' class="btn_o btn_login">註冊/登入</router-link>或
 				<a href="" class="ico_tw"></a>
-				<a href="" class="ico_fb"></a>
+				<a class="ico_fb" @click="fblogin()"></a>
 			</div>
 			<div class="login">
-				<a class="sideBt userPic" :style="{ backgroundImage:`url(${this.imgUrl})`}"></a><span class="userName"><i>我</i>{{this.resData.Name}}</span>
+				<a class="sideBt userPic" :style="{ backgroundImage:`url(${this.imgUrl})`}"></a><span class="userName ovLine"><i></i>{{this.resData.Name}}</span>
 				<a class="sideBt userMenu CGc"></a>
 				<a class="sideBt userNoti CGc"><i class="noticeNum">{{this.Notify.Total}}</i></a>
 			</div>
 		</div>
-		<div class="sideBarPad">
+		<div class="sideBarPad" v-if="resData">
 			<span class="btn_close"><i></i><i></i></span>
 			<div class="sideList userMenu">
 				<router-link :to="{name:'Menu_u_myitem',params: { id: this.resData.ID}} "><i></i>我的物品與願望</router-link>
@@ -71,12 +93,474 @@
 					</dt>
 					<dd class="action">
 						<div class="noticePad CG_scorll">
-							<p class="action"><a href="menu_u_myitem_other.html?j">
-								<span class="userImg"><img src="../../static/images/sr_na_img_4.jpg" alt=""></span>
-								<span class="userInfo">Rockstone 上傳新物品</span>
-								<span class="date">2017/10/27 19:55</span>
-								<i class="itemImg"><img src="../../static/images/mk_it_img_10.jpg" alt=""></i>
-							</a></p>
+							<p class="action" v-for="feed in Feed">
+								<span v-if="feed.Type == 1">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 比一個讚</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 2">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 3">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 收藏你的物品</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 4">
+									<router-link :to="{name:'User_attention',params: {id: feed.AccountID}}">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在關注我</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 5">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提交換訊息給我</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 6">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你講悄悄話  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 7">
+									<router-link to='/menu_t_whisper'>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提出交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 8">
+									<router-link to='/menu_t_whisper'>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 更改交換 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 9">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 接受我的交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 10">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我接受 {{feed.Name}} 的交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 11">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">請給 {{feed.Name}} 評價  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 12">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 給我評價  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 13">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我收藏的 {{feed.Name}} 已經下架 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 14">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我收藏的 {{feed.ArguStr[0]}} 已被交易 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 15">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">有物品符合你的期望 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 16">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 取消交換 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 17">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 18">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 19">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我交換中的 {{feed.ArguStr[0]}} 物品描述已被修改 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 20">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 修改了 {{feed.ArguStr[0]}} 的物品描述 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 21">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">你要交換的 {{feed.Name}} 已經關閉 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 22">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">你要交換的 {{feed.ArguStr[0]}} 已經與其他人交換了 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 23">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 比一個讚！</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 24">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 收藏你的物品 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 25">
+									<router-link :to="{name:'User_attention',params: {id: feed.AccountID}}">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在關注我 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 26">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 27">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 28">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 上傳新物品</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 29">
+                                    <router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} ">									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 新增了願望 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 30">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 寄送貨資訊給你 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 31">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 32">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 33">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}}</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 35">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">提醒您未完成手機認證，為保障交換安全，請點選此通知，繼續認證流程。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 200">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}}門市已收貨，等待配送中。  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 201">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[0]}}，{{feed.ArguStr[1]}}，{{feed.ArguStr[2]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 202">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，換家以取貨。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 203">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，換家未取貨，等待退貨中。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 204">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，已經抵達退貨門市(同寄件門市)。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 210">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，已建立LALAMOVE訂單，等待司機接單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 211">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單有司機接單，等待司機前來取件。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 212">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單司機遞送中。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 213">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單遞送物品成功。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 214">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單已被司機取消，系統將為您重新建單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 215">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單已過期，無司機接單，系統將為您重新建單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 301">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 邀請你加入他的俱樂部。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 302">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 想要加入你的俱樂部。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 303">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 你成為管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 401">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提出履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 401">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 402">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 403">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 不同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 404">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 重新提出保證金。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 405">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 已匯入保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 406">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 已確認交易無誤。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 407">
+									<router-link to='/menu_t_whisper'></router-link>
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">履約保證金已退還到您的帳戶 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 408">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">對方取消履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 409">
+									<router-link to='/menu_t_whisper'></router-link>
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">我已經取消履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 410">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">Swapub已經收到您的履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 411">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">付款流程未完成，我們將會退回您已支付的款項。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 701">
+									<router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的 {{feed.ArguStr[0]}} 願望留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 702">
+									<router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 願望留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 703">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在評價中留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 704">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在評價中留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 801">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的話題留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 804">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的話題按讚。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 805">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的留言按讚。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 806">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的回覆按讚。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 808">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的回覆留言。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 809">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 希望你成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 810">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 接受成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 809">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 拒絕成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+							</p>
+							<!-- 
 							<p class="action"><a href="item_detail.html?j">
 								<span class="userImg checked"><img src="../../static/images/ws_user_img_6.png" alt=""></span>
 								<span class="userInfo">妮可 妮可薇 比一個讚！</span>
@@ -107,19 +591,477 @@
 								<span class="userImg checked"><img src="../../static/images/img_user_add.png" alt=""></span>
 								<span class="userInfo">天堂最狂回憶小物讓你週週抽到流眼淚SWAPUB 幫天堂的戰友們找回憶</span>
 								<span class="date">2017/10/27 08:43</span>
-							</a></p>
+							</a></p> -->
 						</div>
 						<span class="showMore"><a>顯示更多</a></span>
 					</dd>
 					<dd>
 						<div class="noticePad">
-							<p class="action"><a href="swap_item_detail_user.html?j">
-								<span class="userImg"><img src="../../static/images/ws_user_img_4.png" alt=""></span>
-								<span class="userInfo"><i>我(</i>Jing Yun Lee<i>)</i>提出交換</span>
-								<span class="date">2017/10/27 19:55</span>
-								<i class="itemImg swap"><img src="../../static/images/img_item_01.jpg" alt=""></i>
-							</a></p>
-							<p class="action"><a class="btn_assess">
+							<p class="action" v-for="feed in Trade">
+								<span v-if="feed.Type == 1">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 比一個讚</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 2">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 3">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 收藏你的物品</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 4">
+									<router-link :to="{name:'User_attention',params: {id: feed.AccountID}}">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在關注我</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 5">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提交換訊息給我</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 6">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你講悄悄話  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 7">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提出交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 8">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 更改交換 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 9">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 接受我的交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 10">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我接受 {{feed.Name}} 的交換  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 11">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">請給 {{feed.Name}} 評價  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 12">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 給我評價  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 13">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我收藏的 {{feed.Name}} 已經下架 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 14">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我收藏的 {{feed.ArguStr[0]}} 已被交易 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 15">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">有物品符合你的期望 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 16">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 取消交換 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 17">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 18">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 19">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">我交換中的 {{feed.ArguStr[0]}} 物品描述已被修改 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 20">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 修改了 {{feed.ArguStr[0]}} 的物品描述 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 21">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">你要交換的 {{feed.Name}} 已經關閉 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 22">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">你要交換的 {{feed.ArguStr[0]}} 已經與其他人交換了 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 23">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 比一個讚！</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 24">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 收藏你的物品 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 25">
+									<router-link :to="{name:'User_attention',params: {id: feed.AccountID}}">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在關注我 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 26">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對我的 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 27">
+									<router-link :to="{name:'Market_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 28">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 上傳新物品</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 29">
+                                    <router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} ">									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 新增了願望 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 30">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 寄送貨資訊給你 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 31">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 32">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 33">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.ArguStr[0]}}</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 35">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">提醒您未完成手機認證，為保障交換安全，請點選此通知，繼續認證流程。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 200">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}}門市已收貨，等待配送中。  </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 201">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[0]}}，{{feed.ArguStr[1]}}，{{feed.ArguStr[2]}} </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 202">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，換家以取貨。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 203">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，換家未取貨，等待退貨中。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 204">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您寄送的的交換物品 {{feed.ArguStr[1]}} ，已經抵達退貨門市(同寄件門市)。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 210">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，已建立LALAMOVE訂單，等待司機接單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 211">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單有司機接單，等待司機前來取件。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 212">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單司機遞送中。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 213">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單遞送物品成功。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 214">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單已被司機取消，系統將為您重新建單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 215">
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">您的交換物品 {{feed.ArguStr[1]}} ，LALAMOVE訂單已過期，無司機接單，系統將為您重新建單。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 301">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 邀請你加入他的俱樂部。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 302">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 想要加入你的俱樂部。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 303">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 你成為管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 401">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 提出履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 401">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 402">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 403">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 不同意交換保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 404">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 重新提出保證金。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 405">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 已匯入保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 406">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 已確認交易無誤。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 407">
+									<router-link to='/menu_t_whisper'></router-link>
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">履約保證金已退還到您的帳戶 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 408">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">對方取消履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 409">
+									<router-link to='/menu_t_whisper'></router-link>
+									<!-- <span class="userImg"><img :src="feed.AvatarUrl" alt=""></span> -->
+									<span class="userInfo">我已經取消履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 410">
+									<router-link to='/menu_t_whisper'></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">Swapub已經收到您的履約保證金。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 411">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">付款流程未完成，我們將會退回您已支付的款項。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<!-- <i class="itemImg"><img :src="feed.Objects" alt=""></i> -->
+								</span>
+								<span v-if="feed.Type == 701">
+									<router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} "></router-link>
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的 {{feed.ArguStr[0]}} 願望留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 702">
+									<router-link :to="{name:'Wish_detail',params: { id: feed.RelationID}} ">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對 {{feed.ArguStr[0]}} 願望留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+									</router-link>
+								</span>
+								<span v-if="feed.Type == 703">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在評價中留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 704">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 在評價中留言。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 801">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的話題留言 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 804">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的話題按讚。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 805">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的留言按讚。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 806">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的回覆按讚。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 808">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 對你的回覆留言。</span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 809">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 希望你成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 810">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 接受成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+								<span v-if="feed.Type == 809">
+									<span class="userImg"><img :src="feed.AvatarUrl" alt=""></span>
+									<span class="userInfo">{{feed.Name}} 拒絕成為俱樂部的管理者。 </span>
+									<span class="date">{{((feed.LastUpdatedDate).split('.')[0]).replace("T","     ")}}</span>
+									<i class="itemImg"><img :src="feed.Objects" alt=""></i>
+								</span>
+							</p>
+							<!-- <p class="action"><a class="btn_assess">
 								<span class="userImg checked"><img src="../../static/images/ws_user_img_1.png" alt=""></span>
 								<span class="userInfo">請給Chloe Chen評價</span>
 								<span class="date">2017/10/27 19:55</span>
@@ -136,7 +1078,7 @@
 								<span class="userInfo">你要交換的 VR數位眼鏡已經與其他人交換了</span>
 								<span class="date">2017/10/27 08:43</span>
 								<i class="itemImg"><img src="../../static/images/ws_it_img_4.jpg" alt=""></i>
-							</a></p>
+							</a></p> -->
 						</div>
 						<span class="showMore"><a>顯示更多</a></span>
 					</dd>
@@ -250,7 +1192,7 @@
 									<div class="selectPad clear">
 										<div class="select-custom slt_1Country">
 											<b>國家</b><i class="flagBox"></i>
-											<input type="text" id="select_Country" class="ovLine" value="-">
+											<input type="text" id="select_Country" class="ovLine" value="-" v-model="Reg.Country">
 											<!-- <div class="optionPad">
 												<span class="ovLine">-</span>
 												<span class="ovLine"><img src="images/flag_tw.png" alt="">台灣</span>
@@ -259,7 +1201,7 @@
 										</div>
 										<div class="select-custom">
 											<b>州/省</b>
-											<input type="text" id="select_State" value="-">
+											<input type="text" id="select_State" value="-"  v-model="Reg.State">
 											<!-- <div class="optionPad">
 												<span class="ovLine">-</span>
 												<span class="ovLine">江蘇省</span>
@@ -267,7 +1209,7 @@
 										</div>
 										<div class="select-custom">
 											<b>城市</b>
-											<input type="text" id="select_City" value="-">
+											<input type="text" id="select_City" value="-"  v-model="Reg.City">
 											<!-- <div class="optionPad">
 												<span class="ovLine">-</span>
 												<span class="ovLine">全區</span>
@@ -278,11 +1220,11 @@
 										<div class="innerList action">
 											<dl>
 												<!-- <dt>亞洲</dt> -->
-												<dd>
+												<dd v-for="(country,key) in Country" @click="setCountry(key,country)">
 													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
-													<div class="name">台灣</div>
+													<div class="name">{{country}}</div>
 												</dd>
-												<dd>
+												<!-- <dd>
 													<div class="countryImg"><img src="../../static/images/flag_tw.png" alt=""></div>
 													<div class="name">中國</div>
 												</dd>
@@ -310,7 +1252,6 @@
 													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">馬來西亞</div>
 												</dd>
-												<!-- <dt>歐洲</dt> -->
 												<dd>
 													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">泰國</div>
@@ -362,31 +1303,31 @@
 												<dd>
 													<div class="countryImg"><img src="../../static/images/flag_uae.png" alt=""></div>
 													<div class="name">阿拉伯聯合大公國</div>
-												</dd>
+												</dd> -->
 											</dl>
 										</div>
 										<div class="innerList">
 											<dl>
-												<dd>
-													<div class="name">江蘇省</div>
+												<dd v-for="(state,key) in State"  @click="setState(key,state)">
+													<div class="name">{{key}}</div>
 												</dd>
-												<dd>
-													<div class="name">浙江省</div>
+												<!-- <dd>
+													<div class="name"></div>
 												</dd>
 												<dd>
 													<div class="name">安徽省</div>
 												</dd>
 												<dd>
 													<div class="name">湖北省</div>
-												</dd>
+												</dd> -->
 											</dl>
 										</div>
 										<div class="innerList">
 											<dl>
-												<dd>
-													<div class="name">台北市</div>
+												<dd v-for="(city,key) in City" @click="setCity(key,city)">
+													<div class="name">{{city}}</div>
 												</dd>
-												<dd>
+												<!-- <dd>
 													<div class="name">基隆市</div>
 												</dd>
 												<dd>
@@ -394,7 +1335,7 @@
 												</dd>
 												<dd>
 													<div class="name">宜蘭縣</div>
-												</dd>
+												</dd> -->
 											</dl>
 										</div>
 									</div>
@@ -410,6 +1351,11 @@
 
 <script>
 import api from '../api/Api.js'
+import city from '../language/zh-TW/city.js'
+import country from '../language/zh-TW/country.js'
+import cityen from '../language/en/city.json'
+import countryen from '../language/en/country.json'
+import region from '../language/region.js'
 
 export default {
  data() {
@@ -418,40 +1364,285 @@ export default {
 			imgUrl:"",
 			Notify:{},
 			Feed:{},
-			Trade:{}
+			Trade:{},
+			category:"",
+			searchText:"",
+			Country:country,
+			City:[],
+			Region:region,
+			State:{},
+			Reg:{
+				Country:"-",
+				State:"-",
+				City:"-"
+			},
+			searchCountry:"",
+			searchArea:"",
+			searchCity:"",
+			CityKey:[],
+			taiwan:"台灣"
 			
     }
   },	
   created(){
-		this.getUser();
-		this.getNotify();
-		this.getFeed();
-		this.getTrade()
+	    if(localStorage.getItem('language')=='en'){
+			this.Country = countryen
+			this.taiwan = "Taiwan"
+		}
+		console.log(this.Region)
+		if(localStorage.getItem('login_token')!="" || localStorage.getItem('login_token')!= undefined){
+			this.getUser();
+			this.getNotify();
+			this.getFeed();
+			this.getTrade()
+		}
+  },
+  updated(){
+	  /* 搜尋地區 */
+    setTimeout(() => {
+  
+	var /*index*/
+		$btn_searchCt = $('#header').find('.btn_searchCt'),
+		$contName = $btn_searchCt.find('span'),
+		$contFlag = $btn_searchCt.find('i'),
+		/*pop*/
+		$cus = $('.select-custom'),
+		$cusBt = $cus.find('b'),
+		$cusInput = $cus.find('input'),
+		$cusFlagBox = $cus.find('.flagBox'),
+		$cusLen = $cus.length,
+		$couListPad = $('.country-list'),
+		$inCouList = $couListPad.find('.innerList'),
+		$couList = $inCouList.find('dd');
+	// 預設
+	$couListPad.fadeOut();
+	// 點index搜尋範圍
+	$btn_searchCt.click(function(){
+		$('#header').find('#hPopContainer').removeClass();
+		$('#header').find('#hPopContainer').stop().animate({'top' : 0}, 300);
+		$('#header').find('#hPopContainer').addClass('popSrCt');
+		setpopH();
+	});
+	// 設定pop位置
+	var setpopH = function(){
+		var $ctPop = $('.ctStagePad'),
+			$popH = Math.round($ctPop.outerHeight());
+		$ctPop.css({'margin-top':- $popH / 2});
+	}
+	// funtion>>關閉pop並帶值到index畫面
+	var closePop = function(con, flag){
+		$('#header').find('#hPopContainer').stop().animate({'top' : -100 + 'vh'}, 300, function(){
+			$('#header').find('#hPopContainer').removeClass();
+		});
+	}
+	// funtion>>清空select資料
+	var clearInput = function(){
+		$cusInput.val('-');
+		$cusInput.removeClass('action');
+		$cus.removeClass('seleced');
+		$cusFlagBox.fadeOut(100);
+	}
+	// funtion>>清空搜尋
+	var clearSearch = function(){
+		$("#searchText").val('');
+		$("#content-2").removeClass('action');
+		setpopH();
+	}
+	// DEMO auto complate
+	$("#searchText").keyup(function () {
+		var text = $("#searchText").val();
+		$couListPad.fadeOut();
+		setpopH();
+		clearInput();
+		if (text === '') {
+			$("#content-2").removeClass('action');
+		} else {
+			$("#content-2").addClass('action');
+		}
+	});
+	// 點搜尋結果
+	var $result = $("#content-2").find('.result').find('li');
+	$result.click(function(){
+		var $obj = $(this);
+		$("#searchText").val('');
+		var $resultImg = $obj.find('.countryImg').find('img').attr('src'),
+			$resultTXT = $obj.find('.name').text();
+		closePop();
+		$contName.text($resultTXT);
+		$contFlag.css({'background-image': 'url(' + $resultImg + ')'});
+		clearSearch();
+	});
+	// 點X
+	$('.btnCancel').click(function(){
+		clearSearch();
+	});
+	// 點select-custom
+	$cus.click(function(){
+		var cusInd = $(this).index();
+		clearSearch();
+		$couListPad.fadeIn(500);
+		setpopH();
+		$inCouList.eq(cusInd).addClass('action').siblings().removeClass('action');
+	});
+	// 點預設清單項目
+	$couList.click(function(){
+		var obj = $(this),
+			obInd = obj.parent().parent().index();
+		getValue(obj, obInd);
+		$couListPad.fadeOut(100, function(){setpopH();});
+	});
+	// funtion>>取得項目資料傳值給select-custom
+	var getValue = function(o, i){
+		var $resultImg = $(o).find('.countryImg').find('img').attr('src'),
+			$resultTXT = $(o).find('.name').text(),
+			$rInput = $cus.eq(i).find('input');
+		if(i==0){
+			//點國家
+			var $rFlagBox = $cus.eq(i).find('.flagBox');
+			$rFlagBox.fadeIn();
+			$rFlagBox.css({'background-image': 'url(' + $resultImg + ')'});
+			$cus.eq(i).addClass('seleced');
+			$cus.eq(1).removeClass('seleced');
+			$cus.eq(2).removeClass('seleced');
+			$rInput.addClass('action');
+			$rInput.val($resultTXT);
+		}else if(i==2){
+			//點城市
+			closePop();
+			var cus = $cus.eq(0).find('input').val(),
+			flag = $cus.eq(0).find('.flagBox').css('background-image');
+			$contName.text(cus);
+			$contFlag.css({'background-image': flag});
+			$cus.eq(i).addClass('seleced');
+			$rInput.addClass('action');
+		}else{
+			//點州省
+			$cus.eq(i).addClass('seleced');
+			$rInput.addClass('action');
+			$rInput.val($resultTXT);
+		}
+	}
+	},0)
   },
   methods:{
 	  async getUser(){
-			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
+			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != undefined){
 					this.resData = await api.get('User',localStorage.getItem('login_token'),'')
 					this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.resData.ID  + "/Avatar.jpg"
 					//console.log(this.resData)
 			}
 	  },
+	  fblogin() {
+    let vm = this
+    FB.login(function (response) {
+      console.log(response)
+    }, {
+      scope: 'email, public_profile',
+      return_scopes: true
+    })
+    FB.api('/me?fields=name,id,email', function (response) {
+		console.log(response)
+	})
+  },
 	  logout(){
 		  localStorage.setItem('login_token','')
 		  this.$router.push('/')
 		  location.reload();
 		},
 		async getNotify(){
+			   			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
 				this.Notify = await api.get('Notification/GetNotifyCountWithType',localStorage.getItem('login_token'),'&unRead=true')
-				console.log(this.Notify)						
+				console.log(this.Notify)	
+						   }					
 		},
 		async getFeed(){
+			if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
 				this.Feed = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=0')
 				console.log(this.Feed)
+			}
 		},
 		async getTrade(){
+		     if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
 				this.Trade = await api.get('Notification/GetListByType',localStorage.getItem('login_token'),'&groupType=1')
 				console.log(this.Trade)
+			}
+		},
+		setCategory(category){
+			if(category == 'product'){
+				this.category = "product"
+			}
+			else if(category == 'wish'){
+				this.category = "wish"
+			}
+			else{
+				this.category = "name"
+			}
+		},
+		setCountry(k,c){
+			this.Reg.Country = c
+			this.Reg.State = '-'
+			this.Reg.City = '-'
+			this.searchCountry = k
+			this.searchArea = ""
+			this.searchCity = ""
+			this.City = {}
+			this.State = this.Region[k]
+			if((this.Region[k])[""] != undefined){
+				for(var i=0; i<(this.Region[k])[""].length ; i++){
+					if(localStorage.getItem('language')=='en'){
+						this.$set(this.City, i, cityen[(this.Region[k])[""][i]]) 
+					}
+					else{
+						this.$set(this.City, i, city[(this.Region[k])[""][i]]) 
+					}
+				}
+			}
+			// else{
+			// 	for(var i=0; i<this.Region[k].length ; i++){
+			// 		this.City[i] = city[(this.Region[k])[i]]
+			// 	}
+			// }
+			console.log(this.City)
+		},
+		
+		setState(k,s){
+			this.Reg.State = k
+			console.log(this.City)
+			console.log(this.State[k])
+			this.searchArea = k
+			this.Reg.City = "-"
+			this.searchCity = ""
+			for(var i = 0 ; i < this.State[k].length;i++){
+				this.$set(this.City, i, city[(this.State[k])[i]]) 
+				this.$set(this.CityKey, i, (this.State[k])[i]) 
+
+			}
+		},
+		setCity(k,c){
+			this.Reg.City = c
+			this.searchCity = this.CityKey[k]
+		},
+		search(){
+			if(this.category == ''){
+				alert("請選擇種類")
+			}
+			else if(this.searchText == ''){
+				alert("請輸入搜尋")
+			}
+			else{
+				console.log(this.category)
+				var element = document.getElementById("market");
+					if(this.category == 'product'){
+						this.$router.push({name:'Market_search',query:{text:this.searchText,Country:this.searchCountry,Area:this.searchArea,City:this.searchCity}})
+					
+					}
+					else if(this.category == 'wish'){
+						this.$router.push({name:'Wish_search',query:{text:this.searchText,Country:this.searchCountry,Area:this.searchArea,City:this.searchCity}})
+					}
+					else{
+						this.$router.push({name:'Market_search_name',query:{text:this.searchText,Country:this.searchCountry,Area:this.searchArea,City:this.searchCity}})
+					}
+			}
 		}
 		
   },
@@ -462,7 +1653,9 @@ export default {
         Gwh = Gw.height(),
         Gd = $(document),
         Gdw = Gd.width(),
-        Gdh = Gd.height();
+		Gdh = Gd.height();
+		
+	  
 
       $('#header').find('.btn_searchCt').click(function () {
         $('#header').find('#hPopContainer').removeClass();
@@ -505,6 +1698,23 @@ export default {
 			$sideList.eq(sideInd).fadeIn().siblings('.sideList').fadeOut();
 		}
 	});
+
+	
+
+	/* header > 搜尋類型 */
+	$('.btn_searchTp').click(function(){
+		$('.searchOp').fadeToggle();
+	});
+	var $searchOpt = $('.searchOp').find('span');
+	$searchOpt.click(function(){
+		var obj = $(this).html();
+		$('.searchOp').fadeOut();
+		$('.opCont').html(obj);
+	});
+	
+
+	
+
 	//點X
 	$closeBt.click(function(){
 		$sideBarPad.animate({'margin-left' : 100 + 'vw'}, 500);
@@ -520,7 +1730,7 @@ export default {
         $tgPad.eq(tgInd).addClass('action').siblings('dd').removeClass('action');
       });
 	  
-	  if(localStorage.getItem('login_token')!= null && localStorage.getItem('login_token')!= ''){
+	  if(localStorage.getItem('login_token')!= undefined && localStorage.getItem('login_token')!= ''){
       var $login = $('.loginBlock'),
         url = window.location.toString(),
         $urlUser = url.split('?')[1],

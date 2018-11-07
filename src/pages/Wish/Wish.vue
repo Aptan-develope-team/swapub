@@ -62,7 +62,11 @@
 							<h4>我想要...</h4>
 							<h3>{{product.Name}}</h3>
 					  </div>
-						<div class="itemImg"><i><img v-bind:src="(product.PictureUrl)"  alt=""/></i></div>									
+						<div class="itemImg"><i>
+							<!-- <img v-bind:src="(product.PictureUrl)"  alt=""/> -->
+								<u class="imgListMask" :style="{ backgroundImage:`url(${(product.PictureUrl)})`}"></u>
+
+							</i></div>									
 						<router-link :to="{name:'Wish_detail',params: { id: product.ID}} "></router-link>
 						
 						<div class="itemInfo">	
@@ -331,7 +335,7 @@
 				<a><i><img src="../../../static/images/icon_item_traffic.svg" alt="" @click="setCategory('525cf3bb430cb210a8fc554c')"></i>交通工具</a>
 				<a><i><img src="../../../static/images/icon_item_ticket.svg" alt="" @click="setCategory('525cf3c1430cb210a8fc555f')"></i>票券</a>
 				<a><i><img src="../../../static/images/icon_item_service.svg" alt="" @click="setCategory('54ae3cb2bdf19b2008aa52c9')"></i>個人服務</a>
-				<a><i><img src="../../../static/images/icon_item_gift.svg" alt=""></i>免費贈與</a>
+				<a><i><img src="../../../static/images/icon_item_gift.svg" alt=""></i>免費索取</a>
 			</div>
 		</div>
 	</div>
@@ -353,8 +357,8 @@ export default {
 	},
 	data() {
     return {
-		resData:[],
-		data:{}
+				resData:[],
+				data:{}
     }
   },
   created(){
@@ -363,10 +367,10 @@ export default {
   },
   methods:{
 	  async getItem(){
-	  this.getToken();  
-		this.resData = await api.get('GetWishs',localStorage.getItem('api_token'),'&filterDate=16')
-		console.log(this.resData)
-		},
+				this.getToken();  
+				this.resData = await api.get('GetWishs',localStorage.getItem('api_token'),'&filterDate=16')
+				console.log(this.resData)
+	  },
 
 		async getToken(){
 			await api.getToken()
@@ -375,7 +379,8 @@ export default {
 			 this.resData = await api.get('GetWishs',localStorage.getItem('api_token'),'&filterDate=16'+'&category='+id)
 		 }
 	},
-updated(){		
+updated(){	
+	setTimeout(() => {	
 				 //item排版
        var $outBox = $('.itemPad'), //外層容器
 				$outBoxW = $outBox.width(), //外層容器寬度
@@ -427,8 +432,9 @@ updated(){
           } else {
             return false;
           }
-        }
-},
+				}
+	   },850)
+  },
   mounted() {
     setTimeout(() => {
      

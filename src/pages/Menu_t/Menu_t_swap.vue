@@ -123,7 +123,7 @@
                             </div>
                             <div class="dealBtPad">
                                 <!-- <span class="date">{{((offer.UpdatedDate).split('.')[0]).replace("T","     ")}}</span> -->
-                                <span class="btn_g btn_deal"><i></i>成交</span>
+                                <span class="btn_g btn_deal" @click="passData(offer.ChangeID)"><i></i>成交</span>
                             </div>
                         </li>
                         <li class="mSwapList clear">
@@ -176,7 +176,7 @@
                             </div>
                             <div class="dealBtPad">
                                 <!-- <span class="date">06/27/2017</span> -->
-                                <span class="btn_g btn_deal" getChangeID(offer.ChangeID)><i></i>成交</span>
+                                <span class="btn_g btn_deal"><i></i>成交</span>
                             </div>
                         </li>
                     </ul>
@@ -195,18 +195,18 @@
             <h3>資訊確認</h3>
             <p>請提供您的聯絡資訊，方便讓對方與您聯絡！</p>
             <p>我們不會公開您的資料</p>
-            <form action="menu_t_deal.html">
+            <form>
                 <div class="dealDetail">
-                    <p>姓名<input type="text" value="Jing Yun Lee"></p>
-                    <p>電子信箱<input type="email" value="free@gmail.com"></p>
-                    <p>電話<input type="text" value="987654321"></p>
+                    <p>姓名<input type="text" value="" v-model="Info.Name"></p>
+                    <p>電子信箱<input type="email" value="" v-model="Info.Mail"></p>
+                    <p>電話<input type="text" value="" v-model="Info.Mobile"></p>
                 </div>
                 <p class="popCheckPad"><input type="checkbox">不要顯示我的手機號碼</p>
                 <div class="popCheckPad">
                     <p>按下「送出」後表示我同意</p>
                     <p><a href="exp_rule.html" target="_blank">服務條款</a>和<a href="exp_rule.html" target="_blank">隱私權政策</a></p>
                     <!-- <input type="button" class="btn_gr btn_cancel" value="取消"> -->
-                    <input type="submit" class="btn_o btn_sure" value="確定" onclick="">
+                    <input type="submit" class="btn_o btn_sure" value="確定" @click="makeDeal()">
                 </div>
             </form>
         </div>
@@ -322,7 +322,14 @@ export default {
               OfferService:""
           },
           changeItem:[],
-          ChangeID:""
+          Info:{
+              ChangeID:"",
+              Name:"",
+              Mail:"",
+              Mobile:"",
+              Address:""
+          },
+          data:{}
         
       }
   },
@@ -394,9 +401,14 @@ export default {
            api.putJSON('Change',JSON.stringify(this.changeOffer),localStorage.getItem('login_token'), "&msgID=" + this.MsgID)
            location.reload();
        },
-         passData(obj){
-            
-        }
+       passData(changeID){
+            this.Info.ChangeID = changeID
+       },
+       async makeDeal(){
+           console.log(this.Info)
+           await api.postJSON('FillChangeForm',this.Info,localStorage.getItem('login_token'),"")
+           await api.postJSON('MakeDeal','',localStorage.getItem('login_token'), "&changeID=" + this.Info.ChangeID)
+       }
        
   },
   updated(){
@@ -552,7 +564,13 @@ export default {
         });
 
         var $mainBt = $('.mainBtPad').find('a'),
-          $conBlock = $('.conBlock');
+          $conBlock = $('.conBlock'),
+          $conBlockLi = $conBlock.find('ul').find('li');
+            //無資料預設畫面用--start--
+            $conBlockLi.css({'display':'none'});
+            $conBlock.addClass('empty');
+            //無資料預設畫面用--end--
+
         $conBlock.eq(1).css({
           'display': 'none'
         });
@@ -562,6 +580,10 @@ export default {
           $conBlock.eq(ind).fadeIn().siblings('.conBlock').css({
             'display': 'none'
           });
+          //判斷無資料預設畫面
+                if($conBlockLi.css('display') == 'none'){
+                    $conBlock.addClass('empty');
+                }
         });
         
         

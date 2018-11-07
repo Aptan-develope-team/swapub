@@ -22,7 +22,7 @@
                   <span>Step1</span>上傳照片或影片</dt>
                    <dd class="imgPad clear" id="imgPad">
                  	<div class="editImg addImg"><label for="uploadImg"><input id="uploadImg" type="file" @change="onFileChanged"></label>
-                     </div>
+                  </div>
                   
                   <div class="imgMaskW"></div>
                   <div class="imgMask CG_scorll_auto">
@@ -135,13 +135,13 @@
                   <p class="itemOption">
                     <b>物品地點 (國家)</b>
                     <select name="" v-model="Product.Location.Country">
-                      <option value="台灣">台灣</option>
+                      <option :value="country" v-for="(country,key) in Country" @click="setCountry(key)">{{country}}</option>
                     </select>
                   </p>
                   <p class="itemOption">
                     <b>物品地點 (城市)</b>
                     <select name="" v-model="Product.Location.City">
-                      <option value="台北市">台北市</option>
+                      <option :value="city" v-for="(city,key) in City">{{city}}</option>
                     </select>
                   </p>
                 </dd>
@@ -152,7 +152,10 @@
                 <dd>
                  <p><input type="text" name="" value="" placeholder="我想換到的物品" required="required" v-model="Product.Wants.Data[0]"></p>
 								<p class="noDot">物品價值範圍
-									<span class="currency btn_g"><i>TWD</i>
+									<!-- <span class="currency btn_g" v-if="localStorage.getItem('currency')!='' && localStorage.getItem('currency')!= undefined"><i>{{this.current}}</i>
+										<span class="curBlock"><b @click="setCurrencyPrice('AED')">AED</b><b @click="setCurrencyPrice('AUD')">AUD</b><b @click="setCurrencyPrice('CAD')">CAD</b><b @click="setCurrencyPrice('CNY')">CNY</b><b @click="setCurrencyPrice('EUR')">EUR</b><b @click="setCurrencyPrice('HKD')">HKD</b><b @click="setCurrencyPrice('JPY')">JPY</b><b @click="setCurrencyPrice('KRW')">KRW</b><b @click="setCurrencyPrice('TWD')">TWD</b><b @click="setCurrencyPrice('USD')">USD</b></span>
+									</span> -->
+                  	<span class="currency btn_g"><i>{{this.currency}}</i>
 										<span class="curBlock"><b @click="setCurrencyPrice('AED')">AED</b><b @click="setCurrencyPrice('AUD')">AUD</b><b @click="setCurrencyPrice('CAD')">CAD</b><b @click="setCurrencyPrice('CNY')">CNY</b><b @click="setCurrencyPrice('EUR')">EUR</b><b @click="setCurrencyPrice('HKD')">HKD</b><b @click="setCurrencyPrice('JPY')">JPY</b><b @click="setCurrencyPrice('KRW')">KRW</b><b @click="setCurrencyPrice('TWD')">TWD</b><b @click="setCurrencyPrice('USD')">USD</b></span>
 									</span>
 									<span><input type="number" name="" min="0" v-model="Product.SwapTarget.Price_Start.Value">-<input type="number" name="" min="0" v-model="Product.SwapTarget.Price_End.Value"></span>
@@ -160,7 +163,10 @@
 								<p><textarea name="" placeholder="我想換到的服務" onpropertychange="setHeight(this);" onmouseover="setHeight(this);" 
 									onpaste="setHeight(this);" oninput="setHeight(this);" v-model="Product.Wants.Data[1]"></textarea><!-- <input type="text" name="" value="" placeholder=""> --></p>
 								<p>我要賣
-									<span class="currency btn_g"><i>TWD</i>
+									<!-- <span class="currency btn_g" v-if="localStorage.getItem("currency")!='' && localStorage.getItem("currency")!= undefined"><i>{{this.current}}</i>
+										<span class="curBlock"><b @click="setCurrencyType('AED')">AED</b><b @click="setCurrencyType('AUD')">AUD</b><b @click="setCurrencyType('CAD')">CAD</b><b @click="setCurrencyType('CNY')">CNY</b><b @click="setCurrencyType('EUR')">EUR</b><b @click="setCurrencyType('HKD')">HKD</b><b @click="setCurrencyType('JPY')">JPY</b><b @click="setCurrencyType('KRW')">KRW</b><b @click="setCurrencyType('TWD')">TWD</b><b @click="setCurrencyType('USD')">USD</b></span>
+									</span> -->
+                  <span class="currency btn_g"><i>{{this.currency}}</i>
 										<span class="curBlock"><b @click="setCurrencyType('AED')">AED</b><b @click="setCurrencyType('AUD')">AUD</b><b @click="setCurrencyType('CAD')">CAD</b><b @click="setCurrencyType('CNY')">CNY</b><b @click="setCurrencyType('EUR')">EUR</b><b @click="setCurrencyType('HKD')">HKD</b><b @click="setCurrencyType('JPY')">JPY</b><b @click="setCurrencyType('KRW')">KRW</b><b @click="setCurrencyType('TWD')">TWD</b><b @click="setCurrencyType('USD')">USD</b></span>
 									</span>
                   <span><input type="number" name="" min="0"></span>
@@ -212,7 +218,7 @@
     <app-footer></app-footer>
     <div class="backTop CGt"></div>
     <!-- Light Box -->
-	<div id="popContainer" class="popImgSize">
+	<!-- <div id="popContainer" class="popImgSize">
       <div class="popContent popSys popEditImgPad">
         <div class="btn_closePop"></div>
         <p>請調整照片位置及大小</p>
@@ -257,7 +263,7 @@
             <input type="button" class="btn_o btn_sure" value="確定">
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Loader  -->
     <div class="loadPad">
@@ -277,6 +283,11 @@
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import api from '../../api/Api.js'
+import city from '../../language/zh-TW/city.js'
+import country from '../../language/zh-TW/country.js'
+import cityen from '../../language/en/city.json'
+import countryen from '../../language/en/country.json'
+import region from '../../language/region.js'
 
 export default {
   components: {
@@ -292,9 +303,9 @@ export default {
           Options:[0,0,0,0],
           Description:"",
           Location:{
-            Country:"",
+            Country:"台灣",
             AdministrativeArea:"",
-            City:""
+            City:"台北市"
           },
           Gps:[1.1,2.1],
           Wants:{
@@ -325,17 +336,42 @@ export default {
         FileContent:""
       },
       imgUrl:"",
-      productID:""
+      productID:"",
+      currency:"TWD",
+      Country:country,
+      City:city
     }
   },
   created(){
+    if(localStorage.getItem("currency")!="" && localStorage.getItem("currency")!= undefined){
+      this.Product.Wants.MoneyInfo.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_Start.Type = localStorage.getItem("currency")
+      this.Product.SwapTarget.Price_End.Type = localStorage.getItem("currency")
+      this.currency = localStorage.getItem("currency")
+    }
+    if(localStorage.getItem('language')=='en'){
+      this.Country = countryen
+      this.City = cityen
+      this.Product.Location.Country = "Taiwan"
+      this.Product.Location.City = "Taipei"
+
+		}
+    console.log(this.Product)
   },
   methods:{
     async upload(){
       if(this.PicInfo.FileContent != ""){
+        
         this.productID = await api.postJSON("Product",this.Product,localStorage.getItem('login_token'),"")  
         console.log(this.productID)
         await api.postJSON('Upload',this.PicInfo,localStorage.getItem('login_token'),"&productID=" + this.productID)
+        .then(()=>{
+          alert("上傳成功")
+          this.$router.push("/")
+        })
+        .catch(()=>{
+          alert("上傳失敗")
+        })
       }
       else{
         alert("請上傳照片")
@@ -368,7 +404,7 @@ export default {
     },
     clearCategory(){
       this.Product.CategoryIDs[0] = ""
-    }
+    },
   },
   mounted() {
     setTimeout(() => {

@@ -6,11 +6,13 @@ import Market_detail_whisper from '@/pages/Market/Market_detail_whisper'
 import Market_detail from '@/pages/Market/Market_detail'
 import Market_edit from '@/pages/Market/Market_edit'
 import Market_search from '@/pages/Market/Market_search'
+import Market_search_name from '@/pages/Market/Market_search_name'
 import Market_upload from '@/pages/Market/Market_upload'
 import Wish from '@/pages/Wish/Wish'
 import Wish_detail from '@/pages/Wish/Wish_detail'
 import Wish_edit from '@/pages/Wish/Wish_edit'
 import Wish_search from '@/pages/Wish/Wish_search'
+import Wish_search_name from '@/pages/Wish/Wish_search_name'
 import Wish_upload from '@/pages/Wish/Wish_upload'
 import Signin from '@/pages/Signin'
 import User_attention_other from '@/pages/Attention/User_attention_other'
@@ -18,6 +20,7 @@ import User_attention from '@/pages/Attention/User_attention'
 import Exp_about from '@/pages/Exp/Exp_about'
 import Exp_qa from '@/pages/Exp/Exp_qa'
 import Exp_rule from '@/pages/Exp/Exp_rule'
+import Exp_service from '@/pages/Exp/Exp_service'
 import Swap_item_detail_other from '@/pages/Swap/Swap_item_detail_other'
 import Swap_item_detail_otherOK from '@/pages/Swap/Swap_item_detail_otherOK'
 import Swap_item_detail_user from '@/pages/Swap/Swap_item_detail_user'
@@ -31,7 +34,6 @@ import Menu_u_set from '@/pages/Menu_u/Menu_u_set'
 import Menu_u_myinfo from '@/pages/Menu_u/Menu_u_myinfo'
 import Menu_u_myitem from '@/pages/Menu_u/Menu_u_myitem'
 import Menu_u_my_item_other from '@/pages/Menu_u/Menu_u_my_item_other'
-
 
 Vue.use(Router)
 
@@ -66,6 +68,11 @@ export default new Router({
       component: Market_search
     },
     {
+      path: '/market_search_name',
+      name: 'Market_search_name',
+      component: Market_search_name
+    },
+    {
       path: '/market_upload',
       name: 'Market_upload',
       component: Market_upload
@@ -97,6 +104,11 @@ export default new Router({
       path: '/wish_search',
       name: 'Wish_search',
       component: Wish_search
+    },
+    {
+      path: '/wish_search_name',
+      name: 'Wish_search_name',
+      component: Wish_search_name
     },
     {
       path: '/wish_upload',
@@ -189,6 +201,11 @@ export default new Router({
       path: '/exp_rule',
       name: 'Exp_rule',
       component: Exp_rule
+    },
+    {
+      path: '/exp_service',
+      name: 'Exp_service',
+      component: Exp_service
     },
     {
       path: '/user_attention/:id',

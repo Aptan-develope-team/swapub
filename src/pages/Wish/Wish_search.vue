@@ -9,28 +9,25 @@
 			<i>Swapub</i><i> &#62; 交換</i><i> &#62; 搜尋</i><i></i><i></i>
 		</div>
 		<div class="content">
-			<div class="mainBtPad">
-				<a class="action"><i><img src="../../../static/images/btn_searchitem_w.svg" alt=""></i>物品</a>
-				<a>人名<i><img src="../../../static/images/btn_searchname_w.svg" alt=""></i></a>
-			</div>
-			<p class="searchCounter">搜尋結果：<span>9</span>筆符合</p>
+			
+			<p class="searchCounter">搜尋結果：<span>{{this.Data.length}}</span>筆符合</p>
 			<div class="conBlock srItemPad action">
 				<div class="itemPad">
-					<div class="itemBox">
+					<div class="itemBox" v-for="data in Data">
 						<div class="itemTitle">
 							<h4>我想要...</h4>
-							<h3>棒球帽</h3>
+							<h3>{{data.Name}}</h3>
 						</div>
-						<div class="itemImg"><img src="../../../static/images/wss_it_img_1.jpg" alt=""></div>
-						<a href="wish_detail.html"></a>
+						<div class="itemImg" :style="{ backgroundImage:`url(${(data.PictureUrl)})`}"></div>
+						<router-link :to="{name:'Wish_detail',params: { id: data.ID}} "></router-link>
 						<div class="itemInfo">
-							<p>類似此素色款式棒球帽，用商品交換，喜歡再留言</p>
+							<p>{{data.Description}}</p>
 							<p class="timer">1小時前</p>
-							<span class="iUser"><i><img src="../../../static/images/ws_user_img_1.png" alt=""></i>Amy Tesi</span>
-							<span class="iChat">5</span>
+							<span class="iUser" v-if="data.UserInfo"><i><img :src="data.UserInfo.AvatarUrl" alt=""></i>{{data.UserInfo.Name}}</span>
+							<span class="iChat">{{data.MessageCount}}</span>
 						</div>
 					</div>
-					<div class="itemBox">
+					<!-- <div class="itemBox">
 						<div class="itemTitle">
 							<h4>我想要...</h4>
 							<h3>adidas棒球帽</h3>
@@ -155,33 +152,10 @@
 							<span class="iUser"><i><img src="../../../static/images/ws_user_img_4.png" alt=""></i>我(Jing YunLee)</span>
 							<span class="iChat">6</span>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
-			<div class="conBlock srNamePad">
-				<div class="itemPad">
-					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_1.jpg" alt=""></div>
-						<div class="itemTitle"><h3>Sia</h3></div><a href="menu_u_myitem_other.html?j"></a>
-					</div>
-					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_2.jpg" alt=""></div>
-						<div class="itemTitle"><h3>Sam</h3></div><a href="menu_u_myitem_other.html?j"></a>
-					</div>
-					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_3.jpg" alt=""></div>
-						<div class="itemTitle"><h3>Sphia</h3></div><a href="menu_u_myitem_other.html?j"></a>
-					</div>
-					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_4.jpg" alt=""></div>
-						<div class="itemTitle"><h3>Sam antoner</h3></div><a href="menu_u_myitem_other.html?j"></a>
-					</div>
-					<div class="itemBox">
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_5.jpg" alt=""></div>
-						<div class="itemTitle"><h3>Steven</h3></div><a href="menu_u_myitem_other.html?j"></a>
-					</div>
-				</div>
-			</div>
+			
 <!--
 			<p class="hotSearch">熱門搜尋：<a>iphone</a><a>ps4</a><a>adidas</a>
 			<a>vans</a><a>後背包</a><a>外套</a><a>switch</a><a>niek</a></p>
@@ -205,67 +179,22 @@
 <script>
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import api from '../../api/Api.js'
 export default {
   components: {
-    "app-header": Header,
-    "app-footer": Footer
-  },
-  mounted() {
+    'app-header': Header,
+    'app-footer': Footer
 
-    setTimeout(() => {
-
-      var element = document.getElementById("body_class");
-      element.removeAttribute("class");
-      element.classList.add("wish", "searchPage");
-
-      $(".loadPad").animate({
-        opacity: 0
-      }, 1000, function () {
-        $(".loadPad").css({
-          display: "none"
-        });
-      });
-      $(window).on('load', function () {
-        if ($(window).width() > 1024) {
-          var s = skrollr.init();
-        }
-
-        $('#header').find('.market').addClass('action');
-
-      })
-
-      // Yep, that's it!
-      //$('#scene').parallax();
-
-      var $srType = $('.mainBtPad').find('a'),
-        $srLen = $srType.length,
-        $srCounter = $('.searchCounter'),
-        $cAmount = $srCounter.find('span'),
-        $srTypePad = $('.content').find('.conBlock'),
-        $srPadLen = $srTypePad.length,
-        $hotSearch = $('.hotSearch');
-
-      $srType.click(function () {
-        var ind = $(this).index();
-        $cAmount.html('20');
-        $hotSearch.fadeIn();
-        $srType.eq(ind).addClass('action').siblings().removeClass('action');
-        $srTypePad.eq(ind).addClass('action').siblings().removeClass('action');
-        if (ind !== 0) {
-          $cAmount.html('5');
-          $hotSearch.fadeOut();
-        }
-      });
-
-      $('.backTop').click(function () {
-        $('html,body').animate({
-          scrollTop: $('#main').offset().top
-        }, 800, 'easeOutCirc');
-      });
-
-      $(document).ready(function () {
-        //item排版
-        var $outBox = $('.srItemPad').find('.itemPad'),
+	},
+	data() {
+    return {
+				Data:{}
+    }
+	},
+	updated(){      
+		setTimeout(()=>{
+ $(document).ready(function () {
+			var $outBox = $('.srItemPad').find('.itemPad'),
           $outBoxW = $outBox.width(),
           $allBox = $outBox.find('.itemBox'),
           boxLen = $allBox.length,
@@ -278,7 +207,7 @@ export default {
 
         for (var i = 0; i < boxLen; i++) {
           var boxH = $allBox.eq(i).outerHeight(true);
-          console.log(boxHeightArr);
+          //console.log(boxHeightArr);
           if (i < cols) {
             boxHeightArr.push(boxH);
           } else {
@@ -315,7 +244,77 @@ export default {
           } else {
             return false;
           }
+				}
+ })
+		},100)
+	},
+  created(){
+			this.getData()
+  },
+  methods:{
+			async getData(){
+					this.Data = await api.get('SearchWish',localStorage.getItem('api_token'), "&keyword=" + this.$route.query.text)
+					console.log(this.Data)
+		  }
+	},
+  mounted() {
+
+    setTimeout(() => {
+
+      var element = document.getElementById("body_class");
+      element.removeAttribute("class");
+			element.classList.add("wish", "searchPage");
+			var element2 = document.getElementById("wish");
+      element2.classList.add("action");
+
+      $(".loadPad").animate({
+        opacity: 0
+      }, 1000, function () {
+        $(".loadPad").css({
+          display: "none"
+        });
+      });
+      $(window).on('load', function () {
+        if ($(window).width() > 1024) {
+          var s = skrollr.init();
         }
+
+        //$('#header').find('.market').addClass('action');
+
+      })
+
+      // Yep, that's it!
+      //$('#scene').parallax();
+
+      var $srType = $('.mainBtPad').find('a'),
+        $srLen = $srType.length,
+        $srCounter = $('.searchCounter'),
+        $cAmount = $srCounter.find('span'),
+        $srTypePad = $('.content').find('.conBlock'),
+        $srPadLen = $srTypePad.length,
+        $hotSearch = $('.hotSearch');
+
+      $srType.click(function () {
+        var ind = $(this).index();
+        $cAmount.html('20');
+        $hotSearch.fadeIn();
+        $srType.eq(ind).addClass('action').siblings().removeClass('action');
+        $srTypePad.eq(ind).addClass('action').siblings().removeClass('action');
+        if (ind !== 0) {
+          $cAmount.html('5');
+          $hotSearch.fadeOut();
+        }
+      });
+
+      $('.backTop').click(function () {
+        $('html,body').animate({
+          scrollTop: $('#main').offset().top
+        }, 800, 'easeOutCirc');
+      });
+
+      $(document).ready(function () {
+        //item排版
+        
       })
     }, 500)
   }

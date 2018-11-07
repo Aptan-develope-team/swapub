@@ -60,127 +60,7 @@ $(window).on("load",function() {
 		$tgPad.eq(tgInd).addClass('action').siblings('dd').removeClass('action');
 	});
 
-	/* 搜尋地區 */
-	var /*index*/
-		$btn_searchCt = $('#header').find('.btn_searchCt'),
-		$contName = $btn_searchCt.find('span'),
-		$contFlag = $btn_searchCt.find('i'),
-		/*pop*/
-		$cus = $('.select-custom'),
-		$cusBt = $cus.find('b'),
-		$cusInput = $cus.find('input'),
-		$cusFlagBox = $cus.find('.flagBox'),
-		$cusLen = $cus.length,
-		$couListPad = $('.country-list'),
-		$inCouList = $couListPad.find('.innerList'),
-		$couList = $inCouList.find('dd');
-	// 預設
-	$couListPad.fadeOut();
-	// 點index搜尋範圍
-	$btn_searchCt.click(function(){
-		$('#header').find('#hPopContainer').removeClass();
-		$('#header').find('#hPopContainer').stop().animate({'top' : 0}, 300);
-		$('#header').find('#hPopContainer').addClass('popSrCt');
-		setpopH();
-	});
-	// 設定pop位置
-	var setpopH = function(){
-		var $ctPop = $('.ctStagePad'),
-			$popH = Math.round($ctPop.outerHeight());
-		$ctPop.css({'margin-top':- $popH / 2});
-	}
-	// funtion>>關閉pop並帶值到index畫面
-	var closePop = function(con, flag){
-		$('#header').find('#hPopContainer').stop().animate({'top' : -100 + 'vh'}, 300, function(){
-			$('#header').find('#hPopContainer').removeClass();
-		});
-	}
-	// funtion>>清空select資料
-	var clearInput = function(){
-		$cusInput.val('-');
-		$cusInput.removeClass('action');
-		$cus.removeClass('seleced');
-		$cusFlagBox.fadeOut(100);
-	}
-	// funtion>>清空搜尋
-	var clearSearch = function(){
-		$("#searchText").val('');
-		$("#content-2").removeClass('action');
-		setpopH();
-	}
-	// DEMO auto complate
-	$("#searchText").keyup(function () {
-		var text = $("#searchText").val();
-		$couListPad.fadeOut();
-		setpopH();
-		clearInput();
-		if (text === '') {
-			$("#content-2").removeClass('action');
-		} else {
-			$("#content-2").addClass('action');
-		}
-	});
-	// 點搜尋結果
-	var $result = $("#content-2").find('.result').find('li');
-	$result.click(function(){
-		var $obj = $(this);
-		$("#searchText").val('');
-		var $resultImg = $obj.find('.countryImg').find('img').attr('src'),
-			$resultTXT = $obj.find('.name').text();
-		closePop();
-		$contName.text($resultTXT);
-		$contFlag.css({'background-image': 'url(' + $resultImg + ')'});
-		clearSearch();
-	});
-	// 點X
-	$('.btnCancel').click(function(){
-		clearSearch();
-	});
-	// 點select-custom
-	$cus.click(function(){
-		var cusInd = $(this).index();
-		clearSearch();
-		$couListPad.fadeIn(500);
-		setpopH();
-		$inCouList.eq(cusInd).addClass('action').siblings().removeClass('action');
-	});
-	// 點預設清單項目
-	$couList.click(function(){
-		var obj = $(this),
-			obInd = obj.parent().parent().index();
-		getValue(obj, obInd);
-		$couListPad.fadeOut(100, function(){setpopH();});
-	});
-	// funtion>>取得項目資料傳值給select-custom
-	var getValue = function(o, i){
-		var $resultImg = $(o).find('.countryImg').find('img').attr('src'),
-			$resultTXT = $(o).find('.name').text(),
-			$rInput = $cus.eq(i).find('input');
-		if(i==0){
-			//點國家
-			var $rFlagBox = $cus.eq(i).find('.flagBox');
-			$rFlagBox.fadeIn();
-			$rFlagBox.css({'background-image': 'url(' + $resultImg + ')'});
-			$cus.eq(i).addClass('seleced');
-			$rInput.addClass('action');
-			$rInput.val($resultTXT);
-		}else if(i==2){
-			//點城市
-			closePop();
-			var cus = $cus.eq(0).find('input').val(),
-				flag = $cus.eq(0).find('.flagBox').css('background-image');
-			$contName.text(cus);
-			$contFlag.css({'background-image': flag});
-			$cus.eq(i).addClass('seleced');
-			$rInput.addClass('action');
-			$rInput.val($resultTXT);
-		}else{
-			//點州省
-			$cus.eq(i).addClass('seleced');
-			$rInput.addClass('action');
-			$rInput.val($resultTXT);
-		}
-	}
+	
 
 
 	/* 物品內容_區塊尺寸 */
@@ -190,6 +70,7 @@ $(window).on("load",function() {
 	$infoPad.eq(1).css({'min-height': $infoPadH});
 	// $infoPad.eq(1).find('dl').eq(0).css({'height': $infoPadH - $btnPadH - 10});
 
+	
 
 	/* ----------暫時的登入/用戶判斷start---------- */
 	var $login = $('.loginBlock'),
@@ -1182,13 +1063,13 @@ $(document).ready(function(){
 	});
 	
 	// .popContent.popAssessBlock > .popAssessBtn 點按鈕變橘色
-	var $assBt = $('.popAssessBtn').find('input');
-	$assBt.eq(0).click(function(){
-		$(this).toggleClass('btn_o btn_nb').siblings().removeClass().addClass('btn_gr');
-	});
-	$assBt.eq(1).click(function(){
-		$(this).toggleClass('btn_o btn_gr').siblings().removeClass().addClass('btn_gr');
-	});
+	// var $assBt = $('.popAssessBtn').find('input');
+	// $assBt.eq(0).click(function(){
+	// 	$(this).toggleClass('btn_o btn_nb').siblings().removeClass().addClass('btn_gr');
+	// });
+	// $assBt.eq(1).click(function(){
+	// 	$(this).toggleClass('btn_o btn_gr').siblings().removeClass().addClass('btn_gr');
+	// });
 
 	// ======= AT CaGe Wei Basic ====== //
 	// Nav
@@ -1298,7 +1179,9 @@ $(window).resize(function(){
 
 	} // 目前是用手機瀏覽
 	else {
-		if (Gww > 768) {location.reload();}
+		if (Gww > 768) {
+			//location.reload();
+		}
 
 	} // 目前是用電腦瀏覽
 });

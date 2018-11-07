@@ -9,12 +9,12 @@
 			<i>Swapub</i><i> &#62; 我的追蹤</i><i></i><i></i><i></i>
 		</div>
 		<div class="content">
-            <h1>我的追蹤(<span>7</span>)</h1>
+            <h1>我的追蹤(<span>{{this.Track.length}}</span>)</h1>
             <div class="conBlock">
                 <div class="itemPad clear">
 					<div class="itemBox" v-for="track in Track">
                         <span class="iHeart"></span>
-						<div class="itemImg"><img :src="track.PictureUrl" alt=""></div>
+						<div class="itemImg" :style="{ backgroundImage:`url(${(track.PictureUrl)})`}"></div>
 						<router-link :to="{name:'Market_detail',params: { id: track.ProductID}} "></router-link>
 						<div class="itemInfo">
 							<span class="iQua">{{track.OfferNum}}</span><span class="iMark">194.92公里</span>
@@ -195,6 +195,13 @@ export default {
           scrollTop: $('#main').offset().top
         }, 800, 'easeOutCirc');
       });
+//無資料預設畫面用--start--
+            var $conBlock = $('.conBlock'),
+            $itemPad = $('.itemPad');
+            // $itemPad.css({'display':'none'});
+            // $conBlock.addClass('empty');
+            //無資料預設畫面用--end--
+
 
     }, 100)
   }

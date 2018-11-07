@@ -14,22 +14,32 @@
 					<dl>
 						<dt>
 							<ul class="userInfo">
-								<li class="userPic"><router-link to='menu_u_myitem'><img :src="this.imgUrl" alt=""></router-link></li>
+								<li class="userPic"><router-link :to="{name:'Menu_u_myitem',params: { id: this.user.ID}}"><img :src="this.imgUrl" alt=""></router-link></li>
 								<li class="userDetail"><h3 class="userName"><i v-if="isShow == true">我(</i>{{this.user.Name}}<i v-if="isShow == true">)</i></h3><span class="userAdd">{{this.location.City}}，{{this.location.Country}}</span></li>
 								<!-- <li class="timer"><span>53分鐘前</span></li> -->
 							</ul>
 						</dt>
 						<dd>
 							<ul class="itemImg CGt">
-								<li class="imgCont"><img :src="(this.productImg)[0]" alt=""></li>
-								<li class="imgList action"><img :src="(this.productImg)[0]" alt=""></li>
-								<li class="imgList" v-for="(img,index) in productImg" v-if="index > 0"><img :src="img" alt=""></li>
+								<li class="imgCont">
+									<!-- <img :src="(this.productImg)[0]" alt=""> -->
+							<u class="imgListMask" :style="{ backgroundImage:`url(${(this.productImg)[0]})`}"></u>
+									</li>
+								<li class="imgList action">
+									<!-- <img :src="(this.productImg)[0]" alt=""> -->
+									<u class="imgListMask" :style="{ backgroundImage:`url(${(this.productImg)[0]})`}"></u>
+									</li>
+								<li class="imgList" v-for="(img,index) in productImg" v-if="index > 0">
+									<!-- <img :src="img" alt=""> -->
+									<u class="imgListMask" :style="{ backgroundImage:`url(${img})`}"></u>
+
+									</li>
 								<!-- <li class="imgList vedio"><img src="../../../static/images/img_item_02.jpg" alt=""></li> -->
 							</ul>
 						</dd>
 						<dd class="editPad">
 							<ul>
-								<li class="btn_edit"><router-link :to="{name:'Market_edit',params: { id: this.id}} "><p>編輯</p></router-link></li>
+								<li class="btn_edit"><router-link :to="{name:'Market_edit',params: { id: this.id}}"><p>編輯</p></router-link></li>
 								<li class="btn_del"><p>刪除</p></li>
 								<li class="btn_share"><p>分享</p></li>
 							</ul>
@@ -79,7 +89,7 @@
 							</ul>
 						</dd>
 						<dd>
-							<ul class="whisperPad" style="height:690px">
+							<ul class="whisperPad" style="height:765px">
 								<li>悄悄話來交換<span class="btn_closePop" ></span></li>
 								<li>
 									<dl>
@@ -91,7 +101,7 @@
 										</dt>
 										<dd class="wMsgPad CG_scorll_auto">
 											<div class="msgMask">
-												<div v-for="comment in Comment">
+												<div v-for="comment in Comment ">
 												<div class="otherUserMsg" v-if="comment.AccountID != User.ID">
 													<span class="userPic"><a href="menu_u_myitem_other.html?j"><img :src="comment.AvatarUrl" alt=""></a></span>
 													<p class="msgBlock" v-if="(comment.Comment).indexOf('.jpg') == -1 ">
@@ -310,14 +320,12 @@
 			<div class="btn_closePop"></div>
 			<h3>分享</h3>
 			<div class="shareList">
-				<a href=""><i class="ico_mail"></i>E-mail</a>
-				<a href=""><i class="ico_fb"></i>Facebook</a>
-				<a href=""><i class="ico_tw"></i>Twitter</a>
-				<a href=""><i class="ico_line"></i>Line</a>
-				<a href=""><i class="ico_whats"></i>Whatsapp</a>
+				<a :href="'mailto:?subject=推薦Swapub給您&body=請到此站 ' + url +' 看看'"><i class="ico_mail"></i>E-mail</a>
+				<a :href="'https://www.facebook.com/sharer/sharer.php?u=' + url"><i class="ico_fb"></i>Facebook</a>
+				<a :href="'https://twitter.com/intent/tweet?text=Swapub&url=' + url"><i class="ico_tw"></i>Twitter</a>
 			</div>
 			<div class="copyLink">
-				<label><i class="ico_cohref"></i><input type="text" name="" value="https://www.swapub.com" placeholder=""></label>
+				<label><i class="ico_cohref" v-clipboard:copy="url" v-clipboard:success="onCopy"></i><input type="text" name="" value="" placeholder="" v-model="url"></label>
 			</div>
 		</div>
 		<div class="popContent popEditSwap">
@@ -380,12 +388,12 @@
 			<!-- <div class="btn_closePop"></div> -->
 			<h3>我要檢舉的原因是？</h3>
 			<div class="reportList">
-				<p><label for="reListA"><input type="radio" name="reList" id="reListA">此商品為仿冒品，嚴重違反智慧財產權與當地法令</label></p>
-				<p><label for="reListB"><input type="radio" name="reList" id="reListB">此商品違反風俗道德或是含有色情與暴力內容</label></p>
-				<p><label for="reListC"><input type="radio" name="reList" id="reListC">此商品有濫發廣告訊息之嫌疑</label></p>
+				<p><label for="reListA"><input type="radio" name="reList" id="reListA" @click="setType(6)">此商品為仿冒品，嚴重違反智慧財產權與當地法令</label></p>
+				<p><label for="reListB"><input type="radio" name="reList" id="reListB" @click="setType(8)">此商品違反風俗道德或是含有色情與暴力內容</label></p>
+				<p><label for="reListC"><input type="radio" name="reList" id="reListC" @click="setType(4)">此商品有濫發廣告訊息之嫌疑</label></p>
 			</div>
 			<div class="popCheckPad">
-				<span class="btn_o btn_cancel">取消</span><span class="btn_o btn_sure">確定</span>
+				<span class="btn_o btn_cancel">取消</span><span class="btn_o btn_sure" @click="getReport()">確定</span>
 			</div>
 		</div>
 	</div>
@@ -438,12 +446,24 @@ export default {
 			checkMsgID:{},
 			checkUser:{},
 			msgID:"",
-			Comment:{},
+			Comment:[],
 			privateMessage:"",
 			PicInfo:{
         FileName:"",
         FileContent:""
-      },
+			},
+			Report:{
+				Reason:0,
+				Target_Type:2,
+				Target_Id:this.id
+			},
+			isReport:{},
+			url:window.location.href
+    }
+	},
+  filters: {
+    reverse: function (array) {
+      return array.slice().reverse()
     }
   },
   created(){
@@ -453,8 +473,9 @@ export default {
 			this.getExchange();
 			//this.getSmart()
 			this.getProductTrackCount();
-			this.getComment()
-  },
+			this.getComment();
+			
+	},
   methods:{
 	  async getProductInfo(){
 				this.getToken();  
@@ -491,6 +512,9 @@ export default {
 				console.log(this.resData)
 
 		},
+		onCopy(){
+			alert("已複製到剪貼簿")
+		},
 		async getMessageNum(){
 				this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
 		},
@@ -515,21 +539,44 @@ export default {
 					console.log(this.Smart)
 		},
 		async getProductTrackCount(){
-				this.TrackCount = await api.get('GetProductTrackCount',localStorage.getItem('api_token'),'&productID=' + this.id)
+				this.TrackCount = await api.get('GetProductTrackCount',localStorage.getItem('login_token'),'&productID=' + this.id)
 				$('.btn_like').attr('data-like',this.TrackCount.Value);
 				console.log(this.TrackCount)
 		},
 		async postLike(){
 				this.Like = await api.put('Product',"",localStorage.getItem('api_token'),'&productID=' + this.id)
+				console.log(this.like)
 				$('.btn_good').attr('data-good',this.Like.LikeCount);
 		},
-		postGood(){
-				api.postJSON('Track',"1",localStorage.getItem('api_token'),"")
+		async postGood(){
+				await api.postJSON('Track',JSON.stringify(this.id),localStorage.getItem('login_token'),"")
+				this.getProductTrackCount()
 		},
 		async deleteItem(){
 				api.delete('Product/'+ this.id,localStorage.getItem('login_token'),"")
-				this.$router.push('/')
-				location.reload()
+				this.$router.push({name:'Menu_u_myitem',params: { id: this.user.ID}})
+			
+		},
+		setType(i){
+			this.Report.Reason = i
+		},
+		async getReport(){
+			this.isReport = await api.get('IsReported',localStorage.getItem('login_token'),"&TargetID="+ this.id + "&TargetType=2")
+			console.log(this.isReport.Value)
+			if(this.isReport.Value == 1){
+				alert("您已檢舉過該用物品")
+				$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+			}
+			else{
+				if(this.Report.Reason == 0){
+					alert("請選擇原因")
+				}
+				else{
+					console.log(this.Report)
+					api.postJSON('Report',this.Report,localStorage.getItem('login_token'),"")
+					$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+				}
+			}
 		},
 		setItem(id){
 			if(this.Change.Items.length == 0){
@@ -573,12 +620,14 @@ export default {
 						}
 						//console.log(this.msgID)
 						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.msgID)
+						this.Comment.reverse()
 						console.log(this.Comment)
 		},
 		async getComment(){
 			  if(this.$route.query.MsgID != undefined){
 						$('.whisperPad').css({'left': 0, 'opacity': '1'});
 						this.Comment = await api.get('Message',localStorage.getItem('login_token'), "&msgID=" + this.$route.query.MsgID)
+						this.Comment.reverse()
 						console.log(this.Comment)
 				}
 				console.log(this.$route.query.MsgID)
@@ -589,10 +638,12 @@ export default {
       const reader = new FileReader();
       this.PicInfo.FileName = file.name
       reader.onload = e => { 
-        this.imgUrl = e.target.result
 				this.PicInfo.FileContent = e.target.result.split(',')[1]
 			  api.postJSON('UploadCommentPicture',this.PicInfo,localStorage.getItem('login_token'),"&msgID=" + this.$route.query.MsgID)    
-			}
+				.then(()=>{
+					this.getComment();
+				})
+		  }
 			reader.readAsDataURL(file); 
 
     }
@@ -641,12 +692,17 @@ export default {
 			//物品照片切換
 	$imgList.hover(function(){
 		var imgInd = $(this).index('.imgList'),
-			img = $(this).find('img').attr('src');
-		imgCont.find('img').attr('src', img);
-		if($(this).hasClass('vedio')){
-			imgCont.find('.vedioMD').addClass('action');
+			url = $(this).find('.imgListMask').css('background-image');
+		imgCont.find('.imgListMask').css({'background-image': url});
+		if($(this).hasClass('video')){
+			imgCont.addClass('vdCont');
+			var vdUrl = $(this).find('iframe').attr('src');
+			imgCont.find('iframe').attr('src', vdUrl);
+			imgCont.find('.videoMD').addClass('action');
 		}else{
-			imgCont.find('.vedioMD').removeClass('action');
+			imgCont.removeClass('vdCont');
+			imgCont.find('iframe').attr('src', '');
+			imgCont.find('.videoMD').removeClass('action');
 		}
 		$(this).addClass('action').siblings('.imgList').removeClass('action');
 	});
@@ -718,7 +774,7 @@ export default {
 			$('.whisperPad').css({'left': 0, 'opacity': '1'});
 	}
 			
-			},100)
+			},500)
 
 	},
   mounted() {
@@ -733,7 +789,9 @@ export default {
         Gdh = Gd.height();
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
-      element.classList.add("item", "noSearchPage", "itemDetail");
+			element.classList.add("item", "noSearchPage", "itemDetail");			
+			var element2 = document.getElementById("market");
+      element2.classList.add("action");
 
       $('.loadPad').animate({
         opacity: 0
@@ -1034,7 +1092,9 @@ export default {
             top: 0
           }, 300);
           $('#popContainer').addClass('popReport');
-        });
+				});
+				$('.btn_sure').click(function(){
+	     });
 
         /* 悄悄話來交換 */
         //按這裡提交換

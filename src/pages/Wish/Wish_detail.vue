@@ -35,14 +35,14 @@
 						</dd>
 						<dd>
 							<ul class="userInfo">
-								<li class="userPic"><a href="menu_u_myitem.html?j"><i><img :src="this.imgUrl" alt=""></i></a></li>
+								<li class="userPic"><router-link :to="{name:'Menu_u_myitem',params: { id: this.user.ID}}"><i><img :src="this.imgUrl" alt=""></i></router-link></li>
 								<li class="userDetail"><h3 class="userName"><i>{{this.user.Name}}</i></h3><span class="userAdd">{{this.location}}</span></li>
 								<!-- <li class="timer"><span>{{this.resData.Date}}</span></li> -->
 							</ul>
 						</dd>
 						<dd class="editPad">
 							<ul>
-								<li class="btn_msg action"><i>{{this.messageNum}}</i><p>留言</p></li>
+								<li class="btn_msg action"><i>{{this.messageList.length}}</i><p>留言</p></li>
 								<li class="btn_share"><p>分享</p></li>
 								<li class="btn_edit"><router-link :to="{name:'Wish_edit',params: { id: this.id}} "><p>編輯</p></router-link></li>
                 
@@ -51,7 +51,7 @@
 						</dd>
 						<dd class="editPad otherUserMD">
 							<ul>
-								<li class="btn_msg action"><i>5</i><p>留言</p></li>
+								<li class="btn_msg action"><i>{{this.messageList.length}}</i><p>留言</p></li>
 								<li class="btn_share"><p>分享</p></li>
 								<li class="btn_report"><p>檢舉</p></li>
 							</ul>
@@ -61,7 +61,7 @@
 				</div>
 				<div class="infoPad">
 					<div class="btnPad">
-						<span class="action">留言<i>({{this.messageNum}})</i></span>
+						<span class="action">留言<i>({{this.messageList.length}})</i></span>
 					</div>
 					<div class="socialPad">
 						<ul class="msgPad action">
@@ -158,14 +158,12 @@
 			<div class="btn_closePop"></div>
 			<h3>分享</h3>
 			<div class="shareList">
-				<a href=""><i class="ico_mail"></i>E-mail</a>
-				<a href=""><i class="ico_fb"></i>Facebook</a>
-				<a href=""><i class="ico_tw"></i>Twitter</a>
-				<a href=""><i class="ico_line"></i>Line</a>
-				<a href=""><i class="ico_whats"></i>Whatsapp</a>
+				<a :href="'mailto:?subject=推薦Swapub給您&body=請到此站' + url +'看看'"><i class="ico_mail"></i>E-mail</a>
+				<a :href="'https://www.facebook.com/sharer/sharer.php?u=' + url"><i class="ico_fb"></i>Facebook</a>
+				<a :href="'https://twitter.com/intent/tweet?text=Swapub&url=' + url"><i class="ico_tw"></i>Twitter</a>
 			</div>
 			<div class="copyLink">
-				<label><i class="ico_cohref"></i><input type="text" name="" value="https://www.swapub.com" placeholder=""></label>
+				<label><i class="ico_cohref" v-clipboard:copy="url" v-clipboard:success="onCopy"></i><input type="text" name="" value="" placeholder="" v-model="url"></label>
 			</div>
 		</div>
 	
@@ -173,12 +171,12 @@
 			<!-- <div class="btn_closePop"></div> -->
 			<h3>我要檢舉的原因是？</h3>
 			<div class="reportList">
-				<p><label for="reListA"><input type="radio" name="reList" id="reListA">此商品為仿冒品，嚴重違反智慧財產權與當地法令</label></p>
-				<p><label for="reListB"><input type="radio" name="reList" id="reListB">此商品違反風俗道德或是含有色情與暴力內容</label></p>
-				<p><label for="reListC"><input type="radio" name="reList" id="reListC">此商品有濫發廣告訊息之嫌疑</label></p>
+				<p><label for="reListA"><input type="radio" name="reList" id="reListA" @click="setType(6)">此商品為仿冒品，嚴重違反智慧財產權與當地法令</label></p>
+				<p><label for="reListB"><input type="radio" name="reList" id="reListB" @click="setType(8)">此商品違反風俗道德或是含有色情與暴力內容</label></p>
+				<p><label for="reListC"><input type="radio" name="reList" id="reListC" @click="setType(4)">此商品有濫發廣告訊息之嫌疑</label></p>
 			</div>
 			<div class="popCheckPad">
-				<span class="btn_o btn_cancel">取消</span><span class="btn_o btn_sure">確定</span>
+				<span class="btn_o btn_cancel">取消</span><span class="btn_o btn_sure" @click="getReport()">確定</span>
 			</div>
 		</div>
 	</div>
@@ -207,7 +205,16 @@ export default {
       userImg:"",
       messageNum:"",
       messageList:{},
-      message:""    
+      message:"",
+      isShow:"",       			
+      User:{},
+      Report:{
+				Reason:0,
+				Target_Type:3,
+				Target_Id:this.id
+			},
+      isReport:{},
+      url:window.location.href
     }
   },
 created(){
@@ -219,17 +226,17 @@ created(){
 	  async getProductInfo(){
 				this.getToken();  
         this.resData = await api.get('GetWishInfo',localStorage.getItem('api_token'),'&wishID='+ this.id)
+        console.log(this.resData)
 				this.user = this.resData.UserInfo
 				this.location = this.resData.City  +","+ this.resData.Country 
 				this.imgUrl = api.CdnUrl + "/Uploads/User/" + this.user.ID  + "/Avatar.jpg"
         this.productImg = this.resData.PictureUrl
         this.messageNum = this.resData.MessageCount
-        	if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
+        if(localStorage.getItem('login_token') != "" && localStorage.getItem('login_token') != null){
 			  		this.User = await api.get('User',localStorage.getItem('login_token'),'')	
 						this.userImg = api.CdnUrl + "/Uploads/User/" + this.User.ID  + "/Avatar.jpg"
 						this.Item = await api.get('Product',localStorage.getItem('login_token'),"&ownerID=" + this.User.ID + "&filterDate=1" )
-			    }
-        console.log(this.resData)
+			  }
         	if(this.user.ID == this.User.ID){
 						this.isShow = true
 						$('.editPad').addClass("action");
@@ -240,25 +247,52 @@ created(){
 						this.isShow = false
 						$('.otherUserMD').addClass("action");
 						$('.btnPad').css("display","block")
-				}
+        }
+        
 		},
-
+    onCopy(){
+			alert("已複製到剪貼簿")
+		},
 	  async getToken(){
        await api.getToken()
     },
+    onCopy(){
+			alert("已複製到剪貼簿")
+		},
+    setType(i){
+			this.Report.Reason = i
+		},
+		async getReport(){
+			this.isReport = await api.get('IsReported',localStorage.getItem('login_token'),"&TargetID="+ this.id + "&TargetType=2")
+			console.log(this.isReport.Value)
+			if(this.isReport.Value == 1){
+				alert("您已檢舉過該用物品")
+				$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+			}
+			else{
+				if(this.Report.Reason == 0){
+					alert("請選擇原因")
+				}
+				else{
+					console.log(this.Report)
+					api.postJSON('Report',this.Report,localStorage.getItem('login_token'),"")
+					$('#popContainer').stop().animate({top : -100 + 'vh'}, 500);
+				}
+			}
+		},
 
     async getMessageNum(){
-			this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&productID=' + this.id)
+			this.messageNum = await api.get('PublicMessage',localStorage.getItem('api_token'),'&wishID=' + this.id)
 		},
 		async sendMessage(){
-			 await api.postJSON('AddWishMessage',JSON.stringify(this.message),localStorage.getItem('api_token'),'&wishID=' + this.id)
+			 await api.postJSON('AddWishMessage',JSON.stringify(this.message),localStorage.getItem('login_token'),'&wishID=' + this.id)
 			 this.getMessageNum()
 			 this.getMessageList();
 			 this.message=""
 		},
 
 		async getMessageList(){
-        this.messageList = await api.get('GetWishMessageList',localStorage.getItem('api_token'),'&wishID=' + this.id + "&maxtime=1")
+        this.messageList = await api.get('GetWishMessageList',localStorage.getItem('login_token'),'&wishID=' + this.id + "&maxtime=100")
         console.log(this.messageList)    
     },
     async deleteItem(){
@@ -279,6 +313,8 @@ created(){
       var element = document.getElementById("body_class");
       element.removeAttribute("class");
       element.classList.add("wish","item", "noSearchPage", "wishDetail");
+      var element2 = document.getElementById("wish");
+      element2.classList.add("action");
 
       $(".loadPad").animate({
         opacity: 0

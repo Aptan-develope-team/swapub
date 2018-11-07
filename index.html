@@ -24,7 +24,9 @@
   <script src="./static/js/masonry.pkgd.js"></script>
   <script type="text/javascript" src='./static/js/nprogress.js'></script>
   <script src="./static/js/at_cage.js"></script>
-
+  <link href="./static/css/cropper.min.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="./static/js/cropper.js"></script>
+  <script type="text/javascript" src="./static/js/cropper_main.js"></script>
     <!-- FB  -->
   <meta property="og:title" content="SwaPub"/>
     <!-- <meta property="og:url" content="http://www.easycheck.com.tw/"/> -->
@@ -36,9 +38,25 @@
   <link href="./static/css/basic_swapub.css" rel="stylesheet" type="text/css" />
 
   <body id="body_class">
-     
+    <script>
+      window.fbAsyncInit = function() {
+     FB.init({
+       appId      : '352413905494879',
+       cookie     : true,  // enable cookies to allow the server to access the session
+       xfbml      : true,  // parse social plugins on this page
+       version    : 'v2.8' // use graph api version 2.8
+     });
+   };
+   (function(d, s, id) {
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));  
+     </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-
+     
   </body>
 </html>

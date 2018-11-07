@@ -267,7 +267,7 @@ export default {
             this.OfferProduct = await api.get('Product/' + this.Offer.ProductID,localStorage.getItem('login_token'), "")     
             this.OwnerProduct = await api.get('Product/' + this.Product.ProductID,localStorage.getItem('login_token'), "")     
             this.Rating = await api.get('Rating',localStorage.getItem('login_token'),"&ratingID=" + this.Deal.RatingID)
-            console.log(this.OfferProduct)
+            console.log(this.Rating)
     },
   },
   mounted() {

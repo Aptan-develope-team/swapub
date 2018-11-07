@@ -13,7 +13,7 @@
                 <ul class="userInfo">
                     <li class="userPic"><a href="menu_u_myitem.html?j"><img :src="this.imgUrl" alt=""></a></li>
                     <li class="userDetail">
-                        <h3 class="userName"><i>我</i>{{this.User.Name}}</h3>
+                        <h3 class="userName"><i></i>{{this.User.Name}}</h3>
                         <p class="userAdd" v-if="this.User.Location">{{this.User.Location.City}}，{{this.User.Location.Country}}</p>
                     </li>
                 </ul>
@@ -24,7 +24,7 @@
                 <span><a class="iconAttention"></a></span>
                 <span>
                     <a class="btn_gr btn_attention"><i>關注</i><i class="action">取消關注</i></a>
-                    <a href="menu_u_myinfo.html" class="btn_gr btn_edit action">編輯</a>
+                    <router-link to='/menu_u_myinfo'><i></i><a class="btn_gr btn_edit action">編輯</a></router-link>                   
                 </span>
                 <a class="btn_report">檢舉</a>
             </p>
@@ -189,14 +189,14 @@
 		<div class="content">
 			<div class="mainBtPad">
 				<a class="action"><i>{{this.Follow.length}}</i>追蹤中</a>
-				<a><i>5</i>粉絲</a>
+				<a><i>{{this.Followed.length}}</i>粉絲</a>
             </div>
             <div class="conBlock srNamePad action">
                 <div class="itemPad">
-                    <div class="itemBox" v-for="follow in Follow"><a href="menu_u_myitem_other.html?j"></a>
+                    <div class="itemBox" v-for="follow in Follow"><router-link :to="{name:'Menu_u_myitem',params: { id: follow._id}} "></router-link>
+
                         <div class="itemImg"><img :src="follow.AvatarUrl" alt=""></div>
-                        <div class="itemTitle" v-if="follow.IsFollowing==true"><h3 class="userName">{{follow.Name}}</h3><a class="btn_g btn_attention" @click="changeFollow()" id="btn1"><i class="action" id="follow">關注</i><i id="unfollow">取消關注</i></a></div>
-                        <div class="itemTitle" v-if="follow.IsFollowing==false"><h3 class="userName">{{follow.Name}}</h3><a class="btn_gr btn_attention" @click="changeFollow2()" id="btn2"><i id="follow2">關注</i><i class="action" id="unfollow2">取消關注</i></a></div>
+                        <div class="itemTitle"><h3 class="userName">{{follow.Name}}</h3><a class="btn_gr btn_attention action" @click="followchange(follow._id)"><i>關注</i><i class="action">取消關注</i></a></div>
 
                     </div>
                     <!-- <div class="itemBox"><a href="menu_u_myitem_other.html?j"></a>
@@ -211,11 +211,12 @@
             </div>
 			<div class="conBlock srNamePad">
 				<div class="itemPad">
-					<div class="itemBox"><a href="menu_u_myitem_other.html?j"></a>
-						<div class="itemImg"><img src="../../../static/images/sr_na_img_1.jpg" alt=""></div>
-						<div class="itemTitle"><h3 class="userName">Sia</h3><a href="#" class="btn_gr btn_attention"><i>關注</i><i class="action">取消關注</i></a></div>
-					</div>
-					<div class="itemBox"><a href="menu_u_myitem_other.html?j"></a>
+					<div class="itemBox" v-for="(followed,index) in Followed"><router-link :to="{name:'Menu_u_myitem',params: { id: followed._id}} "></router-link>
+						<div class="itemImg"><img :src="followed.AvatarUrl" alt=""></div>
+						<div class="itemTitle" v-if="status[index] == true"><h3 class="userName">{{followed.Name}}</h3><a class="btn_gr btn_attention" @click="followchange(followed._id)"><i >關注</i><i class="action">取消關注</i></a></div>
+						<div class="itemTitle" v-if="status[index] == false"><h3 class="userName">{{followed.Name}}</h3><a class="btn_g btn_attention" @click="followchange(followed._id)"><i class="action">關注</i><i>取消關注</i></a></div>
+                    </div>
+					<!-- <div class="itemBox"><a href="menu_u_myitem_other.html?j"></a>
 						<div class="itemImg"><img src="../../../static/images/sr_na_img_2.jpg" alt=""></div>
 						<div class="itemTitle"><h3 class="userName">Sam</h3><a href="#" class="btn_gr btn_attention"><i>關注</i><i class="action">取消關注</i></a></div>
 					</div>
@@ -230,7 +231,7 @@
 					<div class="itemBox"><a href="menu_u_myitem_other.html?j"></a>
 						<div class="itemImg"><img src="../../../static/images/sr_na_img_5.jpg" alt=""></div>
 						<div class="itemTitle"><h3 class="userName">Steven</h3><a href="#" class="btn_g btn_attention"><i class="action">關注</i><i>取消關注</i></a></div>
-					</div>
+					</div> -->
 				</div>
 			</div>
             <div class="sharePad">
@@ -287,7 +288,7 @@ export default {
           Follow:{},
           Followed:{},
           imgUrl:"",
-
+          status:[]
       }
   },
   created(){
@@ -298,20 +299,22 @@ export default {
   },
   updated(){
         //btn_attention 關注按鈕
+            setTimeout(() => {
+
             var $btn_attention = $('.btn_attention'),
                 $attOp = $btn_attention.find('i'),
                 $attOpInd;
                 $btn_attention.find('i.action').fadeIn();
-            //     $btn_attention.click(function () {
-                // if ($('body').hasClass('userAtt')) {
-                // //user_attention_other.html 追蹤清單的已追蹤用戶關注按鈕不與用戶本身的關注按鈕同步
-                // $(this).toggleClass('btn_gr btn_g');
-                // var $oneBtn = $(this).find('i.action');
-                // $oneBtn.removeClass('action').css({
-                //     'display': 'none'
-                // }).siblings().addClass('action').fadeIn();
+                $btn_attention.click(function () {
+                if ($('body').hasClass('userAtt')) {
+                //user_attention_other.html 追蹤清單的已追蹤用戶關注按鈕不與用戶本身的關注按鈕同步
+                $(this).toggleClass('btn_gr btn_g');
+                var $oneBtn = $(this).find('i.action');
+                $oneBtn.removeClass('action').css({
+                    'display': 'none'
+                }).siblings().addClass('action').fadeIn();
 
-                // } 
+                } 
                 // else {
                 //     //用戶個人頁面2顆關注按鈕同步
                 //     $btn_attention.toggleClass('btn_gr btn_g');
@@ -320,7 +323,8 @@ export default {
                 //         'display': 'none'
                 //     }).siblings().addClass('action').fadeIn();
                 // }
-            //  });
+             });
+        },100)
  
   },
   methods:{
@@ -337,11 +341,13 @@ export default {
          this.Comment = await api.get('Rating',localStorage.getItem('login_token'),"&accountID=" + this.id)
       },
       async getFollow(){
-        this.Follow = await api.get('Follow',localStorage.getItem('login_token'),"&accountID=" + this.id + "&isFollower=true")
+        this.Follow = await api.get('Follow',localStorage.getItem('login_token'),"&accountID=" + this.id + "&isFollower=false")
         console.log(this.Follow)
-        this.Followed = await api.get('Follow',localStorage.getItem('login_token'),"&accountID=" + this.id + "&isFollower=false")
+        this.Followed = await api.get('Follow',localStorage.getItem('login_token'),"&accountID=" + this.id + "&isFollower=true")
         console.log(this.Followed)
-
+        for(var i=0 ; i< this.Followed.length ; i++){        
+             this.getFollowStatus(i)
+        }
       },
       async changeFollow(){
           //await api.postJSON("Follow","",localStorage.getItem('login_token'),"")
@@ -396,8 +402,42 @@ export default {
                     
                     btn2.removeAttribute("class");
                     btn2.classList.add("btn_g","btn_attention");
-
                 }
+      },
+      async followchange(id){
+        //     $btn_attention.click(function () {
+                var $btn_attention = $('.btn_attention')
+                await api.postJSON('Follow',id,localStorage.getItem('login_token'),'')
+                alert("更改狀態成功")
+                location.reload()
+
+                
+
+                // if ($('body').hasClass('userAtt')) {
+                //     //user_attention_other.html 追蹤清單的已追蹤用戶關注按鈕不與用戶本身的關注按鈕同步
+                //     $btn_attention.toggleClass('btn_gr btn_g');
+                //     var $oneBtn = $btn_attention.find('i.action');
+                //     $oneBtn.removeClass('action').css({
+                //         'display': 'none'
+                //     }).siblings().addClass('action').fadeIn();
+                // } 
+                // else {
+                //     //用戶個人頁面2顆關注按鈕同步
+                //     $btn_attention.toggleClass('btn_gr btn_g');
+                //     var $btnTXT = $btn_attention.find('i.action');
+                //     $btnTXT.removeClass('action').css({
+                //         'display': 'none'
+                //     }).siblings().addClass('action').fadeIn();
+                // }
+      },
+      async getFollowStatus(i){
+        api.get('Follow',localStorage.getItem('login_token'),"&followID=" + this.Followed[i]._id)
+        .then((data)=>{
+            console.log(data)
+            this.$set(this.status, i, data)
+
+        })
+        console.log(this.status)
       },
   },
   mounted() {
@@ -427,6 +467,7 @@ export default {
 
         // $('#header').find('.market').addClass('action');
       })
+      
     
       $('.btn_cancel').click(function () {
         $('#popContainer').stop().animate({

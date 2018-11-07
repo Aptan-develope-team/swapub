@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs';
 
 //打開Option後加上去
-const url = "api/"
+const url = "http://dev-8085.swapub.com/api/"
 //changeData(changeInfo.FirstName,changeInfo.LastName,changeInfo.City,changeInfo.Country,changeInfo.Mobile)
 
 export default{
@@ -99,7 +99,7 @@ export default{
       'AppVersion':'2.14.0'
 			}}).then((res) => {
                 console.log(res)
-                return res
+                return res.data
                 
         })
         .catch((error) =>{
